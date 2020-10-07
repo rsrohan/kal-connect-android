@@ -1,0 +1,44 @@
+Notes:
+------
+
+Generate SignedAPK:
+------------------
+	1. Choose build -> Generate Signed APK
+
+	2. Choose the file_name.jks location (Mostly try to choose inside the project sdk)
+
+	3. Provide Two passwords for keystore and key
+
+		Note: Keystore is a binary file that contains a set of private keys.
+		Note: Private key represents the entity to be identified with the app, such as a person or a company.
+
+		* Key store path (Location where we save the .jks file)
+			- Already stored inside the project directory
+
+	Credentials:
+	-----------
+		* Key store password 	: sdb12#$   		- Name : SDBKeyStore.jks
+			path -> Inside the project directory/Release-Certificates
+		* Key alias 			: SDB Driver
+		* Key password 			: sdb12#$
+		* Master Password 		: sdb12#$
+		* Organization 			: Sultan Delight Burger
+		* APK Path: -> Inside the project directory/Release-Certificates
+
+	4. Provide the above details and tick the following check box
+		- (Jar Signature)
+		- (APK Signature)
+
+	5. Play store credentials: Sultan Burger
+
+    Google Play Store:
+
+	    site URL : https://play.google.com/apps/publish/
+	    username : apps.sultandb@gmail.com
+	    password : 1@pps@sultandb1
+
+	Apple Store Account:
+
+	     username : apps@sultandb.com
+	     password : 1@pps@sultandb1
+

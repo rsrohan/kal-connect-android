@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="@dimen/default_small_margin"
+        android:padding="@dimen/default_small_padding">
+
+        <TextView
+            android:id="@+id/lblKey"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Title"
+            android:textAppearance="@style/CustomFont.Bold"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/profile_title_font" />
+
+        <TextView
+            android:id="@+id/lblValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="Title"
+            android:textAppearance="@style/CustomFont.Regular"
+            android:textColor="@color/black"
+            android:textSize="@dimen/default_font_size" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="15dp"
+        android:background="@color/dark_gray" />
+
+</LinearLayout>

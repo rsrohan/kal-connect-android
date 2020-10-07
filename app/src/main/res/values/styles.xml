@@ -1,0 +1,81 @@
+<resources>
+
+    <!-- The launcher theme. It sets the main window background to the launch_screen drawable -->
+    <style name="AppTheme.Launcher">
+
+        <!-- Optional, on Android 5+ you can modify the colorPrimaryDark color to match the windowBackground color for further branding-->
+        <!-- <item name="colorPrimaryDark">@android:color/white</item> -->
+    </style>
+
+    <bool name="mdtp_title_all_caps">false</bool>
+
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowNoTitle">true</item>
+
+
+        <!-- Custom Font - Widget -->
+        <item name="android:textViewStyle">@style/AppTheme.Widget.TextView</item>
+        <item name="android:editTextStyle">@style/AppTheme.Widget.EditTextView</item>
+        <item name="android:buttonStyle">@style/AppTheme.Widget.ButtonView</item>
+
+    </style>
+
+    <style name="AppThemeWithAction">
+        <item name="windowActionBar">true</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <!-- ||||||||||||||||||||||||||     Project Setup    ||||||||||||||||||||||||| -->
+
+    <!-- Use this for transparent activity background -->
+    <style name="Theme.AppCompat.Transparent.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <!-- Transparent the theme here -->
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:backgroundDimEnabled">false</item>
+
+    </style>
+
+    <!-- Custom Font - To use manually Font Styles -->
+    <style name="CustomFont.Italic" parent="android:TextAppearance">
+        <item name="fontPath">fonts/OpenSans-Italic.ttf</item>
+    </style>
+
+    <style name="CustomFont.Regular" parent="android:TextAppearance">
+        <item name="fontPath">fonts/OpenSans-Regular.ttf</item>
+    </style>
+
+    <style name="CustomFont.Bold" parent="android:TextAppearance">
+        <item name="fontPath">fonts/OpenSans-Bold.ttf</item>
+    </style>
+
+    <!-- To Apply Custom Fonts by widget -->
+
+    <!--Custom Font - TextView-->
+    <style name="AppTheme.Widget.TextView" parent="android:Widget.Holo.Light.TextView">
+        <item name="fontPath">fonts/OpenSans-Regular.ttf</item>
+    </style>
+
+    <style name="AppTheme.Widget.ButtonView" parent="android:Widget.Holo.Light.Button">
+        <item name="fontPath">fonts/OpenSans-Regular.ttf</item>
+    </style>
+
+    <style name="AppTheme.Widget.EditTextView" parent="android:Widget.Holo.Light.EditText">
+        <item name="fontPath">fonts/OpenSans-Regular.ttf</item>
+    </style>
+
+    <style name="EditTextTintTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/colorPrimaryDark</item>
+    </style>
+
+
+</resources>

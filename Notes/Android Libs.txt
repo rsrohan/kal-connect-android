@@ -1,0 +1,56 @@
+Android Libs:
+- https://github.com/Bilibili/boxing
+- https://github.com/zhouchaoyuan/excelPanel
+
+
+Healthiva calendar:
+- https://github.com/Mulham-Raee/Horizontal-Calendar
+
+HTTP API Calls
+- https://github.com/afollestad/bridge
+
+
+Libraries:
+	https://medium.freecodecamp.org/25-new-android-libraries-which-you-definitely-want-to-try-at-the-beginning-of-2017-45878d5408c0
+
+	2017:
+	https://medium.com/@mmbialas/30-new-android-libraries-and-projects-released-in-summer-2017-which-should-catch-your-attention-d3702bd9bdc6
+
+	2018:
+	https://medium.com/@mmbialas/25-new-android-libraries-projects-and-tools-worthy-to-check-in-spring-2018-68e3c5e93568
+
+	For-UI:
+	https://medium.com/boostnote/the-5-best-android-libraries-on-github-fb0e84867908
+
+	Best MediaPicker/Crop libs:
+	https://medium.cobeisfresh.com/top-5-android-libraries-june-2017-7b655883058f
+
+Architecture design Patterns:
+	MVP:
+	https://github.com/MindorksOpenSource/android-mvp-architecture?utm_source=mybridge&utm_medium=blog&utm_campaign=read_more
+
+	MVVM & MVM:
+	https://github.com/ivacf/archi?utm_source=mybridge&utm_medium=blog&utm_campaign=read_more
+	Clean Architecture / Viper:
+	
+	https://github.com/android10/Android-CleanArchitecture?utm_source=mybridge&utm_medium=blog&utm_campaign=read_more
+
+Tools:
+	https://hackernoon.com/10-tools-which-will-boost-your-android-productivity-and-hype-bea88e0bcd86
+
+Clean swift/architecture:
+https://github.com/bufferapp/android-clean-architecture-boilerplate
+
+
+To pick
+	Picking Images
+	Picking Videos
+	Picking Files
+	Picking Audios
+	Handling incoming shares
+https://github.com/coomar2841/android-multipicker-library
+
+https://github.com/Bilibili/boxing
+https://github.com/DroidNinja/Android-FilePicker
+https://github.com/jkwiecien/EasyImage
+

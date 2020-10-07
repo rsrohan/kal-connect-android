@@ -1,0 +1,226 @@
+--------------------
+Basic Project Setup:
+--------------------
+	
+	1. Dimens.xml
+		- Maintain the following in dimens.xml under values folder. When switching to Multiple screen sizes we just need to change the values from here.
+			eg:
+				<resources>
+				    <dimen name="default_margin">15dp</dimen>
+				</resources>
+	
+	2. Colors.xml
+		- Maintain the colors required for the project in colors.xml file. Dont hard code it.
+			eg:
+				<resources>
+				    <color name="colorPrimary">#3F51B5</color>
+				</resources>
+
+	3. Install drawable plugin for android studio to add assets to android project by following the link
+		- https://stackoverflow.com/questions/19196616/is-there-a-way-to-create-xxhdpi-xhdpi-hdpi-mdpi-and-ldpi-drawables-from-a-lar
+
+		Steps to Install:
+			1. Open Android studio preferences
+			2. Click Plugins -> search for "android drawable" and click "Search in repositries" link
+			3. It will search and displays the "Android Drwable" plugin from internet. Click install to add it to your "Andoid Studio"
+			4. Now restart the "android studio"
+			5. Now rightn -> click on "drawable" folder choose "New" -> "Batch Drawable Import"
+
+	4. Hide the Title bar by modifying the styles.xml as follows
+
+		<resources>
+		    
+		    <!-- Base application theme. -->
+		    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+		        <!-- Customize your theme here. -->
+		        <item name="colorPrimary">@color/colorPrimary</item>
+		        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+		        <item name="colorAccent">@color/colorAccent</item>
+		        <item name="windowNoTitle">true</item>      // -> This will hide the title bar of the application by default hence we can use our own one
+		    </style>		    
+
+		</resources>
+
+	
+	5. Maintain the layouts as sub folders for easy understanding
+		- reference link: https://medium.com/mindorks/how-to-put-android-layout-files-in-subfolders-1f7cf07ff48f
+
+			1. backup the layout files that u want to make it in order 
+			2. Swith the project type from "Android" to "Project"
+			3. delete the layout folder and right click -> new -> Directory -> set name as "layouts"
+			4. now u can create sub folders under the "layouts" directory like follows
+				eg:
+					"layouts"
+						"authentication"
+							"signUp"
+								"layout"  // This step is must we must set the final folder to layout, so that android project can choose the folders dynamically
+			5. paste the required files under the  "layout" directory
+		
+			6. Open the Project's Module "build.gradle" and add the following lines and build the project that's it.
+			
+					eg: 
+
+					android { // This will be already exists so add it in the existing android tag
+					
+						sourceSets {
+						    main {
+						        res.srcDirs =
+						                [
+						                        'src/main/res/layouts/authentication',
+						                        'src/main/res/layouts',
+						                        'src/main/res'
+						                ]
+						    }
+						}
+
+					}			
+
+	6. Add Custom Fonts to Android project:
+		
+		Step 1: Add the following lines in Manifest file
+
+            <application android:name=".customLibs.customFont.CustomApplication"/>
+
+        Step 2: To apply custom font extend perform change as follows
+
+            class YourClass name extends Activity
+                    to
+            class YourClass name extends CustomActivity
+
+        Step 3: Create Folder under "assets/fonts" folders under "src/main" directory and paste the required fonts for your project. Also change the default font inside this class.
+
+        Step 4: Create Your own styles to use the fonts inside your project in any one of the following types
+
+
+                    Type 1: for manual access
+
+                        1. Add the following in side the styles.xml
+
+                            <!-- Custom Font - To use manually Font Styles -->
+                            <style name="CustomFont.Light" parent="android:TextAppearance">
+                                <item name="fontPath">fonts/Quicksand-Light.ttf</item>
+                            </style>
+                            <style name="CustomFont.Regular" parent="android:TextAppearance">
+                                <item name="fontPath">fonts/Quicksand-Regular.ttf</item>
+                            </style>
+                            <style name="CustomFont.Bold" parent="android:TextAppearance">
+                                <item name="fontPath">fonts/Quicksand-Bold.ttf</item>
+                            </style>
+                            <style name="CustomFont.Title" parent="android:TextAppearance">
+                                <item name="fontPath">fonts/PoiretOne-Regular.ttf</item>
+                            </style>
+
+                         2. Add the following property inside the xml widget for eg: textview, button etc.,
+                            <TextView
+                                        android:text="@string/hello_world"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textAppearance="@style/CustomFont.Bold"/>
+
+
+                    Type 2: access through widget - (Most preferred one!)
+
+                        - This will automatically replaces the android native widget fonts to custom fonts
+
+                        1. Add the following in styles.xml. The following will create a new style with "AppTheme.Widget.TextView" name
+                            eg:
+
+                            <!-- To Apply Custom Fonts by widget -->
+                            <!--Custom Font - TextView-->
+                            <style name="AppTheme.Widget.TextView" parent="android:Widget.Holo.Light.TextView">
+                                <item name="fontPath">fonts/PoiretOne-Regular.ttf</item>
+                            </style>
+
+                        2. Add the created style to the android's styles
+                            eg:
+
+                             <!-- Base application theme. -->
+                            <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+                                <!-- Customize your theme here. -->
+                                <item name="colorPrimary">@color/colorPrimary</item>
+                                <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+                                <item name="colorAccent">@color/colorAccent</item>
+                                <item name="windowNoTitle">true</item>
+
+                                <!-- Applying Custom Font - TextView Widget -->
+                                <item name="android:textViewStyle">@style/AppTheme.Widget.TextView</item>	// This applies the custom font to android TextView Widget
+
+                            </style>
+
+
+    7. Side Menu & splash screen:
+    	
+    	- Copy the following files for implmenting slide menu
+    		- slidemenu folder and .xml files
+    		- "Home" will contain the redirections to various activities
+    		- Also add splash screen that will actually launch the login or home screen based on the login flag
+
+    	- Add AppPreferences file to keeptrack the login session 
+    	- Modify the Android manifest for launching the first Activity should be "Home" which is actually the fils located in side menu
+
+    
+    8. Add Dexter Permission handler library to deal runtime permissions easily in android
+    	
+    	Reference: https://github.com/Karumi/Dexter
+    	
+    	To install:
+
+	    	dependencies{
+			    implementation 'com.karumi:dexter:4.2.0'
+			}
+
+		Sample format to use:
+			Dexter.withActivity(this)
+									.withPermission(Manifest.permission.CAMERA)
+									.withListener(new PermissionListener() {
+										@Override public void onPermissionGranted(PermissionGrantedResponse response) {/* ... */}
+										@Override public void onPermissionDenied(PermissionDeniedResponse response) {/* ... */}
+										@Override public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {/* ... */}
+									}).check();
+
+    
+    9. Changing App icon in Android studio.
+
+    	1. RgtClick -> "res folder" -> New Image Asset -> choose the launcher and change the icon
+    	2. once added list of icons folder will be added in res folder. Copy those folders and replace inside the associated directories 
+    	
+
+
+    10. Localaization in Android
+
+           Reference :
+
+                    https://android.jlelse.eu/rtl-support-on-android-here-is-all-you-need-know-e13f2df512e2
+                    https://medium.com/@zhangqichuan/rtl-support-in-android-898e11f31561
+                    https://proandroiddev.com/change-language-programmatically-at-runtime-on-android-5e6bc15c758
+
+           Rules:
+                1. Android Manifest.xml
+                    android:supportsRtl="true" as a param in <application> tag
+
+                2. XML Layouts:
+                    - For all padding and margin values replace it with start and end
+                        Replace: Left / Right -> Start / End
+
+                3. Drawables:
+                    Add the following param when using drawables images in side the xml layout
+                    - android:autoMirrored="true"
+
+    11. To change the package name in the project
+        1. Change the applicationId (it is the package name of the android project)
+        2. Change the package name in the android manifest file
+        3. Build the project and perform refacter that's it
+
+
+    12. Google Maps Key Generation:
+
+        1. Open Google "https://console.cloud.google.com/" and login with your google account
+        2. Create new project with your project name
+        3. After logged in choose "hembarger menu" and choose "APIs & Services"
+        4. Under the "APIs & Services", choose Library enable the required APIs to use like
+            - Maps SDK for Android
+            - Places SDK for Android
+        5. Click the Credentials, Choose "Create Credentials -> API Key"
+        6. Copy the API key and click Close, That's it
+            key will be like "AIzaSyCNzxRKMqcO4zhl2w2z6QVxRZdbutR5VfY"
+        7. Once Key has been created Select the "AIzaSyCNzxRKMqcO4zhl2w2z6QVxRZdbutR5VfY" and Give Application name and hit save. That's it copy the API key and use it in your project

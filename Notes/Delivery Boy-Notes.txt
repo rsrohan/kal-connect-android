@@ -1,0 +1,40 @@
+Delivery Boy:
+
+List of Modules:
+	
+	Authentication :
+			0. Splash
+			1. Language Selection
+			2. SignIn
+			3. SignUp
+
+	Side Menu:
+			4. Side Menu with options
+
+	Home / Dashboard :
+			5. New Orders
+			6. Completed Orders
+			7. Cancelled Orders
+
+	Delivery Details:
+			8. Delivery Details
+			9. Delivery Details - Navigation
+			10. Delivery Details - COD
+			11. Delivery Details - SPAN Payment
+			12. Delivery Details - Delay
+			13. Delivery Details - Cancel
+
+	Profile:
+			14. Profile Details
+				- Add Option to change language
+
+			15. Edit Profile
+
+
+	Sales Report:
+			16. Sales Report Submission
+
+	Generated Reports:
+			17. View Generated Reports			
+
+

@@ -1,0 +1,303 @@
+<resources>
+
+    <string name="app_name">Kerala Ayurveda Connect"</string>
+
+    <!-- Modules -->
+    <string name="sign_in_title">Sign In</string>
+    <string name="sign_in_mobile">Mobile Number</string>
+    <string name="sign_in_otp">OTP</string>
+    <string name="get_otp">Click here, Get OTP to login</string>
+    <string name="resend_otp">Resend OTP?</string>
+    <string name="sign_in_login">Login</string>
+    <string name="sign_in_password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="password_empty">Password should not be empty</string>
+    <string name="password_mismatch">Password and Confirm password mis match</string>
+
+    <!-- Complaints List -->
+    <string name="add_new_complaints">Add new complaints</string>
+
+
+
+    <!-- Tabs -->
+<!--    <string name="tab_home_search">Search</string>-->
+    <string name="tab_home">Home</string>
+    <string name="tab_appointments">Appointments</string>a
+    <string name="tab_medicine">Buy Medicine</string>
+    <string name="tab_account">Account</string>
+
+
+
+    <!-- Add More profile info -->
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="add_more_profile_info_next">Next</string>
+    <string name="state">State</string>
+    <string name="city">City</string>
+    <string name="address_line">Address Line 1</string>
+    <string name="address_line_sub">Address Line 2</string>
+    <string name="pincode">Pincode</string>
+    <string name="update">Update</string>
+    <string name="select_dob">Please select date of birth</string>
+
+    <!-- Account -->
+    <string name="account_title">Account</string>
+    <string name="edit_account_title">Edit Account</string>
+    <string name="email">Email</string>
+    <string name="dob">Date of birth</string>
+    <string name="gender">Gender</string>
+    <string name="address">Address</string>
+
+    <!-- Doc List -->
+    <string name="doctor_list">Doctors List</string>
+
+    <!-- Doc profile -->
+    <string name="about_doctor">About Doctor</string>
+
+
+    <!-- Issue descriptor -->
+    <string name="issue_descriptor_title">Describe your issue</string>
+
+
+
+
+
+    <!-- MARK : Appointments Details - Screen -->
+    <string name="appointment_detail_title">Consult Details</string>
+    <string name="appointment_detail_consult">Consult Now</string>
+
+    <!-- MARK : Account Summary - Screen -->
+    <string name="appointment_summary_title">Appointment Summary</string>
+
+
+    <!-- Options under appointments -->
+    <string name="appointment_option_technical_status_accepted">Technician Accepted</string>
+    <string name="appointment_option_video_conference">Video Conference</string>
+    <string name="appointment_option_location">Location</string>
+    <string name="appointment_option_status_pending">Pending</string>
+    <string name="appointment_option_status_Accepted">Technical Accepted</string>
+
+    <!-- Appointment Tabs Titles -->
+    <string name="appointment_prescription_title">Prescription</string>
+    <string name="appointment_detail_records_title">Records</string>
+    <string name="appointment_detail_semi_analyser_title">Semi Analyzer</string>
+    <string name="appointment_detail_blood_investigation_title">Blood investigation</string>
+    <string name="appointment_detail_cholestrol_title">Cholesterol</string>
+    <string name="appointment_detail_urine_analyser_title">Urine Analyzer</string>
+    <string name="appointment_detail_family_history_title">Family History</string>
+    <string name="appointment_detail_blood_glucose_title">Blood Glucose</string>
+    <string name="appointment_detail_vitals_title">Vitals</string>
+    <string name="appointment_detail_present_compliant_title">Present Complaints</string>
+    <string name="appointment_detail_ecg_title">ECG</string>
+
+    <!-- MARK : Appointments Details | Semi Analyzer - Screen -->
+    <string name="semi_analyzer_uri_acid">UriAcid</string>
+
+    <!-- MARK : Appointments Details | Cholastrol - Screen -->
+    <string name="cholesterol">Cholesterol</string>
+    <string name="cholesterol_date">Updated date</string>
+
+    <string name="date_hint">NA</string>
+
+    <!-- MARK : Appointments Details | Blood Investigation - Screen -->
+    <string name="blood_malaria">Malaria</string>
+    <string name="blood_thyphoid">Thyphoid</string>
+    <string name="blood_hb">Hb%</string>v
+    <string name="blood_hcv">HCV</string>
+    <string name="blood_vdrl">VDRL</string>
+    <string name="blood_hbsag">HbSAg</string>
+    <string name="blood_troponinl">Troponin I</string>
+    <string name="blood_dengue">Dengue</string>
+    <string name="blood_tb">TB</string>
+
+    <!-- MARK : Appointments Details | Blood Glucose - Screen -->
+    <string name="blood_glucose_fbs">FBS</string>
+    <string name="blood_glucose_rbs">RBS</string>
+    <string name="blood_glucose_ppbs">PPBS</string>
+    <string name="blood_glucose_date">Date</string>
+
+    <!-- MARK : Appointments Details | Vitals - Screen -->
+    <string name="vitals_weight">Weight</string>
+    <string name="vitals_height">Height</string>
+    <string name="vitals_tmp">Temprature</string>
+    <string name="vitals_spo2">SPO2</string>
+    <string name="vitals_bp">BP</string>
+    <string name="vitals_pr">Pulse Rate</string>
+    <string name="vitals_lft">LFT</string>
+    <string name="vitals_date">Date</string>
+
+    <string name="payment_screen">Payment</string>
+
+
+
+    <!-- Empty message -->
+    <string name="no_appointments_found">No appointments found!</string>
+    <string name="no_data_found">No Data found!</string>
+    <string name="no_prescrription_found">No Prescription found!</string>
+
+    <string name="no_doctors_found">No Doctors are found!</string>
+
+    <string name="increment">+</string>
+    <string name="decrement">-</string>
+    <string name="display">1</string>
+
+
+    <!-- ||||||||||||||||||||||||||     Project Setup    ||||||||||||||||||||||||| -->
+
+    <!-- Custom Menu -->
+    <string name="menu_home">Home</string>
+    <string name="menu_back">Back</string>
+
+
+    <!--                Error Messages              -->
+    <!-- HTTP Errors -->
+    <string name="error_internet_check">Please check your internet connection</string>
+    <string name="unknown_error">Oops something went wrong! please try after sometime</string>
+    <string name="json_error">Unable to parse JSON response</string>
+    <string name="please_check_again">Please check again!</string>
+
+    <!-- Validation -->
+    <string name="error_max_image_selection">You can only select up to 5 media files</string>
+    <string name="error_should_not_empty">%1$s should not be empty</string>
+    <string name="error_min_length">%1$s should have at least %2$d characters</string>
+    <string name="error_max_length">%1$s should not have more than %2$d characters</string>
+    <string name="error_invalid_email">Invalid email format</string>
+    <string name="error_password_mismatch">Password mismatched</string>
+    <string name="error_pick_image">Please choose an image</string>
+    <string name="imgHint">Image will present here!</string>
+
+    <!-- Alerts/Prompts -->
+    <string name="alert_logout">Are you sure that you want to logout?</string>
+    <string name="alert_delete">Are you sure that you want to delete?</string>
+
+    <string name="alert_exit">Are you sure want to exit?</string>
+    <string name="alert_map_options">Please update your current location ,it will be helpful to send our Medical Assistant if required.</string>
+
+
+
+    <!-- Buttons -->
+    <string name="btn_sign_in">Sign In</string>
+    <string name="btn_sign_up">Sign Up</string>
+    <string name="btn_save">Save</string>
+    <string name="btn_submit">Submit</string>
+    <string name="btn_ok">Ok</string>
+    <string name="btn_yes">Yes</string>
+    <string name="btn_no">No</string>
+    <string name="btn_next">Next</string>
+    <string name="btn_reset">Set Password</string>
+
+    <string name="sample_address">Address</string>
+
+    <string name="signin_title">Sign In</string>
+    <string name="signin_option_msg">Confirm the Mobile number, By clicking OK you will recieve  OTP to this number </string>
+    <string name="error_input">Check Mobile number</string>
+    <string name="error_input_address">Checkyour address!</string>
+
+    <string name="address_option_msg"> Enter address or choose from map </string>
+    <string name="error_input_text">Check Value</string>
+
+    <string name="web_vw_detail_title">Consult Details</string>
+    <string name="web_vw_payment_refresh">Do not close the page or Application until Payment process is complete</string>
+
+    <string name="cancel">Cancel</string>
+    <string name="settings">Settings</string>
+
+    <string name="rationale_video_app">This app needs access to your camera and mic so you can perform video calls</string>
+    <string name="rationale_ask_again">This app may not work correctly without the requested permissions. Open the app settings screen to modify app permissions.</string>
+
+    <string name="body_temp">Body Temperature</string>
+    <string name="spo">SPO2</string>
+    <string name="systolicsys">Systolic</string>
+    <string name="diastolic">Diastolic</string>
+    <string name="pulse_rate">Pulse</string>
+    <string name="bp">Blood Pressure</string>
+    <string name="covid">COVID 19</string>
+    <string name="positive">Positive</string>
+    <string name="negative">Negative</string>
+    <string name="not_tested">NA</string>
+
+    <string name="tech_required">Select if you want our Medical Assistant or Medicine to visit home</string>
+
+    <string name="powered_by">Telemedicine Solution by Medi360</string>
+
+    <string name="proceed">Proceed</string>
+    <string name="conserns_are">Your selected concerns are...</string>
+    <string name="address_for_medical_assistant">Address for Medical Assistant  to visit</string>
+    <string name="map">MAP</string>
+    <string name="ok_caps">OK</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="others">Others</string>
+    <string name="diagnostics">Diagnostics</string>
+    <string name="report">Report</string>
+    <string name="view">View</string>
+    <string name="choose_language">Choose Language</string>
+
+    <string name="search">Search</string>
+    <string name="active">Active</string>
+    <string name="consulted">Consulted</string>
+    <string name="not_consulted">Not Consulted</string>
+
+<!--    New Version-->
+    <string name="hospitals">Hospitals</string>
+
+    <string name="no_hospitals_found" translatable="false">No Hospitals are found!</string>
+    <string name="hospitals_list" translatable="false">Hospitals</string>
+    <string name="diagnostic" translatable="false">Diagnostic</string>
+    <string name="pharmacy" translatable="false">Pharmacy</string>
+    <string name="ambulance" translatable="false">Ambulance</string>
+    <string name="technicianName" translatable="false">Technician</string>
+
+    <string name="map_direction" translatable="false">Location In Map</string>
+    <string name="hospital_charge" translatable="false">Cost for consultation</string>
+    <string name="doctor_consultation" translatable="false">Doctor consultation charge</string>
+    <string name="payment_failure" translatable="false">Payment have been failed, Please try again!</string>
+
+    <string name="schedule_appointment">Schedule Appointment</string>
+    <string name="consult_now" translatable="false">Consult Now</string>
+    <string name="consult_later" translatable="false">Consult Later</string>
+
+    <string name="detailed_complaints">Detailed Complaints</string>
+
+    <string name="delete">Delete</string>
+    <string name="therapist_charge">Therapist charge</string>
+    <string name="select_slots_to_book_appointment">Select a available slot to book appointment</string>
+    <string name="present_complaints_with_duration">Present Complaints (with duration and mode of onset)</string>
+    <string name="histor_of_illness">History of Present illness</string>
+    <string name="histor_of_past_illness">History of Past illness (Including gynec histoy if relevent)</string>
+    <string name="htn">HTN</string>
+    <string name="diabetes">Diabetes</string>
+    <string name="cvd">CVD</string>
+    <string name="rt_trauma">RT Trauma</string>
+    <string name="surgery_csection">Surgery/C.section</string>
+    <string name="hyperlipidemia">Hyperlipidemia</string>
+    <string name="treatment_history">Treatment History</string>
+    <string name="family_social_occupational">Family/Social/Occupational(Relevent only)</string>
+
+
+
+<!--    multilinetext: Diet, Bowel, Appetite, Bladder, Sleep, Addiction, Excercise, Menstrual-->
+
+    <string name="diet">Diet</string>
+    <string name="bowel">Bowel</string>
+    <string name="appetite">Appetite</string>
+    <string name="bladder">Bladder</string>
+    <string name="sleep">Sleep</string>
+    <string name="addiction">Addiction</string>
+    <string name="excercise">Excercise</string>
+    <string name="menstrual">Menstrual</string>
+    
+    <string name="visit_therapist">Select If you want our Therapist to visit home</string>
+    <string name="deliver_medicine">Select if you want Medicine to be delivered at home</string>
+    <string name="patient_examination">Patient Examination</string>
+    <string name="personal_history">Personal History</string>
+    <string name="presenting_complaints">Presenting Complaints</string>
+    <string name="doc_disable_msg">Doctor is viewing your reports ... Please wait</string>
+
+
+
+
+
+
+
+</resources>

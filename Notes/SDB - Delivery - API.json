@@ -1,0 +1,856 @@
+{
+	"info": {
+		"_postman_id": "05c6f1f0-63ce-4ce6-a052-7fbb63e76661",
+		"name": "SDB - Delivery App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Sign Up",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "API_KEY",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "Accept-Language",
+								"value": "{{language}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Jegan",
+									"type": "text"
+								},
+								{
+									"key": "email_id",
+									"value": "jegan@sdb1.com",
+									"type": "text"
+								},
+								{
+									"key": "phone_number",
+									"value": "9944190241",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "1234",
+									"type": "text"
+								},
+								{
+									"key": "confirm_password",
+									"value": "1234",
+									"type": "text"
+								},
+								{
+									"key": "branch_code",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "device_type_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "device_id",
+									"value": "asasa",
+									"description": "imei id",
+									"type": "text"
+								},
+								{
+									"key": "device_token",
+									"value": "sazasasasxssaxxasas",
+									"description": "Used for push notification",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}Auth/signup",
+							"host": [
+								"{{base_url}}Auth"
+							],
+							"path": [
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "API_KEY",
+								"value": "sultabdelightburgerkey"
+							},
+							{
+								"key": "Accept-Language",
+								"value": "english"
+							},
+							{
+								"key": "AUTH_TOKEN",
+								"value": "{{auth_token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}Auth/logout",
+							"host": [
+								"{{base_url}}Auth"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sign In",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "API_KEY",
+								"value": "sultabdelightburgerkey"
+							},
+							{
+								"key": "Accept-Language",
+								"value": "english"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email_id",
+									"value": "jegan@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123123",
+									"type": "text"
+								},
+								{
+									"key": "device_type_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "device_id",
+									"value": "asasaa",
+									"description": "imei id",
+									"type": "text"
+								},
+								{
+									"key": "device_token",
+									"value": "sazasasasxssaxxasas",
+									"description": "Used for push notification",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}Auth/signin",
+							"host": [
+								"{{base_url}}Auth"
+							],
+							"path": [
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Forgot Password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "API_KEY",
+								"value": "sultabdelightburgerkey"
+							},
+							{
+								"key": "Accept-Language",
+								"value": "english"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email_id",
+									"value": "jegan@sdb.coms",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}Auth/forgot_password",
+							"host": [
+								"{{base_url}}Auth"
+							],
+							"path": [
+								"forgot_password"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reasons",
+			"item": [
+				{
+					"name": "Delivery Reasons",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "API_KEY",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "Delivery_Authorization",
+								"value": "MTUzNDA3MzE2NGFzYXNhc2F6YXNhc2FzeHNzYXh4YXNhczE1NDg4MDA=",
+								"disabled": true
+							},
+							{
+								"key": "Accept-Language",
+								"value": "{{language}}"
+							},
+							{
+								"key": "AUTH_TOKEN",
+								"value": "{{auth_token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}Common/cancel_reasons",
+							"host": [
+								"{{base_url}}Common"
+							],
+							"path": [
+								"cancel_reasons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancelations Reasons",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "API_KEY",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "Delivery_Authorization",
+								"value": "MTUzNDA3MzE2NGFzYXNhc2F6YXNhc2FzeHNzYXh4YXNhczE1NDg4MDA=",
+								"disabled": true
+							},
+							{
+								"key": "Accept-Language",
+								"value": "{{language}}"
+							},
+							{
+								"key": "AUTH_TOKEN",
+								"value": "{{auth_token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}Common/delay_reasons",
+							"host": [
+								"{{base_url}}Common"
+							],
+							"path": [
+								"delay_reasons"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Settings",
+			"item": [
+				{
+					"name": "View Details",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "API_KEY",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "AUTH_TOKEN",
+								"value": "{{auth_token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}Profile/view",
+							"host": [
+								"{{base_url}}Profile"
+							],
+							"path": [
+								"view"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Profile",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "API_KEY",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "AUTH_TOKEN",
+								"value": "{{auth_token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Jack Sparrow",
+									"type": "text"
+								},
+								{
+									"key": "phone_number",
+									"value": "888888881",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}Profile/edit",
+							"host": [
+								"{{base_url}}Profile"
+							],
+							"path": [
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "API_KEY",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "AUTH_TOKEN",
+								"value": "{{auth_token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "old_password",
+									"value": "1234",
+									"type": "text"
+								},
+								{
+									"key": "new_password",
+									"value": "1234",
+									"type": "text"
+								},
+								{
+									"key": "confirm_password",
+									"value": "1234",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}Profile/change_password",
+							"host": [
+								"{{base_url}}Profile"
+							],
+							"path": [
+								"change_password"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "New Orders",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "API_KEY",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "Delivery_Authorization",
+								"value": "MTUzNDA3MzE2NGFzYXNhc2F6YXNhc2FzeHNzYXh4YXNhczE1NDg4MDA=",
+								"disabled": true
+							},
+							{
+								"key": "AUTH_TOKEN",
+								"value": "{{auth_token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}DeliveryOrder/new",
+							"host": [
+								"{{base_url}}DeliveryOrder"
+							],
+							"path": [
+								"new"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Completed Orders",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "API_KEY",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "Delivery_Authorization",
+								"value": "MTUzNDA3MzE2NGFzYXNhc2F6YXNhc2FzeHNzYXh4YXNhczE1NDg4MDA=",
+								"disabled": true
+							},
+							{
+								"key": "AUTH_TOKEN",
+								"value": "{{auth_token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}DeliveryOrder/completed",
+							"host": [
+								"{{base_url}}DeliveryOrder"
+							],
+							"path": [
+								"completed"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancelled Orders",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "API_KEY",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "AUTH_TOKEN",
+								"value": "{{auth_token}}"
+							},
+							{
+								"key": "Delivery_Authorization",
+								"value": "MTUzNDA5MDk1OWFzYXNhc2F6YXNhc2FzeHNzYXh4YXNhczE2MzY4MDk=",
+								"disabled": true
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}DeliveryOrder/cancelled",
+							"host": [
+								"{{base_url}}DeliveryOrder"
+							],
+							"path": [
+								"cancelled"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Order Details",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "CUSTOMER_KEY",
+								"value": "sultabdelightburgerkey"
+							},
+							{
+								"key": "Delivery_Authorization",
+								"value": "MTUzNDA3MzE2NGFzYXNhc2F6YXNhc2FzeHNzYXh4YXNhczE1NDg4MDA=",
+								"disabled": true
+							},
+							{
+								"key": "Delivery_Authorization",
+								"value": "MTUzNDQ0OTM4MGFzYXNhc2F6YXNhc2FzeHNzYXh4YXNhczE2OTk4MTg="
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "user_order_id",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://ramadapos.com/mobileapp_new/index.php/deliveryboy/order_details",
+							"protocol": "http",
+							"host": [
+								"ramadapos",
+								"com"
+							],
+							"path": [
+								"mobileapp_new",
+								"index.php",
+								"deliveryboy",
+								"order_details"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel The Order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "API_KEY",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "AUTH_TOKEN",
+								"value": "{{auth_token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "user_order_id",
+									"value": "18",
+									"type": "text"
+								},
+								{
+									"key": "reason_id",
+									"value": "4",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}DeliveryOrder/cancel_order",
+							"host": [
+								"{{base_url}}DeliveryOrder"
+							],
+							"path": [
+								"cancel_order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Complete The Order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "API_KEY",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "Delivery_Authorization",
+								"value": "MTUzNDA3MzE2NGFzYXNhc2F6YXNhc2FzeHNzYXh4YXNhczE1NDg4MDA=",
+								"disabled": true
+							},
+							{
+								"key": "AUTH_TOKEN",
+								"value": "{{auth_token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "user_order_id",
+									"value": "19",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}DeliveryOrder/complete_order",
+							"host": [
+								"{{base_url}}DeliveryOrder"
+							],
+							"path": [
+								"complete_order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Complete Delayed Order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "API_KEY",
+								"value": "{{api_key}}"
+							},
+							{
+								"key": "AUTH_TOKEN",
+								"value": "{{auth_token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "user_order_id",
+									"value": "20",
+									"type": "text"
+								},
+								{
+									"key": "reason_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "delayed_by",
+									"value": "20",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}DeliveryOrder/inform_order_delay",
+							"host": [
+								"{{base_url}}DeliveryOrder"
+							],
+							"path": [
+								"inform_order_delay"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reports",
+			"item": [
+				{
+					"name": "Create Sales Report",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "CUSTOMER_KEY",
+								"value": "sultabdelightburgerkey"
+							},
+							{
+								"key": "Delivery_Authorization",
+								"value": "MTUzNDA3MzE2NGFzYXNhc2F6YXNhc2FzeHNzYXh4YXNhczE1NDg4MDA="
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "from_date",
+									"value": "2018-08-12",
+									"type": "text"
+								},
+								{
+									"key": "to_date",
+									"value": "2018-09-15",
+									"type": "text"
+								},
+								{
+									"key": "menu_category_ids",
+									"value": "1,2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost/web/deliveryboy/create_sales_report",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"web",
+								"deliveryboy",
+								"create_sales_report"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Generated Report List",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "CUSTOMER_KEY",
+								"value": "sultabdelightburgerkey"
+							},
+							{
+								"key": "Delivery_Authorization",
+								"value": "MTUzNDA3MzE2NGFzYXNhc2F6YXNhc2FzeHNzYXh4YXNhczE1NDg4MDA="
+							},
+							{
+								"key": "Delivery_Authorization",
+								"value": "MTUzNDQ0OTM4MGFzYXNhc2F6YXNhc2FzeHNzYXh4YXNhczE2OTk4MTg=",
+								"disabled": true
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "localhost/web/deliveryboy/list_generated_reports",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"web",
+								"deliveryboy",
+								"list_generated_reports"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "View Generated Report",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "CUSTOMER_KEY",
+								"value": "sultabdelightburgerkey"
+							},
+							{
+								"key": "Delivery_Authorization",
+								"value": "MTUzNDA3MzE2NGFzYXNhc2F6YXNhc2FzeHNzYXh4YXNhczE1NDg4MDA="
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "delivery_boy_report_id",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost/web/deliveryboy/view_generated_reports",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"web",
+								"deliveryboy",
+								"view_generated_reports"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Product Category List",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "CUSTOMER_KEY",
+								"value": "sultabdelightburgerkey"
+							},
+							{
+								"key": "Delivery_Authorization",
+								"value": "MTUzNDA3MzE2NGFzYXNhc2F6YXNhc2FzeHNzYXh4YXNhczE1NDg4MDA="
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "user_order_id",
+									"value": "6",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost/web/deliveryboy/list_application_product_category",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"web",
+								"deliveryboy",
+								"list_application_product_category"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

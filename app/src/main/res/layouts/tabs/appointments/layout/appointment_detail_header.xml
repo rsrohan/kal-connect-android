@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent">
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/default_small_margin"
+        android:layout_marginEnd="@dimen/default_min_margin"
+        android:layout_marginStart="@dimen/default_min_margin"
+        android:layout_marginTop="@dimen/default_small_margin"
+        app:cardCornerRadius="@dimen/card_radius"
+        app:cardElevation="@dimen/card_elevation"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/vwContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/default_min_padding"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RelativeLayout
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/lblName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Dr Sadiq"
+                    android:textAppearance="@style/CustomFont.Bold"
+                    android:textSize="@dimen/doctor_font_size" />
+
+                <TextView
+                    android:id="@+id/lblDegree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/lblName"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_toEndOf="@+id/lblName"
+                    android:text="MBBS"
+                    android:textAppearance="@style/CustomFont.Regular"
+                    android:textSize="@dimen/default_font_min_size" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/timeContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_small_margin">
+
+                <ImageView
+                    android:id="@+id/timer"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/icon_timestamp" />
+
+                <TextView
+                    android:id="@+id/lblTimeStamp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_min_margin"
+                    android:layout_toEndOf="@+id/timer"
+                    android:text="2018-10-02 09:00 AM"
+                    android:textAppearance="@style/CustomFont.Bold"
+                    android:textSize="@dimen/default_font_min_size" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_small_margin"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.google.android.material.circularreveal.cardview.CircularRevealCardView
+
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center"
+                    app:cardBackgroundColor="@color/media"
+                    app:cardCornerRadius="25dp">
+
+                    <ImageView
+                        android:id="@+id/appointmemt_mode_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="3dp"
+                        android:src="@drawable/icon_video_call" />
+
+                </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
+
+                <TextView
+                    android:id="@+id/appointmemt_mode_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/default_min_margin"
+                    android:text="Video/Center"
+                    android:textAppearance="@style/CustomFont.Bold"
+                    android:textSize="@dimen/default_font_min_size" />
+
+                <com.google.android.material.circularreveal.cardview.CircularRevealCardView
+
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/default_small_margin"
+                    app:cardBackgroundColor="@color/pending"
+                    app:cardCornerRadius="25dp">
+
+                    <ImageView
+                        android:id="@+id/appointmemt_status_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="3dp"
+                        android:src="@drawable/icon_waiting" />
+
+                </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
+
+
+                <TextView
+                    android:id="@+id/appointmemt_status_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/default_min_margin"
+                    android:text="Status"
+                    android:textAppearance="@style/CustomFont.Bold"
+                    android:textSize="@dimen/default_font_min_size" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout >

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent">
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="@dimen/default_min_margin"
+        android:layout_marginStart="@dimen/default_min_margin"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="@dimen/card_radius"
+        app:cardElevation="@dimen/card_elevation"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <RelativeLayout
+            android:id="@+id/vwContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <TextView
+                android:id="@+id/lblRecordName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="@dimen/default_small_margin"
+                android:layout_marginStart="@dimen/default_min_margin"
+                android:text="Medi360 Test Patient"
+                android:layout_toLeftOf="@id/button_options"
+                android:layout_marginRight="@dimen/default_small_margin"
+                android:textAppearance="@style/CustomFont.Regular"
+                android:textSize="@dimen/default_font_size" />
+
+            <LinearLayout
+                android:id="@+id/button_options"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="@dimen/default_small_margin"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_toLeftOf="@+id/btnDelete"
+                    android:background="@drawable/button_style"
+                    android:padding="@dimen/button_padding"
+                    android:text="View"
+                    android:textAppearance="@style/CustomFont.Regular"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/button_font_size"
+                    />
+
+                <Button
+                    android:id="@+id/btnDelete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:background="@color/red"
+
+                    android:padding="@dimen/button_padding"
+                    android:text="@string/delete"
+                    android:textAppearance="@style/CustomFont.Regular"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/button_font_size"
+                    />
+
+            </LinearLayout>
+
+
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout >

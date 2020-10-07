@@ -1,0 +1,86 @@
+Notes: 
+-----
+
+Tutorial References:
+-------------------
+
+https://android.jlelse.eu/rtl-support-on-android-here-is-all-you-need-know-e13f2df512e2
+https://medium.com/@zhangqichuan/rtl-support-in-android-898e11f31561
+https://proandroiddev.com/change-language-programmatically-at-runtime-on-android-5e6bc15c758
+Example project: https://github.com/YarikSOffice/LanguageTest
+
+RTL Support in Mobile Android App development:
+---------------------------------------------
+
+1. android:supportsRtl="true" add this tag under the application tag
+
+2. Create values folder and string file with the language extention like values-ar & strings-ar.xml 
+
+3. Make all the xml codes from left right to start end for PADDING and MARGIN
+	-> Android studio short cut to change all left right To start end
+		Click -> "Android Studio > Refactor > Add RTL support where possible…"
+	hint :
+		To force a layout to support RTL then u can use this.
+
+
+4. To check the layout on runtime
+	
+	public boolean isRTL(Context ctx) {
+	    Configuration config = ctx.getResources().getConfiguration();
+	    return config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
+	}
+
+5. Usually drawables will not support RTL, to overcome that we need to place the RTL supported drwables under a new folder called "drawable-ldrtl"
+	1. Create folder called "drawable-ldrtl"
+	2. Place RTL supported images under the "drawable-ldrtl"
+
+6. Also for the animations directory add the folder name called anim-ldrtl and add the files under this directory to support the animations
+	 -> make the changes from the - to + and + to - to support the animation changes with the RTL support
+
+	 Then perform the changes only with the "X" value in the transulate animation field items eg:
+	 	1. XDelta
+	 		android:fromXDelta="-100%p" to android:fromXDelta="100%p"
+	 	2. pviotX
+	 		android:pivotX="25%" to android:pivotX="75%"
+
+7. If u have recycler view with horizontal orientation you have to compare the orientation type and change the direction
+	
+	if (config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
+		recyclerView.setStackFromEnd(true);
+	}
+	else{
+		recyclerView.setStackFromEnd(false);
+	}
+
+8. To change the Locale in Android app with the following code
+
+	Locale locale = getLocale();
+	Resources resources =context.getResources();
+	Configuration config = resources.getConfiguration();
+	config.locale = locale;
+	if (Build.VERSION.SDK_INT >= 17) {
+	   config.setLayoutDirection(locale);
+	}
+	resources.updateConfiguration(config, resources.getDisplayMetrics());
+
+
+9. For Adding Arabic text in dynamic format follow the instructions given below
+
+    You can embed bidirectional regions using unicode format control codepoints:
+
+        LtoR -> To place string use this before english text -> "\u202A"
+        RtoL -> To place string use this before arabic text -> "\u202B"
+
+        1. Left-to-right embedding (U+202A)  -> "\u202A"    -> this allows the compiler to understand the string after this will be "Left to Right" format
+        2. Right-to-left embedding (U+202B)  -> "\u202A"    -> this allows the compiler to understand the string after this will be "Right to Left" format
+        3. Pop directional formatting (U+202C) -> "\u202A"    -> this allows the compiler to understand the string after this will be "For both" format
+
+        So in java, to embed a RTL language like Arabic in an LTR language like English, you would do
+
+            myEnglishString + "\u202B" + myArabicString + "\u202C" + moreEnglish
+
+        and to do the reverse
+            myArabicString + "\u202A" + myEnglishString + "\u202C" + moreArabic
+
+webteamstars@gmail.com
+Angular@123

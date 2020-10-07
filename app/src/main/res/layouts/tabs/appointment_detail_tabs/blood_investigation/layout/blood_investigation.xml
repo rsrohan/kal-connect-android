@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="@dimen/update_button_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/default_min_margin"
+                app:cardCornerRadius="@dimen/card_radius"
+                app:cardElevation="@dimen/card_elevation"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="@dimen/default_min_padding"
+                        android:layout_marginStart="@dimen/default_min_margin"
+                        android:layout_weight="0.4"
+                        android:text="@string/blood_malaria"
+                        android:textAppearance="@style/CustomFont.Regular"
+                        android:textSize="@dimen/default_font_size" />
+
+
+
+                    <lib.kingja.switchbutton.SwitchMultiButton
+                        android:id="@+id/malaria"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.6"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:padding="@dimen/button_padding"
+                        app:strokeRadius="5dp"
+                        app:strokeWidth="1dp"
+                        app:selectedTab="0"
+                        android:textColor="@color/white"
+                        app:selectedColor="@color/media"
+                        app:switchTabs="@array/test_options"
+                        app:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/default_min_margin"
+                app:cardCornerRadius="@dimen/card_radius"
+                app:cardElevation="@dimen/card_elevation"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="@dimen/default_min_padding"
+                        android:layout_marginStart="@dimen/default_min_margin"
+                        android:layout_weight="0.4"
+                        android:text="@string/blood_thyphoid"
+                        android:textAppearance="@style/CustomFont.Regular"
+                        android:textSize="@dimen/default_font_size" />
+
+                    <lib.kingja.switchbutton.SwitchMultiButton
+                        android:id="@+id/typhoid"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.6"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:padding="@dimen/button_padding"
+                        app:strokeRadius="5dp"
+                        app:strokeWidth="1dp"
+                        app:selectedTab="0"
+                        android:textColor="@color/white"
+                        app:selectedColor="@color/media"
+                        app:switchTabs="@array/test_options"
+                        app:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/default_min_margin"
+                app:cardCornerRadius="@dimen/card_radius"
+                app:cardElevation="@dimen/card_elevation"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="@dimen/default_min_padding"
+                        android:layout_marginStart="@dimen/default_min_margin"
+                        android:layout_weight="0.4"
+                        android:text="@string/blood_hb"
+                        android:textAppearance="@style/CustomFont.Regular"
+                        android:textSize="@dimen/default_font_size" />
+
+                    <EditText
+                        android:id="@+id/txtHB"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="0.6"
+                        android:background="@drawable/appointment_edit_text_style"
+                        android:hint="0.0"
+                        android:inputType="numberDecimal"
+                        android:padding="@dimen/button_padding"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/CustomFont.Regular"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white"
+                        android:textSize="@dimen/default_font_appointment_size"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/default_min_margin"
+                app:cardCornerRadius="@dimen/card_radius"
+                app:cardElevation="@dimen/card_elevation"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="@dimen/default_min_padding"
+                        android:layout_marginStart="@dimen/default_min_margin"
+                        android:layout_weight="0.4"
+                        android:text="@string/blood_hcv"
+                        android:textAppearance="@style/CustomFont.Regular"
+                        android:textSize="@dimen/default_font_size" />
+
+                    <lib.kingja.switchbutton.SwitchMultiButton
+                        android:id="@+id/hcv"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.6"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:padding="@dimen/button_padding"
+                        app:strokeRadius="5dp"
+                        app:strokeWidth="1dp"
+                        app:selectedTab="0"
+                        android:textColor="@color/white"
+                        app:selectedColor="@color/media"
+                        app:switchTabs="@array/test_options"
+                        app:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/default_min_margin"
+                app:cardCornerRadius="@dimen/card_radius"
+                app:cardElevation="@dimen/card_elevation"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="@dimen/default_min_padding"
+                        android:layout_marginStart="@dimen/default_min_margin"
+                        android:layout_weight="0.4"
+                        android:text="@string/blood_vdrl"
+                        android:textAppearance="@style/CustomFont.Regular"
+                        android:textSize="@dimen/default_font_size" />
+
+                    <lib.kingja.switchbutton.SwitchMultiButton
+                        android:id="@+id/vdrl"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.6"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:padding="@dimen/button_padding"
+                        app:strokeRadius="5dp"
+                        app:strokeWidth="1dp"
+                        app:selectedTab="0"
+                        android:textColor="@color/white"
+                        app:selectedColor="@color/media"
+                        app:switchTabs="@array/test_options"
+                        app:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/default_min_margin"
+                app:cardCornerRadius="@dimen/card_radius"
+                app:cardElevation="@dimen/card_elevation"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="@dimen/default_min_padding"
+                        android:layout_marginStart="@dimen/default_min_margin"
+                        android:layout_weight="0.4"
+                        android:text="@string/blood_hbsag"
+                        android:textAppearance="@style/CustomFont.Regular"
+                        android:textSize="@dimen/default_font_size" />
+
+                    <lib.kingja.switchbutton.SwitchMultiButton
+                        android:id="@+id/hbsag"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.6"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:padding="@dimen/button_padding"
+                        app:strokeRadius="5dp"
+                        app:strokeWidth="1dp"
+                        app:selectedTab="0"
+                        android:textColor="@color/white"
+                        app:selectedColor="@color/media"
+                        app:switchTabs="@array/test_options"
+                        app:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/default_min_margin"
+                app:cardCornerRadius="@dimen/card_radius"
+                app:cardElevation="@dimen/card_elevation"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="@dimen/default_min_padding"
+                        android:layout_marginStart="@dimen/default_min_margin"
+                        android:layout_weight="0.4"
+                        android:text="@string/blood_troponinl"
+                        android:textAppearance="@style/CustomFont.Regular"
+                        android:textSize="@dimen/default_font_size" />
+
+                    <lib.kingja.switchbutton.SwitchMultiButton
+                        android:id="@+id/troponin"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.6"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:padding="@dimen/button_padding"
+                        app:strokeRadius="5dp"
+                        app:strokeWidth="1dp"
+                        app:selectedTab="0"
+                        android:textColor="@color/white"
+                        app:selectedColor="@color/media"
+                        app:switchTabs="@array/test_options"
+                        app:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/default_min_margin"
+                app:cardCornerRadius="@dimen/card_radius"
+                app:cardElevation="@dimen/card_elevation"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="@dimen/default_min_padding"
+                        android:layout_marginStart="@dimen/default_min_margin"
+                        android:layout_weight="0.4"
+                        android:text="@string/blood_dengue"
+                        android:textAppearance="@style/CustomFont.Regular"
+                        android:textSize="@dimen/default_font_size" />
+
+                    <lib.kingja.switchbutton.SwitchMultiButton
+                        android:id="@+id/dengue"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.6"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:padding="@dimen/button_padding"
+                        app:strokeRadius="5dp"
+                        app:strokeWidth="1dp"
+                        app:selectedTab="0"
+                        android:textColor="@color/white"
+                        app:selectedColor="@color/media"
+                        app:switchTabs="@array/test_options"
+                        app:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/default_min_margin"
+                app:cardCornerRadius="@dimen/card_radius"
+                app:cardElevation="@dimen/card_elevation"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="@dimen/default_min_padding"
+                        android:layout_marginStart="@dimen/default_min_margin"
+                        android:layout_weight="0.4"
+                        android:text="@string/blood_tb"
+                        android:textAppearance="@style/CustomFont.Regular"
+                        android:textSize="@dimen/default_font_size" />
+
+                    <lib.kingja.switchbutton.SwitchMultiButton
+                        android:id="@+id/tb"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.6"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:padding="@dimen/button_padding"
+                        app:strokeRadius="5dp"
+                        app:strokeWidth="1dp"
+                        app:selectedTab="0"
+                        android:textColor="@color/white"
+                        app:selectedColor="@color/media"
+                        app:switchTabs="@array/test_options"
+                        app:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/updatebutton"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/update_button_size"
+        android:text="Update"
+        android:background="@drawable/button_style"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout >

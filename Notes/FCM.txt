@@ -1,0 +1,109 @@
+FCM:
+
+Realtime Database:
+-----------------
+        Firebase Realtime database is a cloud hosted database that supports multiple platforms Android, iOS and Web. All the data is stored in JSON format and any changes in data, reflects immediately by performing a sync across all the platforms & devices.
+
+All data stored and retrived in JSON format. we need to prepare json format to create and use the database.
+
+Local storage until internet connection:
+---------------------------------------
+    To store the firebase database fields in local until the app connected to the internet.
+
+        Syntax:
+
+            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
+
+1. Database Reference
+
+    In order to perform any operation on to database whether it can be read or write, you need to get the reference to database first. To get the database referrence
+
+    Syntax:
+        private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+
+2. Insert data in to table:
+
+    To insert data, you can use setValue() method on to database reference path.
+
+    Syntax: This will insert the value under the "copyright" path
+
+        DatabaseReference mRef = mDatabase.getReference("copyright");
+        mRef.setValue("©2016 androidhive. All rights Reserved");
+
+
+    We To use custom Objects to store multiple data items into a table:
+    ------------------------------------------------------------------
+    Example:
+
+    Step 1: Model class to perform insertion:
+
+        @IgnoreExtraProperties
+        public class User {
+
+            public String name;
+            public String email;
+
+            // Default constructor required for calls to
+            // DataSnapshot.getValue(User.class)
+            public User() {
+            }
+
+            public User(String name, String email) {
+                this.name = name;
+                this.email = email;
+            }
+        }
+
+    Step 2: Get the reference by it's name
+
+        // Create the reference from the users table
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("users");
+
+        // Create unique key for the row that we going to insert
+        String userId = mDatabase.push().getKey();
+
+        // creating user object
+        User user = new User("Prabhu", "prabhu@gmail.com");
+
+        // pushing user to 'users' node using the userId
+        mDatabase.child(userId).setValue(user);
+
+
+
+Executing tasks: [signingReport]
+
+Configuration on demand is an incubating feature.
+:app:signingReport
+Variant: releaseUnitTest
+Config: none
+----------
+Variant: debug
+Config: debug
+Store: /Users/prabhudurai/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 9F:0E:04:F0:AC:37:95:B6:C3:AA:28:9B:04:9E:51:3D
+SHA1: B9:89:6F:C5:22:58:6B:61:25:37:EB:C6:5E:56:B6:63:27:A6:5B:8E
+Valid until: Wednesday, 12 August, 2048
+----------
+Variant: debugAndroidTest
+Config: debug
+Store: /Users/prabhudurai/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 9F:0E:04:F0:AC:37:95:B6:C3:AA:28:9B:04:9E:51:3D
+SHA1: B9:89:6F:C5:22:58:6B:61:25:37:EB:C6:5E:56:B6:63:27:A6:5B:8E
+Valid until: Wednesday, 12 August, 2048
+----------
+Variant: debugUnitTest
+Config: debug
+Store: /Users/prabhudurai/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 9F:0E:04:F0:AC:37:95:B6:C3:AA:28:9B:04:9E:51:3D
+SHA1: B9:89:6F:C5:22:58:6B:61:25:37:EB:C6:5E:56:B6:63:27:A6:5B:8E
+Valid until: Wednesday, 12 August, 2048
+----------
+Variant: release
+Config: none
+----------
+
+BUILD SUCCESSFUL in 4s

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">#ffc107</color>
+    <color name="colorPrimaryDark">#edb100</color>
+    <color name="colorAccent">#f6d87f</color>
+
+    <color name="colorPrimaryLight">#c4e9f1</color>
+    <color name="editDeleteColor">#F7F7F7</color>
+
+    <!-- Tab bar -->
+    <color name="bgBottomNavigation">#00000000</color>
+    <color name="badgeCountColor">#FF0000</color>
+
+    <color name="red">#EC0636</color>
+    <color name="appoinment_red">#ff3232</color>
+
+    <color name="bio_red">#e74c3c</color>
+    <color name="bio_grey">#666666</color>
+
+    <color name="check_box_color">#a4c639</color>
+    <color name="account_profile_color">#fc166e</color>
+
+
+
+    <!--|||||||||||||||||||||||||       Project Setup      |||||||||||||||||||||||||-->
+
+    <!-- UIElements -->
+    <color name="colorPrimaryDarkTransparent">#90008ba3</color>
+    <color name="editTextBgColor">#20000000</color>
+    <color name="defaultButtonBgColor">#F7C52E</color>
+    <color name="selectedButtonBgColor">#F99E2D</color>
+    <color name="editTextBorderColor">#A9A9A9</color>
+
+    <color name="media">#505175</color>
+
+    <color name="technical">#32cde5</color>
+    <color name="location">#505175</color>
+
+    <color name="pending">#F7C52E</color>
+    <color name="completed">#42b07f</color>
+    <color name="consultNow">#FF8C00</color>
+
+
+    <!-- Font Colors -->
+    <color name="buttonFontColor">#8C37B8</color>
+    <color name="editTextFontColor">#FFFFFF</color>
+    <color name="editTextHintColor">#80000000</color>
+    <color name="editTextHintColorYellow">#80FFB700</color>
+
+    <!-- ERROR ALERT COLORS -->
+    <color name="failedColor">#F91911</color>
+    <color name="successColor">#42b07f</color>
+
+    <!-- Rating Bar -->
+    <color name="rating_selected">#FF8C00</color>
+    <color name="rating_not_selected">#F7F7F7</color>
+
+    <!-- issue color -->
+    <color name="issue_not_selected">#F7F7F7</color>
+    <color name="issue_selected">#e74c3c</color>
+
+
+
+    <!-- Custom Menu -->
+    <color name="dashboardHeaderColor">#FFFFFF</color>
+    <color name="headerTitleColor">#8C37B8</color>
+    <color name="menuSelectionColor">#20000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="transparent_bg">#70000000</color>
+    <color name="dark_gray">#A9A9A9</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+    <color name="background_grey">#e5e5e5</color>
+
+
+    <color name="navigation">#11aabb</color>
+
+    <color name="text_vw_text_color">#757575</color>
+
+    <color name="app_color">#F0C75E</color>
+
+    <color name="home_text_color">#505050</color>
+
+    <color name="mtrl_textinput_default_box_stroke_color">#ffc107</color>
+
+
+</resources>

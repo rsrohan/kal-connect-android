@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recordRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/update_layout" />
+
+    <ImageButton
+        android:id="@+id/upload"
+        android:layout_width="@dimen/medium_btn_round_size"
+        android:layout_height="@dimen/medium_btn_round_size"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="@dimen/default_small_margin"
+        android:background="@drawable/green_button"
+        android:src="@android:drawable/ic_input_add"
+        android:layout_above="@+id/update_layout"
+        android:layout_marginBottom="@dimen/default_margin"
+        android:layout_marginRight="@dimen/default_margin"
+        android:tint="@color/white" />
+
+    <RelativeLayout
+        android:id="@+id/update_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/default_small_margin">
+
+        <Button
+            android:id="@+id/update"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/medium_btn_round_size"
+
+            android:background="@color/colorPrimaryDark"
+            android:text="@string/update"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:visibility="visible" />
+
+
+    </RelativeLayout>
+</RelativeLayout>

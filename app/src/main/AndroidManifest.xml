@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.kal.connect">
+
+    <!-- To track the internet connection -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- Location Access -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <!-- Camera / Gallery -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="app.cloudstringers.permission.C2D_MESSAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+
+
+    <application
+        android:name="com.kal.connect.customLibs.appCustomization.CustomApplication"
+        android:allowBackup="false"
+        android:icon="@mipmap/ayurvedha"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ayurvedha"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:configChanges="locale"
+        android:usesCleartextTraffic="true"
+        tools:replace="android:allowBackup">
+        <activity android:name="com.kal.connect.utilities.Splash"
+            android:configChanges="locale">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.kal.connect.modules.authentication.SignIn"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="com.kal.connect.modules.dashboard.Dashboard"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="com.kal.connect.modules.dashboard.tabs.Home.DoctorsList"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="com.kal.connect.modules.hospitals.HospitalsList"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="com.kal.connect.modules.dashboard.tabs.Home.AboutDoctor"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+
+        <activity
+            android:name="com.kal.connect.modules.hospitals.AboutHospital"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="com.kal.connect.modules.dashboard.tabs.Home.AppointmentSummary"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="com.kal.connect.modules.communicate.VideoCaller"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="com.kal.connect.modules.dashboard.tabs.Appointments.AppointmentDetail"
+            android:windowSoftInputMode="stateHidden"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name="com.kal.connect.modules.communicate.VideoConference"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+
+        <activity
+            android:name="com.kal.connect.modules.communicate.IncommingCall"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="com.kal.connect.modules.payment.PaymentActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+
+        <activity
+            android:name="com.kal.connect.modules.dashboard.WebViewActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+
+        <activity
+            android:name="com.kal.connect.modules.dashboard.PDFViewer"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+
+        <activity
+            android:name="com.kal.connect.modules.dashboard.tabs.Home.ScheduleAppointment"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+
+        <activity android:name="com.kal.connect.modules.dashboard.tabs.Home.PatientHistory"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"
+
+            />
+
+
+        <service android:name="com.kal.connect.customLibs.fcm.OnClearFromRecentService" android:stopWithTask="false" />
+
+        <!-- For internet connectivity -->
+        <receiver
+            android:name="com.kal.connect.customLibs.noInternetAlert.ConnectivityReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
+        <!-- FCM -->
+<!--        <service android:name="com.patientapp.customLibs.fcm.MyFirebaseMessagingService">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.google.firebase.MESSAGING_EVENT" />-->
+<!--            </intent-filter>-->
+<!--        </service>-->
+<!--        <service android:name="com.patientapp.customLibs.fcm.MyFirebaseInstanceIDService">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />-->
+<!--            </intent-filter>-->
+<!--        </service>-->
+
+
+        <service
+            android:name="com.kal.connect.customLibs.fcm.MyFirebaseMessagingService"
+            android:directBootAware="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <service android:name="com.kal.connect.customLibs.fcm.MyFirebaseInstanceIDService">
+            <intent-filter android:priority="1000">
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+        <service android:name="com.kal.connect.modules.communicate.MyInCallService">
+<!--            android:permission="android.permission.BIND_INCALL_SERVICE">-->
+<!--            <meta-data android:name="android.telecom.IN_CALL_SERVICE_UI" android:value="true" />-->
+<!--            <meta-data android:name="android.telecom.IN_CALL_SERVICE_RINGING"-->
+<!--                android:value="true" />-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.telecom.InCallService"/>-->
+<!--            </intent-filter>-->
+        </service>
+
+        <service android:name="com.kal.connect.modules.communicate.services.HeadsUpNotificationService">
+        </service>
+
+        <receiver android:name="com.kal.connect.modules.communicate.services.HeadsUpNotificationActionReceiver"></receiver>
+
+        <!-- Google Map -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDKfuklPXtXIAZXkdC1tSoxbzuWaJzP4Ww" />
+
+<!--        <meta-data-->
+<!--            android:name="com.google.android.geo.API_KEY"-->
+<!--            android:value="AIzaSyBd4eAQ6d9F_wkljmw9IekgF00hl5gtug0" />-->
+
+
+
+        <!-- Add your API key here -->
+        <meta-data
+            android:name="com.razorpay.ApiKey"
+            android:value="rzp_test_pkcsjivTghjNsf"
+            />
+
+        <activity android:name="com.kal.connect.modules.dashboard.tabs.Home.IssueDescriptor"></activity>
+        <activity android:name="com.kal.connect.modules.dashboard.tabs.Home.PaymentWebVw"></activity>
+
+        <activity android:name="com.kal.connect.modules.dashboard.tabs.Account.EditAccount"></activity>
+        <service
+            android:name="com.kal.connect.customLibs.downloadService.DownloadFileService"
+            android:enabled="true"
+            android:exported="false" />
+
+
+        <provider
+            android:name="com.kal.connect.utilities.FileProviderShare"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+<!--        <provider-->
+<!--            android:name="androidx.core.content.FileProvider"-->
+<!--            android:authorities="com.keralaayurveda.myprovider"-->
+<!--            android:exported="false"-->
+<!--            android:grantUriPermissions="true">-->
+<!--            <meta-data-->
+<!--                android:name="android.support.FILE_PROVIDER_PATHS"-->
+<!--                android:resource="@xml/file_paths"/>-->
+<!--        </provider>-->
+
+<!--        <uses-library android:name="org.apache.http.legacy" android:required="false" />-->
+
+    </application>
+
+</manifest>

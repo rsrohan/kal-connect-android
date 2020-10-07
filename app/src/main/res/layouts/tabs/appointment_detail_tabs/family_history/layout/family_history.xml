@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/family_gridview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/updatebutton"
+
+            android:numColumns="3"
+            android:verticalSpacing="10dp"
+            android:horizontalSpacing="10dp"
+            android:stretchMode="columnWidth"
+            android:gravity="center"
+            />
+        <Button
+            android:id="@+id/updatebutton"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/update_button_size"
+
+            android:text="Update"
+            android:background="@drawable/button_style"
+            android:textColor="@color/white"
+            android:layout_alignParentBottom="true"
+            />
+
+    </RelativeLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout >

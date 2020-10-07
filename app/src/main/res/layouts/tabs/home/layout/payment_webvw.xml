@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background_grey"
+    >
+
+    <RelativeLayout
+        android:id="@+id/headerView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/nav_bar_height"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/refresh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:textColor="#F37254"
+        android:layout_below="@id/headerView"
+        android:textStyle="bold"
+        android:text="@string/web_vw_payment_refresh"/>
+
+    <WebView
+        android:id="@+id/paymentWebVw"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/refresh"></WebView>
+
+</RelativeLayout>

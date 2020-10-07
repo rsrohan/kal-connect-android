@@ -1,0 +1,30 @@
+BitBucket Setup With Android Studio By Steps:
+---------------------------------------------
+	
+	1. Select Menu "VCS -> enable version control" and choose the type of version control like "Git" and click OK
+
+	2. In the Android studio's terminal type the following command to initiate initial commit. This will add all files to staging
+		
+		$ git add -A
+
+	3. Select "VCS -> Commit changes" now we can see all the changes. Add commit message and click commit button.
+		
+		  - This step will be performed almost at first time for initial commit
+
+	4. Type the following command to set remote location
+
+			$ git remote add origin git_url_
+
+	5. git push origin master
+
+	To create develop branch
+
+	6. git checkout -b develop master
+
+	7. git push origin develop
+
+
+	REFERENCE : https://www.coursera.org/lecture/internet-of-things-dragonboard/using-git-with-android-studio-EfKqi
+
+
+	

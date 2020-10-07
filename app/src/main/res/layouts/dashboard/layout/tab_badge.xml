@@ -1,0 +1,35 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/badge_frame_layout"
+    android:layout_width="match_parent"
+    android:layout_marginStart="40dp"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/profileImage"
+        android:layout_width="20dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="20dp"
+        android:layout_marginStart="40dp"
+        android:layout_margin="@dimen/alerter_padding_small"
+        android:shape="ring"
+        android:visibility="visible"
+        app:cardBackgroundColor="@color/badgeCountColor"
+        app:cardCornerRadius="10dp">
+
+        <TextView
+            android:id="@+id/badge_text_view"
+            android:layout_width="19dp"
+            android:layout_height="19dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="9+"
+            android:textAppearance="@style/CustomFont.Regular"
+            android:textColor="@android:color/white"
+            android:textSize="11sp"
+            tools:text="9+" />
+
+    </androidx.cardview.widget.CardView>
+
+</FrameLayout>

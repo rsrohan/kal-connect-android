@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/default_small_margin"
+    android:orientation="vertical">
+
+
+
+    <RelativeLayout
+        android:id="@+id/available_layout"
+        android:layout_width="match_parent"
+        android:background="@color/mdtp_accent_color_dark"
+        android:orientation="horizontal"
+        android:gravity="center"
+
+        android:layout_height="50dp">
+        <TextView
+            android:id="@+id/time_from_to"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:padding="@dimen/default_padding"
+            android:visibility="gone"
+            android:text="9:00 pm to 9:30 pm"/>
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:text="12:00"/>
+        <ImageView
+            android:id="@+id/availablity_img_ic"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:src="@drawable/check_box_selected"
+            android:layout_alignParentRight="true"
+
+
+            />
+
+    </RelativeLayout>
+
+</LinearLayout>

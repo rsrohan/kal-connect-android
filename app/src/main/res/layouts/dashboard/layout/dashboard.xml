@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/baseContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/vwBase"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/vwBottomContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:context=".modules.dashboard.Dashboard">
+
+        <!-- Content container -->
+        <FrameLayout
+            android:id="@+id/frameContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        <!-- Bottom Tab bar -->
+
+        <ImageButton
+            android:id="@+id/sos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|start"
+            android:layout_margin="30dp"
+            android:background="@drawable/sos"
+            android:visibility="gone" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <!-- Navigation part with container -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/vwBottomContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/tab_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@color/white"
+            android:foreground="?attr/selectableItemBackground"
+            app:itemBackground="@color/bgBottomNavigation"
+            app:itemIconTint="@drawable/tab_selection"
+            app:itemTextColor="@drawable/tab_selection"
+            app:elevation="8dp"
+            app:labelVisibilityMode="labeled"
+
+
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:menu="@menu/tab_navigation" />
+
+        <RelativeLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/colorPrimaryDark"
+            android:gravity="center"
+            android:padding="@dimen/powered_by_padding"
+            app:layout_constraintBottom_toBottomOf="@+id/vwBottomContainer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" >
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/powered_by"
+                android:textSize="@dimen/powered_by_label_size"
+                android:textStyle="bold"
+                android:layout_marginLeft="@dimen/default_very_small_margin"
+                android:textColor="@color/white" />
+
+        </RelativeLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout >
+
+</androidx.constraintlayout.widget.ConstraintLayout >

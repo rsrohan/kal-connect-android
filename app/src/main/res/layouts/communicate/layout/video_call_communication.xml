@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/dialerVw"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dialer_margin_top"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/initial"
+                android:layout_width="@dimen/user_name_circle"
+                android:layout_height="@dimen/user_name_circle"
+                android:layout_gravity="center"
+                android:background="@drawable/rounded_corner_with_border"
+                android:gravity="center"
+                android:text="P"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/button_font_size"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/doctorName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_margin"
+                android:gravity="center"
+                android:padding="@dimen/default_padding"
+                android:text="Doctor Name"
+                android:textSize="@dimen/button_font_size"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/timer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/mdtp_time_placeholder"
+                android:textSize="@dimen/button_font_size" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/dialer_disconnect"
+            android:layout_width="@dimen/caller_action_button"
+            android:layout_height="@dimen/caller_action_button"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="@dimen/dialer_margin_top"
+            android:src="@drawable/call_disconnect"
+
+            />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/videoCallLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <LinearLayout
+                    android:id="@+id/ll_temp_subscriper"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:id="@+id/temp_subscriber_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:visibility="visible" />
+
+                    <RelativeLayout
+                        android:id="@+id/video_disabled_video"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:background="@color/background_grey"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="@string/doc_disable_msg"
+                            android:textColor="@color/black" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_subscriber_id_additional"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_height="match_parent">
+
+                    <FrameLayout
+                        android:id="@+id/temp_subscriber_id_additional"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:visibility="visible"
+                        android:orientation="vertical" />
+
+                    <RelativeLayout
+                        android:id="@+id/video_disabled_additional"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:background="@color/background_grey"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="@string/doc_disable_msg"
+                            android:textColor="@color/black" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <FrameLayout
+                android:id="@+id/temp_publisher_id"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical" />
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+
+            android:id="@+id/main_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#000"
+            android:visibility="gone"></androidx.constraintlayout.widget.ConstraintLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="10dp">
+
+            <ImageView
+                android:id="@+id/disconnect"
+                android:layout_width="@dimen/button_medium_height"
+                android:layout_height="@dimen/button_medium_height"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/call_disconnect" />
+
+            <ImageView
+                android:id="@+id/switch_camera"
+                android:layout_width="@dimen/button_medium_height"
+                android:layout_height="@dimen/button_medium_height"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/camera_switch" />
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

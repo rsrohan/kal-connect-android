@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/issue_header_txt_vw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/default_padding"
+        android:text="Issue Header"
+        android:textAppearance="@style/CustomFont.Bold"
+        android:textColor="@color/black"
+        android:textSize="@dimen/doctor_font_size" />
+
+</LinearLayout>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_patient_exam"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible" />
+
+            <LinearLayout
+                android:id="@+id/ll_system_exam"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rv_patient_exam"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="10dp"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Systemetic Examination"
+                    android:textColor="@color/app_color"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/edt_patient"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/ic_edittext_bg"
+                    android:gravity="start"
+                    android:hint=""
+                    android:lines="5"
+                    android:layout_marginBottom="@dimen/default_margin"/>
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btn_update"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/button_bg"
+            android:gravity="center"
+            android:hint="Update"
+            android:visibility="gone"
+            android:textColorHint="@color/white" />
+    </RelativeLayout>
+</ScrollView>

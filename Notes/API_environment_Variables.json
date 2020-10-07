@@ -1,0 +1,33 @@
+{
+  "id": "9028e43f-c74d-4776-bf47-c0a50b6545f2",
+  "name": "local",
+  "values": [
+    {
+      "key": "api_key",
+      "value": "sultabdelightburgerkey",
+      "description": "",
+      "enabled": true
+    },
+    {
+      "key": "base_url",
+      "value": "http://localhost/iRest/api/deliveryboy/",
+      "description": "",
+      "enabled": true
+    },
+    {
+      "key": "language",
+      "value": "english",
+      "description": "",
+      "enabled": true
+    },
+    {
+      "key": "auth_token",
+      "value": "MTUzNjUxNzI2OGFzYXNhYXNhemFzYXNhc3hzc2F4eGFzYXMxNjAyOTU1",
+      "description": "",
+      "enabled": true
+    }
+  ],
+  "_postman_variable_scope": "environment",
+  "_postman_exported_at": "2018-09-10T05:52:49.256Z",
+  "_postman_exported_using": "Postman/6.3.0"
+}

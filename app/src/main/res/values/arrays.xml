@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="login_options">
+        <item>Passowrd</item>
+        <item>OTP</item>
+    </string-array>
+    <string-array name="consult_options">
+        <item>Video Call</item>
+        <item>Kiosk Center/Direct</item>
+    </string-array>
+    <string-array name="test_options">
+        <item>NA</item>
+        <item>@string/positive</item>
+        <item>@string/negative</item>
+
+    </string-array>
+
+    <string-array name="gender_options">
+        <item>@string/male</item>
+        <item>@string/female</item>
+        <item>@string/others</item>
+
+    </string-array>
+
+
+</resources>

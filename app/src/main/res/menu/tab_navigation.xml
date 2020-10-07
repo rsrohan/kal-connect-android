@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/tab_home"
+        android:icon="@drawable/img_header_menu"
+        android:title="@string/tab_home" />
+
+    <item
+        android:id="@+id/tab_appointments"
+        android:icon="@drawable/cal_icon"
+        android:title="@string/tab_appointments" />
+
+    <item
+        android:id="@+id/tab_medicine"
+        android:icon="@drawable/medical_icon"
+        android:title="@string/tab_medicine" />
+
+    <item
+        android:id="@+id/tab_account"
+        android:icon="@drawable/icon_user_colored"
+        android:title="@string/tab_account" />
+
+</menu>

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "107968082844",
+    "firebase_url": "https://kal-connect.firebaseio.com",
+    "project_id": "kal-connect",
+    "storage_bucket": "kal-connect.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:107968082844:android:c4e9a2dcc2effbb5258e59",
+        "android_client_info": {
+          "package_name": "com.kal.connect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "107968082844-4v5u79e3sck8kv95mi370pngn06jkv5m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kal.connect",
+            "certificate_hash": "53e9aacf7e8292ddc14e6bb51c385213eb67582c"
+          }
+        },
+        {
+          "client_id": "107968082844-7lj9s5olig1bh98gh658kql98ukeghla.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAr2tbVoLqiZLD6cAC9M4wU0uL0aqMbGLs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "107968082844-7lj9s5olig1bh98gh658kql98ukeghla.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

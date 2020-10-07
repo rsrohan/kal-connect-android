@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:id="@+id/headerView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/nav_bar_height"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/vwContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/headerView">
+
+        <include
+            android:id="@+id/appointmentDetail"
+            layout="@layout/appointment_detail_header" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/default_min_margin"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/dark_gray"
+                android:text="@string/app_name"
+                android:textColor="@color/editTextBorderColor" />
+
+            <!-- Tab bar layout -->
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                app:tabGravity="fill"
+                app:tabIndicatorColor="@color/colorPrimaryDark"
+                app:tabIndicatorHeight="3dp"
+                app:tabMode="scrollable"
+                app:tabSelectedTextColor="@color/colorPrimaryDark"
+                app:tabTextColor="@color/colorPrimaryDark" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/dark_gray"
+                android:text="@string/app_name"
+                android:textColor="@color/editTextBorderColor" />
+
+
+            <!--Tab bar main content view-->
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/tabPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/floatingOptions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/vwContainer"
+        app:maxImageSize="30dp"
+        app:menu_backgroundColor="@android:color/transparent"
+        app:menu_colorNormal="@color/colorPrimary"
+        app:menu_icon="@drawable/icon_floating_options"
+        app:menu_labels_ellipsize="end"
+        app:menu_labels_position="left"
+        app:menu_labels_singleLine="true"
+        android:visibility="gone"
+        app:menu_openDirection="down">
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/optionTechnical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_floating_technician_accepted"
+            app:fab_colorNormal="@color/technical"
+            android:visibility="gone"
+            app:fab_label="@string/appointment_option_technical_status_accepted"
+            app:maxImageSize="15dp" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/optionVideoConference"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_floating_video_call"
+            android:visibility="gone"
+            app:fab_colorNormal="@color/media"
+            app:fab_label="@string/appointment_option_video_conference"
+            app:maxImageSize="30dp" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/optionLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_floating_location"
+            android:visibility="gone"
+            app:fab_colorNormal="@color/location"
+            app:fab_label="@string/appointment_option_location"
+            app:maxImageSize="30dp" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/optionStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_floating_waiting"
+            android:visibility="gone"
+            app:fab_colorNormal="@color/pending"
+            app:fab_label="@string/appointment_option_status_pending"
+
+            app:maxImageSize="30dp" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/optionConsultNow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_video_call"
+            app:fab_colorNormal="@color/consultNow"
+            app:fab_label="@string/appointment_detail_consult"
+
+            app:maxImageSize="30dp" />
+
+    </com.github.clans.fab.FloatingActionMenu>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout >

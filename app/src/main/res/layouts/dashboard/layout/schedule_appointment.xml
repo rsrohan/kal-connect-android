@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/headerView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/menu_height"
+        android:layout_alignParentTop="true"/>
+
+<!--    <ScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_below="@id/headerView"-->
+<!--        android:layout_above="@+id/proceed_btn"-->
+<!--        >-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/headerView"
+            android:layout_above="@+id/proceed_btn"
+            android:orientation="vertical">
+
+            <CalendarView
+                android:id="@+id/calender"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/default_small_margin"
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content">
+            </CalendarView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/default_small_margin"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="@string/select_slots_to_book_appointment"
+                android:textColor="@color/mdtp_accent_color_dark"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/appointments"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                >
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+        </LinearLayout>
+<!--    </ScrollView>-->
+
+    <Button
+        android:id="@+id/proceed_btn"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="@dimen/menu_height"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/white"
+        android:layout_alignParentBottom="true"
+        android:text="@string/proceed"/>
+
+
+
+
+
+
+</RelativeLayout>

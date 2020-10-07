@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_margin"
+        android:layout_marginBottom="20dp"
+        android:orientation="vertical">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:padding="5dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            <EditText
+                android:id="@+id/histor_of_illness"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:gravity="top"
+                android:hint="@string/histor_of_illness"
+                android:inputType="textMultiLine"
+                android:minHeight="@dimen/editext_min_height"
+                android:padding="10dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin_top"
+            android:padding="@dimen/default_small_padding"
+            android:text="@string/histor_of_past_illness"
+            android:textColor="@color/app_color" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_patient"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:padding="5dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <EditText
+                android:id="@+id/treatment_history"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:gravity="top"
+                android:hint="@string/treatment_history"
+                android:inputType="textMultiLine"
+                android:minHeight="@dimen/editext_min_height" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:padding="5dp">
+            <EditText
+                android:id="@+id/family_social_occupational"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:gravity="top"
+                android:hint="@string/family_social_occupational"
+                android:inputType="textMultiLine"
+                android:minHeight="@dimen/editext_min_height" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin"
+            android:padding="@dimen/default_small_padding"
+            android:text="@string/personal_history"
+            android:textColor="@color/app_color" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:padding="5dp">
+                <EditText
+                    android:id="@+id/diet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/editext_min_height"
+                    android:hint="@string/diet"
+                    android:gravity="top"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:inputType="textMultiLine"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:padding="5dp">
+                <EditText
+                    android:id="@+id/bowel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/editext_min_height"
+                    android:hint="@string/bowel"
+                    android:gravity="top"
+                    android:inputType="textMultiLine"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:padding="5dp">
+                <EditText
+                    android:id="@+id/appetite"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/editext_min_height"
+                    android:hint="@string/appetite"
+                    android:gravity="top"
+                    android:inputType="textMultiLine"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:padding="5dp">
+                <EditText
+                    android:id="@+id/bladder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/editext_min_height"
+                    android:hint="@string/bladder"
+                    android:gravity="top"
+                    android:inputType="textMultiLine"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:padding="5dp">
+                <EditText
+                    android:id="@+id/sleep"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/editext_min_height"
+                    android:hint="@string/sleep"
+                    android:gravity="top"
+                    android:inputType="textMultiLine"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:padding="5dp">
+                <EditText
+                    android:id="@+id/addiction"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/editext_min_height"
+                    android:hint="@string/addiction"
+                    android:gravity="top"
+                    android:inputType="textMultiLine"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:padding="5dp">
+                <EditText
+                    android:id="@+id/excercise"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/editext_min_height"
+                    android:hint="@string/excercise"
+                    android:gravity="top"
+                    android:inputType="textMultiLine"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_marginBottom="@dimen/menu_height"
+                android:padding="5dp">
+                <EditText
+                    android:id="@+id/menstrual"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/editext_min_height"
+                    android:hint="@string/menstrual"
+                    android:gravity="top"
+                    android:inputType="textMultiLine"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

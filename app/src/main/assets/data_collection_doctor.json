@@ -1,0 +1,52 @@
+[
+  {
+    "Headertitle": "General Examination",
+    "items": [
+      {
+        "itemItitle": "May be empty too",
+        "subItems": [
+          {
+            "title": "PR",
+            "id": "1",
+            "type": "input",
+            "value": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Headertitle": "Ashtasthana Pareekshana",
+    "items": [
+      {
+        "itemItitle": "Nadi",
+        "subItems": [
+          {
+            "title": "Vaatlkam",
+            "id": "11",
+            "type": "checkbox",
+            "value": "false"
+          },
+          {
+            "title": "Paittikam",
+            "id": "11",
+            "type": "checkbox",
+            "value": "false"
+          },
+          {
+            "title": "Paittikam_11",
+            "id": "11",
+            "type": "checkbox",
+            "value": "false"
+          },
+          {
+            "title": "Paittikam_12",
+            "id": "11",
+            "type": "checkbox",
+            "value": "false"
+          }
+        ]
+      }
+    ]
+  }
+]
