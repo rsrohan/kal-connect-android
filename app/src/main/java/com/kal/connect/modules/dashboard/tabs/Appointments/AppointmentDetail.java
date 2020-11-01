@@ -10,14 +10,17 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.kal.connect.R;
 import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
 import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
 import com.kal.connect.customLibs.appCustomization.CustomActivity;
+import com.kal.connect.modules.communicate.ChatActivity;
 import com.kal.connect.modules.communicate.OpenTokConfig;
 import com.kal.connect.modules.communicate.VideoConference;
 import com.kal.connect.utilities.AppPreferences;
@@ -48,6 +51,7 @@ public class AppointmentDetail extends CustomActivity implements View.OnClickLis
     FloatingActionMenu floatingMenu;
     FloatingActionButton btnTechnician, btnVideoConference, btnLocation, btnStatus, btnConsultNow;
     HashMap<String, Object> selectedAppointmentData;
+    String mStrDocName = "", mStrDocId;
 
     // MARK : Lifecycle
     @Override
@@ -55,12 +59,22 @@ public class AppointmentDetail extends CustomActivity implements View.OnClickLis
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.appointment_detail);
+
+
+
+
         buildUI();
 
     }
 
     // MARK : Instance Methods
     private void buildUI() {
+
+        Bundle mBundle = getIntent().getExtras();
+        if (mBundle.containsKey("doctorName") && mBundle.getString("doctorName") != null) {
+            mStrDocName = mBundle.getString("doctorName");
+            mStrDocId = mBundle.getString("docId");
+        }
 
         setHeaderView(R.id.headerView, AppointmentDetail.this, AppointmentDetail.this.getResources().getString(R.string.appointment_detail_title));
         headerView.showBackOption();
@@ -75,13 +89,14 @@ public class AppointmentDetail extends CustomActivity implements View.OnClickLis
         consultModeImgVw = (ImageView) findViewById(R.id.appointmemt_mode_img);
 
 
-
         tabContainer = (TabLayout) findViewById(R.id.tabs);
         tabPager = (ViewPager) findViewById(R.id.tabPager);
 
+
+
         buildTabs();
         buildFloatingMenu();
-        setupHeaderValues();
+//        setupHeaderValues();
 
 
     }
@@ -107,14 +122,14 @@ public class AppointmentDetail extends CustomActivity implements View.OnClickLis
                 cosultMode.setText("Clinic Center");
             }
 
-            if(selectedAppointmentData.get("status").toString().toLowerCase().equals("active") ||
-                    selectedAppointmentData.get("status").toString().toLowerCase().equals("not consulted")){
-                floatingMenu.setVisibility(View.VISIBLE);
-            }else{
-                floatingMenu.setVisibility(View.GONE);
+            if (selectedAppointmentData.get("status").toString().toLowerCase().equals("active") ||
+                    selectedAppointmentData.get("status").toString().toLowerCase().equals("not consulted")) {
+                btnConsultNow.setVisibility(View.VISIBLE);
+            } else {
+                btnConsultNow.setVisibility(View.GONE);
             }
 
-            appStatus.setText(Utilities.getStatus(AppointmentDetail.this,selectedAppointmentData.get("status").toString()));
+            appStatus.setText(Utilities.getStatus(AppointmentDetail.this, selectedAppointmentData.get("status").toString()));
 //            appStatus.setText(selectedAppointmentData.get("status").toString());
 
         } catch (Exception e) {
@@ -140,6 +155,8 @@ public class AppointmentDetail extends CustomActivity implements View.OnClickLis
         btnVideoConference.setOnClickListener(this);
         btnConsultNow.setOnClickListener(this);
         btnStatus.setOnClickListener(this);
+        floatingMenu.setVisibility(View.VISIBLE);
+        btnTechnician.setVisibility(View.VISIBLE);
 
     }
 
@@ -155,11 +172,12 @@ public class AppointmentDetail extends CustomActivity implements View.OnClickLis
 
             case R.id.optionConsultNow:
                 getVideoCallConfigurations();
-
                 break;
 
             case R.id.optionTechnical:
-
+                getChatConfigurations();
+//                Intent mIntent  = new Intent(getApplicationContext(),ChatActivity.class);
+//                startActivity(mIntent);
                 break;
 
         }
@@ -190,15 +208,9 @@ public class AppointmentDetail extends CustomActivity implements View.OnClickLis
 //        tabContainer.addTab(tabContainer.newTab().setText(res.getString(R.string.appointment_detail_semi_analyser_title)));
 
 
-
-
 //        tabContainer.addTab(tabContainer.newTab().setText(res.getString(R.string.appointment_detail_urine_analyser_title)));
 
 //        tabContainer.addTab(tabContainer.newTab().setText(res.getString(R.string.appointment_detail_family_history_title)));
-
-
-
-
 
 
         // For reload reference : https://stackoverflow.com/questions/28494637/android-how-to-stop-refreshing-fragments-on-tab-change
@@ -233,9 +245,8 @@ public class AppointmentDetail extends CustomActivity implements View.OnClickLis
         tabPager.setCurrentItem(0);
     }
 
-    void setAppointmentParams()
-    {
-        try{
+    void setAppointmentParams() {
+        try {
             GlobValues.getInstance().setupAddAppointmentParams();
             GlobValues g = GlobValues.getInstance();
             Calendar calendar = Calendar.getInstance();
@@ -250,7 +261,7 @@ public class AppointmentDetail extends CustomActivity implements View.OnClickLis
 //            g.addAppointmentInputParams("PatLoc", "");
 //            g.addAppointmentInputParams("Lattitude", "");
 //            g.addAppointmentInputParams("Longitude", "");
-            g.addAppointmentInputParams("isInstant", ""+"1");
+            g.addAppointmentInputParams("isInstant", "" + "1");
             g.addAppointmentInputParams("ConsultNow", "1");
             g.addAppointmentInputParams("ComplaintDescp", "");
             g.addAppointmentInputParams("ClientID", AppPreferences.getInstance().getUserInfo().getString("ClientID"));
@@ -266,13 +277,13 @@ public class AppointmentDetail extends CustomActivity implements View.OnClickLis
 //            item.put("complaints", singleObj.getString("PresentComplaint"));
             GlobValues.getInstance().addAppointmentInputParams("ComplaintID", selectedAppointmentData.get("ComplaintID").toString());
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
-    public void getVideoCallConfigurations(){
+    public void getVideoCallConfigurations() {
 //        HashMap<String, Object> inputParams = AppPreferences.getInstance().sendingInputParam();
 //        inputParams.put("ComplaintID",GlobValues.getInstance().getSelectedAppointment());
         setAppointmentParams();
@@ -280,24 +291,24 @@ public class AppointmentDetail extends CustomActivity implements View.OnClickLis
         SoapAPIManager apiManager = new SoapAPIManager(this, appointmentinputParams, new APICallback() {
             @Override
             public void responseCallback(Context context, String response) throws JSONException {
-                Log.e("***response***",response);
+                Log.e("***response***", response);
 
-                try{
+                try {
                     JSONArray responseAry = new JSONArray(response);
-                    if(responseAry.length()>0){
+                    if (responseAry.length() > 0) {
                         JSONObject commonDataInfo = responseAry.getJSONObject(0);
-                        if(commonDataInfo.has("APIStatus") && Integer.parseInt(commonDataInfo.getString("APIStatus")) == -1){
-                            if(commonDataInfo.has("APIStatus") && !commonDataInfo.getString("Message").isEmpty()){
-                                Utilities.showAlert(context,commonDataInfo.getString("Message"),false);
-                            }else{
-                                Utilities.showAlert(context,"Please check again!",false);
+                        if (commonDataInfo.has("APIStatus") && Integer.parseInt(commonDataInfo.getString("APIStatus")) == -1) {
+                            if (commonDataInfo.has("APIStatus") && !commonDataInfo.getString("Message").isEmpty()) {
+                                Utilities.showAlert(context, commonDataInfo.getString("Message"), false);
+                            } else {
+                                Utilities.showAlert(context, "Please check again!", false);
                             }
                             return;
 
                         }
 //                        loadAppointments(responseAry);
-                        if(commonDataInfo.has("VCToekn") && !commonDataInfo.getString("VCToekn").isEmpty() &&
-                                commonDataInfo.has("VSSessionID") && !commonDataInfo.getString("VSSessionID").isEmpty()){
+                        if (commonDataInfo.has("VCToekn") && !commonDataInfo.getString("VCToekn").isEmpty() &&
+                                commonDataInfo.has("VSSessionID") && !commonDataInfo.getString("VSSessionID").isEmpty()) {
 //                            String TOKEN = commonDataInfo.getString("VCToekn");
 //                            String SESSION = commonDataInfo.getString("VSSessionID");
 //
@@ -316,14 +327,14 @@ public class AppointmentDetail extends CustomActivity implements View.OnClickLis
                             Intent intent = new Intent(context, VideoConference.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
+                            intent.putExtra("DocterId", selectedAppointmentData.get("doctorId").toString());
 //                            intent.putExtra("SESSION_ID",commonDataInfo.getString("VSSessionID"));
 //                            intent.putExtra("TOKEN",commonDataInfo.getString("VCToekn"));
 
                             OpenTokConfig.SESSION_ID = commonDataInfo.getString("VSSessionID");
                             OpenTokConfig.TOKEN = commonDataInfo.getString("VCToekn");
-                            intent.putExtra("CALER_NAME",doctorName.getText().toString());
-                            intent.putExtra("CALL_TYPE",2);
+                            intent.putExtra("CALER_NAME", doctorName.getText().toString());
+                            intent.putExtra("CALL_TYPE", 2);
 
                             context.startActivity(intent);
                             Utilities.pushAnimation((Activity) context);
@@ -331,23 +342,112 @@ public class AppointmentDetail extends CustomActivity implements View.OnClickLis
                         }
 
 
-
-
-
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
 
                 }
             }
-        },true);
-        String[] url = {Config.WEB_Services1,Config.INITIATE_VIDEO_CALL,"POST"};
+        }, true);
+        String[] url = {Config.WEB_Services1, Config.INITIATE_VIDEO_CALL, "POST"};
 
         if (Utilities.isNetworkAvailable(this)) {
             apiManager.execute(url);
-        }else{
+        } else {
 
         }
     }
+
+
+    public void getChatConfigurations() {
+//        HashMap<String, Object> inputParams = AppPreferences.getInstance().sendingInputParam();
+//        inputParams.put("ComplaintID",GlobValues.getInstance().getSelectedAppointment());
+//        HashMap<String, Object> appointmentinputParams = GlobValues.getInstance().getSelectedIssuesList();
+
+
+        HashMap<String, Object> inputParams = new HashMap<String, Object>();
+        inputParams.put("UserID", mStrDocId);
+
+        try {
+            JSONObject accInfo = AppPreferences.getInstance().getUserInfo();
+
+            inputParams.put("UserName", accInfo.getString("FirstName") + accInfo.getString("LastName"));
+            inputParams.put("UserType", "DOC");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        SoapAPIManager apiManager = new SoapAPIManager(this, inputParams, new APICallback() {
+            @Override
+            public void responseCallback(Context context, String response) throws JSONException {
+                Log.e("***response***", response);
+
+                try {
+                    JSONArray responseAry = new JSONArray(response);
+                    if (responseAry.length() > 0) {
+                        JSONObject commonDataInfo = responseAry.getJSONObject(0);
+                        if (commonDataInfo.has("APIStatus") && Integer.parseInt(commonDataInfo.getString("APIStatus")) == -1) {
+                            if (commonDataInfo.has("APIStatus") && !commonDataInfo.getString("Message").isEmpty()) {
+                                Utilities.showAlert(context, commonDataInfo.getString("Message"), false);
+                            } else {
+                                Utilities.showAlert(context, "Please check again!", false);
+                            }
+                            return;
+
+                        }
+//                        loadAppointments(responseAry);
+                        if (commonDataInfo.has("RespText")) {
+                            JSONObject jsonObject = new JSONObject(commonDataInfo.getString("RespText"));
+                            if (jsonObject.has("TokenId") && !jsonObject.getString("TokenId").isEmpty() &&
+                                    jsonObject.has("Sessionid") && !jsonObject.getString("Sessionid").isEmpty()) {
+                                Intent intent = new Intent(context, ChatActivity.class);
+                                intent.putExtra("Option", "0");
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                intent.putExtra("doctorName", mStrDocName);
+
+                                OpenTokConfig.SESSION_ID = jsonObject.getString("Sessionid");
+                                OpenTokConfig.TOKEN = jsonObject.getString("TokenId");
+
+
+                                context.startActivity(intent);
+                                Utilities.pushAnimation((Activity) context);
+
+                            }
+                        }
+
+//                            String TOKEN = commonDataInfo.getString("VCToekn");
+//                            String SESSION = commonDataInfo.getString("VSSessionID");
+//
+//                            Intent intent = new Intent(context, VideoCaller.class);
+//                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//
+//                            intent.putExtra("SESSION_ID",SESSION);
+//                            intent.putExtra("TOKEN",TOKEN);
+//
+//                            intent.putExtra("CALER_NAME",docName.getText().toString());
+//                            intent.putExtra("CALL_TYPE",2);
+//                            startActivity(intent);
+//                            Utilities.pushAnimation(context);
+
+
+                    }
+                } catch (Exception e) {
+
+                }
+            }
+        }, true);
+        String[] url = {Config.WEB_Services5, Config.INITIATE_CHAT, "POST"};
+
+        if (Utilities.isNetworkAvailable(this)) {
+            apiManager.execute(url);
+        } else {
+
+        }
+    }
+
+
 //    public void getVideoCallConfigurations(){
 //        final HashMap<String, Object> inputParams = AppPreferences.getInstance().sendingInputParam();
 //

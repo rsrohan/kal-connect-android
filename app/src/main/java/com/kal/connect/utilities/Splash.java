@@ -2,7 +2,6 @@ package com.kal.connect.utilities;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -11,27 +10,28 @@ import android.os.Handler;
 //import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.kal.connect.R;
-import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
-import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
 import com.kal.connect.customLibs.fcm.OnClearFromRecentService;
 import com.kal.connect.modules.dashboard.Dashboard;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.json.JSONException;
-
-import java.util.HashMap;
-
 public class Splash extends AppCompatActivity {
 
     TextView txtTitle;
+    private FirebaseRemoteConfig mFirebaseRemoteConfig;
+    private static final String WELCOME_MESSAGE_KEY = "welcome_message";
+    private FirebaseCrashlytics crashlytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +39,40 @@ public class Splash extends AppCompatActivity {
         setContentView(R.layout.splash);
         txtTitle = (TextView) findViewById(R.id.txtTitle);
 
+
+
+        mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
+                .setMinimumFetchIntervalInSeconds(3600)
+                .build();
+        mFirebaseRemoteConfig.setConfigSettingsAsync(configSettings);
+
+        mFirebaseRemoteConfig.setDefaultsAsync(R.xml.remote_config_defaults);
+
+
+        mFirebaseRemoteConfig.fetchAndActivate()
+                .addOnCompleteListener(this, new OnCompleteListener<Boolean>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Boolean> task) {
+                        if (task.isSuccessful()) {
+                            boolean updated = task.getResult();
+                            String welcomeMessage = mFirebaseRemoteConfig.getString(WELCOME_MESSAGE_KEY);
+
+                            Config.minVersionCode = Integer.parseInt(mFirebaseRemoteConfig.getString("versionCode"));
+
+                            System.out.println("Config.minVersionCode: " + Config.minVersionCode);
+                            System.out.println("Config params welcomeMessage: " + welcomeMessage);
+
+                        } else {
+                            System.out.println("task Details"+task.getException());
+                        }
+                    }
+                });
+
+
+
+
         startService(new Intent(getBaseContext(), OnClearFromRecentService.class));
-//        getVideoCallConfigurations();
         AppPreferences.localaizationStatus = true;
         Utilities.updateLanguageSettings(Splash.this);
 
@@ -54,7 +86,9 @@ public class Splash extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
                     @Override
                     public void onComplete(@NonNull Task<InstanceIdResult> task) {
+
                         if (!task.isSuccessful()) {
+                            System.out.println(""+task.getException());
                             return;
                         }
 
@@ -65,6 +99,7 @@ public class Splash extends AppCompatActivity {
 
                     }
                 });
+
 
         /* New Handler to start the Menu-Activity
          * and close this Splash-Screen after some seconds.*/
@@ -90,7 +125,6 @@ public class Splash extends AppCompatActivity {
                     homeScreen.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(homeScreen);
                 }
-//
 //                Splash.this.finish();
 
             }
@@ -120,27 +154,8 @@ public class Splash extends AppCompatActivity {
         }
     }
 
-    public void getVideoCallConfigurations() {
-//        HashMap<String, Object> inputParams = AppPreferences.getInstance().sendingInputParam();
-//        inputParams.put("ComplaintID",GlobValues.getInstance().getSelectedAppointment());
-        HashMap<String, Object> endCallParams = new HashMap<>();
-        endCallParams.put("User_id", "40915");
-        SoapAPIManager apiManager = new SoapAPIManager(Splash.this, endCallParams, new APICallback() {
-            @Override
-            public void responseCallback(Context context, String response) throws JSONException {
-                Log.e("***response***", response);
 
 
-            }
-        }, true);
-        String[] url = {Config.WEB_Services4, Config.END_CALL, "POST"};
-
-        if (Utilities.isNetworkAvailable(Splash.this)) {
-            apiManager.execute(url);
-        } else {
-
-        }
-    }
 
 
 }

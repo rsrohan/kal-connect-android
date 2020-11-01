@@ -58,10 +58,6 @@
     <!-- Issue descriptor -->
     <string name="issue_descriptor_title">Describe your issue</string>
 
-
-
-
-
     <!-- MARK : Appointments Details - Screen -->
     <string name="appointment_detail_title">Consult Details</string>
     <string name="appointment_detail_consult">Consult Now</string>
@@ -139,7 +135,7 @@
 
     <string name="increment">+</string>
     <string name="decrement">-</string>
-    <string name="display">1</string>
+    <string name="display">0</string>
 
 
     <!-- ||||||||||||||||||||||||||     Project Setup    ||||||||||||||||||||||||| -->
@@ -170,9 +166,8 @@
     <string name="alert_logout">Are you sure that you want to logout?</string>
     <string name="alert_delete">Are you sure that you want to delete?</string>
 
-    <string name="alert_exit">Are you sure want to exit?</string>
+    <string name="alert_exit">Are you sure you want to exit ?</string>
     <string name="alert_map_options">Please update your current location ,it will be helpful to send our Medical Assistant if required.</string>
-
 
 
     <!-- Buttons -->
@@ -216,7 +211,7 @@
     <string name="negative">Negative</string>
     <string name="not_tested">NA</string>
 
-    <string name="tech_required">Select if you want our Medical Assistant or Medicine to visit home</string>
+    <string name="tech_required">Select if you want our medical Assistant to visit or Medicines to be delivered at home.</string>
 
     <string name="powered_by">Telemedicine Solution by Medi360</string>
 
@@ -294,6 +289,11 @@
     <string name="presenting_complaints">Presenting Complaints</string>
     <string name="doc_disable_msg">Doctor is viewing your reports ... Please wait</string>
 
+
+    <string name="update_title">Update Kerala Ayurveda Connect?</string>
+    <string name="update_message">"An update for Kerala Ayurveda Connect is available on Play Store."</string>
+    <string name="btn_update">Update</string>
+    <string name="btn_later">No Thanks</string>
 
 
 

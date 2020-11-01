@@ -198,7 +198,7 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
                 if (selectedItem.get("appointmentId") != null) {
                     GlobValues.getInstance().setSelectedAppointment(selectedItem.get("appointmentId").toString());
                     GlobValues.getInstance().setSelectedAppointmentData(selectedItem);
-                    getAppointmentsDetails();
+                    getAppointmentsDetails(doctorName,item.get("doctorId").toString());
                 }
             }
         });
@@ -220,7 +220,7 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
         this.itemClickListener = clickListener;
     }
 
-    void getAppointmentsDetails() {
+    void getAppointmentsDetails(String doctorName,String docId) {
 
 
         HashMap<String, Object> inputParams = AppPreferences.getInstance().sendingInputParam();
@@ -250,6 +250,8 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
 //                        loadAppointments(responseAry);
                         GlobValues.getInstance().setAppointmentCompleteDetails(responseAry.getJSONObject(0));
                         Intent detailsScreen = new Intent(mContext, AppointmentDetail.class);
+                        detailsScreen.putExtra("doctorName",doctorName);
+                        detailsScreen.putExtra("docId",docId);
                         mContext.startActivity(detailsScreen);
 
                         Utilities.pushAnimation(mActivity);
@@ -303,6 +305,8 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
 
         }
     }
+
+
 
 }
 

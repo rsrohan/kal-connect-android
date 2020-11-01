@@ -291,7 +291,7 @@ public class Home extends Fragment implements SearchView.OnQueryTextListener, Vi
 
     public void updateSelectedIssue() {
 
-//        selectedIssuesList.add(new Issues("11","Fever",0));
+//        selectedIssuesList.add(new Issues("11","Fever",0))
 //        selectedIssuesList.add(new Issues("11","Cough",0));
         selectedIssueAdapter.notifyDataSetChanged();
         sectionAdapter.notifyDataSetChanged();

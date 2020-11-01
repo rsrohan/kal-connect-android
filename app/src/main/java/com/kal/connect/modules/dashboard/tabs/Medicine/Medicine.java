@@ -1,6 +1,8 @@
 package com.kal.connect.modules.dashboard.tabs.Medicine;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,10 +20,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.kal.connect.R;
 import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
 import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
+import com.kal.connect.customLibs.appCustomization.CustomActivity;
 import com.kal.connect.utilities.AppComponents;
 import com.kal.connect.utilities.AppPreferences;
 import com.kal.connect.utilities.Config;
@@ -37,38 +42,47 @@ import java.util.HashMap;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class Medicine extends Fragment implements View.OnClickListener {
+public class Medicine extends CustomActivity implements View.OnClickListener {
 
-    // MARK : UIElements
-    View view;
     private ArrayList<HashMap<String, Object>> dataItems = new ArrayList<HashMap<String, Object>>();
     RecyclerView vwAppointments;
-    MedicineAdapter dataAdapter = null;
-    Button mBtnAddToCard, mBtnGoToCatalog;
-
+    public MedicineAdapter dataAdapter = null;
+    ImageView mImgAddProduct, mImgOrder, mImgUplod;
+    TextView mTxtPlaceOrder, mTxtAddProduct, mTxtUpload;
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout mSwipeRefreshLayout;
 
-    // MARK : Lifecycle
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.medicine, container, false);
-        ButterKnife.bind(this, view);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.medicine);
+
+        ButterKnife.bind(this);
         buildUI();
-        return view;
 
     }
 
     private void buildUI() {
 
-        mBtnAddToCard = (Button) view.findViewById(R.id.add_to_card);
-        mBtnGoToCatalog = (Button) view.findViewById(R.id.goto_product);
-        vwAppointments = (RecyclerView) view.findViewById(R.id.appointmentsView);
+        mTxtAddProduct = (TextView) findViewById(R.id.txt_add_product);
+        mTxtPlaceOrder = (TextView) findViewById(R.id.txt_place_order);
+        mTxtUpload = (TextView) findViewById(R.id.txt_upload);
+
+        mImgAddProduct = (ImageView) findViewById(R.id.img_product);
+        mImgOrder = (ImageView) findViewById(R.id.img_order);
+        mImgUplod = (ImageView) findViewById(R.id.img_upload_descr);
+
+        setHeaderView(R.id.headerView, Medicine.this, Medicine.this.getResources().getString(R.string.tab_medicine));
+        headerView.showBackOption();
+
+
+        vwAppointments = (RecyclerView) findViewById(R.id.appointmentsView);
         buildListView();
         getMedicineList();
 
-        mSwipeRefreshLayout.setColorSchemeColors(Utilities.getColor(getContext(), R.color.colorPrimary), Utilities.getColor(getContext(), R.color.colorPrimaryDark), Utilities.getColor(getContext(), R.color.colorPrimary));
+        mSwipeRefreshLayout.setColorSchemeColors(Utilities.getColor(getApplicationContext(), R.color.colorPrimary), Utilities.getColor(getApplicationContext(), R.color.colorPrimaryDark), Utilities.getColor(Medicine.this, R.color.colorPrimary));
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -83,8 +97,8 @@ public class Medicine extends Fragment implements View.OnClickListener {
 
     private void buildListView() {
 
-        dataAdapter = new MedicineAdapter(dataItems, getActivity(), mBtnAddToCard, mBtnGoToCatalog);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        dataAdapter = new MedicineAdapter(Medicine.this, dataItems, Medicine.this, mImgAddProduct, mImgOrder, mImgUplod, mTxtAddProduct, mTxtPlaceOrder, mTxtUpload);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(Medicine.this, LinearLayoutManager.VERTICAL, false);
 
         vwAppointments.setNestedScrollingEnabled(false);
         vwAppointments.setLayoutManager(mLayoutManager);
@@ -92,33 +106,32 @@ public class Medicine extends Fragment implements View.OnClickListener {
         vwAppointments.setAdapter(dataAdapter);
 
 
-        if (getActivity() != null)
-            AppComponents.reloadDataWithEmptyHint(vwAppointments, dataAdapter, dataItems, getActivity().getResources().getString(R.string.no_appointments_found));
-
-//        dataAdapter.setOnItemClickListener(new AppointmentsAdapter.ItemClickListener() {
-//
-//            @Override
-//            public void onItemClick(int position, View v) {
-//
-//                HashMap<String, Object> selectedItem = dataItems.get(position);
-//                if (selectedItem.get("appointmentId") != null) {
-//                    GlobValues.getInstance().setSelectedAppointment(selectedItem.get("appointmentId").toString());
-//                    GlobValues.getInstance().setSelectedAppointmentData(selectedItem);
-//                    getAppointmentsDetails();
-//                }
-//
-//            }
-//
-//        });
+        if (Medicine.this != null)
+            AppComponents.reloadDataWithEmptyHint(vwAppointments, dataAdapter, dataItems, Medicine.this.getResources().getString(R.string.no_appointments_found));
 
     }
 
-    // MARK : UIActions
     @Override
     public void onClick(View v) {
 
         switch (v.getId()) {
 
+        }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && requestCode == 101) {
+            ProductModel mProductModel = (ProductModel) data.getSerializableExtra("Model");
+            HashMap<String, Object> mHashMapAddToCard = new HashMap<>();
+            mHashMapAddToCard.put("Medicinename", mProductModel.getMedicineName());
+            mHashMapAddToCard.put("amount", mProductModel.getDiscountedprice());
+            mHashMapAddToCard.put("ReportComment", mProductModel.getMeddiscription());
+            mHashMapAddToCard.put("isEnabled", false);
+            dataItems.add(mHashMapAddToCard);
+            dataAdapter.notifyDataSetChanged();
         }
 
     }
@@ -158,7 +171,7 @@ public class Medicine extends Fragment implements View.OnClickListener {
             @Override
             public void run() {
                 try {
-                    AppComponents.reloadDataWithEmptyHint(vwAppointments, dataAdapter, dataItems, getActivity().getResources().getString(R.string.no_data_found));
+                    AppComponents.reloadDataWithEmptyHint(vwAppointments, dataAdapter, dataItems, Medicine.this.getResources().getString(R.string.no_data_found));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -169,11 +182,11 @@ public class Medicine extends Fragment implements View.OnClickListener {
 
     }
 
-    void getMedicineList() {
+    public void getMedicineList() {
         HashMap<String, Object> inputParams = AppPreferences.getInstance().sendingInputParamBuyMedicine();
 
 
-        SoapAPIManager apiManager = new SoapAPIManager(getContext(), inputParams, new APICallback() {
+        SoapAPIManager apiManager = new SoapAPIManager(Medicine.this, inputParams, new APICallback() {
             @Override
             public void responseCallback(Context context, String response) throws JSONException {
                 Log.e("***response***", response);
@@ -184,25 +197,26 @@ public class Medicine extends Fragment implements View.OnClickListener {
                         JSONObject commonDataInfo = responseAry.getJSONObject(0);
                         if (commonDataInfo.has("APIStatus") && Integer.parseInt(commonDataInfo.getString("APIStatus")) == -1) {
                             if (commonDataInfo.has("Message") && commonDataInfo.getString("Message").isEmpty()) {
-                                Utilities.showAlert(getContext(), commonDataInfo.getString("Message"), false);
+                                Utilities.showAlert(Medicine.this, commonDataInfo.getString("Message"), false);
                             } else {
-                                Utilities.showAlert(getContext(), "Please check again!", false);
+                                Utilities.showAlert(Medicine.this, "Please check again!", false);
                             }
                             return;
 
                         }
                         loadAppointments(responseAry);
-
                     }
                 } catch (Exception e) {
 
+                } finally {
+                    mSwipeRefreshLayout.setRefreshing(false);
+                    dataAdapter.notifyDataSetChanged();
                 }
-                mSwipeRefreshLayout.setRefreshing(false);
             }
         }, true);
         String[] url = {Config.WEB_Services1, Config.GET_BUY_MEDICINE, "POST"};
 
-        if (Utilities.isNetworkAvailable(getContext())) {
+        if (Utilities.isNetworkAvailable(Medicine.this)) {
             apiManager.execute(url);
         } else {
 

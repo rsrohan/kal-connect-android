@@ -19,6 +19,7 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.kal.connect.R;
+import com.kal.connect.utilities.PlayStoreUpdateView;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -47,14 +48,13 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-public class Dashboard extends CustomMapActivity implements View.OnClickListener{
+public class Dashboard extends CustomMapActivity implements View.OnClickListener {
 
     // MARK : Properties
     BottomNavigationView bottomTab = null;
 
     Home homeFragment;
     Appointments appointmentFragment;
-
 
 
     // MARK : Lifecycle
@@ -80,21 +80,20 @@ public class Dashboard extends CustomMapActivity implements View.OnClickListener
         buildBottomTabs();
         getStateCityList();
 
-        try{
-            if(GlobValues.getInstance().getAddAppointmentParams() != null)
+        try {
+            if (GlobValues.getInstance().getAddAppointmentParams() != null)
                 GlobValues.getInstance().getAddAppointmentParams().clear();
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
 
 
-        if(getIntent().hasExtra("FromNotification") && getIntent().getBooleanExtra("FromNotification",false))
-        {
+        if (getIntent().hasExtra("FromNotification") && getIntent().getBooleanExtra("FromNotification", false)) {
             loadFragment(new Appointments());
             bottomTab.setSelectedItemId(R.id.tab_appointments);
 
-        }else{
-            if(homeFragment == null){
+        } else {
+            if (homeFragment == null) {
                 homeFragment = new Home();
             }
             loadFragment(homeFragment);
@@ -111,11 +110,14 @@ public class Dashboard extends CustomMapActivity implements View.OnClickListener
                                 Manifest.permission.CALL_PHONE
 
                         ).withListener(new MultiplePermissionsListener() {
-                    @Override public void onPermissionsChecked(MultiplePermissionsReport report) {
+                    @Override
+                    public void onPermissionsChecked(MultiplePermissionsReport report) {
                         Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "7575005555"));
                         startActivity(intent);
                     }
-                    @Override public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {/* ... */}
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {/* ... */}
                 }).check();
 
             }
@@ -169,22 +171,23 @@ public class Dashboard extends CustomMapActivity implements View.OnClickListener
                 switch (item.getItemId()) {
 
                     case R.id.tab_home:
-                        if(homeFragment == null){
+                        if (homeFragment == null) {
                             homeFragment = new Home();
                         }
                         pageToShow = homeFragment;
                         break;
 
                     case R.id.tab_appointments:
-                        if(appointmentFragment == null){
+                        if (appointmentFragment == null) {
                             appointmentFragment = new Appointments();
                         }
                         pageToShow = appointmentFragment;
                         break;
 
                     case R.id.tab_medicine:
-                        pageToShow = new Medicine();
-
+//                        pageToShow = new Medicine();
+                        Intent mIntent = new Intent(Dashboard.this, Medicine.class);
+                        startActivity(mIntent);
                         break;
 
                     case R.id.tab_account:
@@ -194,7 +197,7 @@ public class Dashboard extends CustomMapActivity implements View.OnClickListener
                 }
 
                 // load selected page
-                if(pageToShow != null) {
+                if (pageToShow != null) {
                     loadFragment(pageToShow);
                 }
 
@@ -237,8 +240,7 @@ public class Dashboard extends CustomMapActivity implements View.OnClickListener
         Utilities.showAlertDialogWithOptions(Dashboard.this, getResources().getString(R.string.alert_exit), new String[]{getResources().getString(R.string.btn_yes), getResources().getString(R.string.cancel)}, new UtilitiesInterfaces.AlertCallback() {
             @Override
             public void onOptionClick(DialogInterface dialog, int buttonIndex) {
-                if(buttonIndex == 0)
-                {
+                if (buttonIndex == 0) {
                     finish();
                 }
             }
@@ -255,32 +257,32 @@ public class Dashboard extends CustomMapActivity implements View.OnClickListener
                 String addressInfo = "";
                 if (status) {
 
-                    if (selectedPlace != null){
+                    if (selectedPlace != null) {
 
                         // Name
-                        addressInfo = (selectedPlace.getName() != null && selectedPlace.getName().length() > 0)? selectedPlace.getName().toString() : addressInfo;
+                        addressInfo = (selectedPlace.getName() != null && selectedPlace.getName().length() > 0) ? selectedPlace.getName().toString() : addressInfo;
 
                         // Address
-                        addressInfo = (selectedPlace.getAddress() != null && selectedPlace.getAddress().length() > 0)? addressInfo + ", " + selectedPlace.getAddress().toString() : addressInfo;
+                        addressInfo = (selectedPlace.getAddress() != null && selectedPlace.getAddress().length() > 0) ? addressInfo + ", " + selectedPlace.getAddress().toString() : addressInfo;
 
                         // Phone
 //                        addressInfo = (selectedPlace.getPhoneNumber() != null && selectedPlace.getPhoneNumber().length() > 0)? addressInfo + ", Phone: " + selectedPlace.getPhoneNumber().toString() : addressInfo;
 
                         // Location
-                        addressInfo = (selectedPlace.getLatLng() != null)? addressInfo + ", " + selectedPlace.getLatLng() : addressInfo;
+                        addressInfo = (selectedPlace.getLatLng() != null) ? addressInfo + ", " + selectedPlace.getLatLng() : addressInfo;
                         HashMap<String, Object> inputParams = AppPreferences.getInstance().sendingInputParam();
 
-                        inputParams.put("Lattitude",""+selectedPlace.getLatLng().latitude);
-                        inputParams.put("Longitude",""+selectedPlace.getLatLng().longitude);
-                        inputParams.put("LocationAddress",addressInfo);
-                        Utilities.updateLocation(Dashboard.this,inputParams);
+                        inputParams.put("Lattitude", "" + selectedPlace.getLatLng().latitude);
+                        inputParams.put("Longitude", "" + selectedPlace.getLatLng().longitude);
+                        inputParams.put("LocationAddress", addressInfo);
+                        Utilities.updateLocation(Dashboard.this, inputParams);
 
                     }
 
                 }
 
                 // Set the address details
-                if(addressInfo.length() > 0){
+                if (addressInfo.length() > 0) {
 
 //                    addressTxtVw.setVisibility(View.VISIBLE);
 //                    addressTxtVw.setText(addressInfo);
@@ -353,7 +355,6 @@ public class Dashboard extends CustomMapActivity implements View.OnClickListener
                         GlobValues.setStateAry(stateAry);
 
 
-
                     }
                 } catch (Exception e) {
 
@@ -367,6 +368,12 @@ public class Dashboard extends CustomMapActivity implements View.OnClickListener
         } else {
 
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        PlayStoreUpdateView.versionCheck1(Dashboard.this);
     }
 }
 

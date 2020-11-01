@@ -1,6 +1,7 @@
 package com.kal.connect.customLibs.fcm;
 
 import android.app.ActivityManager;
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -18,14 +19,17 @@ import androidx.core.app.NotificationManagerCompat;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.kal.connect.R;
+import com.kal.connect.modules.communicate.ChatActivity;
 import com.kal.connect.modules.communicate.IncommingCall;
 import com.kal.connect.modules.communicate.OpenTokConfig;
+import com.kal.connect.modules.communicate.VideoConference;
 import com.kal.connect.modules.communicate.services.HeadsUpNotificationService;
 import com.kal.connect.modules.dashboard.Dashboard;
 import com.kal.connect.utilities.AppPreferences;
+import com.kal.connect.utilities.Config;
 import com.kal.connect.utilities.Splash;
 
-
+import java.util.Iterator;
 import java.util.Map;
 
 
@@ -35,28 +39,27 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage message) {
 
         Map<String, String> messageData = message.getData();
-        if (messageData.containsKey("title") && message.getData().get("title").toString().toLowerCase().contains("video")) {
+        PowerManager pm = (PowerManager) getApplicationContext().getSystemService(Context.POWER_SERVICE);
+        boolean isScreenOn = pm.isInteractive();
+
+        ActivityManager.RunningAppProcessInfo myProcess = new ActivityManager.RunningAppProcessInfo();
+        ActivityManager.getMyMemoryState(myProcess);
+        Boolean isInBackground = myProcess.importance != ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND;
+        if (messageData.containsKey("title") && message.getData().get("title").toString().contains("Video Call")) {
             if (messageData.containsKey("sessionID") && messageData.containsKey("tokenID")) {
                 OpenTokConfig.SESSION_ID = message.getData().get("sessionID");
                 OpenTokConfig.TOKEN = message.getData().get("tokenID");
-                PowerManager pm = (PowerManager) getApplicationContext().getSystemService(Context.POWER_SERVICE);
-                boolean isScreenOn = pm.isInteractive();
-
-                ActivityManager.RunningAppProcessInfo myProcess = new ActivityManager.RunningAppProcessInfo();
-                ActivityManager.getMyMemoryState(myProcess);
-
-                Boolean isInBackground = myProcess.importance != ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND;
-
-
-//                if (!isInBackground) {
 
                 if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
                     if (!isScreenOn) {
-                        sendNotification(this);
+                        sendNotification(this, "", message.getData().get("title").toString(), message.getData().get("SpecialistID").toString());
                         return;
                     } else {
                         if (!isInBackground) {
                             Intent fullScreenIntent = new Intent(getApplicationContext(), IncommingCall.class);
+                            if (message.getData().containsKey("SpecialistID")) {
+                                fullScreenIntent.putExtra("SpecialistID", message.getData().get("SpecialistID").toString());
+                            }
                             fullScreenIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             fullScreenIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(fullScreenIntent);
@@ -65,6 +68,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                             Intent headsup = new Intent(this, HeadsUpNotificationService.class);
                             headsup.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             headsup.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            if (message.getData().containsKey("SpecialistID")) {
+                                headsup.putExtra("SpecialistID", message.getData().get("SpecialistID").toString());
+                            }
                             headsup.putExtra("CALER_NAME", message.getData().get("body").toString());
                             headsup.putExtra("CALL_TYPE", 1);
                             startService(headsup);
@@ -73,11 +79,18 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     }
                 } else {
                     if (!isScreenOn) {
-                        sendNotification(this);
+                        if (message.getData().containsKey("SpecialistID")) {
+                            sendNotification(this, "", message.getData().get("title").toString(), message.getData().get("SpecialistID").toString());
+                        } else {
+                            sendNotification(this, "", message.getData().get("title").toString(), "");
+                        }
                         return;
                     } else {
                         if (!isInBackground) {
                             Intent fullScreenIntent = new Intent(getApplicationContext(), IncommingCall.class);
+                            if (message.getData().containsKey("SpecialistID")) {
+                                fullScreenIntent.putExtra("SpecialistID", message.getData().get("SpecialistID").toString());
+                            }
                             fullScreenIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             fullScreenIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(fullScreenIntent);
@@ -86,6 +99,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                             Intent headsup = new Intent(this, HeadsUpNotificationService.class);
                             headsup.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             headsup.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            if (message.getData().containsKey("SpecialistID")) {
+                                headsup.putExtra("SpecialistID", message.getData().get("SpecialistID").toString());
+                            }
                             headsup.putExtra("CALER_NAME", message.getData().get("body").toString());
                             headsup.putExtra("CALL_TYPE", 1);
                             startService(headsup);
@@ -93,91 +109,68 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         }
                     }
 
-//                    if (!isInBackground) {
-//                        Intent fullScreenIntent = new Intent(getApplicationContext(), IncommingCall.class);
-//                        fullScreenIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                        fullScreenIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                        startActivity(fullScreenIntent);
-//                        return;
-//                    } else {
-////                        Intent headsup = new Intent(this, HeadsUpNotificationService.class);
-////                        headsup.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-////                        headsup.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-////                        headsup.putExtra("CALER_NAME", message.getData().get("body").toString());
-////                        headsup.putExtra("CALL_TYPE", 1);
-////                        startService(headsup);
-//                        sendNotification(this);
-//                        return;
-//                    }
                 }
-
-//                } else {
-//                    Intent headsup = new Intent(this, HeadsUpNotificationService.class);
-//                    headsup.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                    headsup.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                    headsup.putExtra("CALER_NAME", message.getData().get("body").toString());
-//                    headsup.putExtra("CALL_TYPE", 1);
-//                    startService(headsup);
-//                }
-
-
-//                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
-//
-//                } else {
-//                    if (!isScreenOn) {
-//                        if (!AppPreferences.getInstance().getIsAppKilled()) {
-//                            Intent headsup = new Intent(this, HeadsUpNotificationService.class);
-//                            headsup.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                            headsup.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                            headsup.putExtra("CALER_NAME", message.getData().get("body").toString());
-//                            headsup.putExtra("CALL_TYPE", 1);
-//                            startService(headsup);
-//                        }
-//                        return;
-//                    } else {
-//                        Intent fullScreenIntent = new Intent(getApplicationContext(), IncommingCall.class);
-//                        fullScreenIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                        fullScreenIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                        startActivity(fullScreenIntent);
-////                        sendNotification(this);
-//                        return;
-//                    }
-//                }
-
-//                if (!isScreenOn) {
-//
-//                } else {
-//                    Intent fullScreenIntent = new Intent(getApplicationContext(), IncommingCall.class);
-//                    fullScreenIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                    fullScreenIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                    startActivity(fullScreenIntent);
-//                }
             }
-        } else if (messageData.containsKey("title") && message.getData().get("title").toString().toLowerCase().contains("appointment") && messageData.containsKey("Notificationmessage")) {
+        } else if (messageData.containsKey("title") && message.getData().get("title") != null && message.getData().get("title").toString().toLowerCase().contains("appointment") && messageData.containsKey("Notificationmessage")) {
             prepareNotificationForRemainder(message.getData().get("Notificationmessage").toString());
+        } else if (messageData.containsKey("title") && message.getData().get("title").equalsIgnoreCase("Chat")) {
+
+            OpenTokConfig.SESSION_ID = message.getData().get("sessionID");
+            OpenTokConfig.TOKEN = message.getData().get("tokenID");
+            Config.isBack = true;
+            if (!isInBackground) {
+                Intent fullScreenIntent = new Intent(getApplicationContext(), ChatActivity.class);
+                fullScreenIntent.putExtra("doctorName", message.getData().get("body"));
+                fullScreenIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                        | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(fullScreenIntent);
+            } else {
+                sendNotification(this, message.getData().get("body"), message.getData().get("title").toString(), "");
+            }
+        } else if (messageData.containsKey("title") && message.getData().get("title").toString().equalsIgnoreCase("Decline Call")) {
+            try {
+                if (Config.mActivity != null && !Config.mActivity.getClass().getSimpleName().equalsIgnoreCase("VideoConference")) {
+                    ((IncommingCall) Config.mActivity).moveToHome();
+                } else {
+                    Intent homeScreen = new Intent(getApplicationContext(), Dashboard.class);
+                    homeScreen.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(homeScreen);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    public void sendNotification(final Context context) {
+    public void sendNotification(final Context context, String body, String type, String specialistID) {
 
         if (!AppPreferences.getInstance().getIsAppKilled()) {
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-            Intent fullScreenIntent = new Intent(context, IncommingCall.class);
+            Intent fullScreenIntent = null;
+            if (type != null && !type.equalsIgnoreCase("Chat")) {
+                type = "VideoCall";
+                fullScreenIntent = new Intent(context, IncommingCall.class);
+                fullScreenIntent.putExtra("SpecialistID", specialistID);
+            } else {
+                fullScreenIntent = new Intent(context, ChatActivity.class);
+                fullScreenIntent.putExtra("doctorName", body);
+            }
             PendingIntent fullScreenPendingIntent = PendingIntent.getActivity(context, 0,
                     fullScreenIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
             Uri alarmTone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
             NotificationCompat.Builder notificationBuilder =
-                    new NotificationCompat.Builder(context, "VideoCall")
+                    new NotificationCompat.Builder(context, type)
                             .setSmallIcon(R.mipmap.ayurvedha)
-                            .setContentTitle("VideoCall")
+                            .setContentTitle(type)
+                            .setSubText(body)
                             .setShowWhen(true)
                             .setPriority(NotificationCompat.PRIORITY_HIGH)
                             .setCategory(NotificationCompat.CATEGORY_ALARM)
                             .setAutoCancel(true)
                             .setSound(alarmTone)
-                            .setTimeoutAfter(6000)
+//                            .setTimeoutAfter(10000)
                             .setFullScreenIntent(fullScreenPendingIntent, true).setAutoCancel(true);
             long[] v = new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400};
             notificationBuilder.setVibrate(v);
@@ -188,14 +181,15 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 int importance = NotificationManager.IMPORTANCE_HIGH;
-                NotificationChannel notificationChannel = new NotificationChannel("VideoCall", "VideoCall", importance);
+                NotificationChannel notificationChannel = new NotificationChannel(type, type, importance);
                 notificationChannel.enableLights(true);
                 notificationChannel.setLightColor(Color.RED);
                 notificationChannel.enableVibration(true);
                 notificationChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
-                notificationBuilder.setChannelId("VideoCall");
+                notificationBuilder.setChannelId(type);
                 notificationManager.createNotificationChannel(notificationChannel);
             }
+            notificationBuilder.build().flags |= Notification.FLAG_AUTO_CANCEL;
             notificationManager.notify(987, notificationBuilder.build());
         }
 //        startForeground(987, notificationBuilder.build());
@@ -206,27 +200,28 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private void sendMyNotification(String message) {
 
         //On click of notification it redirect to this Activity
-//        Intent intent = new Intent(this, CallerUI.class);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//
-//        startActivity(intent);
+        Intent intent = new Intent(this, ChatActivity.class);
+        intent.putExtra("doctorName", message);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-//        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
-//
-//        Uri soundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-//        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-//                .setSmallIcon(R.mipmap.ic_launcher)
-//                .setContentTitle("My Firebase Push notification")
-//                .setContentText(message)
-//                .setAutoCancel(true)
-//                .setSound(soundUri)
-//                .setContentIntent(pendingIntent);
-//
-//        NotificationManager notificationManager =
-//                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-//
-//        notificationManager.notify(0, notificationBuilder.build());
+        startActivity(intent);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+
+        Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle("My Firebase Push notification")
+                .setContentText(message)
+                .setAutoCancel(true)
+                .setSound(soundUri)
+                .setContentIntent(pendingIntent);
+
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        notificationManager.notify(0, notificationBuilder.build());
 
     }
 

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 //import com.aayurveda.doctor.R;
 import androidx.annotation.Nullable;
@@ -58,6 +59,9 @@ public class PatientDetails extends Fragment {
         View view = inflater.inflate(R.layout.patient_details, container, false);
         sectionedAdapter = new SectionedRecyclerViewAdapter();
 
+
+
+
         mRvPatient = (RecyclerView) view.findViewById(R.id.rv_patient);
         mRvPatient.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRvPatient.setHasFixedSize(true);
@@ -77,6 +81,8 @@ public class PatientDetails extends Fragment {
         mEdtExercise = (EditText) view.findViewById(R.id.excercise);
         mEdtMenstruval = (EditText) view.findViewById(R.id.menstrual);
         getAllAyurvedaModules();
+
+
         return view;
     }
 

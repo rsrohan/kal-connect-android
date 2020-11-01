@@ -84,6 +84,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/vwContainer"
         app:maxImageSize="30dp"
+        app:menu_labels_style="@style/MenuLabelsStyle"
         app:menu_backgroundColor="@android:color/transparent"
         app:menu_colorNormal="@color/colorPrimary"
         app:menu_icon="@drawable/icon_floating_options"
@@ -95,12 +96,13 @@
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/optionTechnical"
+            style="@style/MenuLabelsStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_floating_technician_accepted"
-            app:fab_colorNormal="@color/technical"
+            android:src="@drawable/ic_chat"
+            app:fab_colorNormal="@color/media"
             android:visibility="gone"
-            app:fab_label="@string/appointment_option_technical_status_accepted"
+            app:fab_label="Chat"
             app:maxImageSize="15dp" />
 
         <com.github.clans.fab.FloatingActionButton
@@ -131,7 +133,6 @@
             android:visibility="gone"
             app:fab_colorNormal="@color/pending"
             app:fab_label="@string/appointment_option_status_pending"
-
             app:maxImageSize="30dp" />
 
         <com.github.clans.fab.FloatingActionButton

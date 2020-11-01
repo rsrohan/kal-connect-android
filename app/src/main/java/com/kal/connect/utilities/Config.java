@@ -1,6 +1,9 @@
 package com.kal.connect.utilities;
 
+import android.app.Activity;
 import android.media.Ringtone;
+
+import org.json.JSONArray;
 
 public class Config {
 
@@ -28,8 +31,11 @@ public class Config {
     public static String DefaultSelectionColor = "#A9A9A9";
 
     public static int DeviceType = 1;
-    public static  Boolean isKilled = false;
+    public static  Boolean isBack = false;
+    public static  Boolean isChat = false;
     public static Ringtone ringtone;
+    static int minVersionCode = 3;
+
     /**  API Services **/
 
     /** List of APIs **/
@@ -40,9 +46,10 @@ public class Config {
     public  static  final String WEB_Services1 = "PatientMobileData.asmx";
     public  static  final String WEB_Services2 = "kiosknewdata.asmx";
     public  static  final String WEB_Services3 = "Ayurveda.asmx";
-
     public  static  final String WEB_Services4 = "SpecialistMobileData.asmx";
-
+    public  static  final String WEB_Services5 = "GeneralUtility.asmx";
+    public static Activity mActivity;
+    public static Boolean isDisconnect = false;
 
     // Authentication
 
@@ -58,7 +65,9 @@ public class Config {
     public static final String GET_ISSUES_DATA =  "GetComplaintsList";
 
     //Appointments
+    public static final String EMAIL_MEDICINE_TO_PHARMACY =  "EmailMedicinetoPharmacy";
     public static final String GET_BUY_MEDICINE =  "Buymedicine";
+    public static final String GET_KAL_PRODUCT_LIST =  "GetKALProductList";
     public static final String GET_APPOINTMENTS_LIST =  "PatientAppointments";
     public static final String GET_APPOINTMENTS_DETAILS =  "GetPatientComplaintCompleteDetails";
     public static final String CANCEL_APPOINTMENT =  "CancelAppointment";
@@ -89,7 +98,7 @@ public class Config {
     public static final String UPLOAD_FILES = "UploadPatFiles";
 
     public static final String GET_AYURVEDHA_MODULES = "GetAllAyurvedaModules";
-
+    public static final String INITIATE_CHAT = "InitiateChat";
 
     public static final String CREATE_ORDER = PAYMENT_BASE_URL+ "orders";
 

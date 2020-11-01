@@ -7,9 +7,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 //import androidx.core.widget.DrawerLayoutLayout;
 //import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.widget.RelativeLayout;
 
 import com.kal.connect.customLibs.customMenu.CustomMenu;
+import com.kal.connect.modules.dashboard.Dashboard;
+import com.kal.connect.utilities.Config;
 import com.kal.connect.utilities.Utilities;
 
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -26,7 +29,7 @@ public class CustomActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        if(headerView != null){
+        if (headerView != null) {
             headerView.refreshUI();
         }
 
@@ -58,8 +61,20 @@ public class CustomActivity extends AppCompatActivity {
             @Override
             public void backButtonClicked() {
 
-                fromActivity.finish();
-                Utilities.popAnimation(fromActivity);
+                if (Config.isChat) {
+                    if (Config.isBack) {
+                        Intent mIntent = new Intent(getApplicationContext(), Dashboard.class);
+                        startActivity(mIntent);
+                        finish();
+                    } else {
+                        fromActivity.finish();
+                        Utilities.popAnimation(fromActivity);
+                    }
+                    Config.isChat = false;
+                } else {
+                    fromActivity.finish();
+                    Utilities.popAnimation(fromActivity);
+                }
 
 
             }
@@ -70,6 +85,7 @@ public class CustomActivity extends AppCompatActivity {
 
     /**
      * To Set title from anywhere
+     *
      * @param title
      */
     public void setHeaderTitle(String title) {
@@ -99,16 +115,14 @@ public class CustomActivity extends AppCompatActivity {
      // MARK : Properties
 
      // MARK : Lifecycle
-     @Override
-     protected void onCreate(@Nullable Bundle savedInstanceState) {
+     @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
      super.onCreate(savedInstanceState);
-        setContentView(R.layout.otp_verification);
-        buildUI();
+     setContentView(R.layout.otp_verification);
+     buildUI();
      }
 
      // MARK : UIActions
-     @Override
-     public void onClick(View v) {
+     @Override public void onClick(View v) {
      switch (v.getId()) {
 
      }

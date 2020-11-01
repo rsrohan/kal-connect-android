@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 
 import com.google.android.gms.security.ProviderInstaller;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.kal.connect.R;
 import com.kal.connect.customLibs.noInternetAlert.ConnectivityReceiver;
 import com.kal.connect.customLibs.noInternetAlert.NoInternetAlert;
@@ -25,6 +26,7 @@ import io.github.inflationx.viewpump.ViewPump;
 
 public class CustomApplication extends Application implements Application.ActivityLifecycleCallbacks, ConnectivityReceiver.ConnectivityReceiverListener{
 
+    private FirebaseCrashlytics crashlytics;
 
     // For Handling the Notifications
     public static Context globalContext;
@@ -50,6 +52,10 @@ public class CustomApplication extends Application implements Application.Activi
 //                .setDefaultFontPath("fonts/OpenSans-Regular.ttf")
 //                .setFontAttrId(R.attr.fontPath)
 //                .build()
+
+        crashlytics = FirebaseCrashlytics.getInstance();
+        crashlytics.log("Start logging!");
+
         ViewPump.init(ViewPump.builder()
                 .addInterceptor(new CalligraphyInterceptor(
                         new CalligraphyConfig.Builder()

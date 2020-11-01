@@ -33,10 +33,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ayurvedha"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
+        android:theme="@style/AppTheme.NoActionBar"
         android:configChanges="locale"
         android:usesCleartextTraffic="true"
+        android:requestLegacyExternalStorage="true"
         tools:replace="android:allowBackup">
+
         <activity android:name="com.kal.connect.utilities.Splash"
             android:configChanges="locale">
             <intent-filter>
@@ -50,6 +52,13 @@
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
+
+        <activity
+            android:name=".modules.communicate.ChatActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+
         <activity
             android:name="com.kal.connect.modules.dashboard.Dashboard"
             android:configChanges="orientation"
@@ -134,6 +143,33 @@
 
             />
 
+        <activity android:name=".modules.dashboard.tabs.Medicine.ProductHome"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"
+
+            />
+        <activity
+            android:name=".modules.dashboard.tabs.Medicine.Medicine"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"
+
+            />
+        <activity
+            android:name=".modules.dashboard.tabs.Medicine.Prescription"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"
+            />
+
+        <activity
+            android:name=".modules.dashboard.tabs.Medicine.MyPrescription"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"
+            />
+
 
         <service android:name="com.kal.connect.customLibs.fcm.OnClearFromRecentService" android:stopWithTask="false" />
 
@@ -195,12 +231,10 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDKfuklPXtXIAZXkdC1tSoxbzuWaJzP4Ww" />
-
-<!--        <meta-data-->
-<!--            android:name="com.google.android.geo.API_KEY"-->
-<!--            android:value="AIzaSyBd4eAQ6d9F_wkljmw9IekgF00hl5gtug0" />-->
-
+            android:value="AIzaSyAr2tbVoLqiZLD6cAC9M4wU0uL0aqMbGLs" />
+<!--            android:value="AIzaSyAr2tbVoLqiZLD6cAC9M4wU0uL0aqMbGLs" />-->
+<!--            android:value="AIzaSyCM7r4QxG0BXtXiX_UjYwYlFa0aA2LgWlo" />-->
+<!--            android:value="AIzaSyAXXVTrvSJ8S-x9OfyjMFGJ_rlP_kHw2nA" />-->
 
 
         <!-- Add your API key here -->

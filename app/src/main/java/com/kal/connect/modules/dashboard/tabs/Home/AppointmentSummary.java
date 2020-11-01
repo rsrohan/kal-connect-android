@@ -195,9 +195,9 @@ public class AppointmentSummary extends CustomActivity implements View.OnClickLi
 //            getVideoCallConfigurations();
 
 //            if((int)GlobValues.getAddAppointmentParams().get("ConsultNow") == 2){
-//                bookAppointment();
+//                bookAppointment("","");
 //            }else{
-//                getVideoCallConfigurations();
+//                getVideoCallConfigurations("","");
 //            }
 
             createRazorPayOrder();
@@ -415,6 +415,7 @@ public class AppointmentSummary extends CustomActivity implements View.OnClickLi
                     try {
                         if (response.has("id") && response.get("id") != null) {
                             orderID = response.get("id").toString();
+
 
                             getCheckingPaymentStatus();
 

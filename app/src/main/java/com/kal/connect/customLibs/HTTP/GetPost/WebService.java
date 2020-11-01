@@ -4,6 +4,8 @@ package com.kal.connect.customLibs.HTTP.GetPost;
 
 import android.util.Log;
 
+import com.kal.connect.utilities.Config;
+
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.MarshalBase64;
 import org.ksoap2.serialization.PropertyInfo;
@@ -25,7 +27,6 @@ import javax.net.ssl.TrustManager;
 
 public class WebService {
 
-
 //    private static String NAMESPACE = "https://www.medi360.in/";
 
     private static String NAMESPACE = "https://www.medi360.in/";
@@ -34,7 +35,6 @@ public class WebService {
 //public static final String BASE_URL="https://ec2-35-154-223-253.ap-south-1.compute.amazonaws.com/";
 
 //    public static final String LIVE_URL="https://www.medi360.in/WebServices/";
-//    public static final String LIVE_URL="https://ec2-35-154-223-253.ap-south-1.compute.amazonaws.com:4500/WebServices/";
     private static String LIVE_URL = "https://www.ayurvaidya.live/WebServices/";
 //    private static String LIVE_URL = "http://ec2-13-127-154-179.ap-south-1.compute.amazonaws.com/WebServices/";
 

@@ -4,13 +4,16 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.location.Geocoder;
 import android.os.Handler;
 
 import androidx.core.content.ContextCompat;
 
 import android.os.Bundle;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -39,10 +42,12 @@ import com.yarolegovich.lovelydialog.LovelyTextInputDialog;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,7 +58,7 @@ public class IssueDescriptor extends CustomMapActivity implements View.OnClickLi
 
     private SelectedIssueAdapter selectedIssueAdapter;
     RecyclerView selectedRecyclerView;
-//    GridView locationGridVw;
+    //    GridView locationGridVw;
     LinearLayout selectTime, consultNow, tecContainerLayout;
     private ArrayList<Issues> selectedIssuesList = new ArrayList<>();
     private ArrayList<LocationModel> locationsList = new ArrayList<>();
@@ -69,12 +74,11 @@ public class IssueDescriptor extends CustomMapActivity implements View.OnClickLi
     Calendar now;
 
 
-
     LovelyTextInputDialog l;
 
     LinearLayout nextBtn;
 
-    TextView appointmentTime,addressTxtVw;
+    TextView appointmentTime, addressTxtVw;
     EditText descTxt;
     ImageView communicationImgVw;
     SwitchMultiButton loginOptionBtn;
@@ -106,8 +110,8 @@ public class IssueDescriptor extends CustomMapActivity implements View.OnClickLi
 
     @BindView(R.id.vitals_height)
     EditText height;
-
-
+    Boolean isMap = false;
+    String addressInfo = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,7 +121,7 @@ public class IssueDescriptor extends CustomMapActivity implements View.OnClickLi
     }
 
     public void buildUI() {
-
+        isMap = false;
         ButterKnife.bind(this);
         setHeaderView(R.id.headerView, IssueDescriptor.this, IssueDescriptor.this.getResources().getString(R.string.issue_descriptor_title));
         headerView.showBackOption();
@@ -129,17 +133,17 @@ public class IssueDescriptor extends CustomMapActivity implements View.OnClickLi
         addressTxtVw = (TextView) findViewById(R.id.addressTxtVw);
         // addressTxtVw.setOnClickListener(this);
         descTxt = (EditText) findViewById(R.id.description_edit_txt);
-        communicationImgVw = (ImageView) findViewById(R.id.imgCommunication) ;
+        communicationImgVw = (ImageView) findViewById(R.id.imgCommunication);
         loginOptionBtn = (SwitchMultiButton) findViewById(R.id.signin_options);
 
 //        locationGridVw = (GridView) findViewById(R.id.location_gridview);
 
 
-        selectedIssuesList =  (ArrayList<Issues>)getIntent().getSerializableExtra("SelectedIssues");
+        selectedIssuesList = (ArrayList<Issues>) getIntent().getSerializableExtra("SelectedIssues");
 //        if(getIntent().getStringExtra("NewComplaints") != null){
 //            selectedIssuesList.add(new Issues("10001", getIntent().getStringExtra("NewComplaints"),1));
 //        }
-        selectedIssueAdapter = new SelectedIssueAdapter(selectedIssuesList, IssueDescriptor.this,null);
+        selectedIssueAdapter = new SelectedIssueAdapter(selectedIssuesList, IssueDescriptor.this, null);
         LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(IssueDescriptor.this, LinearLayoutManager.HORIZONTAL, false);
         selectedRecyclerView.setLayoutManager(horizontalLayoutManager);
         selectedRecyclerView.setAdapter(selectedIssueAdapter);
@@ -158,29 +162,30 @@ public class IssueDescriptor extends CustomMapActivity implements View.OnClickLi
                 .setInputFilter(R.string.error_input_address, new LovelyTextInputDialog.TextFilter() {
                     @Override
                     public boolean check(String text) {
-                        return text.length()>=8?true:false;
+                        return text.length() >= 8 ? true : false;
                     }
                 })
                 .setConfirmButton(R.string.btn_ok, new LovelyTextInputDialog.OnTextInputConfirmListener() {
                     @Override
                     public void onTextInputConfirmed(String text) {
-
-                        try{
+                        isMap = false;
+                        try {
 
                             JSONObject userInfo = AppPreferences.getInstance().getUserInfo();
-                            if(userInfo.has("Lattitude") && userInfo.get("Lattitude") != null && !userInfo.getString("Lattitude").isEmpty()  && !userInfo.getString("Lattitude").equals("null")){
-                                g.addAppointmentInputParams("Lattitude", ""+userInfo.get("Lattitude"));
+                            if (userInfo.has("Lattitude") && userInfo.get("Lattitude") != null && !userInfo.getString("Lattitude").isEmpty() && !userInfo.getString("Lattitude").equals("null")) {
+                                g.addAppointmentInputParams("Lattitude", "" + userInfo.get("Lattitude"));
                             }
-                            if(userInfo.has("Longitude") && userInfo.get("Longitude") != null && !userInfo.getString("Longitude").isEmpty()  && !userInfo.getString("Longitude").equals("null"))
-                            {
-                                g.addAppointmentInputParams("Longitude", ""+userInfo.get("Longitude"));
+                            if (userInfo.has("Longitude") && userInfo.get("Longitude") != null && !userInfo.getString("Longitude").isEmpty() && !userInfo.getString("Longitude").equals("null")) {
+                                g.addAppointmentInputParams("Longitude", "" + userInfo.get("Longitude"));
                             }
-                        }catch (Exception e){
+                        } catch (Exception e) {
 
                         }
 
                         addressTxtVw.setVisibility(View.VISIBLE);
-                        addressTxtVw.setText(text);
+                        if (!isMap) {
+                            addressTxtVw.setText(text);
+                        }
                         g.addAppointmentInputParams("TechAddress", text);
 
                         new Handler().postDelayed(new Runnable() {
@@ -202,11 +207,8 @@ public class IssueDescriptor extends CustomMapActivity implements View.OnClickLi
                         launchPlacePicker();
 
                     }
-                });;
-
-
-
-
+                });
+        ;
 
 
         createLocations();
@@ -218,31 +220,35 @@ public class IssueDescriptor extends CustomMapActivity implements View.OnClickLi
         techRequired.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    if(technicianRequiredEnableManuall){
+                if (isChecked) {
+                    if (technicianRequiredEnableManuall) {
                         technicianRequiredEnableManuall = false;
                         return;
                     }
 
                     String address = "";
-                    try{
+                    try {
                         JSONObject accInfo = AppPreferences.getInstance().getUserInfo();
                         address = accInfo.getString("LocationAddress");
 
-                        address = accInfo.getString("Addressline1")+ ", " + accInfo.getString("Addressline2") + ", "+
-                                accInfo.getString("cityname") + ", "+ accInfo.getString("statename") + ", "+
+                        address = accInfo.getString("Addressline1") + ", " + accInfo.getString("Addressline2") + ", " +
+                                accInfo.getString("cityname") + ", " + accInfo.getString("statename") + ", " +
                                 accInfo.getString("Zipcode");
 
-            weight.setText(accInfo.getString(""));
-            height.setText(accInfo.getString(""));
+                        weight.setText(accInfo.getString(""));
+                        height.setText(accInfo.getString(""));
 
 
-                    }catch (Exception e){
+                    } catch (Exception e) {
 
                     }
 
 
-                    l.setInitialInput(address);
+                    if (!isMap) {
+                        l.setInitialInput(address);
+                    } else {
+                        l.setInitialInput(addressInfo);
+                    }
 
                     l.setHint("Enter Address");
 //                    l.setInputType(InputType.TYPE_CLASS_PHONE);
@@ -258,7 +264,7 @@ public class IssueDescriptor extends CustomMapActivity implements View.OnClickLi
 
 
 //                    technicianDialogShow();
-                }else{
+                } else {
                     addressTxtVw.setText("");
                     addressTxtVw.setVisibility(View.GONE);
                 }
@@ -270,9 +276,9 @@ public class IssueDescriptor extends CustomMapActivity implements View.OnClickLi
             public void onSwitch(int position, String tabText) {
 
 
-                if(position == 0){
+                if (position == 0) {
                     communicationImgVw.setImageResource(R.drawable.icon_video_call);
-                }else{
+                } else {
                     communicationImgVw.setImageResource(R.drawable.icon_center);
                 }
 
@@ -310,9 +316,9 @@ public class IssueDescriptor extends CustomMapActivity implements View.OnClickLi
 
         //
 
-         now = Calendar.getInstance();
+        now = Calendar.getInstance();
         now.add(Calendar.HOUR, 12);
-         datepickerdialog = DatePickerDialog.newInstance(
+        datepickerdialog = DatePickerDialog.newInstance(
                 IssueDescriptor.this,
                 now.get(Calendar.YEAR),
                 now.get(Calendar.MONTH),
@@ -329,9 +335,7 @@ public class IssueDescriptor extends CustomMapActivity implements View.OnClickLi
         datepickerdialog.setMinDate(now);
 
 
-
-
-         timepickerdialog = TimePickerDialog.newInstance(IssueDescriptor.this,
+        timepickerdialog = TimePickerDialog.newInstance(IssueDescriptor.this,
                 now.get(Calendar.HOUR_OF_DAY), now.get(Calendar.MINUTE), false);
 
 
@@ -354,7 +358,7 @@ public class IssueDescriptor extends CustomMapActivity implements View.OnClickLi
 
     }
 
-    public void technicianDialogShow(){
+    public void technicianDialogShow() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Address");
@@ -375,47 +379,48 @@ public class IssueDescriptor extends CustomMapActivity implements View.OnClickLi
         AlertDialog dialog = builder.create();
         dialog.show();
 
-        Utilities.showAlertDialogWithEditText(IssueDescriptor.this,"Enter your Address","",new String[] {"Cancel","Choose this", "Map"},
-        new UtilitiesInterfaces.AlertCallback() {
-            @Override
-            public void onOptionClick(DialogInterface dialog, int buttonIndex) {
+        Utilities.showAlertDialogWithEditText(IssueDescriptor.this, "Enter your Address", "", new String[]{"Cancel", "Choose this", "Map"},
+                new UtilitiesInterfaces.AlertCallback() {
+                    @Override
+                    public void onOptionClick(DialogInterface dialog, int buttonIndex) {
 
-            }
-        });
+                    }
+                });
     }
 
 
-    public void createLocations(){
-        locationsList.add(new LocationModel("1","Bangalore",false));
-        locationsList.add(new LocationModel("1","Patna",false));
-        locationsList.add(new LocationModel("1","Bihar",false));
-        locationsList.add(new LocationModel("1","Chennai",false));
-        locationsList.add(new LocationModel("1","Gujarat",false));
+    public void createLocations() {
+        locationsList.add(new LocationModel("1", "Bangalore", false));
+        locationsList.add(new LocationModel("1", "Patna", false));
+        locationsList.add(new LocationModel("1", "Bihar", false));
+        locationsList.add(new LocationModel("1", "Chennai", false));
+        locationsList.add(new LocationModel("1", "Gujarat", false));
 
     }
 
-    public boolean validate(){
+    public boolean validate() {
 //        if(!Utilities.validate(IssueDescriptor.this,descTxt,"Please enter valid description Also",false,5,700))
 //            return false;
-        if(selectedDate.isEmpty() || selectedTime.isEmpty()){
-            Utilities.showAlert(IssueDescriptor.this,"Please select when you want to consult",false);
+        if (selectedDate.isEmpty() || selectedTime.isEmpty()) {
+            Utilities.showAlert(IssueDescriptor.this, "Please select when you want to consult", false);
             return false;
         }
 
         return true;
     }
 
-    void setupData(){
+    void setupData() {
         g.addAppointmentInputParams("PatLoc", addressTxtVw.getText().toString());
-        if(techRequired.isChecked()){
-            g.addAppointmentInputParams("isTechnician","1");
-        }else{
+
+        if (techRequired.isChecked()) {
+            g.addAppointmentInputParams("isTechnician", "1");
+        } else {
             g.addAppointmentInputParams("Lattitude", "");
             g.addAppointmentInputParams("Longitude", "");
             g.addAppointmentInputParams("isTechnician", "0");
         }
 
-        g.addAppointmentInputParams("BloodPressure", ""+systolic.getText().toString()+"/"+diastolic.getText().toString());
+        g.addAppointmentInputParams("BloodPressure", "" + systolic.getText().toString() + "/" + diastolic.getText().toString());
         g.addAppointmentInputParams("PulseRate", pulse.getText().toString());
         g.addAppointmentInputParams("Oxypercentage", spo2.getText().toString());
         g.addAppointmentInputParams("Temperature", bodyTemperature.getText().toString());
@@ -423,9 +428,8 @@ public class IssueDescriptor extends CustomMapActivity implements View.OnClickLi
         g.addAppointmentInputParams("Height", height.getText().toString());
         String covid = "";
 
-        if(covidRG.getCheckedRadioButtonId() != -1) {
-            switch (covidRG.getCheckedRadioButtonId())
-            {
+        if (covidRG.getCheckedRadioButtonId() != -1) {
+            switch (covidRG.getCheckedRadioButtonId()) {
                 case R.id.positive:
                     covid = "Positive";
                     break;
@@ -447,18 +451,17 @@ public class IssueDescriptor extends CustomMapActivity implements View.OnClickLi
     public void onClick(View v) {
 
 
-
-        if(v.getId() == R.id.addressTxtVw){
+        if (v.getId() == R.id.addressTxtVw) {
 
         }
-        if(v.getId() == R.id.header_select_time){
+        if (v.getId() == R.id.header_select_time) {
 
             datepickerdialog.show(getFragmentManager(), "Datepickerdialog"); //show dialog
             tecContainerLayout.setVisibility(View.GONE);
 
 
         }
-        if(v.getId() == R.id.consult_now_layout){
+        if (v.getId() == R.id.consult_now_layout) {
 
             consultNow.setBackgroundColor(getResources().getColor(R.color.background_grey));
             selectTime.setBackgroundColor(getResources().getColor(R.color.white));
@@ -486,7 +489,7 @@ public class IssueDescriptor extends CustomMapActivity implements View.OnClickLi
             isInstant = 1;
             nextBtn.callOnClick();
         }
-        if(v.getId() == R.id.next_btn){
+        if (v.getId() == R.id.next_btn) {
             setupData();
 
 
@@ -529,14 +532,12 @@ public class IssueDescriptor extends CustomMapActivity implements View.OnClickLi
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
 
 //        now = Calendar.getInstance();
-        if(now.get(Calendar.DATE)== dayOfMonth && now.get(Calendar.YEAR) == year && now.get(Calendar.MONTH)== monthOfYear)
-        {
+        if (now.get(Calendar.DATE) == dayOfMonth && now.get(Calendar.YEAR) == year && now.get(Calendar.MONTH) == monthOfYear) {
 //            now.add(Calendar.HOUR_OF_DAY, 12);
-            Timepoint minTimePoint = new Timepoint(now.get(Calendar.HOUR_OF_DAY),now.get(Calendar.MINUTE));
+            Timepoint minTimePoint = new Timepoint(now.get(Calendar.HOUR_OF_DAY), now.get(Calendar.MINUTE));
             timepickerdialog.setMinTime(minTimePoint);
-        }
-        else {
-            timepickerdialog.setMinTime(0,0,0);
+        } else {
+            timepickerdialog.setMinTime(0, 0, 0);
         }
 
 //            timepickerdialog.setMinTime(now.get(Calendar.HOUR_OF_DAY), now.get(Calendar.MINUTE),0);
@@ -544,7 +545,7 @@ public class IssueDescriptor extends CustomMapActivity implements View.OnClickLi
 //        Timepoint minTimePoint = new Timepoint(Calendar.HOUR_OF_DAY,Calendar.MINUTE);
 //        timepickerdialog.setMinTime(now.get(Calendar.HOUR_OF_DAY), now.get(Calendar.MINUTE),0);
 
-        selectedDateToSend = (monthOfYear+1)  +  "/" + dayOfMonth + "/" + year;
+        selectedDateToSend = (monthOfYear + 1) + "/" + dayOfMonth + "/" + year;
         selectedDate = dayOfMonth + " , " + MONTHS[monthOfYear] + ", " + year;
 
         timepickerdialog.setTitle("Appointment can be book after 12 hrs");
@@ -557,8 +558,8 @@ public class IssueDescriptor extends CustomMapActivity implements View.OnClickLi
 //        selectedTime = hourOfDay + " : "+ minute;
 
         Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY,hourOfDay);
-        cal.set(Calendar.MINUTE,minute);
+        cal.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        cal.set(Calendar.MINUTE, minute);
         Format formatter;
         formatter = new SimpleDateFormat("h:mm a");
         selectedTime = formatter.format(cal.getTime());
@@ -589,29 +590,34 @@ public class IssueDescriptor extends CustomMapActivity implements View.OnClickLi
     // MARK : Choose your location via location picker
     private void launchPlacePicker() {
 
-        showPlacePicker(new CustomMapActivity.PlacePickCallback() {
+        showPlacePickerUpgrade(new PlacePickCallbackUpdate() {
             @Override
-            public void receiveSelectedPlace(Boolean status, Place selectedPlace) {
-
-                String addressInfo = "";
+            public void receiveSelectedPlace(Boolean status, com.google.android.libraries.places.api.model.Place selectedPlaceUpdate) {
                 if (status) {
 
-                    if (selectedPlace != null){
+                    if (selectedPlaceUpdate != null) {
 
                         // Name
-                        addressInfo = (selectedPlace.getName() != null && selectedPlace.getName().length() > 0)? selectedPlace.getName().toString() : addressInfo;
+                        addressInfo = (selectedPlaceUpdate.getName() != null && selectedPlaceUpdate.getName().length() > 0) ? selectedPlaceUpdate.getName().toString() : addressInfo;
 
                         // Address
-                        addressInfo = (selectedPlace.getAddress() != null && selectedPlace.getAddress().length() > 0)? addressInfo + ", " + selectedPlace.getAddress().toString() : addressInfo;
+                        addressInfo = (selectedPlaceUpdate.getAddress() != null && selectedPlaceUpdate.getAddress().length() > 0) ? addressInfo + ", " + selectedPlaceUpdate.getAddress().toString() : addressInfo;
 
                         // Phone
-                        addressInfo = (selectedPlace.getPhoneNumber() != null && selectedPlace.getPhoneNumber().length() > 0)? addressInfo + ", Phone: " + selectedPlace.getPhoneNumber().toString() : addressInfo;
+                        addressInfo = (selectedPlaceUpdate.getPhoneNumber() != null && selectedPlaceUpdate.getPhoneNumber().length() > 0) ? addressInfo + ", Phone: " + selectedPlaceUpdate.getPhoneNumber().toString() : addressInfo;
 
                         // Location
-                        addressInfo = (selectedPlace.getLatLng() != null)? addressInfo + ", " + selectedPlace.getLatLng() : addressInfo;
+//                        addressInfo = (selectedPlace.getLatLng() != null) ? addressInfo + ", " + selectedPlace.getLatLng() : addressInfo;
+                        try {
+                            isMap = true;
+                            addressInfo = new Geocoder(getApplicationContext(), Locale.getDefault()).getFromLocation(selectedPlaceUpdate.getLatLng().latitude, selectedPlaceUpdate.getLatLng().longitude, 1).get(0).getAddressLine(0);
+                        } catch (IOException e) {
+                            isMap = false;
+                            e.printStackTrace();
+                        }
 
-                        g.addAppointmentInputParams("Lattitude", ""+selectedPlace.getLatLng().latitude);
-                        g.addAppointmentInputParams("Longitude", ""+selectedPlace.getLatLng().longitude);
+                        g.addAppointmentInputParams("Lattitude", "" + selectedPlaceUpdate.getLatLng().latitude);
+                        g.addAppointmentInputParams("Longitude", "" + selectedPlaceUpdate.getLatLng().longitude);
 
 
                     }
@@ -619,8 +625,8 @@ public class IssueDescriptor extends CustomMapActivity implements View.OnClickLi
                 }
 
                 // Set the address details
-                if(addressInfo.length() > 0){
-
+                if (addressInfo.length() > 0) {
+                    l.setInitialInput(addressInfo);
                     addressTxtVw.setVisibility(View.VISIBLE);
                     addressTxtVw.setText(addressInfo);
                     techRequired.setChecked(true);
@@ -628,8 +634,56 @@ public class IssueDescriptor extends CustomMapActivity implements View.OnClickLi
                 }
             }
         });
-    }
 
+
+
+//        showPlacePicker(new PlacePickCallback() {
+//            @Override
+//            public void receiveSelectedPlace(Boolean status, Place selectedPlace) {
+//
+//
+//                if (status) {
+//
+//                    if (selectedPlace != null) {
+//
+//                        // Name
+//                        addressInfo = (selectedPlace.getName() != null && selectedPlace.getName().length() > 0) ? selectedPlace.getName().toString() : addressInfo;
+//
+//                        // Address
+//                        addressInfo = (selectedPlace.getAddress() != null && selectedPlace.getAddress().length() > 0) ? addressInfo + ", " + selectedPlace.getAddress().toString() : addressInfo;
+//
+//                        // Phone
+//                        addressInfo = (selectedPlace.getPhoneNumber() != null && selectedPlace.getPhoneNumber().length() > 0) ? addressInfo + ", Phone: " + selectedPlace.getPhoneNumber().toString() : addressInfo;
+//
+//                        // Location
+////                        addressInfo = (selectedPlace.getLatLng() != null) ? addressInfo + ", " + selectedPlace.getLatLng() : addressInfo;
+//                        try {
+//                            isMap = true;
+//                            addressInfo = new Geocoder(getApplicationContext(), Locale.getDefault()).getFromLocation(selectedPlace.getLatLng().latitude, selectedPlace.getLatLng().longitude, 1).get(0).getAddressLine(0);
+//                        } catch (IOException e) {
+//                            isMap = false;
+//                            e.printStackTrace();
+//                        }
+//
+//                        g.addAppointmentInputParams("Lattitude", "" + selectedPlace.getLatLng().latitude);
+//                        g.addAppointmentInputParams("Longitude", "" + selectedPlace.getLatLng().longitude);
+//
+//
+//                    }
+//
+//                }
+//
+//                // Set the address details
+//                if (addressInfo.length() > 0) {
+//                    l.setInitialInput(addressInfo);
+//                    addressTxtVw.setVisibility(View.VISIBLE);
+//                    addressTxtVw.setText(addressInfo);
+//                    techRequired.setChecked(true);
+//
+//                }
+//            }
+//        });
+    }
 
 
 }

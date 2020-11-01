@@ -1,6 +1,7 @@
 package com.kal.connect.modules.communicate;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
@@ -19,6 +20,11 @@ import android.widget.TextView;
 
 
 import com.kal.connect.R;
+import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
+import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
+import com.kal.connect.utilities.AppPreferences;
+import com.kal.connect.utilities.Config;
+import com.kal.connect.utilities.Splash;
 import com.opentok.android.BaseVideoRenderer;
 import com.opentok.android.OpentokError;
 import com.opentok.android.Publisher;
@@ -41,6 +47,10 @@ import java.util.concurrent.TimeUnit;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -115,10 +125,14 @@ public class VideoConference extends AppCompatActivity
 
     boolean isMovingToHome = false;
 
+
     @OnClick(R.id.disconnect)
     void disconnectCall() {
-        disconnectSession();
-        moveToHome();
+        if (Config.isDisconnect) {
+            moveToHome();
+        } else {
+            getEndCall();
+        }
     }
 
     @OnClick(R.id.switch_camera)
@@ -133,8 +147,12 @@ public class VideoConference extends AppCompatActivity
 
     @OnClick(R.id.dialer_disconnect)
     void dialerDisconnectCall() {
-        disconnectSession();
-        moveToHome();
+        if (Config.isDisconnect) {
+//            disconnectSession();
+            moveToHome();
+        } else {
+            getEndCall();
+        }
     }
 
     @Override
@@ -142,7 +160,7 @@ public class VideoConference extends AppCompatActivity
         Log.d(TAG, "onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.video_call_communication);
-
+        Config.mActivity = this;
         ButterKnife.bind(this);
 
 //        mSubscriberViewContainerAdditional.setVisibility(View.GONE);
@@ -365,6 +383,7 @@ public class VideoConference extends AppCompatActivity
 
     @Override
     public void onStreamReceived(Session session, Stream stream) {
+        Config.isDisconnect = true;
         Log.d(TAG, "onStreamReceived: New stream " + stream.getStreamId() + " in session " + session.getSessionId());
 
 //        final Subscriber subscriber = new Subscriber.Builder(VideoConference.this, stream).build();
@@ -413,7 +432,7 @@ public class VideoConference extends AppCompatActivity
     @Override
     public void onStreamDropped(Session session, Stream stream) {
         Log.d(TAG, "onStreamDropped: Stream " + stream.getStreamId() + " dropped from session " + session.getSessionId());
-
+        Config.isDisconnect = false;
 //        moveToHome();
 
 //        Subscriber subscriber = mSubscriberStreams.get(stream);
@@ -463,17 +482,18 @@ public class VideoConference extends AppCompatActivity
     @Override
     public void onStreamDestroyed(PublisherKit publisherKit, Stream stream) {
         Log.d(TAG, "onStreamDestroyed: Own stream " + stream.getStreamId() + " destroyed");
+        Config.isDisconnect = false;
     }
 
     @Override
     public void onError(PublisherKit publisherKit, OpentokError opentokError) {
         Log.d(TAG, "onError: Error (" + opentokError.getMessage() + ") in publisher");
-
+        Config.isDisconnect = false;
 //        Toast.makeText(this, "Session error. See the logcat please.", Toast.LENGTH_LONG).show();
         moveToHome();
     }
 
-    void moveToHome() {
+    public void moveToHome() {
         if (GlobValues.getAddAppointmentParams() != null)
             GlobValues.getAddAppointmentParams().clear();
 
@@ -483,7 +503,8 @@ public class VideoConference extends AppCompatActivity
 
         isMovingToHome = true;
 
-        Utilities.showAlertDialogWithOptions(this, false, "Thanks for using our service, You can check this call details from your Appointment details, Take care!", new String[]{"Done"}, new UtilitiesInterfaces.AlertCallback() {
+        Utilities.showAlertDialogWithOptions(this, false, "Thank You for using our service. You can check details in Appointment Section. Stay Healthy!!", new String[]{"Done"}, new UtilitiesInterfaces.AlertCallback() {
+//        Utilities.showAlertDialogWithOptions(this, false, "Thanks for using our service, You can check this call details from your Appointment details, Take care!", new String[]{"Done"}, new UtilitiesInterfaces.AlertCallback() {
             @Override
             public void onOptionClick(DialogInterface dialog, int buttonIndex) {
                 Intent homeScreen = new Intent(getApplicationContext(), Dashboard.class);
@@ -692,5 +713,46 @@ public class VideoConference extends AppCompatActivity
     }
 
 
+    public void getEndCall() {
+//        HashMap<String, Object> inputParams = AppPreferences.getInstance().sendingInputParam();
+//        inputParams.put("ComplaintID",GlobValues.getInstance().getSelectedAppointment());
+        String docId = "";
+        Bundle mBundle = getIntent().getExtras();
+        if (mBundle.containsKey("DocterId")) {
+            docId = mBundle.getString("DocterId");
+        }
+        HashMap<String, Object> endCallParams = new HashMap<>();
+        endCallParams.put("User_id", docId);
+        endCallParams.put("SpecialistID", docId);
+
+        JSONObject accInfo = AppPreferences.getInstance().getUserInfo();
+
+        try {
+            endCallParams.put("PatientID", accInfo.getString("PatientID"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        SoapAPIManager apiManager = new SoapAPIManager(VideoConference.this, endCallParams, new APICallback() {
+            @Override
+            public void responseCallback(Context context, String response) throws JSONException {
+
+                JSONArray mJsonArray = new JSONArray(response);
+                JSONObject mJsonObject = mJsonArray.getJSONObject(0);
+                if (mJsonObject.has("APIStatus")) {
+                    if (mJsonObject.getString("APIStatus").equalsIgnoreCase("1")) {
+                        moveToHome();
+                    }
+                }
+
+            }
+        }, true);
+        String[] url = {Config.WEB_Services4, Config.END_CALL, "POST"};
+
+        if (Utilities.isNetworkAvailable(VideoConference.this)) {
+            apiManager.execute(url);
+        } else {
+
+        }
+    }
 
 }
