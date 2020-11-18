@@ -55,10 +55,10 @@ public class WebService {
 
         SoapObject request = new SoapObject(NAMESPACE, webMethName);
         PropertyInfo jsonObj = new PropertyInfo();
-        jsonObj.setName("jsdata");
-        jsonObj.setValue(jsonObjSend.toString());
-        jsonObj.setType(String.class);
-        request.addProperty(jsonObj);
+//        jsonObj.setName("jsdata");
+//        jsonObj.setValue(jsonObjSend.toString());
+//        jsonObj.setType(String.class);
+        request.addProperty("jsdata", jsonObjSend.toString());
 
         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
                 SoapEnvelope.VER11);
