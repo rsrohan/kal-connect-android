@@ -2,23 +2,21 @@ package com.kal.connect.customLibs.fcm;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.FirebaseInstanceIdService;
+import com.google.firebase.messaging.FirebaseMessagingService;
 import com.kal.connect.utilities.AppPreferences;
 
 
-public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
-
+public class MyFirebaseInstanceIDService extends FirebaseMessagingService {
 
     @Override
-    public void onTokenRefresh() {
-
-        //For registration of token
-        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+    public void onNewToken(@NonNull String s) {
+        super.onNewToken(s);
+        // Save token
         //To displaying token on logcat
-        Log.d("TOKEN: ", refreshedToken);
-        AppPreferences.getInstance().setDeviceToken(refreshedToken);
-
+        Log.d("TOKEN: ", s);
+        AppPreferences.getInstance().setDeviceToken(s);
     }
-
 }

@@ -359,7 +359,8 @@ public class Account extends Fragment implements View.OnClickListener {
 
                 }
 
-                new MyFirebaseInstanceIDService().onTokenRefresh();
+                //TODO TOKEN ISSUE
+                //new MyFirebaseInstanceIDService().onNewToken();
                 AppPreferences.getInstance().logout(getContext());
 
 

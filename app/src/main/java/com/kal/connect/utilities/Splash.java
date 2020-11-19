@@ -89,6 +89,7 @@ public class Splash extends AppCompatActivity {
 
                         if (!task.isSuccessful()) {
                             System.out.println(""+task.getException());
+                            Log.e("tokenError", "onComplete: "+task.getException());
                             return;
                         }
 
