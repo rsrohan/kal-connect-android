@@ -90,7 +90,13 @@ public class AboutHospital extends CustomActivity {
     public void buildUI() {
         HospitalModel hospitalModel = Utilities.selectedHospitalModel;
         hospitalName.setText(hospitalModel.getHospitalName());
-        description.setText(hospitalModel.getHospitalDescription());
+        if (hospitalModel.getHospitalDescription().isEmpty())
+        {
+            description.setVisibility(View.GONE);
+        }else{
+            description.setVisibility(View.VISIBLE);
+            description.setText(hospitalModel.getHospitalDescription());
+        }
         address.setText(hospitalModel.getCityName()+", "+hospitalModel.getStateName()+", "+hospitalModel.getZipCode());
 
         Utilities.loadImageWithPlaceHoler(hospitalImage,hospitalModel.getHospitaImage(),hospitalModel.getHospitalName());
