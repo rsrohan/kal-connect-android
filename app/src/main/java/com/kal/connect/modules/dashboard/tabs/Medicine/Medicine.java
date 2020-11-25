@@ -106,10 +106,8 @@ public class Medicine extends CustomActivity implements View.OnClickListener {
         vwAppointments.setAdapter(dataAdapter);
 
 
-        //#todo WHY THIS CONDITION???
-        if (Medicine.this != null){
-            AppComponents.reloadDataWithEmptyHint(vwAppointments, dataAdapter, dataItems, Medicine.this.getResources().getString(R.string.no_appointments_found));
-        }
+        //#todo WHY THIS ???
+        AppComponents.reloadDataWithEmptyHint(vwAppointments, dataAdapter, dataItems, Medicine.this.getResources().getString(R.string.no_appointments_found));
 
     }
 
