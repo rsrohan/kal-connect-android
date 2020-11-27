@@ -26,10 +26,12 @@ public class OpenTokConfig {
 
 //        public static final String API_KEY = "45467302";
     public static final String API_KEY = "46953544";
-    public static String SESSION_ID = "";
+//    public static final String API_KEY = "47005814";
+
+        public static String SESSION_ID = "";
     public static String TOKEN = "";
-//    public static String SESSION_ID = "1_MX40NTQ2NzMwMn5-MTYwMTU1MDExMTQ5OH5vbVZXUmtzaG82UmtxM0syYmlmWVREdUN-fg";
-//    public static String TOKEN = "T1==cGFydG5lcl9pZD00NTQ2NzMwMiZzaWc9N2FlMDc5YjY3YjI1ZGUxZTgyZTBkZmU2ODc0YzI1N2I3ZjVlMjczODpzZXNzaW9uX2lkPTFfTVg0ME5UUTJOek13TW41LU1UWXdNVFUxTURFeE1UUTVPSDV2YlZaWFVtdHphRzgyVW10eE0wc3lZbWxtV1ZSRWRVTi1mZyZjcmVhdGVfdGltZT0xNjAxNTUwMTI4Jm5vbmNlPTAuMzM0NzY5Njg1OTg2MjAzOTQmcm9sZT1wdWJsaXNoZXImZXhwaXJlX3RpbWU9MTYwNDE0MjEyNSZpbml0aWFsX2xheW91dF9jbGFzc19saXN0PQ==";
+//    public static String SESSION_ID = "2_MX40NzAwNTgxNH5-MTYwNjM4NjA4MjUyOX5kM25DQ0R3cFZjTFlXTGNVd21rVDc2ak5-fg";
+//    public static String TOKEN = "T1==cGFydG5lcl9pZD00NzAwNTgxNCZzaWc9YTQzODE0MTdmMzdlNjc4NjQwZmMxOTA0NmU2NDM3YzkzNWQ0ZWZiYzpzZXNzaW9uX2lkPTJfTVg0ME56QXdOVGd4Tkg1LU1UWXdOak00TmpBNE1qVXlPWDVrTTI1RFEwUjNjRlpqVEZsWFRHTlZkMjFyVkRjMmFrNS1mZyZjcmVhdGVfdGltZT0xNjA2Mzg2MDkxJm5vbmNlPTAuMTQzMjIyNjgyNjkxODg3ODcmcm9sZT1wdWJsaXNoZXImZXhwaXJlX3RpbWU9MTYwODk3ODA5MSZpbml0aWFsX2xheW91dF9jbGFzc19saXN0PQ==";
 
 
 }

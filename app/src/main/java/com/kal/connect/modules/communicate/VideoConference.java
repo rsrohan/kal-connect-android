@@ -17,6 +17,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.kal.connect.R;
@@ -157,7 +158,7 @@ public class VideoConference extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d(TAG, "onCreate");
+        Log.e(TAG, "onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.video_call_communication);
         Config.mActivity = this;
@@ -224,7 +225,7 @@ public class VideoConference extends AppCompatActivity
 
     @Override
     protected void onResume() {
-        Log.d(TAG, "onResume");
+        Log.e(TAG, "onResume");
 
         super.onResume();
 
@@ -236,7 +237,7 @@ public class VideoConference extends AppCompatActivity
 
     @Override
     protected void onPause() {
-        Log.d(TAG, "onPause");
+        Log.e(TAG, "onPause");
 
         super.onPause();
 
@@ -252,7 +253,7 @@ public class VideoConference extends AppCompatActivity
 
     @Override
     protected void onDestroy() {
-        Log.d(TAG, "onDestroy");
+        Log.e(TAG, "onDestroy");
 
         disconnectSession();
 
@@ -272,12 +273,12 @@ public class VideoConference extends AppCompatActivity
 
     @Override
     public void onPermissionsGranted(int requestCode, List<String> perms) {
-        Log.d(TAG, "onPermissionsGranted:" + requestCode + ":" + perms.size());
+        Log.e(TAG, "onPermissionsGranted:" + requestCode + ":" + perms.size());
     }
 
     @Override
     public void onPermissionsDenied(int requestCode, List<String> perms) {
-        Log.d(TAG, "onPermissionsDenied:" + requestCode + ":" + perms.size());
+        Log.e(TAG, "onPermissionsDenied:" + requestCode + ":" + perms.size());
 
         if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
             new AppSettingsDialog.Builder(this)
@@ -309,7 +310,12 @@ public class VideoConference extends AppCompatActivity
         if (EasyPermissions.hasPermissions(this, perms)) {
 //            OpenTokConfig.SESSION_ID = "1_MX40NTQ2NzMwMn5-MTU5OTYyNzQ0NTg1Nn5BMkR1clpRYUtjNEhvVU5hSkdmTnk2QjF-fg";
 //            OpenTokConfig.TOKEN = "T1==cGFydG5lcl9pZD00NTQ2NzMwMiZzaWc9NmMzYWNjNzU2N2I1NGU1YzNlYWFkZjQ5ZjFlMzBkOTFkNGY4ODg4ZDpzZXNzaW9uX2lkPTFfTVg0ME5UUTJOek13TW41LU1UVTVPVFl5TnpRME5UZzFObjVCTWtSMWNscFJZVXRqTkVodlZVNWhTa2RtVG5rMlFqRi1mZyZjcmVhdGVfdGltZT0xNTk5NjI3NDcyJm5vbmNlPTAuOTQ0NzI5Mzk0NzIwMzk0NyZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNjAwMjMyMjcwJmluaXRpYWxfbGF5b3V0X2NsYXNzX2xpc3Q9";
-
+//            OpenTok opentok = new OpenTok(API_KEY, API_SECRET);
+//
+//            //Generate a basic session. Or you could use an existing session ID.
+//            String sessionId = opentok.createSession().getSessionId();
+//
+//            String token = opentok.generateToken(sessionId);
             mSession = new Session.Builder(this, OpenTokConfig.API_KEY, OpenTokConfig.SESSION_ID).sessionOptions(new Session.SessionOptions() {
                 @Override
                 public boolean useTextureViews() {
@@ -331,9 +337,8 @@ public class VideoConference extends AppCompatActivity
     @Override
     public void onConnected(Session session) {
 
-        Log.d(TAG, "onConnected: Connected to session " + session.getSessionId());
+        Log.e(TAG, "onConnected: Connected to session " + session.getSessionId());
         // initialize Publisher and set this object to listen to Publisher events
-
 
         if (getIntent().getExtras().getInt("CALL_TYPE") == 1) {
             setPublisherView();
@@ -358,7 +363,7 @@ public class VideoConference extends AppCompatActivity
 
     @Override
     public void onDisconnected(Session session) {
-        Log.d(TAG, "onDisconnected: disconnected from session " + session.getSessionId());
+        Log.e(TAG, "onDisconnected: disconnected from session " + session.getSessionId());
 
 //        mSession = null;
         moveToHome();
@@ -366,9 +371,9 @@ public class VideoConference extends AppCompatActivity
 
     @Override
     public void onError(Session session, OpentokError opentokError) {
-        Log.d(TAG, "onError: Error (" + opentokError.getMessage() + ") in session " + session.getSessionId());
+        Log.e(TAG, "onError: Error (" + opentokError.getMessage() + ") in session " + session.getSessionId());
 
-//        Toast.makeText(this, "Session error. See the logcat please." + opentokError.getMessage(), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Session error. See the logcat please." + opentokError.getMessage(), Toast.LENGTH_LONG).show();
 
         moveToHome();
     }
@@ -384,7 +389,7 @@ public class VideoConference extends AppCompatActivity
     @Override
     public void onStreamReceived(Session session, Stream stream) {
         Config.isDisconnect = true;
-        Log.d(TAG, "onStreamReceived: New stream " + stream.getStreamId() + " in session " + session.getSessionId());
+        Log.e(TAG, "onStreamReceived: New stream " + stream.getStreamId() + " in session " + session.getSessionId());
 
 //        final Subscriber subscriber = new Subscriber.Builder(VideoConference.this, stream).build();
 //        mSession.subscribe(subscriber);
@@ -431,7 +436,7 @@ public class VideoConference extends AppCompatActivity
 
     @Override
     public void onStreamDropped(Session session, Stream stream) {
-        Log.d(TAG, "onStreamDropped: Stream " + stream.getStreamId() + " dropped from session " + session.getSessionId());
+        Log.e(TAG, "onStreamDropped: Stream " + stream.getStreamId() + " dropped from session " + session.getSessionId());
         Config.isDisconnect = false;
 //        moveToHome();
 
@@ -476,20 +481,20 @@ public class VideoConference extends AppCompatActivity
 
     @Override
     public void onStreamCreated(PublisherKit publisherKit, Stream stream) {
-        Log.d(TAG, "onStreamCreated: Own stream " + stream.getStreamId() + " created");
+        Log.e(TAG, "onStreamCreated: Own stream " + stream.getStreamId() + " created");
     }
 
     @Override
     public void onStreamDestroyed(PublisherKit publisherKit, Stream stream) {
-        Log.d(TAG, "onStreamDestroyed: Own stream " + stream.getStreamId() + " destroyed");
+        Log.e(TAG, "onStreamDestroyed: Own stream " + stream.getStreamId() + " destroyed");
         Config.isDisconnect = false;
     }
 
     @Override
     public void onError(PublisherKit publisherKit, OpentokError opentokError) {
-        Log.d(TAG, "onError: Error (" + opentokError.getMessage() + ") in publisher");
+        Log.e(TAG, "onError: Error (" + opentokError.getMessage() + ") in publisher");
         Config.isDisconnect = false;
-//        Toast.makeText(this, "Session error. See the logcat please.", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Session error. See the logcat please.", Toast.LENGTH_LONG).show();
         moveToHome();
     }
 
@@ -517,83 +522,11 @@ public class VideoConference extends AppCompatActivity
 
     }
 
-    private void calculateLayout() {
-        ConstraintSetHelper set = new ConstraintSetHelper(R.id.main_container);
 
-        int size = mSubscribers.size();
-        if (size == 0) {
-            // Publisher full screen
-            set.layoutViewFullScreen(R.id.publisher_view_id);
-        } else if (size == 1) {
-            // Publisher
-            // Subscriber
-            set.layoutViewAboveView(R.id.publisher_view_id, getResIdForSubscriberIndex(0));
-            set.layoutViewWithTopBound(R.id.publisher_view_id, R.id.main_container);
-            set.layoutViewWithBottomBound(getResIdForSubscriberIndex(0), R.id.main_container);
-            set.layoutViewAllContainerWide(R.id.publisher_view_id, R.id.main_container);
-            set.layoutViewAllContainerWide(getResIdForSubscriberIndex(0), R.id.main_container);
-
-        } else if (size > 1 && size % 2 == 0) {
-            //  Publisher
-            // Sub1 | Sub2
-            // Sub3 | Sub4
-            //    .....
-            set.layoutViewWithTopBound(R.id.publisher_view_id, R.id.main_container);
-            set.layoutViewAllContainerWide(R.id.publisher_view_id, R.id.main_container);
-
-            for (int i = 0; i < size; i += 2) {
-                if (i == 0) {
-                    set.layoutViewAboveView(R.id.publisher_view_id, getResIdForSubscriberIndex(i));
-                    set.layoutViewAboveView(R.id.publisher_view_id, getResIdForSubscriberIndex(i + 1));
-                } else {
-                    set.layoutViewAboveView(getResIdForSubscriberIndex(i - 2), getResIdForSubscriberIndex(i));
-                    set.layoutViewAboveView(getResIdForSubscriberIndex(i - 1), getResIdForSubscriberIndex(i + 1));
-                }
-
-                set.layoutTwoViewsOccupyingAllRow(getResIdForSubscriberIndex(i), getResIdForSubscriberIndex(i + 1));
-            }
-
-            set.layoutViewWithBottomBound(getResIdForSubscriberIndex(size - 2), R.id.main_container);
-            set.layoutViewWithBottomBound(getResIdForSubscriberIndex(size - 1), R.id.main_container);
-        } else if (size > 1) {
-            // Pub  | Sub1
-            // Sub2 | Sub3
-            // Sub3 | Sub4
-            //    .....
-
-            set.layoutViewWithTopBound(R.id.publisher_view_id, R.id.main_container);
-            set.layoutViewWithTopBound(getResIdForSubscriberIndex(0), R.id.main_container);
-            set.layoutTwoViewsOccupyingAllRow(R.id.publisher_view_id, getResIdForSubscriberIndex(0));
-
-            for (int i = 1; i < size; i += 2) {
-                if (i == 1) {
-                    set.layoutViewAboveView(R.id.publisher_view_id, getResIdForSubscriberIndex(i));
-                    set.layoutViewAboveView(getResIdForSubscriberIndex(0), getResIdForSubscriberIndex(i + 1));
-                } else {
-                    set.layoutViewAboveView(getResIdForSubscriberIndex(i - 2), getResIdForSubscriberIndex(i));
-                    set.layoutViewAboveView(getResIdForSubscriberIndex(i - 1), getResIdForSubscriberIndex(i + 1));
-                }
-                set.layoutTwoViewsOccupyingAllRow(getResIdForSubscriberIndex(i), getResIdForSubscriberIndex(i + 1));
-            }
-
-            set.layoutViewWithBottomBound(getResIdForSubscriberIndex(size - 2), R.id.main_container);
-            set.layoutViewWithBottomBound(getResIdForSubscriberIndex(size - 1), R.id.main_container);
-        }
-
-        set.applyToLayout(mContainer, true);
-    }
 
     private void disconnectSession() {
 
         try {
-            //        if (mSubscribers.size() > 0) {
-//            for (Subscriber subscriber : mSubscribers) {
-//                if (subscriber != null) {
-//                    mSession.unsubscribe(subscriber);
-//                    subscriber.destroy();
-//                }
-//            }
-//        }
 
             if (mSubscriber != null) {
                 mSession.unsubscribe(mSubscriber);

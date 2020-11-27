@@ -56,6 +56,7 @@ import java.util.List;
 import java.util.Map;
 
 public class AppointmentSummary extends CustomActivity implements View.OnClickListener, PaymentResultListener {
+    private static final String TAG = "AppointmentSummary";
     RecyclerView selectedRecyclerView;
     LinearLayout tecLayout;
     SelectedIssueAdapter selectedIssueAdapter;
@@ -124,16 +125,7 @@ public class AppointmentSummary extends CustomActivity implements View.OnClickLi
 
     void setupDetails() {
         GlobValues g = GlobValues.getInstance();
-//        g.addAppointmentInputParams("AppointmentDate", selectedDateToSend);
-//        g.addAppointmentInputParams("AppointmentTime", selectedTime);
-//        g.addAppointmentInputParams("Offset", "300");
-//
-//        g.addAppointmentInputParams("DoctorRole", "1");
-//        g.addAppointmentInputParams("isTechnician", techRequired.isChecked()?"1":"0");
-//        g.addAppointmentInputParams("PatLoc", "Bangalore");
-//        g.addAppointmentInputParams("Lattitude", "");
-//        g.addAppointmentInputParams("Longitude", "");
-//        g.addAppointmentInputParams("ComplaintDescp", descTxt.getText().toString());
+
         appointmentinputParams = g.getAddAppointmentParams();
 
 
@@ -178,12 +170,11 @@ public class AppointmentSummary extends CustomActivity implements View.OnClickLi
 
         consultCharge.setText(selectedDoctor.getDocCharge().isEmpty() ? "" : "Rs " + selectedDoctor.getVCCharge().toString());
 
+
         if (selectedDoctor.getVCCharge() != null) {
             cosultChargeAmount = (int) (Double.parseDouble(selectedDoctor.getVCCharge().toString()) * 100);
         }
 
-
-//        description.setText(appointmentinputParams.get("").toString());
 
 
     }
@@ -191,27 +182,14 @@ public class AppointmentSummary extends CustomActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.next_btn) {
-//            bookAppointment();
-//            getVideoCallConfigurations();
-
-//            if((int)GlobValues.getAddAppointmentParams().get("ConsultNow") == 2){
-//                bookAppointment("","");
-//            }else{
-//                getVideoCallConfigurations("","");
-//            }
 
             createRazorPayOrder();
-//            paymentWebvw();
         }
 
     }
 
-    public void paymentWebvw() {
-        startActivity(new Intent(this, PaymentWebVw.class));
-    }
 
     void bookAppointment(String paymentId, String amount) {
-//        HashMap<String, Object> inputParams = AppPreferences.getInstance().sendingInputParam();
 
         appointmentinputParams.put("paymentId", paymentId);
         appointmentinputParams.put("amount", amount);
@@ -252,16 +230,16 @@ public class AppointmentSummary extends CustomActivity implements View.OnClickLi
     }
 
     public void getVideoCallConfigurations(String paymentId, String amount) {
-//        HashMap<String, Object> inputParams = AppPreferences.getInstance().sendingInputParam();
 
         appointmentinputParams.put("paymentId", paymentId);
         appointmentinputParams.put("amount", amount);
 
-//        inputParams.put("ComplaintID",GlobValues.getInstance().getSelectedAppointment());
+        Log.e(TAG, appointmentinputParams.toString());
+
         SoapAPIManager apiManager = new SoapAPIManager(AppointmentSummary.this, appointmentinputParams, new APICallback() {
             @Override
             public void responseCallback(Context context, String response) throws JSONException {
-                Log.e("***response***", response);
+                Log.e(TAG, response);
 
                 try {
                     JSONArray responseAry = new JSONArray(response);
@@ -276,7 +254,6 @@ public class AppointmentSummary extends CustomActivity implements View.OnClickLi
                             return;
 
                         }
-//                        loadAppointments(responseAry);
                         if (commonDataInfo.has("VCToekn") && !commonDataInfo.getString("VCToekn").isEmpty() &&
                                 commonDataInfo.has("VSSessionID") && !commonDataInfo.getString("VSSessionID").isEmpty()) {
                             String TOKEN = commonDataInfo.getString("VCToekn");
@@ -308,51 +285,19 @@ public class AppointmentSummary extends CustomActivity implements View.OnClickLi
 
         if (Utilities.isNetworkAvailable(AppointmentSummary.this)) {
             apiManager.execute(url);
-        } else {
-
         }
     }
 
 
     void showOrderErrorMessage() {
         Utilities.showAlert(this, "Issue while creating order, Please try again!", false);
-//        Utilities.showAlertDialogWithOptions(this, true, errorMessage, new String[]{"Done"}, new UtilitiesInterfaces.AlertCallback() {
-//            @Override
-//            public void onOptionClick(DialogInterface dialog, int buttonIndex) {
-//
-//            }
-//        });
+
     }
 
     void createRazorPayOrder() {
 
         try {
-//            HashMap<String,Object> inputParams= new HashMap<>();
-//
-//            Date dNow = new Date();
-//            SimpleDateFormat ft = new SimpleDateFormat("_yyMMddhhmmssMs");
-//            String datetime = ft.format(dNow);
-//            String recipt = AppPreferences.getInstance().getUserInfo().getString("PatientID")+datetime;
-//
-//            inputParams.put("amount",cosultCharge);
-//            inputParams.put("currency","INR");
-//            inputParams.put("receipt",recipt);
-//            inputParams.put("payment_capture","1");
-//
-//            HashMap<String,Object> notesInput= new HashMap<>();
-//            notesInput.put("ConsultationMode",appointmentinputParams.get("ConsultationMode"));
-//            notesInput.put("AppointmentTime",appointmentinputParams.get("AppointmentTime"));
-//            notesInput.put("AppointmentDate",appointmentinputParams.get("AppointmentDate"));
-//            notesInput.put("SpecialistName",appointmentinputParams.get("SpecialistName"));
-//            notesInput.put("PatientName",appointmentinputParams.get("PatientName"));
-//            notesInput.put("ComplaintID",appointmentinputParams.get("ComplaintID"));
-//            notesInput.put("SpecialistID",appointmentinputParams.get("SpecialistID"));
-//            notesInput.put("patientID",appointmentinputParams.get("patientID"));
-//            notesInput.put("isTechnician",appointmentinputParams.get("isTechnician"));
-//
-//            inputParams.put("notes",notesInput);
 
-            DoctorModel selectedDoctor = GlobValues.getDoctor();
 
             RazerPayOrder razorPayOrder = new RazerPayOrder();
             razorPayOrder.setAmount(cosultChargeAmount);
@@ -373,10 +318,8 @@ public class AppointmentSummary extends CustomActivity implements View.OnClickLi
 
             Transfer hospitalTranfer = new Transfer();
 
-//            hospitalTranfer.setAccount(selectedDoctor.getChargesDetails().getSpecialistAccountNumber());
 
             hospitalTranfer.setAccount("acc_FO4DrKlapsbqas");
-//            hospitalTranfer.setAmount(selectedDoctor.getChargesDetails().getSpecialistCharges());
 
             hospitalTranfer.setAmount(100);
             hospitalTranfer.setCurrency("INR");
@@ -385,9 +328,7 @@ public class AppointmentSummary extends CustomActivity implements View.OnClickLi
 
             Transfer medi360Transfer = new Transfer();
 
-//            medi360Transfer.setAccount(selectedDoctor.getChargesDetails().getMedi360AccountNumber());
             medi360Transfer.setAccount("acc_FO4I5Y8usyFNt8");
-//            medi360Transfer.setAmount(selectedDoctor.getChargesDetails().getMedi360lCharges());
             medi360Transfer.setAmount(100);
             medi360Transfer.setCurrency("INR");
             medi360Transfer.setNotes(transferNotes);
@@ -456,33 +397,16 @@ public class AppointmentSummary extends CustomActivity implements View.OnClickLi
                 }
             };
 
-// Add the request to the queue
+            // Add the request to the queue
             Volley.newRequestQueue(this).add(jsonRequest);
 
 
-            ///
         } catch (Exception e) {
             pd.hide();
             e.printStackTrace();
         }
 
 
-    }
-
-    void videoCall() {
-        //                Intent intent = new Intent(getContext(), VideoCaller.class);
-////        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//
-//                String TOKEN = "T1==cGFydG5lcl9pZD00NjI2MDIwMiZzaWc9ZDg1ZGY0MDU1YWM0ZTg4ZTQyZjk5YTA4YjU4MTMxMTBiODU4ZGViNTpzZXNzaW9uX2lkPTJfTVg0ME5qSTJNREl3TW41LU1UVTBPRGcyTlRnNE5UWXpOWDVNTjNKbVRWaEJPR1JJU0dSc1FsZHBVSGs1WjFoNmVXcC1mZyZjcmVhdGVfdGltZT0xNTQ4ODY1OTEzJm5vbmNlPTAuMTgzMDY1MzQ5OTUxMTQ2MzImcm9sZT1wdWJsaXNoZXImZXhwaXJlX3RpbWU9MTU1MTQ1NzkxMiZpbml0aWFsX2xheW91dF9jbGFzc19saXN0PQ==";
-//                String SESSION = "2_MX40NjI2MDIwMn5-MTU0ODg2NTg4NTYzNX5MN3JmTVhBOGRISGRsQldpUHk5Z1h6eWp-fg";
-//
-//                intent.putExtra("SESSION_ID",SESSION);
-//                intent.putExtra("TOKEN",TOKEN);
-//
-//                intent.putExtra("CALER_NAME","Test Call");
-//                intent.putExtra("CALL_TYPE",1);
-//                startActivity(intent);
     }
 
 
@@ -534,9 +458,7 @@ public class AppointmentSummary extends CustomActivity implements View.OnClickLi
 
     @Override
     public void onPaymentSuccess(String s) {
-//        getVideoCallConfigurations();
 
-//        orderID
 
         if ((int) GlobValues.getAddAppointmentParams().get("ConsultNow") == 2) {
             bookAppointment(s, String.valueOf(cosultChargeAmount));
@@ -558,10 +480,6 @@ public class AppointmentSummary extends CustomActivity implements View.OnClickLi
 
         HashMap<String, Object> appointmentParms = GlobValues.getInstance().getAddAppointmentParams();
 
-
-//        inputParams.put("AppointmentDate","2/15/2019");
-//        inputParams.put("ConsultationMode","0");
-//        inputParams.put("isInstant","0");
 
 
         inputParams.put("AppointmentDate", appointmentParms.get("AppointmentDate").toString());

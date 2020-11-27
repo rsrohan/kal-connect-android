@@ -80,7 +80,8 @@ public class AboutDoctor extends CustomActivity {
             specialistID = mBundle.getString("SpecialistID");
         }
         if (!d.getIsLoggedIn()) {
-            consultNowBtn.setVisibility(View.GONE);
+            //#todo
+            //consultNowBtn.setVisibility(View.GONE);
         }
         try {
             Utilities.loadImageWithPlaceHoler(profileImage, d.getDoctorImage(), d.getName());
