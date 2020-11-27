@@ -81,7 +81,7 @@ public class AboutDoctor extends CustomActivity {
         }
         if (!d.getIsLoggedIn()) {
             //#todo
-            //consultNowBtn.setVisibility(View.GONE);
+            consultNowBtn.setVisibility(View.GONE);
         }
         try {
             Utilities.loadImageWithPlaceHoler(profileImage, d.getDoctorImage(), d.getName());

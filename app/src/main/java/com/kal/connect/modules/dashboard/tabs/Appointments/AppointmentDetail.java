@@ -61,9 +61,6 @@ public class AppointmentDetail extends CustomActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.appointment_detail);
 
-
-
-
         buildUI();
 
     }

@@ -66,7 +66,7 @@ public class VideoConference extends AppCompatActivity
         SubscriberKit.SubscriberListener,
         Session.SessionListener, SubscriberKit.VideoListener {
 
-    private static final String TAG = VideoConference.class.getSimpleName();
+    private static final String TAG = "VideoConference";
     private static final int RC_SETTINGS_SCREEN_PERM = 123;
     private static final int RC_VIDEO_APP_PERM = 124;
 
@@ -164,13 +164,9 @@ public class VideoConference extends AppCompatActivity
         Config.mActivity = this;
         ButterKnife.bind(this);
 
-//        mSubscriberViewContainerAdditional.setVisibility(View.GONE);
         mLlVideoSubscriberRootAdditional.setVisibility(View.GONE);
 
-//        sessionId = getIntent().getStringExtra("SESSION_ID");
-//        token = getIntent().getStringExtra("TOKEN");
 
-//        mContainer = (ConstraintLayout) findViewById(R.id.main_container);
         if (getIntent().getExtras().getInt("CALL_TYPE") == 2) {
             dialHandler(true);
 
@@ -292,13 +288,6 @@ public class VideoConference extends AppCompatActivity
         }
     }
 
-    private void startPublisherPreview() {
-        mPublisher = new Publisher.Builder(this).name("publisher").build();
-
-        mPublisher.setPublisherListener(this);
-        mPublisher.setStyle(BaseVideoRenderer.STYLE_VIDEO_SCALE, BaseVideoRenderer.STYLE_VIDEO_FILL);
-        mPublisher.startPreview();
-    }
 
     @AfterPermissionGranted(RC_VIDEO_APP_PERM)
     private void requestPermissions() {
@@ -308,14 +297,9 @@ public class VideoConference extends AppCompatActivity
                 Manifest.permission.RECORD_AUDIO
         };
         if (EasyPermissions.hasPermissions(this, perms)) {
-//            OpenTokConfig.SESSION_ID = "1_MX40NTQ2NzMwMn5-MTU5OTYyNzQ0NTg1Nn5BMkR1clpRYUtjNEhvVU5hSkdmTnk2QjF-fg";
-//            OpenTokConfig.TOKEN = "T1==cGFydG5lcl9pZD00NTQ2NzMwMiZzaWc9NmMzYWNjNzU2N2I1NGU1YzNlYWFkZjQ5ZjFlMzBkOTFkNGY4ODg4ZDpzZXNzaW9uX2lkPTFfTVg0ME5UUTJOek13TW41LU1UVTVPVFl5TnpRME5UZzFObjVCTWtSMWNscFJZVXRqTkVodlZVNWhTa2RtVG5rMlFqRi1mZyZjcmVhdGVfdGltZT0xNTk5NjI3NDcyJm5vbmNlPTAuOTQ0NzI5Mzk0NzIwMzk0NyZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNjAwMjMyMjcwJmluaXRpYWxfbGF5b3V0X2NsYXNzX2xpc3Q9";
-//            OpenTok opentok = new OpenTok(API_KEY, API_SECRET);
-//
-//            //Generate a basic session. Or you could use an existing session ID.
-//            String sessionId = opentok.createSession().getSessionId();
-//
-//            String token = opentok.generateToken(sessionId);
+
+            Log.e(TAG, OpenTokConfig.API_KEY+"\n\n"+OpenTokConfig.SESSION_ID+"\n\n"+OpenTokConfig.TOKEN);
+
             mSession = new Session.Builder(this, OpenTokConfig.API_KEY, OpenTokConfig.SESSION_ID).sessionOptions(new Session.SessionOptions() {
                 @Override
                 public boolean useTextureViews() {
@@ -325,10 +309,6 @@ public class VideoConference extends AppCompatActivity
             mSession.setSessionListener(this);
             mSession.connect(OpenTokConfig.TOKEN);
 
-//            startPublisherPreview();
-//            mPublisher.getView().setId(R.id.publisher_view_id);
-//            mContainer.addView(mPublisher.getView());
-//            calculateLayout();
         } else {
             EasyPermissions.requestPermissions(this, getString(R.string.rationale_video_app), RC_VIDEO_APP_PERM, perms);
         }
@@ -391,17 +371,6 @@ public class VideoConference extends AppCompatActivity
         Config.isDisconnect = true;
         Log.e(TAG, "onStreamReceived: New stream " + stream.getStreamId() + " in session " + session.getSessionId());
 
-//        final Subscriber subscriber = new Subscriber.Builder(VideoConference.this, stream).build();
-//        mSession.subscribe(subscriber);
-//        mSubscribers.add(subscriber);
-//        mSubscriberStreams.put(stream, subscriber);
-//
-//        int subId = getResIdForSubscriberIndex(mSubscribers.size() - 1);
-//        subscriber.getView().setId(subId);
-//        mContainer.addView(subscriber.getView());
-
-
-//        calculateLayout();
 
         if (mSubscriber == null) {
             mSubscriber = new Subscriber.Builder(this, stream).build();
@@ -415,7 +384,6 @@ public class VideoConference extends AppCompatActivity
                 setPublisherView();
             }
 
-//            setPublisherView();
             dialHandler(false);
             return;
         }
@@ -427,7 +395,6 @@ public class VideoConference extends AppCompatActivity
             mSession.subscribe(mSubscriberAdditional);
             mSubscriberViewContainerAdditional.addView(mSubscriberAdditional.getView());
             mSubscriberAdditional.setVideoListener(this);
-//            mSubscriberViewContainerAdditional.setVisibility(View.VISIBLE);
             mLlVideoSubscriberRootAdditional.setVisibility(View.VISIBLE);
         }
 
@@ -438,23 +405,16 @@ public class VideoConference extends AppCompatActivity
     public void onStreamDropped(Session session, Stream stream) {
         Log.e(TAG, "onStreamDropped: Stream " + stream.getStreamId() + " dropped from session " + session.getSessionId());
         Config.isDisconnect = false;
-//        moveToHome();
 
-//        Subscriber subscriber = mSubscriberStreams.get(stream);
-//        if (subscriber == null) {
-//            return;
-//        }
 
 
         if (mSubscriberAdditional != null && mSubscriberAdditional.getStream() != null && mSubscriberAdditional.getStream().getStreamId().equalsIgnoreCase(stream.getStreamId())) {
             mSubscriberAdditional = null;
-//            mSubscriberViewContainerAdditional.setVisibility(View.GONE);
             mLlVideoSubscriberRootAdditional.setVisibility(View.GONE);
         }
 
         if (mSubscriber != null && mSubscriber.getStream() != null && mSubscriber.getStream().getStreamId().equalsIgnoreCase(stream.getStreamId())) {
             mSubscriber = null;
-//            mSubscriberViewContainer.setVisibility(View.GONE);
             mLlVideoSubscriberRoot.setVisibility(View.GONE);
         }
 
@@ -462,21 +422,6 @@ public class VideoConference extends AppCompatActivity
             moveToHome();
         }
 
-//
-//        mSubscribers.remove(subscriber);
-//        mSubscriberStreams.remove(stream);
-//        mContainer.removeView(subscriber.getView());
-//
-//        if(mSubscribers.size() < 1){
-//            mSession.disconnect();
-//            moveToHome();
-//        }
-//
-//        // Recalculate view Ids
-//        for (int i = 0; i < mSubscribers.size(); i++) {
-//            mSubscribers.get(i).getView().setId(getResIdForSubscriberIndex(i));
-//        }
-//        calculateLayout();
     }
 
     @Override
@@ -509,13 +454,11 @@ public class VideoConference extends AppCompatActivity
         isMovingToHome = true;
 
         Utilities.showAlertDialogWithOptions(this, false, "Thank You for using our service. You can check details in Appointment Section. Stay Healthy!!", new String[]{"Done"}, new UtilitiesInterfaces.AlertCallback() {
-//        Utilities.showAlertDialogWithOptions(this, false, "Thanks for using our service, You can check this call details from your Appointment details, Take care!", new String[]{"Done"}, new UtilitiesInterfaces.AlertCallback() {
             @Override
             public void onOptionClick(DialogInterface dialog, int buttonIndex) {
                 Intent homeScreen = new Intent(getApplicationContext(), Dashboard.class);
                 homeScreen.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(homeScreen);
-//                finish();
             }
         });
 
@@ -540,7 +483,6 @@ public class VideoConference extends AppCompatActivity
 
             if (mPublisher != null) {
                 mSession.unpublish(mPublisher);
-//            mContainer.removeView(mPublisher.getView());
                 mPublisher.destroy();
                 mPublisher = null;
             }
@@ -583,13 +525,10 @@ public class VideoConference extends AppCompatActivity
         if (subscriberKit != null && mSubscriber != null && subscriberKit.getStream() != null && subscriberKit.getStream().getStreamId().equalsIgnoreCase(mSubscriber.getStream().getStreamId())) {
             videoDisabledView.setVisibility(View.VISIBLE);
             mSubscriberViewContainer.setVisibility(View.GONE);
-//            mSubscriberViewContainer.setVisibility(View.GONE);
             mLlVideoSubscriberRoot.setVisibility(View.VISIBLE);
         }
 
         if (subscriberKit != null && mSubscriberAdditional != null && subscriberKit.getStream() != null && subscriberKit.getStream().getStreamId().equalsIgnoreCase(mSubscriberAdditional.getStream().getStreamId())) {
-//            videoDisabledView.setVisibility(View.VISIBLE);
-//            mSubscriberViewContainer.setVisibility(View.GONE);
             mLlVideoSubscriberRootAdditional.setVisibility(View.VISIBLE);
             mSubscriberViewContainerAdditional.setVisibility(View.GONE);
             videoDisabledViewAdditional.setVisibility(View.VISIBLE);
@@ -606,31 +545,15 @@ public class VideoConference extends AppCompatActivity
         if (subscriberKit.getStream().getStreamId().equalsIgnoreCase(mSubscriber.getStream().getStreamId())) {
             videoDisabledView.setVisibility(View.GONE);
             mSubscriberViewContainer.setVisibility(View.VISIBLE);
-//            mSubscriberViewContainer.setVisibility(View.GONE);
             mLlVideoSubscriberRoot.setVisibility(View.VISIBLE);
         }
         if (subscriberKit != null && mSubscriberAdditional != null && subscriberKit.getStream() != null && subscriberKit.getStream().getStreamId().equalsIgnoreCase(mSubscriberAdditional.getStream().getStreamId())) {
-//            videoDisabledView.setVisibility(View.VISIBLE);
-//            mSubscriberViewContainer.setVisibility(View.GONE);
             mLlVideoSubscriberRootAdditional.setVisibility(View.VISIBLE);
             mSubscriberViewContainerAdditional.setVisibility(View.VISIBLE);
             videoDisabledViewAdditional.setVisibility(View.GONE);
 
         }
 
-
-//        if (subscriberKit.getStream().getStreamId().equalsIgnoreCase(mSubscriber.getStream().getStreamId())) {
-//            videoDisabledView.setVisibility(View.VISIBLE);
-//            mLlVideoSubscriberRoot.setVisibility(View.GONE);
-//            mSubscriberViewContainer.setVisibility(View.GONE);
-//        }
-//        if (subscriberKit != null && mSubscriberAdditional != null && subscriberKit.getStream().getStreamId().equalsIgnoreCase(mSubscriberAdditional.getStream().getStreamId())) {
-//            videoDisabledView.setVisibility(View.VISIBLE);
-//            mSubscriberViewContainer.setVisibility(View.GONE);
-//        }
-
-//        videoDisabledView.setVisibility(View.GONE);
-//        mSubscriberViewContainer.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -647,8 +570,7 @@ public class VideoConference extends AppCompatActivity
 
 
     public void getEndCall() {
-//        HashMap<String, Object> inputParams = AppPreferences.getInstance().sendingInputParam();
-//        inputParams.put("ComplaintID",GlobValues.getInstance().getSelectedAppointment());
+
         String docId = "";
         Bundle mBundle = getIntent().getExtras();
         if (mBundle.containsKey("DocterId")) {
