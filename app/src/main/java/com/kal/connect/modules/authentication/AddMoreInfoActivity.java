@@ -5,7 +5,7 @@ import android.os.Bundle;
 import com.kal.connect.R;
 import com.kal.connect.customLibs.appCustomization.CustomActivity;
 
-public class AddMoreInfo extends CustomActivity {
+public class AddMoreInfoActivity extends CustomActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

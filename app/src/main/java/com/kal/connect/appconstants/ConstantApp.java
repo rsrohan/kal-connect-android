@@ -1,4 +1,4 @@
-package com.kal.connect.modules.communicate.services;
+package com.kal.connect.appconstants;
 
 public class ConstantApp {
 

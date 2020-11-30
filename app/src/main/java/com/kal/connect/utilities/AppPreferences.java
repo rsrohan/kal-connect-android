@@ -9,7 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.kal.connect.customLibs.JSONHandler.JSONHandler;
 import com.kal.connect.customLibs.appCustomization.CustomApplication;
-import com.kal.connect.modules.authentication.SignIn;
+import com.kal.connect.modules.authentication.SignInActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -285,7 +285,7 @@ public class AppPreferences {
 
         if (!this.isLoggedIn()) {
 
-            Intent authHome = new Intent(context, SignIn.class);
+            Intent authHome = new Intent(context, SignInActivity.class);
             context.startActivity(authHome);
             Utilities.pushAnimation((Activity) context);
             return false;
@@ -370,7 +370,7 @@ public class AppPreferences {
         editor.commit();
 
         //call this to clear the activities and open the dashboard
-        Intent homeScreen = new Intent(context, SignIn.class);
+        Intent homeScreen = new Intent(context, SignInActivity.class);
         homeScreen.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(homeScreen);
     }

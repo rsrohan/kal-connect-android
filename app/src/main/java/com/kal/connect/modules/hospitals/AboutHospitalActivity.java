@@ -17,7 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AboutHospital extends CustomActivity {
+public class AboutHospitalActivity extends CustomActivity {
 
     @BindView(R.id.hospital_name)
     TextView hospitalName;

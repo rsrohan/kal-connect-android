@@ -293,38 +293,6 @@ public class Dashboard extends CustomMapActivity implements View.OnClickListener
         });
     }
 
-//    void updateLocation(HashMap<String, Object> inputParams){
-//
-//        SoapAPIManager apiManager = new SoapAPIManager(Dashboard.this, inputParams, new APICallback() {
-//            @Override
-//            public void responseCallback(Context context, String response) throws JSONException {
-//                Log.e("***response***",response);
-//
-//                try{
-//                    JSONArray responseAry = new JSONArray(response);
-//                    if(responseAry.length()>0){
-//                        JSONObject commonDataInfo = responseAry.getJSONObject(0);
-//                        if(commonDataInfo.getString("APIStatus").equals("1")){
-//                            JSONObject userInfo = AppPreferences.getInstance().getUserInfo();
-//                            userInfo.put("Lattitude",inputParams.get("Lattitude").toString());
-//                            userInfo.put("Longitude",inputParams.get("Longitude").toString());
-//                            userInfo.put("LocationAddress",inputParams.get("LocationAddress").toString());
-//                            AppPreferences.getInstance().setLoginInfo(userInfo.toString());
-//                        }
-//                    }
-//                }catch (Exception e){
-//
-//                }
-//            }
-//        },true);
-//        String[] url = {Config.WEB_Services1,Config.UPDATE_LOCATION_DETAILS,"POST"};
-//
-//        if (Utilities.isNetworkAvailable(Dashboard.this)) {
-//            apiManager.execute(url);
-//        }else{
-//
-//        }
-//    }
 
     void getStateCityList() {
         HashMap<String, Object> inputParams = new HashMap<String, Object>();

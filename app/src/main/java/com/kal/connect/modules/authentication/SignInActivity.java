@@ -40,7 +40,7 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import lib.kingja.switchbutton.SwitchMultiButton;
 
-public class SignIn extends CustomActivity implements View.OnClickListener {
+public class SignInActivity extends CustomActivity implements View.OnClickListener {
     LovelyTextInputDialog l;
     EditText mobile, password;
     Button getOTP;
@@ -58,7 +58,7 @@ public class SignIn extends CustomActivity implements View.OnClickListener {
     @OnClick(R.id.language)
     public void languageShow() {
 
-        Utilities.openLanguageSelection(SignIn.this);
+        Utilities.openLanguageSelection(SignInActivity.this);
     }
 
     @OnTextChanged(R.id.mobile)
@@ -179,7 +179,7 @@ public class SignIn extends CustomActivity implements View.OnClickListener {
         inputParams.put("OTP", authedicateType == 2 ? password.getText().toString() : "");
 
 
-        SoapAPIManager apiManager = new SoapAPIManager(SignIn.this, inputParams, new APICallback() {
+        SoapAPIManager apiManager = new SoapAPIManager(SignInActivity.this, inputParams, new APICallback() {
             @Override
             public void responseCallback(Context context, String response) throws JSONException {
                 Log.e("***response***", response);
@@ -190,9 +190,9 @@ public class SignIn extends CustomActivity implements View.OnClickListener {
                         JSONObject userInfo = responseAry.getJSONObject(0);
                         if (userInfo.has("APIStatus") && Integer.parseInt(userInfo.getString("APIStatus")) == -1) {
                             if (userInfo.has("Message") && !userInfo.getString("Message").isEmpty()) {
-                                Utilities.showAlert(SignIn.this, userInfo.getString("Message"), false);
+                                Utilities.showAlert(SignInActivity.this, userInfo.getString("Message"), false);
                             } else {
-                                Utilities.showAlert(SignIn.this, "Please check again!", false);
+                                Utilities.showAlert(SignInActivity.this, "Please check again!", false);
                             }
                             return;
 
@@ -212,7 +212,7 @@ public class SignIn extends CustomActivity implements View.OnClickListener {
                             }, 5000);
                         } else {
                             AppPreferences.getInstance().setLoginInfo(userInfo.toString());
-                            startActivity(new Intent(SignIn.this, Dashboard.class));
+                            startActivity(new Intent(SignInActivity.this, Dashboard.class));
                             finish();
                         }
 //                        finish();
@@ -236,9 +236,9 @@ public class SignIn extends CustomActivity implements View.OnClickListener {
 
     public boolean validate() {
         if (countryCode.getSelectedCountryCodeAsInt() == 91) {
-            return Utilities.validate(SignIn.this, mobile, getResources().getString(R.string.sign_in_mobile), false, 10, 10);
+            return Utilities.validate(SignInActivity.this, mobile, getResources().getString(R.string.sign_in_mobile), false, 10, 10);
         }
-        return Utilities.validate(SignIn.this, mobile, getResources().getString(R.string.sign_in_mobile), false, 3, 20);
+        return Utilities.validate(SignInActivity.this, mobile, getResources().getString(R.string.sign_in_mobile), false, 3, 20);
     }
 
     @Override

@@ -19,8 +19,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_margin="14dp"
+            android:layout_margin="24dp"
             android:text="Unkonwn User"
+            android:textStyle="bold"
             android:textSize="28sp"/>
 
         <TextView
@@ -28,8 +29,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Incoming call"
-            android:textSize="16sp"
+            android:text="Incoming call..."
+            android:drawableStart="@drawable/ic_call"
+            android:drawablePadding="8dp"
+            android:gravity="center_vertical"
+            android:textSize="18sp"
             android:textAllCaps="false" />
 
     </LinearLayout>
@@ -49,7 +53,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <ImageView
-                android:src="@drawable/call_icon"
+                android:src="@drawable/ic_phone_call_accept"
+                android:tint="@color/green"
                 android:id="@+id/answerButton"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
@@ -66,7 +71,9 @@
                 android:id="@+id/declineButton"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:src="@drawable/call_disconnect"
+                android:rotation="135"
+                android:tint="@color/red"
+                android:src="@drawable/ic_phone_call_accept"
                 android:layout_toRightOf="@+id/answerButton"/>
         </LinearLayout>
 
