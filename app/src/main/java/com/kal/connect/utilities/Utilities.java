@@ -61,7 +61,7 @@ import com.kal.connect.customLibs.HTTP.Multipart.MultipartModel;
 import com.kal.connect.customLibs.appCustomization.CustomApplication;
 import com.kal.connect.customLibs.customAlert.CustomAlert;
 import com.kal.connect.models.HospitalModel;
-import com.kal.connect.modules.dashboard.tabs.Account.LanguageListAdapter;
+import com.kal.connect.adapters.LanguageListAdapter;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 

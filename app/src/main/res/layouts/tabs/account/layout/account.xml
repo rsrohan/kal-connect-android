@@ -21,8 +21,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="270dp"
-                android:layout_alignParentBottom="true"
+                android:layout_height="300dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -265,6 +264,7 @@
             android:id="@+id/profileInfoList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            tools:listitem="@layout/account_item"
             android:layout_marginTop="@dimen/default_margin" />
 
     </LinearLayout>

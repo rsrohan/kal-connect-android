@@ -26,9 +26,9 @@ import android.widget.TextView;
 
 
 import com.kal.connect.R;
+import com.kal.connect.adapters.AccountPersonalDetailsAdapter;
 import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
 import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
-import com.kal.connect.customLibs.fcm.MyFirebaseInstanceIDService;
 import com.kal.connect.modules.dashboard.Dashboard;
 import com.kal.connect.utilities.AppComponents;
 import com.kal.connect.utilities.AppPreferences;
@@ -46,7 +46,7 @@ import java.util.HashMap;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class Account extends Fragment implements View.OnClickListener {
+public class AccountFragment extends Fragment implements View.OnClickListener {
 
     // MARK : UIElements
     View view;
@@ -57,7 +57,7 @@ public class Account extends Fragment implements View.OnClickListener {
     RecyclerView vwProfileList;
     TextView textViewVersionInfo;
 
-    AccountAdapter dataAdapter = null;
+    AccountPersonalDetailsAdapter dataAdapter = null;
     CustomDialogClass customDialog;
 
 
@@ -104,7 +104,7 @@ public class Account extends Fragment implements View.OnClickListener {
 
     private void buildListView() {
 
-        dataAdapter = new AccountAdapter(dataItems, getActivity());
+        dataAdapter = new AccountPersonalDetailsAdapter(dataItems, getActivity());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
 
         vwProfileList.setNestedScrollingEnabled(false);
@@ -115,7 +115,7 @@ public class Account extends Fragment implements View.OnClickListener {
         if (getActivity() != null)
             AppComponents.reloadDataWithEmptyHint(vwProfileList, dataAdapter, dataItems, getActivity().getResources().getString(R.string.no_data_found));
 
-        dataAdapter.setOnItemClickListener(new AccountAdapter.ItemClickListener() {
+        dataAdapter.setOnItemClickListener(new AccountPersonalDetailsAdapter.ItemClickListener() {
 
             @Override
             public void onItemClick(int position, View v) {
@@ -174,11 +174,11 @@ public class Account extends Fragment implements View.OnClickListener {
             }
 
             // Password
-            HashMap<String, Object> password = new HashMap<String, Object>();
-//            password.put("key", "Password");
-            password.put("key", getResources().getString(R.string.sign_in_password));
-            password.put("value", "******");
-            dataItems.add(password);
+//            HashMap<String, Object> password = new HashMap<String, Object>();
+////            password.put("key", "Password");
+//            password.put("key", getResources().getString(R.string.sign_in_password));
+//            password.put("value", "******");
+            //dataItems.add(password);
 
             // Gender
             if (accInfo.getString("Sex").trim() != null && accInfo.getString("Sex").trim().length() > 0) {
@@ -264,7 +264,7 @@ public class Account extends Fragment implements View.OnClickListener {
 
             case R.id.optionEditProfile:
 
-                Intent detailsScreen = new Intent(getActivity(), EditAccount.class);
+                Intent detailsScreen = new Intent(getActivity(), EditAccountActivity.class);
                 startActivity(detailsScreen);
                 Utilities.pushAnimation(getActivity());
                 break;

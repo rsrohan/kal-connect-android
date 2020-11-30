@@ -1,4 +1,4 @@
-package com.kal.connect.modules.dashboard.tabs.Account;
+package com.kal.connect.adapters;
 
 import android.content.Context;
 

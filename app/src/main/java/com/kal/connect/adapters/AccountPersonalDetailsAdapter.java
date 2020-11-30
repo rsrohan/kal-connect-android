@@ -1,4 +1,4 @@
-package com.kal.connect.modules.dashboard.tabs.Account;
+package com.kal.connect.adapters;
 
 import android.content.Context;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,15 +13,15 @@ import com.kal.connect.R;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.ViewHolder> {
+public class AccountPersonalDetailsAdapter extends RecyclerView.Adapter<AccountPersonalDetailsAdapter.ViewHolder> {
 
 
     // Step 1: Initialize By receiving the data via constructor
     Context mContext;
     ArrayList<HashMap<String, Object>> items;
-    private static AccountAdapter.ItemClickListener itemClickListener;
+    private static AccountPersonalDetailsAdapter.ItemClickListener itemClickListener;
 
-    public AccountAdapter(ArrayList<HashMap<String, Object>> partnerItems, Context context) {
+    public AccountPersonalDetailsAdapter(ArrayList<HashMap<String, Object>> partnerItems, Context context) {
         this.items = partnerItems;
         this.mContext = context;
     }
@@ -54,16 +54,16 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.ViewHold
 
     // Step 3: Override Recyclerview methods to load the data one by one
     @Override
-    public AccountAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public AccountPersonalDetailsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.account_item, parent, false);
-        return new AccountAdapter.ViewHolder(itemView);
+        return new AccountPersonalDetailsAdapter.ViewHolder(itemView);
 
     }
 
     @Override
-    public void onBindViewHolder(AccountAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(AccountPersonalDetailsAdapter.ViewHolder holder, int position) {
 
         HashMap<String, Object> item = items.get(position);
         String prescription = (item.get("key") != null) ? item.get("key").toString() : "";
@@ -85,7 +85,7 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.ViewHold
     }
 
     // Method to receive Click event
-    public void setOnItemClickListener(AccountAdapter.ItemClickListener clickListener) {
+    public void setOnItemClickListener(AccountPersonalDetailsAdapter.ItemClickListener clickListener) {
         this.itemClickListener = clickListener;
     }
 

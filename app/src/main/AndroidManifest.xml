@@ -246,7 +246,7 @@
         <activity android:name="com.kal.connect.modules.dashboard.tabs.Home.IssueDescriptor"></activity>
         <activity android:name="com.kal.connect.modules.dashboard.tabs.Home.PaymentWebVw"></activity>
 
-        <activity android:name="com.kal.connect.modules.dashboard.tabs.Account.EditAccount"></activity>
+        <activity android:name="com.kal.connect.modules.dashboard.tabs.Account.EditAccountActivity"></activity>
         <service
             android:name="com.kal.connect.customLibs.downloadService.DownloadFileService"
             android:enabled="true"

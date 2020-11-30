@@ -28,7 +28,7 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
 import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
 import com.kal.connect.customLibs.Maps.Manager.CustomMapActivity;
-import com.kal.connect.modules.dashboard.tabs.Account.Account;
+import com.kal.connect.modules.dashboard.tabs.Account.AccountFragment;
 import com.kal.connect.modules.dashboard.tabs.Appointments.Appointments;
 import com.kal.connect.modules.dashboard.tabs.Home.Home;
 import com.kal.connect.modules.dashboard.tabs.Medicine.Medicine;
@@ -191,7 +191,7 @@ public class Dashboard extends CustomMapActivity implements View.OnClickListener
                         break;
 
                     case R.id.tab_account:
-                        pageToShow = new Account();
+                        pageToShow = new AccountFragment();
                         break;
 
                 }

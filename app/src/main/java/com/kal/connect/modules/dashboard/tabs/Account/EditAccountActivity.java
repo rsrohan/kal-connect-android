@@ -40,7 +40,7 @@ import lib.kingja.switchbutton.SwitchMultiButton;
 
 import static com.kal.connect.customLibs.JSONHandler.JSONHandler.toMap;
 
-public class EditAccount extends CustomActivity implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
+public class EditAccountActivity extends CustomActivity implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
 
     // MARK : UIElements
 
@@ -101,7 +101,7 @@ public class EditAccount extends CustomActivity implements View.OnClickListener,
 
         Calendar now = Calendar.getInstance();
         datepickerdialog = DatePickerDialog.newInstance(
-                EditAccount.this,
+                EditAccountActivity.this,
                 now.get(Calendar.YEAR),
                 now.get(Calendar.MONTH),
                 now.get(Calendar.DAY_OF_MONTH)
@@ -122,7 +122,7 @@ public class EditAccount extends CustomActivity implements View.OnClickListener,
 
         proceedBtn.setOnClickListener(this);
 
-        setHeaderView(R.id.headerView, EditAccount.this, EditAccount.this.getResources().getString(R.string.edit_account_title));
+        setHeaderView(R.id.headerView, EditAccountActivity.this, EditAccountActivity.this.getResources().getString(R.string.edit_account_title));
         headerView.showBackOption();
 
     }
@@ -189,7 +189,7 @@ public class EditAccount extends CustomActivity implements View.OnClickListener,
     }
 
     public void setStatesDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(EditAccount.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(EditAccountActivity.this);
         builder.setTitle("Select State");
         ArrayList<String> optionsAry = new ArrayList<>();
         try {
@@ -223,7 +223,7 @@ public class EditAccount extends CustomActivity implements View.OnClickListener,
 
 
     public void setCityDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(EditAccount.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(EditAccountActivity.this);
         builder.setTitle("Select City");
         ArrayList<String> optionsAry = new ArrayList<>();
         cityOptionsAry.clear();
@@ -320,7 +320,7 @@ public class EditAccount extends CustomActivity implements View.OnClickListener,
         inputParams.put("iDeviceType", "1");
 
 
-        SoapAPIManager apiManager = new SoapAPIManager(EditAccount.this, inputParams, new APICallback() {
+        SoapAPIManager apiManager = new SoapAPIManager(EditAccountActivity.this, inputParams, new APICallback() {
             @Override
             public void responseCallback(Context context, String response) throws JSONException {
                 Log.e("***response***", response);
@@ -331,9 +331,9 @@ public class EditAccount extends CustomActivity implements View.OnClickListener,
                         JSONObject updatedUserInfo = responseAry.getJSONObject(0);
                         if (updatedUserInfo.has("APIStatus") && Integer.parseInt(updatedUserInfo.getString("APIStatus")) == -1) {
                             if (updatedUserInfo.has("Message") && !updatedUserInfo.getString("Message").isEmpty()) {
-                                Utilities.showAlert(EditAccount.this, updatedUserInfo.getString("Message"), false);
+                                Utilities.showAlert(EditAccountActivity.this, updatedUserInfo.getString("Message"), false);
                             } else {
-                                Utilities.showAlert(EditAccount.this, "Please check again!", false);
+                                Utilities.showAlert(EditAccountActivity.this, "Please check again!", false);
                             }
                             return;
 
@@ -356,7 +356,7 @@ public class EditAccount extends CustomActivity implements View.OnClickListener,
                             updatedUserInfo.put("LocationAddress",userInfo.getString("LocationAddress"));
                         }
                         AppPreferences.getInstance().setLoginInfo(updatedUserInfo.toString());
-                        startActivity(new Intent(EditAccount.this, Dashboard.class));
+                        startActivity(new Intent(EditAccountActivity.this, Dashboard.class));
                     }
                 } catch (Exception e) {
 
@@ -367,7 +367,7 @@ public class EditAccount extends CustomActivity implements View.OnClickListener,
         }, true);
         String[] url = {Config.WEB_Services1, Config.UPDATE_PROFILE, "POST"};
 
-        if (Utilities.isNetworkAvailable(EditAccount.this)) {
+        if (Utilities.isNetworkAvailable(EditAccountActivity.this)) {
             apiManager.execute(url);
         } else {
 
@@ -379,7 +379,7 @@ public class EditAccount extends CustomActivity implements View.OnClickListener,
     @Override
     public void onClick(View v) {
 
-        Utilities.hideKeyboard(EditAccount.this);
+        Utilities.hideKeyboard(EditAccountActivity.this);
         switch (v.getId()) {
 //            case R.id.test_call_btn:
 //                Intent intent = new Intent(getContext(), VideoCaller.class);
@@ -398,7 +398,7 @@ public class EditAccount extends CustomActivity implements View.OnClickListener,
 //                break;
             case R.id.city:
                 if (selectedState.isEmpty()) {
-                    Utilities.showAlert(EditAccount.this, "Please select State first", true);
+                    Utilities.showAlert(EditAccountActivity.this, "Please select State first", true);
                     return;
                 }
                 cityDialog.show();
