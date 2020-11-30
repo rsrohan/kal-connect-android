@@ -20,7 +20,7 @@ import com.kal.connect.R;
 import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
 import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
 import com.kal.connect.models.DoctorModel;
-import com.kal.connect.modules.communicate.OpenTokConfig;
+import com.kal.connect.appconstants.OpenTokConfig;
 import com.kal.connect.modules.communicate.VideoConference;
 import com.kal.connect.modules.dashboard.tabs.Home.AboutDoctor;
 import com.kal.connect.utilities.Config;

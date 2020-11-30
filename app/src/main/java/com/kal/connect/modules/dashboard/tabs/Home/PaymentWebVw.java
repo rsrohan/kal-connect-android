@@ -18,7 +18,7 @@ import android.webkit.WebViewClient;
 import com.kal.connect.R;
 import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
 import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
-import com.kal.connect.customLibs.HTTP.GetPost.WebService;
+import com.kal.connect.appconstants.WebService;
 import com.kal.connect.customLibs.appCustomization.CustomActivity;
 import com.kal.connect.models.DoctorModel;
 import com.kal.connect.modules.communicate.VideoCaller;

@@ -21,15 +21,13 @@ import com.google.firebase.messaging.RemoteMessage;
 import com.kal.connect.R;
 import com.kal.connect.modules.communicate.ChatActivity;
 import com.kal.connect.modules.communicate.IncommingCall;
-import com.kal.connect.modules.communicate.OpenTokConfig;
-import com.kal.connect.modules.communicate.VideoConference;
+import com.kal.connect.appconstants.OpenTokConfig;
 import com.kal.connect.modules.communicate.services.HeadsUpNotificationService;
 import com.kal.connect.modules.dashboard.Dashboard;
 import com.kal.connect.utilities.AppPreferences;
 import com.kal.connect.utilities.Config;
 import com.kal.connect.utilities.Splash;
 
-import java.util.Iterator;
 import java.util.Map;
 
 

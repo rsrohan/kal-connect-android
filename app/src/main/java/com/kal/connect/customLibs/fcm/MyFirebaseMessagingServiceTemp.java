@@ -16,7 +16,7 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.kal.connect.R;
 import com.kal.connect.modules.communicate.MyInCallService;
-import com.kal.connect.modules.communicate.OpenTokConfig;
+import com.kal.connect.appconstants.OpenTokConfig;
 import com.kal.connect.modules.communicate.services.HeadsUpNotificationService;
 import com.kal.connect.modules.dashboard.Dashboard;
 import com.kal.connect.utilities.AppPreferences;

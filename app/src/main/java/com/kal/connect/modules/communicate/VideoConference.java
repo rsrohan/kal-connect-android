@@ -17,15 +17,14 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import com.kal.connect.R;
+import com.kal.connect.appconstants.OpenTokConfig;
 import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
 import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
 import com.kal.connect.utilities.AppPreferences;
 import com.kal.connect.utilities.Config;
-import com.kal.connect.utilities.Splash;
 import com.opentok.android.BaseVideoRenderer;
 import com.opentok.android.OpentokError;
 import com.opentok.android.Publisher;
@@ -353,7 +352,7 @@ public class VideoConference extends AppCompatActivity
     public void onError(Session session, OpentokError opentokError) {
         Log.e(TAG, "onError: Error (" + opentokError.getMessage() + ") in session " + session.getSessionId());
 
-        Toast.makeText(this, "Session error. See the logcat please." + opentokError.getMessage(), Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Session error. See the logcat please." + opentokError.getMessage(), Toast.LENGTH_LONG).show();
 
         moveToHome();
     }

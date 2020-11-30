@@ -35,7 +35,7 @@ import com.kal.connect.models.HospitalModel;
 import com.kal.connect.models.Notes;
 import com.kal.connect.models.RazerPayOrder;
 import com.kal.connect.models.Transfer;
-import com.kal.connect.modules.communicate.OpenTokConfig;
+import com.kal.connect.appconstants.OpenTokConfig;
 import com.kal.connect.modules.communicate.VideoConference;
 import com.kal.connect.modules.dashboard.Dashboard;
 import com.kal.connect.utilities.AppPreferences;

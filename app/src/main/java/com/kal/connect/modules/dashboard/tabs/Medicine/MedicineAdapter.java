@@ -173,11 +173,6 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
                 Intent mIntent = new Intent(mActivity, ProductHome.class);
                 mActivity.startActivityForResult(mIntent, 101);
 
-//                if (sentParams.size() > 0) {
-//                    gotoBrowser("https://www.keralaayurveda.store/cart/");
-//                }else{
-//                    Utilities.showToast(mContext,"Please add medcine");
-//                }
             }
         });
 

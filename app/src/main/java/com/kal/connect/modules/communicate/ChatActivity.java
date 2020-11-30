@@ -13,10 +13,10 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.kal.connect.R;
+import com.kal.connect.appconstants.OpenTokConfig;
 import com.kal.connect.customLibs.appCustomization.CustomActivity;
 import com.kal.connect.modules.dashboard.Dashboard;
 import com.kal.connect.utilities.Config;
