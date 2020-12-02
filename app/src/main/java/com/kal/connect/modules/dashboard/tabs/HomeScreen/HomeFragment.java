@@ -168,35 +168,11 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         return false;
     }
 
-
-    //    public void onViewCreated(View view, Bundle savedInstanceState) {
-////        final Handler handler = new Handler();
-////        handler.postDelayed(new Runnable() {
-////            @Override
-////            public void run() {
-////                Utilities.showAlertDialogWithOptions(getActivity(), getResources().getString(R.string.alert_map_options), new String[]{getResources().getString(R.string.btn_yes), getResources().getString(R.string.cancel)}, new UtilitiesInterfaces.AlertCallback() {
-////                    @Override
-////                    public void onOptionClick(DialogInterface dialog, int buttonIndex) {
-////                        if(buttonIndex == 0)
-////                        {
-////                            launchPlacePicker();
-////                        }
-////                        if(buttonIndex == 1)
-////                        {
-////
-////                        }
-////                    }
-////                });
-////            }
-////        }, 2000);
-//
-//
-//    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.home, container, false);
+        View v = inflater.inflate(R.layout.home_fragment, container, false);
 
         issuesSelectedCard = (CardView) v.findViewById(R.id.issuesSelectedCard);
         issuesRecyclerView = (RecyclerView) v.findViewById(R.id.issuesRecyclerVW);
