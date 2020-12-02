@@ -1,4 +1,4 @@
-package com.kal.connect.utilities;
+package com.kal.connect.appconstants;
 
 import android.content.Context;
 import android.os.Build;

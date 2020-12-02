@@ -1,4 +1,4 @@
-package com.kal.connect.utilities;
+package com.kal.connect.appconstants;
 
 /**
  * Constant values reused in this sample.

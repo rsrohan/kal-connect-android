@@ -1,4 +1,4 @@
-package com.kal.connect.modules.dashboard.tabs.AppointmentsDetails;
+package com.kal.connect.adapters;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.kal.connect.R;
 import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
 import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
+import com.kal.connect.modules.dashboard.tabs.AppointmentsDetails.AppointmentDetailActivity;
 import com.kal.connect.utilities.AppPreferences;
 import com.kal.connect.utilities.Config;
 import com.kal.connect.utilities.GlobValues;
@@ -249,7 +250,7 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
                         }
 //                        loadAppointments(responseAry);
                         GlobValues.getInstance().setAppointmentCompleteDetails(responseAry.getJSONObject(0));
-                        Intent detailsScreen = new Intent(mContext, AppointmentDetail.class);
+                        Intent detailsScreen = new Intent(mContext, AppointmentDetailActivity.class);
                         detailsScreen.putExtra("doctorName",doctorName);
                         detailsScreen.putExtra("docId",docId);
                         mContext.startActivity(detailsScreen);

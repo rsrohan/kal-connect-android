@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 
 //import com.google.gson.JsonObject;
 import com.kal.connect.R;
+import com.kal.connect.adapters.AppointmentsAdapter;
 import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
 import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
 import com.kal.connect.utilities.AppComponents;
@@ -44,7 +45,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class Appointments extends Fragment implements View.OnClickListener {
+public class AppointmentsFragment extends Fragment implements View.OnClickListener {
 
     // MARK : UIElements
     View view;

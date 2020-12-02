@@ -1,4 +1,4 @@
-package com.kal.connect.modules.dashboard.tabs.AppointmentsDetails;
+package com.kal.connect.adapters;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;

@@ -28,7 +28,7 @@ import com.kal.connect.adapters.SelectedIssueAdapter;
 import com.kal.connect.customLibs.Maps.Manager.CustomMapActivity;
 import com.kal.connect.models.Issues;
 import com.kal.connect.models.LocationModel;
-import com.kal.connect.modules.hospitals.HospitalsList;
+import com.kal.connect.modules.hospitals.HospitalsListActivity;
 import com.kal.connect.utilities.AppPreferences;
 import com.kal.connect.utilities.GlobValues;
 import com.kal.connect.utilities.Utilities;
@@ -442,7 +442,7 @@ public class IssueDescriptorMapActivity extends CustomMapActivity implements Vie
         }
         g.addAppointmentInputParams("COVID", covid);
 
-        startActivity(new Intent(IssueDescriptorMapActivity.this, HospitalsList.class));
+        startActivity(new Intent(IssueDescriptorMapActivity.this, HospitalsListActivity.class));
         Utilities.pushAnimation(IssueDescriptorMapActivity.this);
     }
 

@@ -32,7 +32,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class HospitalsList extends CustomActivity {
+public class HospitalsListActivity extends CustomActivity {
 
     @BindView(R.id.hospitals_list)
     RecyclerView hospitalsList;
@@ -50,7 +50,7 @@ public class HospitalsList extends CustomActivity {
     }
 
     public void buildUI(){
-        setHeaderView(R.id.headerView, HospitalsList.this, HospitalsList.this.getResources().getString(R.string.hospitals_list));
+        setHeaderView(R.id.headerView, HospitalsListActivity.this, HospitalsListActivity.this.getResources().getString(R.string.hospitals_list));
         headerView.showBackOption();
 
 
@@ -89,7 +89,7 @@ public class HospitalsList extends CustomActivity {
 
 
 
-        SoapAPIManager apiManager = new SoapAPIManager(HospitalsList.this, inputParams, new APICallback() {
+        SoapAPIManager apiManager = new SoapAPIManager(HospitalsListActivity.this, inputParams, new APICallback() {
             @Override
             public void responseCallback(Context context, String response) throws JSONException {
                 Log.e("***response***",response);
@@ -100,9 +100,9 @@ public class HospitalsList extends CustomActivity {
                         JSONObject commonDataInfo = responseAry.getJSONObject(0);
                         if(commonDataInfo.has("APIStatus") && Integer.parseInt(commonDataInfo.getString("APIStatus")) == -1){
                             if(commonDataInfo.has("APIStatus") && !commonDataInfo.getString("Message").isEmpty()){
-                                Utilities.showAlert(HospitalsList.this,commonDataInfo.getString("Message"),false);
+                                Utilities.showAlert(HospitalsListActivity.this,commonDataInfo.getString("Message"),false);
                             }else{
-                                Utilities.showAlert(HospitalsList.this,"Please check again!",false);
+                                Utilities.showAlert(HospitalsListActivity.this,"Please check again!",false);
                             }
                             return;
 
@@ -116,7 +116,7 @@ public class HospitalsList extends CustomActivity {
         },true);
         String[] url = {Config.WEB_Services1,Config.GET_HOSPITALS_LIST,"POST"};
 
-        if (Utilities.isNetworkAvailable(HospitalsList.this)) {
+        if (Utilities.isNetworkAvailable(HospitalsListActivity.this)) {
             apiManager.execute(url);
         }else{
 

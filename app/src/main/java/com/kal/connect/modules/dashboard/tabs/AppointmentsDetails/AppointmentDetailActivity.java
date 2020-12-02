@@ -15,6 +15,7 @@ import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.material.tabs.TabLayout;
 import com.kal.connect.R;
+import com.kal.connect.adapters.TabsAdapter;
 import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
 import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
 import com.kal.connect.customLibs.appCustomization.CustomActivity;
@@ -36,7 +37,7 @@ import java.util.HashMap;
 
 import androidx.viewpager.widget.ViewPager;
 
-public class AppointmentDetail extends CustomActivity implements View.OnClickListener {
+public class AppointmentDetailActivity extends CustomActivity implements View.OnClickListener {
 
     private static final String TAG = "AppointmentDetail";
     // MARK : Properties
@@ -72,7 +73,7 @@ public class AppointmentDetail extends CustomActivity implements View.OnClickLis
             mStrDocId = mBundle.getString("docId");
         }
 
-        setHeaderView(R.id.headerView, AppointmentDetail.this, AppointmentDetail.this.getResources().getString(R.string.appointment_detail_title));
+        setHeaderView(R.id.headerView, AppointmentDetailActivity.this, AppointmentDetailActivity.this.getResources().getString(R.string.appointment_detail_title));
         headerView.showBackOption();
 
         //Header for details
@@ -162,7 +163,7 @@ public class AppointmentDetail extends CustomActivity implements View.OnClickLis
 
 
         // Build Adapter and Set Pager
-        tabAdapter = new TabsAdapter(AppointmentDetail.this.getSupportFragmentManager(), tabContainer.getTabCount());
+        tabAdapter = new TabsAdapter(AppointmentDetailActivity.this.getSupportFragmentManager(), tabContainer.getTabCount());
         tabPager.setAdapter(tabAdapter);
         tabPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabContainer));
 

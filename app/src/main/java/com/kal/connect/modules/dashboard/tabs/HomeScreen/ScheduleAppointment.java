@@ -11,7 +11,7 @@ import com.kal.connect.customLibs.appCustomization.CustomActivity;
 
 import com.kal.connect.models.DoctorModel;
 import com.kal.connect.models.ObjAvalTime;
-import com.kal.connect.modules.dashboard.tabs.AppointmentsDetails.AppointmentsAdapter;
+import com.kal.connect.adapters.AppointmentsAdapter;
 import com.kal.connect.utilities.AppComponents;
 import com.kal.connect.utilities.GlobValues;
 import com.kal.connect.utilities.Utilities;

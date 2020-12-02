@@ -30,7 +30,7 @@ import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
 import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
 import com.kal.connect.customLibs.Maps.Manager.CustomMapActivity;
 import com.kal.connect.modules.dashboard.tabs.AccountDetails.AccountFragment;
-import com.kal.connect.modules.dashboard.tabs.AppointmentsDetails.Appointments;
+import com.kal.connect.modules.dashboard.tabs.AppointmentsDetails.AppointmentsFragment;
 import com.kal.connect.modules.dashboard.tabs.BuyMedicineScreen.MedicineActivity;
 import com.kal.connect.utilities.AppPreferences;
 import com.kal.connect.utilities.Config;
@@ -54,7 +54,7 @@ public class DashboardMapActivity extends CustomMapActivity implements View.OnCl
     BottomNavigationView bottomTab = null;
 
     HomeFragment homeFragment;
-    Appointments appointmentFragment;
+    AppointmentsFragment appointmentFragment;
 
 
     // MARK : Lifecycle
@@ -89,7 +89,7 @@ public class DashboardMapActivity extends CustomMapActivity implements View.OnCl
 
 
         if (getIntent().hasExtra("FromNotification") && getIntent().getBooleanExtra("FromNotification", false)) {
-            loadFragment(new Appointments());
+            loadFragment(new AppointmentsFragment());
             bottomTab.setSelectedItemId(R.id.tab_appointments);
 
         } else {
@@ -179,7 +179,7 @@ public class DashboardMapActivity extends CustomMapActivity implements View.OnCl
 
                     case R.id.tab_appointments:
                         if (appointmentFragment == null) {
-                            appointmentFragment = new Appointments();
+                            appointmentFragment = new AppointmentsFragment();
                         }
                         pageToShow = appointmentFragment;
                         break;

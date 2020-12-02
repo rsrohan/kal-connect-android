@@ -1,4 +1,4 @@
-package com.kal.connect.utilities;
+package com.kal.connect.adapters;
 
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
