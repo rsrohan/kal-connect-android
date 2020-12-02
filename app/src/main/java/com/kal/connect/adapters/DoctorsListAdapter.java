@@ -22,7 +22,7 @@ import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
 import com.kal.connect.models.DoctorModel;
 import com.kal.connect.appconstants.OpenTokConfig;
 import com.kal.connect.modules.communicate.VideoConference;
-import com.kal.connect.modules.dashboard.tabs.Home.AboutDoctor;
+import com.kal.connect.modules.dashboard.tabs.HomeScreen.AboutDoctorActivity;
 import com.kal.connect.utilities.Config;
 import com.kal.connect.utilities.GlobValues;
 import com.kal.connect.utilities.Utilities;
@@ -145,7 +145,7 @@ public class DoctorsListAdapter extends RecyclerView.Adapter<DoctorsListAdapter.
                 g.addAppointmentInputParams("SpecialistName", doctor.getName());
                 g.setDoctor(doctor);
 
-                Intent mIntent = new Intent(context,AboutDoctor.class);
+                Intent mIntent = new Intent(context, AboutDoctorActivity.class);
                 mIntent.putExtra("SpecialistID", doctor.getSpecialistID());
                 context.startActivity(mIntent);
 
@@ -160,7 +160,7 @@ public class DoctorsListAdapter extends RecyclerView.Adapter<DoctorsListAdapter.
                 g.addAppointmentInputParams("SpecialistName", doctor.getName());
                 g.setDoctor(doctor);
 
-                Intent mIntent = new Intent(context,AboutDoctor.class);
+                Intent mIntent = new Intent(context, AboutDoctorActivity.class);
                 mIntent.putExtra("SpecialistID", doctor.getSpecialistID().toString());
                 context.startActivity(mIntent);
 

@@ -21,7 +21,7 @@ import com.kal.connect.R;
 import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
 import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
 import com.kal.connect.customLibs.appCustomization.CustomActivity;
-import com.kal.connect.modules.dashboard.Dashboard;
+import com.kal.connect.modules.dashboard.DashboardMapActivity;
 import com.kal.connect.utilities.AppPreferences;
 import com.kal.connect.utilities.Config;
 import com.kal.connect.utilities.Utilities;
@@ -212,7 +212,7 @@ public class SignInActivity extends CustomActivity implements View.OnClickListen
                             }, 5000);
                         } else {
                             AppPreferences.getInstance().setLoginInfo(userInfo.toString());
-                            startActivity(new Intent(SignInActivity.this, Dashboard.class));
+                            startActivity(new Intent(SignInActivity.this, DashboardMapActivity.class));
                             finish();
                         }
 //                        finish();

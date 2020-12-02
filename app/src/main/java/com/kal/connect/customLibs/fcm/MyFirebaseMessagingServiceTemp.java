@@ -18,7 +18,7 @@ import com.kal.connect.R;
 import com.kal.connect.modules.communicate.MyInCallService;
 import com.kal.connect.appconstants.OpenTokConfig;
 import com.kal.connect.modules.communicate.services.HeadsUpNotificationService;
-import com.kal.connect.modules.dashboard.Dashboard;
+import com.kal.connect.modules.dashboard.DashboardMapActivity;
 import com.kal.connect.utilities.AppPreferences;
 import com.kal.connect.utilities.Splash;
 
@@ -126,7 +126,7 @@ public class MyFirebaseMessagingServiceTemp extends FirebaseMessagingService {
         Intent intent = new Intent(this, Splash.class);
 
         if (AppPreferences.getInstance().checkLogin(getApplicationContext())) {
-            intent = new Intent(this, Dashboard.class);
+            intent = new Intent(this, DashboardMapActivity.class);
         }
 
 

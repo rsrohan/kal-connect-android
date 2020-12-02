@@ -11,7 +11,7 @@ import android.content.Intent;
 import android.widget.RelativeLayout;
 
 import com.kal.connect.customLibs.customMenu.CustomMenu;
-import com.kal.connect.modules.dashboard.Dashboard;
+import com.kal.connect.modules.dashboard.DashboardMapActivity;
 import com.kal.connect.utilities.Config;
 import com.kal.connect.utilities.Utilities;
 
@@ -63,7 +63,7 @@ public class CustomActivity extends AppCompatActivity {
 
                 if (Config.isChat) {
                     if (Config.isBack) {
-                        Intent mIntent = new Intent(getApplicationContext(), Dashboard.class);
+                        Intent mIntent = new Intent(getApplicationContext(), DashboardMapActivity.class);
                         startActivity(mIntent);
                         finish();
                     } else {

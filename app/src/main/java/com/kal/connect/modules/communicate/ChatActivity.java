@@ -18,7 +18,7 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.kal.connect.R;
 import com.kal.connect.appconstants.OpenTokConfig;
 import com.kal.connect.customLibs.appCustomization.CustomActivity;
-import com.kal.connect.modules.dashboard.Dashboard;
+import com.kal.connect.modules.dashboard.DashboardMapActivity;
 import com.kal.connect.utilities.Config;
 import com.opentok.android.Connection;
 import com.opentok.android.OpentokError;
@@ -207,7 +207,7 @@ public class ChatActivity extends CustomActivity implements Session.SessionListe
         super.onBackPressed();
         Config.isChat = false;
         if (Config.isBack) {
-            Intent mIntent = new Intent(getApplicationContext(), Dashboard.class);
+            Intent mIntent = new Intent(getApplicationContext(), DashboardMapActivity.class);
             startActivity(mIntent);
             finish();
         } else {

@@ -23,7 +23,7 @@ import com.kal.connect.modules.communicate.ChatActivity;
 import com.kal.connect.modules.communicate.IncommingCall;
 import com.kal.connect.appconstants.OpenTokConfig;
 import com.kal.connect.modules.communicate.services.HeadsUpNotificationService;
-import com.kal.connect.modules.dashboard.Dashboard;
+import com.kal.connect.modules.dashboard.DashboardMapActivity;
 import com.kal.connect.utilities.AppPreferences;
 import com.kal.connect.utilities.Config;
 import com.kal.connect.utilities.Splash;
@@ -130,7 +130,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 if (Config.mActivity != null && !Config.mActivity.getClass().getSimpleName().equalsIgnoreCase("VideoConference")) {
                     ((IncommingCall) Config.mActivity).moveToHome();
                 } else {
-                    Intent homeScreen = new Intent(getApplicationContext(), Dashboard.class);
+                    Intent homeScreen = new Intent(getApplicationContext(), DashboardMapActivity.class);
                     homeScreen.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(homeScreen);
                 }
@@ -228,7 +228,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Intent intent = new Intent(this, Splash.class);
 
         if (AppPreferences.getInstance().checkLogin(getApplicationContext())) {
-            intent = new Intent(this, Dashboard.class);
+            intent = new Intent(this, DashboardMapActivity.class);
         }
 
 

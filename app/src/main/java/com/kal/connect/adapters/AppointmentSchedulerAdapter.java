@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.kal.connect.R;
 import com.kal.connect.models.ObjAvalTime;
-import com.kal.connect.modules.dashboard.tabs.Appointments.AppointmentsAdapter;
+import com.kal.connect.modules.dashboard.tabs.AppointmentsDetails.AppointmentsAdapter;
 
 import java.util.ArrayList;
 

@@ -33,7 +33,7 @@ import com.opentok.android.Session;
 import com.opentok.android.Stream;
 import com.opentok.android.Subscriber;
 import com.opentok.android.SubscriberKit;
-import com.kal.connect.modules.dashboard.Dashboard;
+import com.kal.connect.modules.dashboard.DashboardMapActivity;
 import com.kal.connect.utilities.GlobValues;
 import com.kal.connect.utilities.Utilities;
 import com.kal.connect.utilities.UtilitiesInterfaces;
@@ -455,7 +455,7 @@ public class VideoConference extends AppCompatActivity
         Utilities.showAlertDialogWithOptions(this, false, "Thank You for using our service. You can check details in Appointment Section. Stay Healthy!!", new String[]{"Done"}, new UtilitiesInterfaces.AlertCallback() {
             @Override
             public void onOptionClick(DialogInterface dialog, int buttonIndex) {
-                Intent homeScreen = new Intent(getApplicationContext(), Dashboard.class);
+                Intent homeScreen = new Intent(getApplicationContext(), DashboardMapActivity.class);
                 homeScreen.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(homeScreen);
             }

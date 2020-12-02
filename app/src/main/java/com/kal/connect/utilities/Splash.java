@@ -10,7 +10,6 @@ import android.os.Handler;
 //import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -21,7 +20,7 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.kal.connect.R;
 import com.kal.connect.customLibs.fcm.OnClearFromRecentService;
-import com.kal.connect.modules.dashboard.Dashboard;
+import com.kal.connect.modules.dashboard.DashboardMapActivity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -122,7 +121,7 @@ public class Splash extends AppCompatActivity {
 
 
                 if (AppPreferences.getInstance().checkLogin(Splash.this)) {
-                    Intent homeScreen = new Intent(getApplicationContext(), Dashboard.class);
+                    Intent homeScreen = new Intent(getApplicationContext(), DashboardMapActivity.class);
                     homeScreen.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(homeScreen);
                 }

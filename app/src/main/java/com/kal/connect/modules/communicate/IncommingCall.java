@@ -16,7 +16,7 @@ import com.kal.connect.R;
 import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
 import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
 import com.kal.connect.customLibs.appCustomization.CustomActivity;
-import com.kal.connect.modules.dashboard.Dashboard;
+import com.kal.connect.modules.dashboard.DashboardMapActivity;
 import com.kal.connect.utilities.AppPreferences;
 import com.kal.connect.utilities.Config;
 import com.kal.connect.utilities.Utilities;
@@ -102,7 +102,7 @@ public class IncommingCall extends CustomActivity {
 
         if (isTaskRoot()) {
             //// This is last activity
-            Intent homeScreen = new Intent(getApplicationContext(), Dashboard.class);
+            Intent homeScreen = new Intent(getApplicationContext(), DashboardMapActivity.class);
             homeScreen.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(homeScreen);
         } else {
