@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -46,6 +47,7 @@ import com.amulyakhare.textdrawable.TextDrawable;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.kal.connect.R;
+import com.kal.connect.customdialogbox.FlipProgressDialog;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -538,14 +540,34 @@ public class Utilities {
      * @param context
      * @return
      */
-    public static ProgressDialog showLoading(Context context) {
+    public static FlipProgressDialog showLoading(Context context) {
+        FlipProgressDialog mProgressDialog = new FlipProgressDialog();
 
-        ProgressDialog pDialog = new ProgressDialog(context);
-        pDialog.setMessage("Loading");
-        pDialog.setIndeterminate(false);
-        pDialog.setCancelable(false);
-        pDialog.show();
-        return pDialog;
+//        ProgressDialog pDialog = new ProgressDialog(context);
+//        pDialog.setMessage("Loading");
+//        pDialog.setIndeterminate(false);
+//        pDialog.setCancelable(false);
+//        pDialog.show();
+
+        if (mProgressDialog != null) {
+            mProgressDialog.setCancelable(false);
+
+            FragmentManager fragmentManager = ((Activity) context).getFragmentManager();
+            if (fragmentManager != null) {
+                try {
+                    if (!mProgressDialog.isVisible()) {
+                        mProgressDialog.show(fragmentManager, "");
+                    }
+
+                } catch (Exception e) {
+
+                }
+            }
+
+
+        }
+
+        return mProgressDialog;
 
     }
 

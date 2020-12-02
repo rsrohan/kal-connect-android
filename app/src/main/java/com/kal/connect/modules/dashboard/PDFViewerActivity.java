@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.kal.connect.R;
+import com.kal.connect.customdialogbox.FlipProgressDialog;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -51,7 +52,7 @@ public class PDFViewerActivity extends CustomActivity implements DownloadFile.Li
 
     String localDownloadedFile;
 
-    ProgressDialog progressDialog;
+    FlipProgressDialog progressDialog;
 
     @OnClick(R.id.close)
     void close(){
@@ -178,14 +179,14 @@ public class PDFViewerActivity extends CustomActivity implements DownloadFile.Li
         remotePDFViewPager.setAdapter(adapter);
         localDownloadedFile = destinationPath;
         updateLayout();
-        progressDialog.hide();
+        progressDialog.dismiss();
 
     }
 
     @Override
     public void onFailure(Exception e) {
         e.printStackTrace();
-        progressDialog.hide();
+        progressDialog.dismiss();
     }
 
     @Override

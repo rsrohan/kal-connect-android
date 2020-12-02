@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.kal.connect.customdialogbox.FlipProgressDialog;
 import com.kal.connect.utilities.Utilities;
 
 import org.json.JSONException;
@@ -20,7 +21,7 @@ public class APIManager extends AsyncTask<String, String, String> {
 
     Context context;
     Boolean showLoader = true;
-    ProgressDialog pDialog;
+    FlipProgressDialog pDialog;
     APICallback apiCallback;
     HashMap<String, Object> paramsToSend;
     HashMap<String, String> headers;

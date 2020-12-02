@@ -30,6 +30,7 @@ import com.kal.connect.adapters.SelectedIssueAdapter;
 import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
 import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
 import com.kal.connect.customLibs.appCustomization.CustomActivity;
+import com.kal.connect.customdialogbox.FlipProgressDialog;
 import com.kal.connect.models.DoctorModel;
 import com.kal.connect.models.HospitalModel;
 import com.kal.connect.models.NotesModel;
@@ -65,7 +66,7 @@ public class AppointmentSummaryActivity extends CustomActivity implements View.O
             technicianCharge;
     Button paymentBtn;
     Boolean isPay = false;
-    ProgressDialog pd;
+    FlipProgressDialog pd;
 
     int cosultChargeAmount = 100;
 
@@ -350,7 +351,7 @@ public class AppointmentSummaryActivity extends CustomActivity implements View.O
             JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, Config.CREATE_ORDER, new JSONObject(inpurtRazorPayOrder), new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
-                    pd.hide();
+                    pd.dismiss();
 
                     //now handle the response
                     try {
@@ -376,7 +377,7 @@ public class AppointmentSummaryActivity extends CustomActivity implements View.O
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    pd.hide();
+                    pd.dismiss();
                     showOrderErrorMessage();
                 }
             }) {    //this is the part, that adds the header to the request
@@ -402,7 +403,7 @@ public class AppointmentSummaryActivity extends CustomActivity implements View.O
 
 
         } catch (Exception e) {
-            pd.hide();
+            pd.dismiss();
             e.printStackTrace();
         }
 

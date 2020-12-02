@@ -7,6 +7,6 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/loader"
+        android:src="@drawable/loader2"
         android:id="@+id/root"/>
 </LinearLayout>

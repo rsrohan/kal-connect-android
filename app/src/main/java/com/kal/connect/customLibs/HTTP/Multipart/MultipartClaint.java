@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import com.kal.connect.customLibs.HTTP.MultipartUtility;
+import com.kal.connect.customdialogbox.FlipProgressDialog;
 import com.kal.connect.utilities.Utilities;
 
 import org.json.JSONException;
@@ -16,7 +17,7 @@ public class MultipartClaint extends AsyncTask<Void, Integer, String>
 {
     String response = "";
     String TAG = getClass().getSimpleName();
-    ProgressDialog pDialog;
+    FlipProgressDialog pDialog;
     private Context context;
     MultipartUtility multipart;
 

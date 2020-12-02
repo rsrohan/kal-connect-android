@@ -7,6 +7,7 @@ import android.util.Log;
 
 
 import com.kal.connect.appconstants.APIWebServiceConstants;
+import com.kal.connect.customdialogbox.FlipProgressDialog;
 import com.kal.connect.utilities.AppPreferences;
 import com.kal.connect.utilities.Utilities;
 
@@ -19,7 +20,7 @@ public class SoapAPIManager extends AsyncTask<String, String, String> {
 
     Context context;
     Boolean showLoader = true;
-    ProgressDialog pDialog;
+    FlipProgressDialog pDialog;
     APICallback apiCallback;
     HashMap<String, Object> paramsToSend;
     String response;

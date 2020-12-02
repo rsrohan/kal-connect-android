@@ -462,7 +462,6 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
     void getIssuesList() {
         HashMap<String, Object> inputParams = new HashMap<String, Object>();
-//        inputParams.put("LanguageIndicator",AppPreferences.getInstance().retrieveLanguage());
 
 
         SoapAPIManager apiManager = new SoapAPIManager(getContext(), inputParams, new APICallback() {
@@ -496,8 +495,6 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
         if (Utilities.isNetworkAvailable(getContext())) {
             apiManager.execute(url);
-        } else {
-
         }
     }
 
