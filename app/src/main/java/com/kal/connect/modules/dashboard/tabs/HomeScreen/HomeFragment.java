@@ -1,5 +1,8 @@
 package com.kal.connect.modules.dashboard.tabs.HomeScreen;
 
+import android.app.Activity;
+import android.app.DialogFragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -34,6 +37,7 @@ import com.kal.connect.R;
 import com.kal.connect.adapters.SelectedIssueAdapter;
 import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
 import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
+import com.kal.connect.customdialogbox.FlipProgressDialog;
 import com.kal.connect.models.IssueHeaderModel;
 import com.kal.connect.models.IssuesModel;
 import com.kal.connect.modules.payment.PaymentActivity;
@@ -76,6 +80,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
     private ArrayList<IssuesModel> selectedIssuesModelList = new ArrayList<>();
     private ArrayList<String> selectedIssuesListId = new ArrayList<>();
+    private FlipProgressDialog mProgressDialog = new FlipProgressDialog();
 
 
     public HomeFragment() {
@@ -192,33 +197,11 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
         proceedBtn.setOnClickListener(this);
 
-//        KeyboardVisibilityEvent.setEventListener(
-//                (Activity)getContext(),
-//                new KeyboardVisibilityEventListener() {
-//                    @Override
-//                    public void onVisibilityChanged(boolean isOpen) {
-//                        // some code depending on keyboard visiblity status
-//                        if(isOpen)
-//                            header.setVisibility(View.GONE);
-//                        else
-//                            header.setVisibility(View.VISIBLE);
-//                    }
-//                });
-
-
-        //SelectedRecy
-
-        // add a divider after each item for more clarity
-//        selectedRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.HORIZONTAL));
         selectedIssueAdapter = new SelectedIssueAdapter(selectedIssuesModelList, getContext(), HomeFragment.this);
         LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         selectedRecyclerView.setLayoutManager(horizontalLayoutManager);
         selectedRecyclerView.setAdapter(selectedIssueAdapter);
 
-        //
-
-        // 2. set layoutManger
-//        issuesRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
 
         GridLayoutManager glm = new GridLayoutManager(getContext(), 2);
@@ -234,9 +217,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
             }
         });
         issuesRecyclerView.setLayoutManager(glm);
-//        recyclerView.setAdapter(sectionAdapter);
         sectionAdapter = new SectionedRecyclerViewAdapter();
-//        setupInitialIssuesData(createSampleData());
         getIssuesList();
 
         addComplaints.addTextChangedListener(new TextWatcher() {
@@ -261,14 +242,12 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
             }
         });
 
-        return v;//inflater.inflate(R.layout.select_issues, container, false);
+        return v;
 
     }
 
     public void updateSelectedIssue() {
 
-//        selectedIssuesList.add(new Issues("11","Fever",0))
-//        selectedIssuesList.add(new Issues("11","Cough",0));
         selectedIssueAdapter.notifyDataSetChanged();
         sectionAdapter.notifyDataSetChanged();
 
@@ -295,19 +274,6 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.proceed_btn) {
-//            Intent intent = new Intent(getContext(), IssueDescriptor.class);
-
-//            if(true){
-//                checkPayment();
-//                return;
-//            }
-
-//            if (true) {
-//                Intent videoIntent = new Intent(getActivity(), VideoConference.class);
-//                videoIntent.putExtra("CALL_TYPE", 1);
-//                startActivity(videoIntent);
-//                return;
-//            }
 
 
             Intent intent = new Intent(getContext(), PatientHistoryActivity.class);
@@ -475,7 +441,6 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         private class ItemViewHolder extends RecyclerView.ViewHolder {
 
             private final View rootView;
-            //            private final ImageView imgItem;
             private final TextView issueTxtVw;
             private final ImageView issueIconVw;
             private CardView cardBG;
@@ -484,7 +449,6 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
                 super(view);
 
                 rootView = view;
-//                imgItem = (ImageView) view.findViewById(R.id.imgItem);
                 issueTxtVw = (TextView) view.findViewById(R.id.issue_txt_vw);
                 cardBG = (CardView) view.findViewById(R.id.issue_card);
                 issueIconVw = (ImageView) view.findViewById(R.id.issue_icon);
@@ -519,11 +483,6 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
                             return;
 
                         }
-//                        JSONArray cityAry = commonDataInfo.getJSONArray("City");
-//                        JSONArray stateAry = commonDataInfo.getJSONArray("State");
-//
-//                        GlobValues.setCityAry(cityAry);
-//                        GlobValues.setStateAry(stateAry);
 
                         setupInitialIssuesData(commonDataInfo.getJSONArray("Complaint"));
 
@@ -542,5 +501,23 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         }
     }
 
+    public void showLoadingDialog(Context context, boolean isCancellable) {
+        if (mProgressDialog != null) {
+            mProgressDialog.setCancelable(isCancellable);
 
+            FragmentManager fragmentManager = ((Activity) context).getFragmentManager();
+            if (fragmentManager != null) {
+                try {
+                    if (!mProgressDialog.isVisible()) {
+                        mProgressDialog.show(fragmentManager, "");
+                    }
+
+                } catch (Exception e) {
+
+                }
+            }
+
+
+        }
+    }
 }

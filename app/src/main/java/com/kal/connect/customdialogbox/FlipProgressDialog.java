@@ -1,8 +1,10 @@
 package com.kal.connect.customdialogbox;
 
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.ContextThemeWrapper;
@@ -95,7 +97,25 @@ public class FlipProgressDialog extends DialogFragment {
         }
     }
 
-
+//    public void showLoadingDialog(Context context, boolean isCancellable) {
+//        if (mProgressDialog != null) {
+//            mProgressDialog.setCancelable(isCancellable);
+//
+//            FragmentManager fragmentManager = ((Activity) context).getFragmentManager();
+//            if (fragmentManager != null) {
+//                try {
+//                    if (!mProgressDialog.isVisible()) {
+//                        mProgressDialog.show(fragmentManager, "");
+//                    }
+//
+//                } catch (Exception e) {
+//
+//                }
+//            }
+//
+//
+//        }
+//    }
 
 }
 
