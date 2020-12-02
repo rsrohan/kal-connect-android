@@ -8,7 +8,7 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 
-import com.kal.connect.appconstants.ConstantApp;
+import com.kal.connect.appconstants.CallFeatureConstant;
 import com.kal.connect.modules.communicate.VideoConference;
 import com.kal.connect.utilities.Config;
 
@@ -24,7 +24,7 @@ public class HeadsUpNotificationActionReceiver extends BroadcastReceiver {
         }catch (Exception e){}
         try {
             if (intent != null && intent.getExtras() != null) {
-                String action = intent.getStringExtra(ConstantApp.CALL_RESPONSE_ACTION_KEY);
+                String action = intent.getStringExtra(CallFeatureConstant.CALL_RESPONSE_ACTION_KEY);
     //            Bundle data = intent.getBundleExtra(ConstantApp.FCM_DATA_KEY);
 
                 if (action != null) {
@@ -45,7 +45,7 @@ public class HeadsUpNotificationActionReceiver extends BroadcastReceiver {
     private void performClickAction(Context context, String action) {
 
         try {
-            if (action.equals(ConstantApp.CALL_RECEIVE_ACTION)) {
+            if (action.equals(CallFeatureConstant.CALL_RECEIVE_ACTION)) {
                 Intent videoIntent = null;
                 try {
                     videoIntent = new Intent(context, VideoConference.class);
@@ -65,7 +65,7 @@ public class HeadsUpNotificationActionReceiver extends BroadcastReceiver {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }else if (action.equals(ConstantApp.CALL_CANCEL_ACTION)) {
+            }else if (action.equals(CallFeatureConstant.CALL_CANCEL_ACTION)) {
                 if(Config.ringtone!=null){
                     Config.ringtone.stop();
                 }

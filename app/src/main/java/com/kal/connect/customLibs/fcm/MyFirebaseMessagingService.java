@@ -21,7 +21,7 @@ import com.google.firebase.messaging.RemoteMessage;
 import com.kal.connect.R;
 import com.kal.connect.modules.communicate.ChatActivity;
 import com.kal.connect.modules.communicate.IncommingCall;
-import com.kal.connect.appconstants.OpenTokConfig;
+import com.kal.connect.appconstants.OpenTokConfigConstants;
 import com.kal.connect.modules.communicate.services.HeadsUpNotificationService;
 import com.kal.connect.modules.dashboard.DashboardMapActivity;
 import com.kal.connect.utilities.AppPreferences;
@@ -45,8 +45,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Boolean isInBackground = myProcess.importance != ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND;
         if (messageData.containsKey("title") && message.getData().get("title").toString().contains("Video Call")) {
             if (messageData.containsKey("sessionID") && messageData.containsKey("tokenID")) {
-                OpenTokConfig.SESSION_ID = message.getData().get("sessionID");
-                OpenTokConfig.TOKEN = message.getData().get("tokenID");
+                OpenTokConfigConstants.SESSION_ID = message.getData().get("sessionID");
+                OpenTokConfigConstants.TOKEN = message.getData().get("tokenID");
 
                 if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
                     if (!isScreenOn) {
@@ -113,8 +113,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             prepareNotificationForRemainder(message.getData().get("Notificationmessage").toString());
         } else if (messageData.containsKey("title") && message.getData().get("title").equalsIgnoreCase("Chat")) {
 
-            OpenTokConfig.SESSION_ID = message.getData().get("sessionID");
-            OpenTokConfig.TOKEN = message.getData().get("tokenID");
+            OpenTokConfigConstants.SESSION_ID = message.getData().get("sessionID");
+            OpenTokConfigConstants.TOKEN = message.getData().get("tokenID");
             Config.isBack = true;
             if (!isInBackground) {
                 Intent fullScreenIntent = new Intent(getApplicationContext(), ChatActivity.class);

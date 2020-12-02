@@ -6,7 +6,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 
-import com.kal.connect.appconstants.WebService;
+import com.kal.connect.appconstants.APIWebServiceConstants;
 import com.kal.connect.utilities.AppPreferences;
 import com.kal.connect.utilities.Utilities;
 
@@ -79,7 +79,7 @@ public class SoapAPIManager extends AsyncTask<String, String, String> {
         if (Utilities.isNetworkAvailable(this.context)) {
             JSONObject inputParams = new JSONObject(paramsToSend);
 
-            return response = WebService.invokeWebservice(inputParams.toString(),requestUrlEND,requestMethodName);
+            return response = APIWebServiceConstants.invokeWebservice(inputParams.toString(),requestUrlEND,requestMethodName);
         }
 
         return response;

@@ -18,7 +18,7 @@ import android.webkit.WebViewClient;
 import com.kal.connect.R;
 import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
 import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
-import com.kal.connect.appconstants.WebService;
+import com.kal.connect.appconstants.APIWebServiceConstants;
 import com.kal.connect.customLibs.appCustomization.CustomActivity;
 import com.kal.connect.models.DoctorModel;
 import com.kal.connect.modules.communicate.VideoCaller;
@@ -110,7 +110,7 @@ public class PaymentWebVwActivity extends CustomActivity implements View.OnClick
 
 
 
-        String url = WebService.BASE_URL + "RazorPayAPI/RazorPaymentNew.aspx?paymentAmount="+totalAmount+"&PatName="+ap.get("PatientName").toString()+"&PatEmail="+ap.get("PatEmail").toString()+"&PatPhone="+ap.get("PatPhone").toString();
+        String url = APIWebServiceConstants.BASE_URL + "RazorPayAPI/RazorPaymentNew.aspx?paymentAmount="+totalAmount+"&PatName="+ap.get("PatientName").toString()+"&PatEmail="+ap.get("PatEmail").toString()+"&PatPhone="+ap.get("PatPhone").toString();
 //        paymentWebVw.loadUrl("https://ec2-35-154-223-253.ap-south-1.compute.amazonaws.com/RazorPayAPI/RazorPaymentNew.aspx?paymentAmount=99.99&PatName=gajanan bhat&PatEmail=gajananpb@gmail.com&PatPhone=984501223");
 //        paymentWebVw.loadUrl("https://www.google.com/");
         paymentWebVw.loadUrl(url);

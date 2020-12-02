@@ -20,7 +20,7 @@ import android.widget.TextView;
 
 
 import com.kal.connect.R;
-import com.kal.connect.appconstants.OpenTokConfig;
+import com.kal.connect.appconstants.OpenTokConfigConstants;
 import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
 import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
 import com.kal.connect.utilities.AppPreferences;
@@ -297,16 +297,16 @@ public class VideoConference extends AppCompatActivity
         };
         if (EasyPermissions.hasPermissions(this, perms)) {
 
-            Log.e(TAG, OpenTokConfig.API_KEY+"\n\n"+OpenTokConfig.SESSION_ID+"\n\n"+OpenTokConfig.TOKEN);
+            Log.e(TAG, OpenTokConfigConstants.API_KEY+"\n\n"+ OpenTokConfigConstants.SESSION_ID+"\n\n"+ OpenTokConfigConstants.TOKEN);
 
-            mSession = new Session.Builder(this, OpenTokConfig.API_KEY, OpenTokConfig.SESSION_ID).sessionOptions(new Session.SessionOptions() {
+            mSession = new Session.Builder(this, OpenTokConfigConstants.API_KEY, OpenTokConfigConstants.SESSION_ID).sessionOptions(new Session.SessionOptions() {
                 @Override
                 public boolean useTextureViews() {
                     return true;
                 }
             }).build();
             mSession.setSessionListener(this);
-            mSession.connect(OpenTokConfig.TOKEN);
+            mSession.connect(OpenTokConfigConstants.TOKEN);
 
         } else {
             EasyPermissions.requestPermissions(this, getString(R.string.rationale_video_app), RC_VIDEO_APP_PERM, perms);

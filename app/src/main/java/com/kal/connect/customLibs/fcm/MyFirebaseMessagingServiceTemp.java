@@ -16,7 +16,7 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.kal.connect.R;
 import com.kal.connect.modules.communicate.MyInCallService;
-import com.kal.connect.appconstants.OpenTokConfig;
+import com.kal.connect.appconstants.OpenTokConfigConstants;
 import com.kal.connect.modules.communicate.services.HeadsUpNotificationService;
 import com.kal.connect.modules.dashboard.DashboardMapActivity;
 import com.kal.connect.utilities.AppPreferences;
@@ -41,8 +41,8 @@ public class MyFirebaseMessagingServiceTemp extends FirebaseMessagingService {
 //                intent.putExtra("SESSION_ID",message.getData().get("sessionID").toString());
 //                intent.putExtra("TOKEN",message.getData().get("tokenID").toString());
 
-                OpenTokConfig.SESSION_ID = message.getData().get("sessionID");
-                OpenTokConfig.TOKEN = message.getData().get("tokenID");
+                OpenTokConfigConstants.SESSION_ID = message.getData().get("sessionID");
+                OpenTokConfigConstants.TOKEN = message.getData().get("tokenID");
 //                intent.putExtra("CALER_NAME",message.getData().get("body").toString());
 //                intent.putExtra("CALL_TYPE",1);
 

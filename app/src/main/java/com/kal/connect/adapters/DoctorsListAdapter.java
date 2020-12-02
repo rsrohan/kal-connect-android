@@ -20,7 +20,7 @@ import com.kal.connect.R;
 import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
 import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
 import com.kal.connect.models.DoctorModel;
-import com.kal.connect.appconstants.OpenTokConfig;
+import com.kal.connect.appconstants.OpenTokConfigConstants;
 import com.kal.connect.modules.communicate.VideoConference;
 import com.kal.connect.modules.dashboard.tabs.HomeScreen.AboutDoctorActivity;
 import com.kal.connect.utilities.Config;
@@ -234,8 +234,8 @@ public class DoctorsListAdapter extends RecyclerView.Adapter<DoctorsListAdapter.
 //                            intent.putExtra("SESSION_ID",commonDataInfo.getString("VSSessionID"));
 //                            intent.putExtra("TOKEN",commonDataInfo.getString("VCToekn"));
 
-                            OpenTokConfig.SESSION_ID = commonDataInfo.getString("VSSessionID");
-                            OpenTokConfig.TOKEN = commonDataInfo.getString("VCToekn");
+                            OpenTokConfigConstants.SESSION_ID = commonDataInfo.getString("VSSessionID");
+                            OpenTokConfigConstants.TOKEN = commonDataInfo.getString("VCToekn");
                             intent.putExtra("CALER_NAME", doctorName);
 
                             intent.putExtra("CALL_TYPE", 2);

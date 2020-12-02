@@ -35,7 +35,7 @@ import com.kal.connect.models.HospitalModel;
 import com.kal.connect.models.NotesModel;
 import com.kal.connect.models.RazerPayOrderModel;
 import com.kal.connect.models.TransferModel;
-import com.kal.connect.appconstants.OpenTokConfig;
+import com.kal.connect.appconstants.OpenTokConfigConstants;
 import com.kal.connect.modules.communicate.VideoConference;
 import com.kal.connect.modules.dashboard.DashboardMapActivity;
 import com.kal.connect.utilities.AppPreferences;
@@ -263,8 +263,8 @@ public class AppointmentSummaryActivity extends CustomActivity implements View.O
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-                            OpenTokConfig.SESSION_ID = SESSION;
-                            OpenTokConfig.TOKEN = TOKEN;
+                            OpenTokConfigConstants.SESSION_ID = SESSION;
+                            OpenTokConfigConstants.TOKEN = TOKEN;
 
                             intent.putExtra("CALER_NAME", docName.getText().toString());
                             intent.putExtra("CALL_TYPE", 2);

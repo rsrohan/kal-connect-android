@@ -1,6 +1,6 @@
 package com.kal.connect.appconstants;
 
-public class OpenTokConfig {
+public class OpenTokConfigConstants {
     // *** Fill the following variables using your own Project info from the OpenTok dashboard  ***
     // ***                      https://dashboard.tokbox.com/projects                           ***
 

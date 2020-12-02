@@ -3,7 +3,7 @@ package com.kal.connect.appconstants;
 /**
  * Constant values reused in this sample.
  */
-final class Constants {
+final class AppPackageConstants {
     static final int SUCCESS_RESULT = 0;
 
     static final int FAILURE_RESULT = 1;

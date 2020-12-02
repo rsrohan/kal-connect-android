@@ -22,7 +22,7 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 
-public class WebService {
+public class APIWebServiceConstants {
 
 
     private static String NAMESPACE = "https://www.medi360.in/";

@@ -20,7 +20,7 @@ import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
 import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
 import com.kal.connect.customLibs.appCustomization.CustomActivity;
 import com.kal.connect.modules.communicate.ChatActivity;
-import com.kal.connect.appconstants.OpenTokConfig;
+import com.kal.connect.appconstants.OpenTokConfigConstants;
 import com.kal.connect.modules.communicate.VideoConference;
 import com.kal.connect.utilities.AppPreferences;
 import com.kal.connect.utilities.Config;
@@ -256,8 +256,8 @@ public class AppointmentDetailActivity extends CustomActivity implements View.On
                             intent.putExtra("DocterId", selectedAppointmentData.get("doctorId").toString());
 
 
-                            OpenTokConfig.SESSION_ID = commonDataInfo.getString("VSSessionID");
-                            OpenTokConfig.TOKEN = commonDataInfo.getString("VCToekn");
+                            OpenTokConfigConstants.SESSION_ID = commonDataInfo.getString("VSSessionID");
+                            OpenTokConfigConstants.TOKEN = commonDataInfo.getString("VCToekn");
                             intent.putExtra("CALER_NAME", doctorName.getText().toString());
                             intent.putExtra("CALL_TYPE", 2);
                             Log.e("OpenTok", "responseCallback: "+commonDataInfo.toString() );
@@ -329,8 +329,8 @@ public class AppointmentDetailActivity extends CustomActivity implements View.On
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 intent.putExtra("doctorName", mStrDocName);
 
-                                OpenTokConfig.SESSION_ID = jsonObject.getString("Sessionid");
-                                OpenTokConfig.TOKEN = jsonObject.getString("TokenId");
+                                OpenTokConfigConstants.SESSION_ID = jsonObject.getString("Sessionid");
+                                OpenTokConfigConstants.TOKEN = jsonObject.getString("TokenId");
 
                                 Log.e("OpenTok", "responseCallback: "+jsonObject.toString() );
                                 context.startActivity(intent);

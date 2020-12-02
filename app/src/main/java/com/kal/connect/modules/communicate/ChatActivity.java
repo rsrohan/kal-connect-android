@@ -16,7 +16,7 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.kal.connect.R;
-import com.kal.connect.appconstants.OpenTokConfig;
+import com.kal.connect.appconstants.OpenTokConfigConstants;
 import com.kal.connect.customLibs.appCustomization.CustomActivity;
 import com.kal.connect.modules.dashboard.DashboardMapActivity;
 import com.kal.connect.utilities.Config;
@@ -84,7 +84,7 @@ public class ChatActivity extends CustomActivity implements Session.SessionListe
 
 
         if (CHAT_SERVER_URL == null) {
-            initializeSession(OpenTokConfig.API_KEY, OpenTokConfig.SESSION_ID, OpenTokConfig.TOKEN);
+            initializeSession(OpenTokConfigConstants.API_KEY, OpenTokConfigConstants.SESSION_ID, OpenTokConfigConstants.TOKEN);
 //            initializeSession(OpenTokConfig.API_KEY, SESSION_ID, TOKEN);
         } else {
 //            mWebServiceCoordinator = new WebServiceCoordinator(this, this);

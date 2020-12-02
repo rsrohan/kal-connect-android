@@ -19,7 +19,7 @@ import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
 import com.kal.connect.R;
-import com.kal.connect.appconstants.ConstantApp;
+import com.kal.connect.appconstants.CallFeatureConstant;
 import com.kal.connect.utilities.Config;
 
 import java.util.Objects;
@@ -46,12 +46,12 @@ public class HeadsUpNotificationService extends Service {
         try {
             Intent receiveCallAction = new Intent(getApplicationContext(), HeadsUpNotificationActionReceiver.class);
 
-            receiveCallAction.putExtra(ConstantApp.CALL_RESPONSE_ACTION_KEY, ConstantApp.CALL_RECEIVE_ACTION);
+            receiveCallAction.putExtra(CallFeatureConstant.CALL_RESPONSE_ACTION_KEY, CallFeatureConstant.CALL_RECEIVE_ACTION);
 //            receiveCallAction.putExtra(ConstantApp.FCM_DATA_KEY, data);
             receiveCallAction.setAction("RECEIVE_CALL");
 
             Intent cancelCallAction = new Intent(getApplicationContext(), HeadsUpNotificationActionReceiver.class);
-            cancelCallAction.putExtra(ConstantApp.CALL_RESPONSE_ACTION_KEY, ConstantApp.CALL_CANCEL_ACTION);
+            cancelCallAction.putExtra(CallFeatureConstant.CALL_RESPONSE_ACTION_KEY, CallFeatureConstant.CALL_CANCEL_ACTION);
 //            cancelCallAction.putExtra(ConstantApp.FCM_DATA_KEY, data);
             cancelCallAction.setAction("CANCEL_CALL");
 

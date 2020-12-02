@@ -6,7 +6,7 @@ import android.provider.Settings;
 import android.text.TextUtils;
 
 
-public class AppUtils {
+public class AppUtilsForPackage {
 
 
 

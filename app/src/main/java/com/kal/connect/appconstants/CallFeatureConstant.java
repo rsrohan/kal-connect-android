@@ -1,6 +1,6 @@
 package com.kal.connect.appconstants;
 
-public class ConstantApp {
+public class CallFeatureConstant {
 
     public static final String CALL_RESPONSE_ACTION_KEY = "CALL_RESPONSE";
     public static final String FCM_DATA_KEY = "" ;
