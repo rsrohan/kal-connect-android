@@ -26,7 +26,7 @@ import android.widget.TextView;
 import com.kal.connect.R;
 import com.kal.connect.adapters.SelectedIssueAdapter;
 import com.kal.connect.customLibs.Maps.Manager.CustomMapActivity;
-import com.kal.connect.models.Issues;
+import com.kal.connect.models.IssuesModel;
 import com.kal.connect.models.LocationModel;
 import com.kal.connect.modules.hospitals.HospitalsListActivity;
 import com.kal.connect.utilities.AppPreferences;
@@ -59,7 +59,7 @@ public class IssueDescriptorMapActivity extends CustomMapActivity implements Vie
     RecyclerView selectedRecyclerView;
     //    GridView locationGridVw;
     LinearLayout selectTime, consultNow, tecContainerLayout;
-    private ArrayList<Issues> selectedIssuesList = new ArrayList<>();
+    private ArrayList<IssuesModel> selectedIssuesModelList = new ArrayList<>();
     private ArrayList<LocationModel> locationsList = new ArrayList<>();
     DatePickerDialog datepickerdialog;
     TimePickerDialog timepickerdialog;
@@ -138,11 +138,11 @@ public class IssueDescriptorMapActivity extends CustomMapActivity implements Vie
 //        locationGridVw = (GridView) findViewById(R.id.location_gridview);
 
 
-        selectedIssuesList = (ArrayList<Issues>) getIntent().getSerializableExtra("SelectedIssues");
+        selectedIssuesModelList = (ArrayList<IssuesModel>) getIntent().getSerializableExtra("SelectedIssues");
 //        if(getIntent().getStringExtra("NewComplaints") != null){
 //            selectedIssuesList.add(new Issues("10001", getIntent().getStringExtra("NewComplaints"),1));
 //        }
-        selectedIssueAdapter = new SelectedIssueAdapter(selectedIssuesList, IssueDescriptorMapActivity.this, null);
+        selectedIssueAdapter = new SelectedIssueAdapter(selectedIssuesModelList, IssueDescriptorMapActivity.this, null);
         LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(IssueDescriptorMapActivity.this, LinearLayoutManager.HORIZONTAL, false);
         selectedRecyclerView.setLayoutManager(horizontalLayoutManager);
         selectedRecyclerView.setAdapter(selectedIssueAdapter);

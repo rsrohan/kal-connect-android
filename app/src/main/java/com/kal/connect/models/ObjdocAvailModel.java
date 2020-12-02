@@ -5,14 +5,14 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ObjdocAvail {
+public class ObjdocAvailModel {
 
     @SerializedName("AvailableDate")
     @Expose
     private String availableDate;
     @SerializedName("objAvalTimes")
     @Expose
-    private List<ObjAvalTime> objAvalTimes = null;
+    private List<ObjAvalTimeModel> objAvalTimeModels = null;
 
     public String getAvailableDate() {
         return availableDate;
@@ -22,12 +22,12 @@ public class ObjdocAvail {
         this.availableDate = availableDate;
     }
 
-    public List<ObjAvalTime> getObjAvalTimes() {
-        return objAvalTimes!=null? objAvalTimes: new ArrayList<ObjAvalTime>();
+    public List<ObjAvalTimeModel> getObjAvalTimeModels() {
+        return objAvalTimeModels !=null? objAvalTimeModels : new ArrayList<ObjAvalTimeModel>();
     }
 
-    public void setObjAvalTimes(List<ObjAvalTime> objAvalTimes) {
-        this.objAvalTimes = objAvalTimes;
+    public void setObjAvalTimeModels(List<ObjAvalTimeModel> objAvalTimeModels) {
+        this.objAvalTimeModels = objAvalTimeModels;
     }
 
 }

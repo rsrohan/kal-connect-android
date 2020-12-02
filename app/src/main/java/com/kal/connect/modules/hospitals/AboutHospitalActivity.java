@@ -133,7 +133,7 @@ public class AboutHospitalActivity extends CustomActivity {
             technicianVw.setVisibility(View.GONE);
         }
 
-        paymentCost.setText(hospitalModel.getChargesDetails().getHospitalCharges()+" INR");
+        paymentCost.setText(hospitalModel.getChargesDetailsModel().getHospitalCharges()+" INR");
 
 
 

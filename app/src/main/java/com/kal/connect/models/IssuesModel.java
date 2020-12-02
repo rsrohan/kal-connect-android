@@ -2,11 +2,11 @@ package com.kal.connect.models;
 
 import java.io.Serializable;
 
-public class Issues implements Serializable {
+public class IssuesModel implements Serializable {
     String id,title;
     int selected;
 
-    public Issues(String id, String title, int selected) {
+    public IssuesModel(String id, String title, int selected) {
         this.id = id;
         this.title = title;
         this.selected = selected;

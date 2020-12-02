@@ -3,7 +3,7 @@ package com.kal.connect.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ChargesDetails {
+public class ChargesDetailsModel {
 
     @SerializedName("TotalCharges")
     @Expose

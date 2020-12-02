@@ -10,7 +10,7 @@ import com.kal.connect.adapters.AppointmentSchedulerAdapter;
 import com.kal.connect.customLibs.appCustomization.CustomActivity;
 
 import com.kal.connect.models.DoctorModel;
-import com.kal.connect.models.ObjAvalTime;
+import com.kal.connect.models.ObjAvalTimeModel;
 import com.kal.connect.adapters.AppointmentsAdapter;
 import com.kal.connect.utilities.AppComponents;
 import com.kal.connect.utilities.GlobValues;
@@ -35,7 +35,7 @@ public class ScheduleAppointment extends CustomActivity implements CalendarView.
     CalendarView calenderView;
 
     AppointmentSchedulerAdapter dataAdapter;
-    ArrayList<ObjAvalTime> dateItems = new ArrayList<>();
+    ArrayList<ObjAvalTimeModel> dateItems = new ArrayList<>();
 
     GlobValues g = GlobValues.getInstance();
 
@@ -168,9 +168,9 @@ public class ScheduleAppointment extends CustomActivity implements CalendarView.
 //            }
 //        }
 
-        for(int i=0; i< doctorModel.getObjdocAvail().size(); i++){
-            if(doctorModel.getObjdocAvail().get(i).getAvailableDate().equals(date)){
-                dateItems = new ArrayList(doctorModel.getObjdocAvail().get(i).getObjAvalTimes());
+        for(int i = 0; i< doctorModel.getObjdocAvailModel().size(); i++){
+            if(doctorModel.getObjdocAvailModel().get(i).getAvailableDate().equals(date)){
+                dateItems = new ArrayList(doctorModel.getObjdocAvailModel().get(i).getObjAvalTimeModels());
                 break;
             }
         }

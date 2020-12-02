@@ -16,7 +16,7 @@ import com.kal.connect.R;
 import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
 import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
 import com.kal.connect.customLibs.appCustomization.CustomActivity;
-import com.kal.connect.models.Issues;
+import com.kal.connect.models.IssuesModel;
 import com.kal.connect.modules.dashboard.tabs.AppointmentsDetails.Tabs.Examination.DataModel.AyurvedaModule;
 import com.kal.connect.modules.dashboard.tabs.AppointmentsDetails.Tabs.Examination.DataModel.GetPatientPojo;
 import com.kal.connect.modules.dashboard.tabs.AppointmentsDetails.Tabs.Examination.DataModel.MasterElement;
@@ -38,7 +38,7 @@ import butterknife.OnClick;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter;
 
 public class PatientHistoryActivity extends CustomActivity {
-    private ArrayList<Issues> selectedIssuesList;
+    private ArrayList<IssuesModel> selectedIssuesModelList;
 
     RecyclerView mRvPatient;
 
@@ -61,7 +61,7 @@ public class PatientHistoryActivity extends CustomActivity {
     @OnClick(R.id.next_btn)
     void proceed(){
         Intent intent = new Intent(PatientHistoryActivity.this, IssueDescriptorMapActivity.class);
-        intent.putExtra("SelectedIssues", selectedIssuesList);
+        intent.putExtra("SelectedIssues", selectedIssuesModelList);
 
 //        {
 //            "PatientID": "",
@@ -113,7 +113,7 @@ public class PatientHistoryActivity extends CustomActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.patient_history);
-        selectedIssuesList =  (ArrayList<Issues>)getIntent().getSerializableExtra("SelectedIssues");
+        selectedIssuesModelList =  (ArrayList<IssuesModel>)getIntent().getSerializableExtra("SelectedIssues");
         buildUI();
     }
 

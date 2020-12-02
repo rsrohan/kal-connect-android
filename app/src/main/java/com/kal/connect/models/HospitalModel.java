@@ -72,17 +72,17 @@ public class HospitalModel {
 
 
 
-    public ChargesDetails getChargesDetails() {
-        return chargesDetails;
+    public ChargesDetailsModel getChargesDetailsModel() {
+        return chargesDetailsModel;
     }
 
-    public void setChargesDetails(ChargesDetails chargesDetails) {
-        this.chargesDetails = chargesDetails;
+    public void setChargesDetailsModel(ChargesDetailsModel chargesDetailsModel) {
+        this.chargesDetailsModel = chargesDetailsModel;
     }
 
     @SerializedName("ChargesDetails")
     @Expose
-    private ChargesDetails chargesDetails;
+    private ChargesDetailsModel chargesDetailsModel;
 
     public Integer getHospitalID() {
         return hospitalID;

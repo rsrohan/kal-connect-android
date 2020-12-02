@@ -4,7 +4,7 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class RazerPayOrder {
+public class RazerPayOrderModel {
 
     @SerializedName("amount")
     @Expose
@@ -17,7 +17,7 @@ public class RazerPayOrder {
     private Integer paymentCapture;
     @SerializedName("transfers")
     @Expose
-    private List<Transfer> transfers = null;
+    private List<TransferModel> transferModels = null;
 
     public Integer getAmount() {
         return amount;
@@ -43,12 +43,12 @@ public class RazerPayOrder {
         this.paymentCapture = paymentCapture;
     }
 
-    public List<Transfer> getTransfers() {
-        return transfers;
+    public List<TransferModel> getTransferModels() {
+        return transferModels;
     }
 
-    public void setTransfers(List<Transfer> transfers) {
-        this.transfers = transfers;
+    public void setTransferModels(List<TransferModel> transferModels) {
+        this.transferModels = transferModels;
     }
 
 }

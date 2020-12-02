@@ -1,13 +1,13 @@
 package com.kal.connect.models;
 
-public class IssueHeader {
+public class IssueHeaderModel {
     String issueHeadertitle;
 
     public String getIssueHeadertitle() {
         return issueHeadertitle;
     }
 
-    public IssueHeader(String issueHeadertitle) {
+    public IssueHeaderModel(String issueHeadertitle) {
         this.issueHeadertitle = issueHeadertitle;
     }
 

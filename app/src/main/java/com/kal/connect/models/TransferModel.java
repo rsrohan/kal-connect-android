@@ -4,7 +4,7 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Transfer {
+public class TransferModel {
 
     @SerializedName("account")
     @Expose
@@ -17,7 +17,7 @@ public class Transfer {
     private String currency;
     @SerializedName("notes")
     @Expose
-    private Notes notes;
+    private NotesModel notesModel;
     @SerializedName("linked_account_notes")
     @Expose
     private List<String> linkedAccountNotes = null;
@@ -52,12 +52,12 @@ public class Transfer {
         this.currency = currency;
     }
 
-    public Notes getNotes() {
-        return notes;
+    public NotesModel getNotesModel() {
+        return notesModel;
     }
 
-    public void setNotes(Notes notes) {
-        this.notes = notes;
+    public void setNotesModel(NotesModel notesModel) {
+        this.notesModel = notesModel;
     }
 
     public List<String> getLinkedAccountNotes() {

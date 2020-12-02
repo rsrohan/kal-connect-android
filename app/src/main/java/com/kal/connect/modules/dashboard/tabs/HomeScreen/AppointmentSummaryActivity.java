@@ -32,9 +32,9 @@ import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
 import com.kal.connect.customLibs.appCustomization.CustomActivity;
 import com.kal.connect.models.DoctorModel;
 import com.kal.connect.models.HospitalModel;
-import com.kal.connect.models.Notes;
-import com.kal.connect.models.RazerPayOrder;
-import com.kal.connect.models.Transfer;
+import com.kal.connect.models.NotesModel;
+import com.kal.connect.models.RazerPayOrderModel;
+import com.kal.connect.models.TransferModel;
 import com.kal.connect.appconstants.OpenTokConfig;
 import com.kal.connect.modules.communicate.VideoConference;
 import com.kal.connect.modules.dashboard.DashboardMapActivity;
@@ -90,7 +90,7 @@ public class AppointmentSummaryActivity extends CustomActivity implements View.O
         selectedRecyclerView = (RecyclerView) findViewById(R.id.issuesSelectedRecyclerVW);
         tecLayout = (LinearLayout) findViewById(R.id.tec_layout);
 
-        selectedIssueAdapter = new SelectedIssueAdapter(GlobValues.getInstance().getSelectedIssuesList(), AppointmentSummaryActivity.this, null);
+        selectedIssueAdapter = new SelectedIssueAdapter(GlobValues.getInstance().getSelectedIssuesModelList(), AppointmentSummaryActivity.this, null);
         LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(AppointmentSummaryActivity.this, LinearLayoutManager.HORIZONTAL, false);
         selectedRecyclerView.setLayoutManager(horizontalLayoutManager);
         selectedRecyclerView.setAdapter(selectedIssueAdapter);
@@ -299,44 +299,44 @@ public class AppointmentSummaryActivity extends CustomActivity implements View.O
         try {
 
 
-            RazerPayOrder razorPayOrder = new RazerPayOrder();
+            RazerPayOrderModel razorPayOrder = new RazerPayOrderModel();
             razorPayOrder.setAmount(cosultChargeAmount);
             razorPayOrder.setCurrency("INR");
             razorPayOrder.setPaymentCapture(1);
 
 
-            Notes transferNotes = new Notes();
-            transferNotes.setAppointmentDate(appointmentinputParams.get("AppointmentDate").toString());
-            transferNotes.setAppointmentTime(appointmentinputParams.get("AppointmentTime").toString());
-            transferNotes.setConsultationMode(appointmentinputParams.get("ConsultationMode").toString());
-            transferNotes.setSpecialistName(appointmentinputParams.get("SpecialistName").toString());
-            transferNotes.setSpecialistID((Integer) appointmentinputParams.get("SpecialistID"));
-            transferNotes.setComplaintID(appointmentinputParams.get("ComplaintID").toString());
-            transferNotes.setPatientID(appointmentinputParams.get("patientID").toString());
-            transferNotes.setIsTechnician(appointmentinputParams.get("isTechnician").toString());
-            transferNotes.setPatientName(appointmentinputParams.get("PatientName").toString());
+            NotesModel transferNotesModel = new NotesModel();
+            transferNotesModel.setAppointmentDate(appointmentinputParams.get("AppointmentDate").toString());
+            transferNotesModel.setAppointmentTime(appointmentinputParams.get("AppointmentTime").toString());
+            transferNotesModel.setConsultationMode(appointmentinputParams.get("ConsultationMode").toString());
+            transferNotesModel.setSpecialistName(appointmentinputParams.get("SpecialistName").toString());
+            transferNotesModel.setSpecialistID((Integer) appointmentinputParams.get("SpecialistID"));
+            transferNotesModel.setComplaintID(appointmentinputParams.get("ComplaintID").toString());
+            transferNotesModel.setPatientID(appointmentinputParams.get("patientID").toString());
+            transferNotesModel.setIsTechnician(appointmentinputParams.get("isTechnician").toString());
+            transferNotesModel.setPatientName(appointmentinputParams.get("PatientName").toString());
 
-            Transfer hospitalTranfer = new Transfer();
+            TransferModel hospitalTranfer = new TransferModel();
 
 
             hospitalTranfer.setAccount("acc_FO4DrKlapsbqas");
 
             hospitalTranfer.setAmount(100);
             hospitalTranfer.setCurrency("INR");
-            hospitalTranfer.setNotes(transferNotes);
+            hospitalTranfer.setNotesModel(transferNotesModel);
             hospitalTranfer.setOnHold(0);
 
-            Transfer medi360Transfer = new Transfer();
+            TransferModel medi360TransferModel = new TransferModel();
 
-            medi360Transfer.setAccount("acc_FO4I5Y8usyFNt8");
-            medi360Transfer.setAmount(100);
-            medi360Transfer.setCurrency("INR");
-            medi360Transfer.setNotes(transferNotes);
-            medi360Transfer.setOnHold(0);
+            medi360TransferModel.setAccount("acc_FO4I5Y8usyFNt8");
+            medi360TransferModel.setAmount(100);
+            medi360TransferModel.setCurrency("INR");
+            medi360TransferModel.setNotesModel(transferNotesModel);
+            medi360TransferModel.setOnHold(0);
 
-            List<Transfer> transfers = new ArrayList<>();
-            transfers.add(hospitalTranfer);
-            transfers.add(medi360Transfer);
+            List<TransferModel> transferModels = new ArrayList<>();
+            transferModels.add(hospitalTranfer);
+            transferModels.add(medi360TransferModel);
 
 
             Gson gson = new Gson();

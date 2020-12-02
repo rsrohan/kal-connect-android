@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.kal.connect.R;
-import com.kal.connect.models.Issues;
+import com.kal.connect.models.IssuesModel;
 import com.kal.connect.modules.dashboard.tabs.HomeScreen.HomeFragment;
 import com.robertlevonyan.views.chip.Chip;
 import com.robertlevonyan.views.chip.OnCloseClickListener;
@@ -18,11 +18,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 public class SelectedIssueAdapter extends RecyclerView.Adapter<SelectedIssueAdapter.IssuesViewHolder>{
-    private List<Issues> horizontalIssuesist;
+    private List<IssuesModel> horizontalIssuesist;
     Context context;
     HomeFragment homeFragment;
 
-    public SelectedIssueAdapter(List<Issues> horizontalIssuesist, Context context, HomeFragment homeFragment){
+    public SelectedIssueAdapter(List<IssuesModel> horizontalIssuesist, Context context, HomeFragment homeFragment){
         this.horizontalIssuesist= horizontalIssuesist;
         this.context = context;
         this.homeFragment = homeFragment;

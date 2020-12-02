@@ -1,7 +1,7 @@
 package com.kal.connect.models;
 
 
-public class AppointmentScheduleTimer{
+public class AppointmentScheduleTimerModel {
 
     String time;
     Boolean isAvailable;
@@ -23,7 +23,7 @@ public class AppointmentScheduleTimer{
 
     }
 
-    public AppointmentScheduleTimer(String time, Boolean isAvailable) {
+    public AppointmentScheduleTimerModel(String time, Boolean isAvailable) {
         this.time = time;
         this.isAvailable = isAvailable;
     }

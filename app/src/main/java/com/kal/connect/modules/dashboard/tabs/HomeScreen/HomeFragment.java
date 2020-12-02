@@ -34,8 +34,8 @@ import com.kal.connect.R;
 import com.kal.connect.adapters.SelectedIssueAdapter;
 import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
 import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
-import com.kal.connect.models.IssueHeader;
-import com.kal.connect.models.Issues;
+import com.kal.connect.models.IssueHeaderModel;
+import com.kal.connect.models.IssuesModel;
 import com.kal.connect.modules.payment.PaymentActivity;
 import com.kal.connect.utilities.AppPreferences;
 import com.kal.connect.utilities.Config;
@@ -74,7 +74,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
     LinearLayout proceedBtn;
 
 
-    private ArrayList<Issues> selectedIssuesList = new ArrayList<>();
+    private ArrayList<IssuesModel> selectedIssuesModelList = new ArrayList<>();
     private ArrayList<String> selectedIssuesListId = new ArrayList<>();
 
 
@@ -99,13 +99,13 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
             for (int i = 0; i < issueDetailsAry.length(); i++) {
                 JSONObject issueData = issueDetailsAry.getJSONObject(i);
 
-                IssueHeader section = new IssueHeader(issueData.getString("CategoryName"));
+                IssueHeaderModel section = new IssueHeaderModel(issueData.getString("CategoryName"));
 
                 JSONArray issueItemsAry = issueData.getJSONArray("Complaint");
-                List<Issues> issueItems = new ArrayList<>();
+                List<IssuesModel> issueItems = new ArrayList<>();
                 for (int j = 0; j < issueItemsAry.length(); j++) {
                     JSONObject singleItemObj = issueItemsAry.getJSONObject(j);
-                    issueItems.add(new Issues(singleItemObj.getString("ComplaintID"), singleItemObj.getString("ComplaintText"), 0));
+                    issueItems.add(new IssuesModel(singleItemObj.getString("ComplaintID"), singleItemObj.getString("ComplaintText"), 0));
                 }
 
                 issuesScection = new IssuesScections(section, issueItems);
@@ -234,7 +234,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
         // add a divider after each item for more clarity
 //        selectedRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.HORIZONTAL));
-        selectedIssueAdapter = new SelectedIssueAdapter(selectedIssuesList, getContext(), HomeFragment.this);
+        selectedIssueAdapter = new SelectedIssueAdapter(selectedIssuesModelList, getContext(), HomeFragment.this);
         LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         selectedRecyclerView.setLayoutManager(horizontalLayoutManager);
         selectedRecyclerView.setAdapter(selectedIssueAdapter);
@@ -277,7 +277,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
             @Override
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
-                if (s.length() != 0 || selectedIssuesList.size() > 0) {
+                if (s.length() != 0 || selectedIssuesModelList.size() > 0) {
                     proceedBtn.setVisibility(View.VISIBLE);
                 } else {
                     proceedBtn.setVisibility(View.GONE);
@@ -296,7 +296,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         selectedIssueAdapter.notifyDataSetChanged();
         sectionAdapter.notifyDataSetChanged();
 
-        if (selectedIssuesList.size() > 0) {
+        if (selectedIssuesModelList.size() > 0) {
             issuesSelectedCard.setVisibility(View.VISIBLE);
             proceedBtn.setVisibility(View.VISIBLE);
         } else {
@@ -307,7 +307,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
     }
 
     public void removeSelectedIssue(int pos) {
-        selectedIssuesList.remove(pos);
+        selectedIssuesModelList.remove(pos);
         updateSelectedIssue();
     }
 
@@ -335,13 +335,13 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
 
             Intent intent = new Intent(getContext(), PatientHistoryActivity.class);
-            intent.putExtra("SelectedIssues", selectedIssuesList);
+            intent.putExtra("SelectedIssues", selectedIssuesModelList);
 
-            GlobValues.getInstance().setSelectedIssuesList(selectedIssuesList);
+            GlobValues.getInstance().setSelectedIssuesModelList(selectedIssuesModelList);
             GlobValues.getInstance().setupAddAppointmentParams();
             if (!addComplaints.getText().toString().trim().isEmpty()) {
                 selectedIssuesListId.add(addComplaints.getText().toString().trim());
-                selectedIssuesList.add(new Issues("10001", addComplaints.getText().toString().trim(), 1));
+                selectedIssuesModelList.add(new IssuesModel("10001", addComplaints.getText().toString().trim(), 1));
                 intent.putExtra("NewComplaints", addComplaints.getText().toString().trim());
                 GlobValues.getInstance().addAppointmentInputParams("NewComplaints", addComplaints.getText().toString().trim());
             }
@@ -383,11 +383,11 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
     private class IssuesScections extends StatelessSection implements FilterableSection {
 
-        IssueHeader section;
-        List<Issues> issueItems;
-        List<Issues> filteredList;
+        IssueHeaderModel section;
+        List<IssuesModel> issueItems;
+        List<IssuesModel> filteredList;
 
-        public IssuesScections(IssueHeader section, List<Issues> issueItems) {
+        public IssuesScections(IssueHeaderModel section, List<IssuesModel> issueItems) {
             super(SectionParameters.builder()
                     .itemResourceId(R.layout.issue_item)
                     .headerResourceId(R.layout.issue_header)
@@ -416,7 +416,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
             final String name = filteredList.get(position).getTitle();
 
             // Selected Fields
-            if (selectedIssuesList.contains(filteredList.get(position))) {
+            if (selectedIssuesModelList.contains(filteredList.get(position))) {
                 // itemHolder.issueTxtVw.setTextColor(ContextCompat.getColor(getContext(), R.color.bio_red));
                 itemHolder.issueIconVw.setImageResource(R.drawable.icon_symptom_selected);
                 itemHolder.cardBG.setCardBackgroundColor(getResources().getColor(R.color.issue_selected));
@@ -435,17 +435,17 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
                 @Override
                 public void onClick(View v) {
 
-                    if (selectedIssuesList.contains(filteredList.get((int) v.getTag()))) {
-                        selectedIssuesList.remove(filteredList.get((int) v.getTag()));
+                    if (selectedIssuesModelList.contains(filteredList.get((int) v.getTag()))) {
+                        selectedIssuesModelList.remove(filteredList.get((int) v.getTag()));
                         selectedIssuesListId.remove(filteredList.get((int) v.getTag()).getTitle());
                         updateSelectedIssue();
                     } else {
-                        selectedIssuesList.add(filteredList.get((int) v.getTag()));
+                        selectedIssuesModelList.add(filteredList.get((int) v.getTag()));
                         selectedIssuesListId.add(filteredList.get((int) v.getTag()).getTitle());
                         updateSelectedIssue();
                     }
-                    if (selectedIssuesList.size() > 0)
-                        selectedRecyclerView.scrollToPosition(selectedIssuesList.size() - 1);
+                    if (selectedIssuesModelList.size() > 0)
+                        selectedRecyclerView.scrollToPosition(selectedIssuesModelList.size() - 1);
 
                 }
             });
@@ -474,7 +474,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
                 this.setVisible(true);
             } else {
                 filteredList.clear();
-                for (Issues value : issueItems) {
+                for (IssuesModel value : issueItems) {
                     if (value.getTitle().toLowerCase().contains(query.toLowerCase())) {
                         filteredList.add(value);
                     }

@@ -10,7 +10,7 @@ public class DoctorModel {
 
     @SerializedName("objdocAvail")
     @Expose
-    private List<ObjdocAvail> objdocAvail = null;
+    private List<ObjdocAvailModel> objdocAvailModel = null;
 
     @SerializedName("SpecialistID")
     @Expose
@@ -145,14 +145,14 @@ public class DoctorModel {
 
     @SerializedName("ChargesDetails")
     @Expose
-    private DoctorsChargesDetails chargesDetails;
+    private DoctorsChargesDetailsModel chargesDetails;
 
-    public List<ObjdocAvail> getObjdocAvail() {
-        return objdocAvail != null ? objdocAvail : new ArrayList<ObjdocAvail>();
+    public List<ObjdocAvailModel> getObjdocAvailModel() {
+        return objdocAvailModel != null ? objdocAvailModel : new ArrayList<ObjdocAvailModel>();
     }
 
-    public void setObjdocAvail(List<ObjdocAvail> objdocAvail) {
-        this.objdocAvail = objdocAvail;
+    public void setObjdocAvailModel(List<ObjdocAvailModel> objdocAvailModel) {
+        this.objdocAvailModel = objdocAvailModel;
     }
 
     public Integer getSpecialistID() {
@@ -473,11 +473,11 @@ public class DoctorModel {
         this.technicianCharge = technicianCharge;
     }
 
-    public DoctorsChargesDetails getChargesDetails() {
+    public DoctorsChargesDetailsModel getChargesDetails() {
         return chargesDetails;
     }
 
-    public void setChargesDetails(DoctorsChargesDetails chargesDetails) {
+    public void setChargesDetails(DoctorsChargesDetailsModel chargesDetails) {
         this.chargesDetails = chargesDetails;
     }
 
