@@ -112,7 +112,7 @@ public class PatientHistoryActivity extends CustomActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.patient_history);
+        setContentView(R.layout.activity_patient_history);
         selectedIssuesModelList =  (ArrayList<IssuesModel>)getIntent().getSerializableExtra("SelectedIssues");
         buildUI();
     }

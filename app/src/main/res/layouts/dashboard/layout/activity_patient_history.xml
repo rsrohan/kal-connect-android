@@ -10,44 +10,37 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/menu_height"
         android:layout_alignParentTop="true" />
+
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/menu_height"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:background="@color/colorPrimaryDark"
-
         android:id="@+id/next_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="4dp"
+        android:background="@drawable/proceed_button_bg"
+        android:backgroundTint="@color/issue_selected"
         android:orientation="vertical">
-        <com.google.android.material.circularreveal.cardview.CircularRevealCardView
-
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:padding="@dimen/default_min_padding"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            app:cardCornerRadius="25dp">
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_margin="5dp"
-
-                android:tint="@color/red"
-                android:src="@drawable/next_white" />
-
-        </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
-
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="8dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_proceed_arrow"
+                app:tint="@color/colorPrimary" />
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:gravity="center"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@string/proceed"/>
+            android:gravity="center"
+            android:text="@string/proceed"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
 
 
     </RelativeLayout>
@@ -55,10 +48,9 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/headerView"
         android:layout_above="@+id/next_btn"
-        android:layout_marginBottom="@dimen/default_margin"
-        >
+        android:layout_below="@+id/headerView"
+        android:layout_marginBottom="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -68,11 +60,12 @@
             android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:padding="5dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                android:padding="5dp">
+
                 <EditText
                     android:id="@+id/history_of_illness"
                     android:layout_width="match_parent"
@@ -84,7 +77,6 @@
                     android:minHeight="@dimen/editext_min_height"
                     android:padding="10dp" />
             </com.google.android.material.textfield.TextInputLayout>
-
 
 
             <TextView
@@ -102,11 +94,12 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:padding="5dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                android:padding="5dp">
+
                 <EditText
                     android:id="@+id/treatment_history"
                     android:layout_width="match_parent"
@@ -118,11 +111,12 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:padding="5dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                android:padding="5dp">
+
                 <EditText
                     android:id="@+id/family_social_occupational"
                     android:layout_width="match_parent"
@@ -132,7 +126,6 @@
                     android:inputType="textMultiLine"
                     android:minHeight="@dimen/editext_min_height" />
             </com.google.android.material.textfield.TextInputLayout>
-
 
 
             <TextView
@@ -147,152 +140,156 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:padding="5dp">
+
                     <EditText
                         android:id="@+id/diet"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:minHeight="@dimen/editext_min_height"
-                        android:hint="@string/diet"
                         android:gravity="top"
+                        android:hint="@string/diet"
                         android:inputType="textMultiLine"
-                        />
+                        android:minHeight="@dimen/editext_min_height" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:padding="5dp">
+
                     <EditText
                         android:id="@+id/bowel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:minHeight="@dimen/editext_min_height"
-                        android:hint="@string/bowel"
                         android:gravity="top"
+                        android:hint="@string/bowel"
                         android:inputType="textMultiLine"
-                        
-                        
+                        android:minHeight="@dimen/editext_min_height"
+
+
                         />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:padding="5dp">
+
                     <EditText
                         android:id="@+id/appetite"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:minHeight="@dimen/editext_min_height"
-                        android:hint="@string/appetite"
                         android:gravity="top"
+                        android:hint="@string/appetite"
                         android:inputType="textMultiLine"
-                        
-                        
+                        android:minHeight="@dimen/editext_min_height"
+
+
                         />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:padding="5dp">
+
                     <EditText
                         android:id="@+id/bladder"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:minHeight="@dimen/editext_min_height"
-                        android:hint="@string/bladder"
                         android:gravity="top"
+                        android:hint="@string/bladder"
                         android:inputType="textMultiLine"
-                        />
+                        android:minHeight="@dimen/editext_min_height" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:padding="5dp">
+
                     <EditText
                         android:id="@+id/sleep"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:minHeight="@dimen/editext_min_height"
-                        android:hint="@string/sleep"
                         android:gravity="top"
+                        android:hint="@string/sleep"
                         android:inputType="textMultiLine"
-                        
-                        
+                        android:minHeight="@dimen/editext_min_height"
+
+
                         />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:padding="5dp">
+
                     <EditText
                         android:id="@+id/addiction"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:minHeight="@dimen/editext_min_height"
-                        android:hint="@string/addiction"
                         android:gravity="top"
+                        android:hint="@string/addiction"
                         android:inputType="textMultiLine"
-                        
-                        
+                        android:minHeight="@dimen/editext_min_height"
+
+
                         />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:padding="5dp">
+
                     <EditText
                         android:id="@+id/excercise"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:minHeight="@dimen/editext_min_height"
-                        android:hint="@string/excercise"
                         android:gravity="top"
+                        android:hint="@string/excercise"
                         android:inputType="textMultiLine"
-                        
-                        
+                        android:minHeight="@dimen/editext_min_height"
+
+
                         />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_marginBottom="@dimen/menu_height"
                     android:padding="5dp">
+
                     <EditText
                         android:id="@+id/menstrual"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:minHeight="@dimen/editext_min_height"
-                        android:hint="@string/menstrual"
                         android:gravity="top"
+                        android:hint="@string/menstrual"
                         android:inputType="textMultiLine"
-                        
-                        
+                        android:minHeight="@dimen/editext_min_height"
+
+
                         />
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
         </LinearLayout>
-
-
-
 
 
     </ScrollView>

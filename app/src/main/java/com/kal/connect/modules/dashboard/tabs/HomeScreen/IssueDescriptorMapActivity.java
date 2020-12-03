@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.kal.connect.R;
@@ -75,7 +76,7 @@ public class IssueDescriptorMapActivity extends CustomMapActivity implements Vie
 
     LovelyTextInputDialog l;
 
-    LinearLayout nextBtn;
+    RelativeLayout nextBtn;
 
     TextView appointmentTime, addressTxtVw;
     EditText descTxt;
@@ -147,7 +148,7 @@ public class IssueDescriptorMapActivity extends CustomMapActivity implements Vie
         selectedRecyclerView.setLayoutManager(horizontalLayoutManager);
         selectedRecyclerView.setAdapter(selectedIssueAdapter);
         appointmentTime = (TextView) findViewById(R.id.appointmentTime);
-        nextBtn = (LinearLayout) findViewById(R.id.next_btn);
+        nextBtn = findViewById(R.id.next_btn);
         techRequired = (CheckBox) findViewById(R.id.technician_req_chk);
 
 //        final LocationAdapter locationAdapter = new LocationAdapter(locationsList, this);

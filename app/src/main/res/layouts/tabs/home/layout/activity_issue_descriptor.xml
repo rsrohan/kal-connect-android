@@ -39,39 +39,47 @@
                 android:text="@string/conserns_are"
                 android:textColor="@color/colorPrimaryDark" />
 
-            <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+            <androidx.recyclerview.widget.RecyclerView
+                xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/issuesSelectedRecyclerVW"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/default_small_padding"
                 android:background="@color/white" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/next_btn"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
                 android:layout_margin="4dp"
-                android:layout_gravity="end"
                 android:background="@drawable/proceed_button_bg"
                 android:backgroundTint="@color/issue_selected"
                 android:orientation="vertical">
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="8dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_proceed_arrow"
+                    app:tint="@color/colorPrimary" />
+
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
                     android:text="@string/proceed"
                     android:textAllCaps="true"
-                    android:gravity="center"
-                    android:paddingHorizontal="8dp"
-                    android:drawablePadding="4dp"
-                    android:drawableTint="@color/colorAccent"
-                    android:drawableEnd="@drawable/ic_proceed_arrow"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
 
 
-
-            </LinearLayout>
+            </RelativeLayout>
 
         </LinearLayout>
 
