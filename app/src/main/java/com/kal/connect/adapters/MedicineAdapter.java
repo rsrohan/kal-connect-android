@@ -162,10 +162,10 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
         });
 
 
-        mImgAddProduct.setOnClickListener(new View.OnClickListener() {
+        mTxtAddProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                changeColor(mImgAddProduct, mTxtAddProduct);
+                //changeColor(mImgAddProduct, mTxtAddProduct);
 
                 Intent mIntent = new Intent(mActivity, ProductHomeActivity.class);
                 mActivity.startActivityForResult(mIntent, 101);
@@ -174,10 +174,10 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
         });
 
 
-        mImgOrder.setOnClickListener(new View.OnClickListener() {
+        mTxtPlaceOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                changeColor(mImgOrder, mTxtPlaceOrder);
+                //changeColor(mImgOrder, mTxtPlaceOrder);
                 sentParams.clear();
 
                 for (int i = 0; i < items.size(); i++) {
@@ -202,10 +202,10 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
             }
         });
 
-        mImgUplod.setOnClickListener(new View.OnClickListener() {
+        mTxtUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeColor(mImgUplod, mTxtUpload);
+                //changeColor(mImgUplod, mTxtUpload);
                 Intent mIntent = new Intent(mContext, PrescriptionActivity.class);
                 mContext.startActivity(mIntent);
             }

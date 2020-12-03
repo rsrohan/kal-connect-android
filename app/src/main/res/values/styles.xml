@@ -22,7 +22,7 @@
 
 
         <!-- Custom Font - Widget -->
-        <item name="android:textViewStyle">@style/AppTheme.Widget.TextView</item>
+<!--        <item name="android:textViewStyle">@style/AppTheme.Widget.TextView</item>-->
         <item name="android:editTextStyle">@style/AppTheme.Widget.EditTextView</item>
         <item name="android:buttonStyle">@style/AppTheme.Widget.ButtonView</item>
 
@@ -62,9 +62,9 @@
     <!-- To Apply Custom Fonts by widget -->
 
     <!--Custom Font - TextView-->
-    <style name="AppTheme.Widget.TextView" parent="android:Widget.Holo.Light.TextView">
-        <item name="fontPath">fonts/OpenSans-Regular.ttf</item>
-    </style>
+<!--    <style name="AppTheme.Widget.TextView" parent="android:Widget.Holo.Light.TextView">-->
+<!--        <item name="fontPath">fonts/OpenSans-Regular.ttf</item>-->
+<!--    </style>-->
 
     <style name="AppTheme.Widget.ButtonView" parent="android:Widget.Holo.Light.Button">
         <item name="fontPath">fonts/OpenSans-Regular.ttf</item>
