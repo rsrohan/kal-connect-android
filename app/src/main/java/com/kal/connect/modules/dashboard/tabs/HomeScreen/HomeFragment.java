@@ -1,7 +1,6 @@
 package com.kal.connect.modules.dashboard.tabs.HomeScreen;
 
 import android.app.Activity;
-import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
@@ -177,7 +176,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.home_fragment, container, false);
+        View v = inflater.inflate(R.layout.fragment_home, container, false);
 
         issuesSelectedCard = (CardView) v.findViewById(R.id.issuesSelectedCard);
         issuesRecyclerView = (RecyclerView) v.findViewById(R.id.issuesRecyclerVW);

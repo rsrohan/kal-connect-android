@@ -211,7 +211,7 @@
     <string name="negative">Negative</string>
     <string name="not_tested">NA</string>
 
-    <string name="tech_required">Select if you want our medical Assistant to visit or Medicines to be delivered at homeFragment.</string>
+    <string name="tech_required">Select if you want our Medical Assistant to visit or Medicines to be Delivered at Home.</string>
 
     <string name="powered_by">Telemedicine Solution by Medi360</string>
 
@@ -294,10 +294,7 @@
     <string name="update_message">"An update for Kerala Ayurveda Connect is available on Play Store."</string>
     <string name="btn_update">Update</string>
     <string name="btn_later">No Thanks</string>
-
-
-
-
+    <string name="no_medicines_found">No Medicines Found</string>
 
 
 </resources>

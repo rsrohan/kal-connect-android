@@ -70,7 +70,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.account, container, false);
+        view = inflater.inflate(R.layout.screen_account, container, false);
         buildUI();
 
         ButterKnife.bind(this,view);

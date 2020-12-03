@@ -58,7 +58,7 @@ public class AboutDoctorActivity extends CustomActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.about_doctor);
+        setContentView(R.layout.screen_about_doctor);
         ButterKnife.bind(this);
         buildUI();
 
@@ -80,7 +80,6 @@ public class AboutDoctorActivity extends CustomActivity {
             specialistID = mBundle.getString("SpecialistID");
         }
         if (!d.getIsLoggedIn()) {
-            //#todo
             consultNowBtn.setVisibility(View.GONE);
         }
         try {

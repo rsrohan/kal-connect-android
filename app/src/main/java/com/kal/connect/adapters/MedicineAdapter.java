@@ -1,4 +1,4 @@
-package com.kal.connect.modules.dashboard.tabs.BuyMedicineScreen;
+package com.kal.connect.adapters;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -21,6 +21,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.kal.connect.R;
 import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
 import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
+import com.kal.connect.modules.dashboard.tabs.BuyMedicineScreen.MedicineActivity;
+import com.kal.connect.modules.dashboard.tabs.BuyMedicineScreen.PrescriptionActivity;
+import com.kal.connect.modules.dashboard.tabs.BuyMedicineScreen.ProductHomeActivity;
 import com.kal.connect.utilities.AppPreferences;
 import com.kal.connect.utilities.Config;
 import com.kal.connect.utilities.Utilities;
@@ -190,7 +193,7 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
                 }
 
                 if (sentParams.size() > 0) {
-                    placeOrder(holder);
+                    //placeOrder(holder);
                 } else {
                     Utilities.showAlert(mContext, "Please add medicine!", false);
                 }

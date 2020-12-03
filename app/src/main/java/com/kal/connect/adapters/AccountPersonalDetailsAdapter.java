@@ -57,7 +57,7 @@ public class AccountPersonalDetailsAdapter extends RecyclerView.Adapter<AccountP
     public AccountPersonalDetailsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.account_item, parent, false);
+                .inflate(R.layout.item_account, parent, false);
         return new AccountPersonalDetailsAdapter.ViewHolder(itemView);
 
     }

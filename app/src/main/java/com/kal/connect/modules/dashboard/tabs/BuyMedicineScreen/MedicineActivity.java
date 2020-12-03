@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.kal.connect.R;
+import com.kal.connect.adapters.MedicineAdapter;
 import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
 import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
 import com.kal.connect.customLibs.appCustomization.CustomActivity;
@@ -52,7 +53,7 @@ public class MedicineActivity extends CustomActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.medicine);
+        setContentView(R.layout.activity_medicine);
 
         ButterKnife.bind(this);
         buildUI();
@@ -102,7 +103,7 @@ public class MedicineActivity extends CustomActivity implements View.OnClickList
 
 
         //#todo WHY THIS ???
-        AppComponents.reloadDataWithEmptyHint(vwAppointments, dataAdapter, dataItems, MedicineActivity.this.getResources().getString(R.string.no_appointments_found));
+        AppComponents.reloadDataWithEmptyHint(vwAppointments, dataAdapter, dataItems, MedicineActivity.this.getResources().getString(R.string.no_medicines_found));
 
     }
 

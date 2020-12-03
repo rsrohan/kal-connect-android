@@ -115,7 +115,7 @@ public class IssueDescriptorMapActivity extends CustomMapActivity implements Vie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.issue_descriptor);
+        setContentView(R.layout.activity_issue_descriptor);
         buildUI();
     }
 

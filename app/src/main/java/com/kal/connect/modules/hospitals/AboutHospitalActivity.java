@@ -82,7 +82,7 @@ public class AboutHospitalActivity extends CustomActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.about_hospitals);
+        setContentView(R.layout.screen_about_hospitals);
         ButterKnife.bind(this);
         buildUI();
     }
