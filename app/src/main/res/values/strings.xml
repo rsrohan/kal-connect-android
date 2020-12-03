@@ -282,8 +282,8 @@
     <string name="excercise">Excercise</string>
     <string name="menstrual">Menstrual</string>
     
-    <string name="visit_therapist">Select If you want our Therapist to visit homeFragment</string>
-    <string name="deliver_medicine">Select if you want Medicine to be delivered at homeFragment</string>
+    <string name="visit_therapist">Select If you want our Therapist to visit home</string>
+    <string name="deliver_medicine">Select if you want Medicine to be delivered at home</string>
     <string name="patient_examination">Patient Examination</string>
     <string name="personal_history">Personal History</string>
     <string name="presenting_complaints">Presenting Complaints</string>

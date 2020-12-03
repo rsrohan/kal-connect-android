@@ -23,7 +23,7 @@ import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
 import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
 import com.kal.connect.modules.dashboard.tabs.BuyMedicineScreen.MedicineActivity;
 import com.kal.connect.modules.dashboard.tabs.BuyMedicineScreen.PrescriptionActivity;
-import com.kal.connect.modules.dashboard.tabs.BuyMedicineScreen.ProductHomeActivity;
+import com.kal.connect.modules.dashboard.tabs.BuyMedicineScreen.AddProductActivity;
 import com.kal.connect.utilities.AppPreferences;
 import com.kal.connect.utilities.Config;
 import com.kal.connect.utilities.Utilities;
@@ -167,7 +167,7 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
             public void onClick(View view) {
                 //changeColor(mImgAddProduct, mTxtAddProduct);
 
-                Intent mIntent = new Intent(mActivity, ProductHomeActivity.class);
+                Intent mIntent = new Intent(mActivity, AddProductActivity.class);
                 mActivity.startActivityForResult(mIntent, 101);
 
             }

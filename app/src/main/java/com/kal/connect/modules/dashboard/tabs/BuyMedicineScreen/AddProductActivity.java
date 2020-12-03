@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.SearchView;
 import androidx.cardview.widget.CardView;
@@ -32,8 +33,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ProductHomeActivity extends CustomActivity implements SearchView.OnQueryTextListener {
+public class AddProductActivity extends CustomActivity implements SearchView.OnQueryTextListener {
 
+    private static final String TAG = "AddProductActivity";
     RecyclerView mRvMenu;
     CardView mCardMenu;
     ProductAdapter mAdapter;
@@ -46,7 +48,7 @@ public class ProductHomeActivity extends CustomActivity implements SearchView.On
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.medicine_home);
+        setContentView(R.layout.activity_add_products);
         initialization();
         buildUI();
         setAdapter();
@@ -57,7 +59,7 @@ public class ProductHomeActivity extends CustomActivity implements SearchView.On
     private void setAdapter() {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
         mRvMenu.setLayoutManager(gridLayoutManager); // set LayoutManager to RecyclerView
-        mAdapter = new ProductAdapter(mAlProduct, ProductHomeActivity.this,mRvMenu,mTxtNoData);
+        mAdapter = new ProductAdapter(mAlProduct, AddProductActivity.this,mRvMenu,mTxtNoData);
         mRvMenu.setAdapter(mAdapter);
     }
 
@@ -73,7 +75,7 @@ public class ProductHomeActivity extends CustomActivity implements SearchView.On
         mTxtNoData = (TextView) findViewById(R.id.txt_no_data);
 
 
-        setHeaderView(R.id.headerView, ProductHomeActivity.this, ProductHomeActivity.this.getResources().getString(R.string.tab_home));
+        setHeaderView(R.id.headerView, AddProductActivity.this, AddProductActivity.this.getResources().getString(R.string.tab_home));
         headerView.showBackOption();
 
         mEdtSearch.addTextChangedListener(new TextWatcher() {
@@ -160,10 +162,10 @@ public class ProductHomeActivity extends CustomActivity implements SearchView.On
         HashMap<String, Object> inputParams = AppPreferences.getInstance().sendingInputParamBuyMedicine();
 
 
-        SoapAPIManager apiManager = new SoapAPIManager(ProductHomeActivity.this, inputParams, new APICallback() {
+        SoapAPIManager apiManager = new SoapAPIManager(AddProductActivity.this, inputParams, new APICallback() {
             @Override
             public void responseCallback(Context context, String response) throws JSONException {
-                Log.e("***response***", response);
+                Log.e(TAG, "getProductList\n"+inputParams.toString()+"\n\n"+response);
 
                 try {
                     JSONArray responseAry = new JSONArray(response);
@@ -179,11 +181,11 @@ public class ProductHomeActivity extends CustomActivity implements SearchView.On
             }
         }, true);
         String[] url = {Config.WEB_Services1, Config.GET_KAL_PRODUCT_LIST, "POST"};
-
-        if (Utilities.isNetworkAvailable(ProductHomeActivity.this)) {
+        Log.e(TAG,""+url[0]);
+        if (Utilities.isNetworkAvailable(AddProductActivity.this)) {
             apiManager.execute(url);
         } else {
-
+            Toast.makeText(this, "Internet not Available", Toast.LENGTH_SHORT).show();
         }
     }
 
