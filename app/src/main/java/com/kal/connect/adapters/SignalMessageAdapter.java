@@ -1,4 +1,4 @@
-package com.kal.connect.modules.communicate;
+package com.kal.connect.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 
 import com.kal.connect.R;
+import com.kal.connect.models.SignalMessage;
 
 import java.util.Collections;
 import java.util.HashMap;

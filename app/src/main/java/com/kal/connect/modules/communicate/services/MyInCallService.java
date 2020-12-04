@@ -1,4 +1,4 @@
-package com.kal.connect.modules.communicate;
+package com.kal.connect.modules.communicate.services;
 
 import android.content.Intent;
 import android.os.Build;
@@ -9,6 +9,8 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import android.app.Service;
+
+import com.kal.connect.modules.communicate.IncomingCallActivity;
 
 @RequiresApi(api = Build.VERSION_CODES.M)
 public class MyInCallService extends Service {
@@ -25,7 +27,7 @@ public class MyInCallService extends Service {
         Bundle mBundle =intent.getExtras();
 
 
-        Intent incommingCallIntent = new Intent(this, IncommingCall.class);
+        Intent incommingCallIntent = new Intent(this, IncomingCallActivity.class);
 //        incommingCallIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         incommingCallIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         incommingCallIntent.putExtra("CALER_NAME",mBundle.getString("CALER_NAME"));

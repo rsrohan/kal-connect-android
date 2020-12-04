@@ -1,4 +1,4 @@
-package com.kal.connect.modules.communicate;
+package com.kal.connect.modules.communicate.services;
 
 import android.content.Context;
 import android.util.Log;

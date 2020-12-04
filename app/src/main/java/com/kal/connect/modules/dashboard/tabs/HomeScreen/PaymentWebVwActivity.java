@@ -21,7 +21,7 @@ import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
 import com.kal.connect.appconstants.APIWebServiceConstants;
 import com.kal.connect.customLibs.appCustomization.CustomActivity;
 import com.kal.connect.models.DoctorModel;
-import com.kal.connect.modules.communicate.VideoCaller;
+import com.kal.connect.modules.communicate.VideoCallerActivity;
 import com.kal.connect.modules.dashboard.DashboardMapActivity;
 import com.kal.connect.utilities.Config;
 import com.kal.connect.utilities.GlobValues;
@@ -154,7 +154,7 @@ public class PaymentWebVwActivity extends CustomActivity implements View.OnClick
                             String TOKEN = commonDataInfo.getString("VCToekn");
                             String SESSION = commonDataInfo.getString("VSSessionID");
 
-                            Intent intent = new Intent(PaymentWebVwActivity.this, VideoCaller.class);
+                            Intent intent = new Intent(PaymentWebVwActivity.this, VideoCallerActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 

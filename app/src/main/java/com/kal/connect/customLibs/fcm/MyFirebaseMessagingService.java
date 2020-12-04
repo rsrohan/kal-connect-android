@@ -20,7 +20,7 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.kal.connect.R;
 import com.kal.connect.modules.communicate.ChatActivity;
-import com.kal.connect.modules.communicate.IncommingCall;
+import com.kal.connect.modules.communicate.IncomingCallActivity;
 import com.kal.connect.appconstants.OpenTokConfigConstants;
 import com.kal.connect.modules.communicate.services.HeadsUpNotificationService;
 import com.kal.connect.modules.dashboard.DashboardMapActivity;
@@ -54,7 +54,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         return;
                     } else {
                         if (!isInBackground) {
-                            Intent fullScreenIntent = new Intent(getApplicationContext(), IncommingCall.class);
+                            Intent fullScreenIntent = new Intent(getApplicationContext(), IncomingCallActivity.class);
                             if (message.getData().containsKey("SpecialistID")) {
                                 fullScreenIntent.putExtra("SpecialistID", message.getData().get("SpecialistID").toString());
                             }
@@ -85,7 +85,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         return;
                     } else {
                         if (!isInBackground) {
-                            Intent fullScreenIntent = new Intent(getApplicationContext(), IncommingCall.class);
+                            Intent fullScreenIntent = new Intent(getApplicationContext(), IncomingCallActivity.class);
                             if (message.getData().containsKey("SpecialistID")) {
                                 fullScreenIntent.putExtra("SpecialistID", message.getData().get("SpecialistID").toString());
                             }
@@ -128,7 +128,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         } else if (messageData.containsKey("title") && message.getData().get("title").toString().equalsIgnoreCase("Decline Call")) {
             try {
                 if (Config.mActivity != null && !Config.mActivity.getClass().getSimpleName().equalsIgnoreCase("VideoConference")) {
-                    ((IncommingCall) Config.mActivity).moveToHome();
+                    ((IncomingCallActivity) Config.mActivity).moveToHome();
                 } else {
                     Intent homeScreen = new Intent(getApplicationContext(), DashboardMapActivity.class);
                     homeScreen.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -148,7 +148,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             Intent fullScreenIntent = null;
             if (type != null && !type.equalsIgnoreCase("Chat")) {
                 type = "VideoCall";
-                fullScreenIntent = new Intent(context, IncommingCall.class);
+                fullScreenIntent = new Intent(context, IncomingCallActivity.class);
                 fullScreenIntent.putExtra("SpecialistID", specialistID);
             } else {
                 fullScreenIntent = new Intent(context, ChatActivity.class);

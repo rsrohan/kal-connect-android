@@ -1,7 +1,6 @@
 package com.kal.connect.modules.dashboard.tabs.HomeScreen;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -37,7 +36,7 @@ import com.kal.connect.models.NotesModel;
 import com.kal.connect.models.RazerPayOrderModel;
 import com.kal.connect.models.TransferModel;
 import com.kal.connect.appconstants.OpenTokConfigConstants;
-import com.kal.connect.modules.communicate.VideoConference;
+import com.kal.connect.modules.communicate.VideoConferenceActivity;
 import com.kal.connect.modules.dashboard.DashboardMapActivity;
 import com.kal.connect.utilities.AppPreferences;
 import com.kal.connect.utilities.Config;
@@ -260,7 +259,7 @@ public class AppointmentSummaryActivity extends CustomActivity implements View.O
                             String TOKEN = commonDataInfo.getString("VCToekn");
                             String SESSION = commonDataInfo.getString("VSSessionID");
 
-                            Intent intent = new Intent(AppointmentSummaryActivity.this, VideoConference.class);
+                            Intent intent = new Intent(AppointmentSummaryActivity.this, VideoConferenceActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 

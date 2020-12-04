@@ -21,7 +21,7 @@ import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
 import com.kal.connect.customLibs.appCustomization.CustomActivity;
 import com.kal.connect.modules.communicate.ChatActivity;
 import com.kal.connect.appconstants.OpenTokConfigConstants;
-import com.kal.connect.modules.communicate.VideoConference;
+import com.kal.connect.modules.communicate.VideoConferenceActivity;
 import com.kal.connect.utilities.AppPreferences;
 import com.kal.connect.utilities.Config;
 import com.kal.connect.utilities.GlobValues;
@@ -250,7 +250,7 @@ public class AppointmentDetailActivity extends CustomActivity implements View.On
                                 commonDataInfo.has("VSSessionID") && !commonDataInfo.getString("VSSessionID").isEmpty()) {
 
 
-                            Intent intent = new Intent(context, VideoConference.class);
+                            Intent intent = new Intent(context, VideoConferenceActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             intent.putExtra("DocterId", selectedAppointmentData.get("doctorId").toString());

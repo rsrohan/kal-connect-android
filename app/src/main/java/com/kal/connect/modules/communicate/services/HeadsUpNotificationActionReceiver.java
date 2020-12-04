@@ -9,7 +9,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 
 import com.kal.connect.appconstants.CallFeatureConstant;
-import com.kal.connect.modules.communicate.VideoConference;
+import com.kal.connect.modules.communicate.VideoConferenceActivity;
 import com.kal.connect.utilities.Config;
 
 
@@ -48,7 +48,7 @@ public class HeadsUpNotificationActionReceiver extends BroadcastReceiver {
             if (action.equals(CallFeatureConstant.CALL_RECEIVE_ACTION)) {
                 Intent videoIntent = null;
                 try {
-                    videoIntent = new Intent(context, VideoConference.class);
+                    videoIntent = new Intent(context, VideoConferenceActivity.class);
                     videoIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
                     if(Config.ringtone!=null){

@@ -16,8 +16,11 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.kal.connect.R;
+import com.kal.connect.adapters.SignalMessageAdapter;
 import com.kal.connect.appconstants.OpenTokConfigConstants;
 import com.kal.connect.customLibs.appCustomization.CustomActivity;
+import com.kal.connect.models.SignalMessage;
+import com.kal.connect.modules.communicate.services.WebServiceCoordinator;
 import com.kal.connect.modules.dashboard.DashboardMapActivity;
 import com.kal.connect.utilities.Config;
 import com.opentok.android.Connection;

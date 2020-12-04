@@ -59,7 +59,7 @@ import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
 
-public class VideoConference extends AppCompatActivity
+public class VideoConferenceActivity extends AppCompatActivity
         implements EasyPermissions.PermissionCallbacks,
         Publisher.PublisherListener,
         SubscriberKit.SubscriberListener,
@@ -586,7 +586,7 @@ public class VideoConference extends AppCompatActivity
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        SoapAPIManager apiManager = new SoapAPIManager(VideoConference.this, endCallParams, new APICallback() {
+        SoapAPIManager apiManager = new SoapAPIManager(VideoConferenceActivity.this, endCallParams, new APICallback() {
             @Override
             public void responseCallback(Context context, String response) throws JSONException {
 
@@ -602,7 +602,7 @@ public class VideoConference extends AppCompatActivity
         }, true);
         String[] url = {Config.WEB_Services4, Config.END_CALL, "POST"};
 
-        if (Utilities.isNetworkAvailable(VideoConference.this)) {
+        if (Utilities.isNetworkAvailable(VideoConferenceActivity.this)) {
             apiManager.execute(url);
         } else {
 

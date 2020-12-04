@@ -15,7 +15,7 @@ import androidx.core.app.NotificationManagerCompat;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.kal.connect.R;
-import com.kal.connect.modules.communicate.MyInCallService;
+import com.kal.connect.modules.communicate.services.MyInCallService;
 import com.kal.connect.appconstants.OpenTokConfigConstants;
 import com.kal.connect.modules.communicate.services.HeadsUpNotificationService;
 import com.kal.connect.modules.dashboard.DashboardMapActivity;

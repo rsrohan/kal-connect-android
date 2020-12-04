@@ -21,7 +21,7 @@ import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
 import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
 import com.kal.connect.models.DoctorModel;
 import com.kal.connect.appconstants.OpenTokConfigConstants;
-import com.kal.connect.modules.communicate.VideoConference;
+import com.kal.connect.modules.communicate.VideoConferenceActivity;
 import com.kal.connect.modules.dashboard.tabs.HomeScreen.AboutDoctorActivity;
 import com.kal.connect.utilities.Config;
 import com.kal.connect.utilities.GlobValues;
@@ -227,7 +227,7 @@ public class DoctorsListAdapter extends RecyclerView.Adapter<DoctorsListAdapter.
 //                            startActivity(intent);
 //                            Utilities.pushAnimation(context);
 
-                            Intent intent = new Intent(context, VideoConference.class);
+                            Intent intent = new Intent(context, VideoConferenceActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 

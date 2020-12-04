@@ -34,7 +34,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class IncommingCall extends CustomActivity {
+public class IncomingCallActivity extends CustomActivity {
 
 
     @BindView(R.id.caller)
@@ -61,7 +61,7 @@ public class IncommingCall extends CustomActivity {
         ringtone.stop();
         finish();
 
-        Intent videoIntent = new Intent(IncommingCall.this, VideoConference.class);
+        Intent videoIntent = new Intent(IncomingCallActivity.this, VideoConferenceActivity.class);
 
         ActivityManager mngr = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
         List<ActivityManager.RunningTaskInfo> taskList = mngr.getRunningTasks(10);
@@ -162,7 +162,7 @@ public class IncommingCall extends CustomActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        SoapAPIManager apiManager = new SoapAPIManager(IncommingCall.this, endCallParams, new APICallback() {
+        SoapAPIManager apiManager = new SoapAPIManager(IncomingCallActivity.this, endCallParams, new APICallback() {
             @Override
             public void responseCallback(Context context, String response) throws JSONException {
 
@@ -178,7 +178,7 @@ public class IncommingCall extends CustomActivity {
         }, true);
         String[] url = {Config.WEB_Services4, Config.END_CALL, "POST"};
 
-        if (Utilities.isNetworkAvailable(IncommingCall.this)) {
+        if (Utilities.isNetworkAvailable(IncomingCallActivity.this)) {
             apiManager.execute(url);
         } else {
 

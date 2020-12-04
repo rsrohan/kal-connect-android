@@ -4,6 +4,7 @@ package com.kal.connect.modules.communicate;
 //import android.support.v7.app.AppCompatActivity;
 //import androidx.recyclerview.widget.RecyclerView;
 
+import com.kal.connect.modules.communicate.services.WebServiceCoordinator;
 import com.opentok.android.SubscriberKit;
 
         import com.kal.connect.customLibs.appCustomization.CustomActivity;
@@ -22,7 +23,7 @@ import com.opentok.android.Stream;
 
         import java.util.List;
 
-public class VideoCaller extends CustomActivity implements View.OnClickListener, EasyPermissions.PermissionCallbacks, PublisherKit.PublisherListener,
+public class VideoCallerActivity extends CustomActivity implements View.OnClickListener, EasyPermissions.PermissionCallbacks, PublisherKit.PublisherListener,
         SubscriberKit.SubscriberListener, WebServiceCoordinator.Listener,Session.SessionListener{
 
 

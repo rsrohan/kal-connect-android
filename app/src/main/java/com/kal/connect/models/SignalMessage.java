@@ -1,4 +1,4 @@
-package com.kal.connect.modules.communicate;
+package com.kal.connect.models;
 
 public class SignalMessage {
 
