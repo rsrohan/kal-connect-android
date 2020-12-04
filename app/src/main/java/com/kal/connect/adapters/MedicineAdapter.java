@@ -22,7 +22,7 @@ import com.kal.connect.R;
 import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
 import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
 import com.kal.connect.modules.dashboard.tabs.BuyMedicineScreen.MedicineActivity;
-import com.kal.connect.modules.dashboard.tabs.BuyMedicineScreen.PrescriptionActivity;
+import com.kal.connect.modules.dashboard.tabs.BuyMedicineScreen.PrescriptionUploadActivity;
 import com.kal.connect.modules.dashboard.tabs.BuyMedicineScreen.AddProductActivity;
 import com.kal.connect.utilities.AppPreferences;
 import com.kal.connect.utilities.Config;
@@ -206,7 +206,7 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
             @Override
             public void onClick(View v) {
                 //changeColor(mImgUplod, mTxtUpload);
-                Intent mIntent = new Intent(mContext, PrescriptionActivity.class);
+                Intent mIntent = new Intent(mContext, PrescriptionUploadActivity.class);
                 mContext.startActivity(mIntent);
             }
         });
