@@ -148,7 +148,6 @@ public class VideoConferenceActivity extends AppCompatActivity
     @OnClick(R.id.dialer_disconnect)
     void dialerDisconnectCall() {
         if (Config.isDisconnect) {
-//            disconnectSession();
             moveToHome();
         } else {
             getEndCall();
@@ -191,13 +190,11 @@ public class VideoConferenceActivity extends AppCompatActivity
             } catch (Exception e) {
             }
 
-            countDownTimer = new CountDownTimer(2 * 60000, 1000) {
+            countDownTimer = new CountDownTimer(1 * 60000, 1000) {
 
                 public void onTick(long millisUntilFinished) {
-                    timer.setText("" + String.format("%d : %d",
-                            TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished),
-                            TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
-                                    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
+                    long seconds = millisUntilFinished / 1000;
+                    timer.setText(String.format("%02d:%02d", seconds / 60, seconds % 60));
                 }
 
                 public void onFinish() {
@@ -344,7 +341,6 @@ public class VideoConferenceActivity extends AppCompatActivity
     public void onDisconnected(Session session) {
         Log.e(TAG, "onDisconnected: disconnected from session " + session.getSessionId());
 
-//        mSession = null;
         moveToHome();
     }
 

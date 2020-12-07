@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#e0000000">
 
     <RelativeLayout
         android:id="@+id/dialerVw"
@@ -39,6 +40,7 @@
                 android:gravity="center"
                 android:padding="@dimen/default_padding"
                 android:text="Doctor Name"
+                android:textColor="@color/white"
                 android:textSize="@dimen/button_font_size"
                 android:textStyle="bold" />
 
@@ -48,6 +50,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/mdtp_time_placeholder"
+                android:textColor="@color/white"
                 android:textSize="@dimen/button_font_size" />
 
         </LinearLayout>
@@ -59,9 +62,10 @@
             android:layout_centerInParent="true"
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="@dimen/dialer_margin_top"
-            android:src="@drawable/call_disconnect"
+            android:rotation="135"
+            android:src="@drawable/ic_phone_call_accept"
 
-            />
+            app:tint="@color/red" />
 
 
     </RelativeLayout>
@@ -113,7 +117,7 @@
                             android:layout_height="match_parent"
                             android:gravity="center"
                             android:text="@string/doc_disable_msg"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/white" />
 
                     </RelativeLayout>
 
@@ -122,17 +126,17 @@
                 <LinearLayout
                     android:id="@+id/ll_subscriber_id_additional"
                     android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:layout_height="match_parent">
+                    android:orientation="vertical">
 
                     <FrameLayout
                         android:id="@+id/temp_subscriber_id_additional"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:visibility="visible"
-                        android:orientation="vertical" />
+                        android:orientation="vertical"
+                        android:visibility="visible" />
 
                     <RelativeLayout
                         android:id="@+id/video_disabled_additional"
@@ -147,7 +151,7 @@
                             android:layout_height="match_parent"
                             android:gravity="center"
                             android:text="@string/doc_disable_msg"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/white" />
 
                     </RelativeLayout>
 
@@ -184,7 +188,9 @@
                 android:layout_height="@dimen/button_medium_height"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="10dp"
-                android:src="@drawable/call_disconnect" />
+                android:rotation="135"
+                android:src="@drawable/ic_phone_call_accept"
+                app:tint="@color/red" />
 
             <ImageView
                 android:id="@+id/switch_camera"

@@ -79,7 +79,7 @@ public class IncomingCallActivity extends CustomActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.incoming_video_call);
+        setContentView(R.layout.activity_incoming_video_call);
         Config.mActivity = this;
         buildUI();
     }
@@ -139,8 +139,7 @@ public class IncomingCallActivity extends CustomActivity {
     }
 
     public void getEndCall() {
-//        HashMap<String, Object> inputParams = AppPreferences.getInstance().sendingInputParam();
-//        inputParams.put("ComplaintID",GlobValues.getInstance().getSelectedAppointment());
+
         String docId = "";
         Bundle mBundle = null;
         if (getIntent().getExtras() != null) {

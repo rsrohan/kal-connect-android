@@ -35,12 +35,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amulyakhare.textdrawable.TextDrawable;
@@ -778,7 +780,7 @@ public class Utilities {
 
 
     /**
-     * Create Alertview dynamically maxium of buttons -> 3 minimum buttons -> 1
+     * Create Alertview dynamically maximum of buttons -> 3 minimum buttons -> 1
      *
      * @param fromActivity
      * @param message
@@ -788,8 +790,12 @@ public class Utilities {
     public static void showAlertDialogWithOptions(Activity fromActivity, boolean cancelable, String message, String[] options, UtilitiesInterfaces.AlertCallback alertCallback) {
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(fromActivity);
-        alertDialog.setTitle(Config.AppName);
-        alertDialog.setMessage(message);
+        LayoutInflater inflater = fromActivity.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.message_dialog, null);
+        TextView textView = dialogView.findViewById(R.id.tv_message);
+        textView.setText(message);
+//        alertDialog.setTitle(Config.AppName);
+//        alertDialog.setMessage(message);
         final UtilitiesInterfaces.AlertCallback callback = alertCallback;
         for (int count = 0; count < options.length; count++) {
 

@@ -22,10 +22,11 @@
             android:id="@+id/disconnect"
             android:layout_width="@dimen/button_medium_height"
             android:layout_height="@dimen/button_medium_height"
-            android:src="@drawable/call_disconnect"
+            android:src="@drawable/ic_phone_call_accept"
             android:layout_marginLeft="10dp"
+            android:rotation="135"
             android:layout_alignParentLeft="true"
-            />
+            app:tint="@color/red" />
         <ImageView
             android:id="@+id/switch_camera"
             android:layout_width="@dimen/button_medium_height"
