@@ -49,7 +49,7 @@ public class MyFirebaseMessagingServiceTemp extends FirebaseMessagingService {
                     ActivityManager.RunningAppProcessInfo myProcess = new ActivityManager.RunningAppProcessInfo();
                     ActivityManager.getMyMemoryState(myProcess);
 
-                    Boolean isInBackground = myProcess.importance != ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND;
+                    boolean isInBackground = myProcess.importance != ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND;
 
                     if (!isInBackground) {
                         startService(myInCallService);
@@ -61,7 +61,6 @@ public class MyFirebaseMessagingServiceTemp extends FirebaseMessagingService {
 
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P || !isInBackground) {
                         startService(myInCallService);
-                        return;
                     } else {
                         //For Android 10 when app is in background
                         Intent headsup = new Intent(this, HeadsUpNotificationService.class);
@@ -69,8 +68,8 @@ public class MyFirebaseMessagingServiceTemp extends FirebaseMessagingService {
                         headsup.putExtra("CALER_NAME", message.getData().get("body").toString());
                         headsup.putExtra("CALL_TYPE", 1);
                         startService(headsup);
-                        return;
                     }
+                    return;
 
 
                 } catch (Exception e) {
@@ -82,7 +81,6 @@ public class MyFirebaseMessagingServiceTemp extends FirebaseMessagingService {
             prepareNotificationForRemainder(message.getData().get("Notificationmessage").toString());
         }
     }
-
 
 
     private void prepareNotificationForRemainder(String message) {

@@ -48,10 +48,6 @@ public class CustomApplication extends Application implements Application.Activi
 
         super.onCreate();
         globalContext = CustomApplication.this;
-//        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-//                .setDefaultFontPath("fonts/OpenSans-Regular.ttf")
-//                .setFontAttrId(R.attr.fontPath)
-//                .build()
 
         crashlytics = FirebaseCrashlytics.getInstance();
         crashlytics.log("Start logging!");
