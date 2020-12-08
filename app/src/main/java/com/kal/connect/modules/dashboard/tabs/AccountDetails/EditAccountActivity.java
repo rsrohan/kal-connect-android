@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 
@@ -20,11 +21,14 @@ import com.kal.connect.R;
 import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
 import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
 import com.kal.connect.customLibs.appCustomization.CustomActivity;
+import com.kal.connect.customdialogbox.ConfirmDialog;
+import com.kal.connect.modules.communicate.VideoConferenceActivity;
 import com.kal.connect.modules.dashboard.DashboardMapActivity;
 import com.kal.connect.utilities.AppPreferences;
 import com.kal.connect.utilities.Config;
 import com.kal.connect.utilities.GlobValues;
 import com.kal.connect.utilities.Utilities;
+import com.kal.connect.utilities.UtilitiesInterfaces;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import org.json.JSONArray;
@@ -35,6 +39,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import lib.kingja.switchbutton.SwitchMultiButton;
 
@@ -73,7 +78,37 @@ public class EditAccountActivity extends CustomActivity implements View.OnClickL
 
     // MARK : Instance Methods
     private void buildUI() {
-
+//        String message = "Thank You for using our service. You can check details in Appointment Section. Stay Healthy!!";
+//        ConfirmDialog confirmDialog = new ConfirmDialog(EditAccountActivity.this, false, message, new ConfirmDialog.DialogListener() {
+//            @Override
+//            public void onYes() {
+//                Intent homeScreen = new Intent(getApplicationContext(), DashboardMapActivity.class);
+//                homeScreen.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                startActivity(homeScreen);
+//            }
+//
+//            @Override
+//            public void onNO() {
+//
+//            }
+//        }, new DialogInterface.OnCancelListener() {
+//            @Override
+//            public void onCancel(DialogInterface dialog) {
+//
+//            }
+//        });
+//        if (getApplicationContext() != null) {
+//            Objects.requireNonNull(confirmDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//            confirmDialog.show();
+//        }
+//        Utilities.showAlertDialogWithOptions(this, false, "Thank You for using our service. You can check details in Appointment Section. Stay Healthy!!", new String[]{"Done"}, new UtilitiesInterfaces.AlertCallback() {
+//            @Override
+//            public void onOptionClick(DialogInterface dialog, int buttonIndex) {
+////                Intent homeScreen = new Intent(getApplicationContext(), DashboardMapActivity.class);
+////                homeScreen.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+////                startActivity(homeScreen);
+//            }
+//        });
 
 //        testCall = (Button) view.findViewById(R.id.test_call_btn);
 //        testCall.setOnClickListener(this);

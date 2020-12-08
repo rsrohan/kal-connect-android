@@ -89,6 +89,7 @@ import butterknife.ButterKnife;
 
 public class Utilities {
 
+    private static final String TAG = "Utilities";
     private static Utilities instance = null;
 
     // To be used as a singleton
@@ -739,6 +740,10 @@ public class Utilities {
     public static void showAlertDialogWithOptions(Activity fromActivity, String message, String[] options, UtilitiesInterfaces.AlertCallback alertCallback) {
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(fromActivity);
+//        LayoutInflater inflater = fromActivity.getLayoutInflater();
+//        View dialogView = inflater.inflate(R.layout.message_dialog, null);
+//        TextView textView = dialogView.findViewById(R.id.tv_message);
+//        textView.setText(message);
         alertDialog.setTitle(Config.AppName);
         alertDialog.setMessage(message);
         final UtilitiesInterfaces.AlertCallback callback = alertCallback;
@@ -790,12 +795,13 @@ public class Utilities {
     public static void showAlertDialogWithOptions(Activity fromActivity, boolean cancelable, String message, String[] options, UtilitiesInterfaces.AlertCallback alertCallback) {
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(fromActivity);
-        LayoutInflater inflater = fromActivity.getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.message_dialog, null);
-        TextView textView = dialogView.findViewById(R.id.tv_message);
-        textView.setText(message);
-//        alertDialog.setTitle(Config.AppName);
-//        alertDialog.setMessage(message);
+//        LayoutInflater inflater = fromActivity.getLayoutInflater();
+//        View dialogView = inflater.inflate(R.layout.message_dialog, null);
+//        TextView textView = dialogView.findViewById(R.id.tv_message);
+//        textView.setText(message);
+        Log.e(TAG, "showAlertDialogWithOptions: "+message );
+        alertDialog.setTitle(Config.AppName);
+        alertDialog.setMessage(message);
         final UtilitiesInterfaces.AlertCallback callback = alertCallback;
         for (int count = 0; count < options.length; count++) {
 

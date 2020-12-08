@@ -21,13 +21,13 @@
         android:id="@+id/btn_confirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/button_bg"
-        android:backgroundTint="@color/appoinment_red"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/proceed_button_bg"
+        android:backgroundTint="@color/red"
         android:text="Done"
         android:textAllCaps="false"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:visibility="visible" />
 
 
 </LinearLayout>

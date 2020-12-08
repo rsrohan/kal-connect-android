@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -23,6 +25,7 @@ import com.kal.connect.R;
 import com.kal.connect.appconstants.OpenTokConfigConstants;
 import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
 import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
+import com.kal.connect.customdialogbox.ConfirmDialog;
 import com.kal.connect.utilities.AppPreferences;
 import com.kal.connect.utilities.Config;
 import com.opentok.android.BaseVideoRenderer;
@@ -41,6 +44,7 @@ import com.kal.connect.utilities.UtilitiesInterfaces;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 
@@ -442,22 +446,41 @@ public class VideoConferenceActivity extends AppCompatActivity
         if (GlobValues.getAddAppointmentParams() != null)
             GlobValues.getAddAppointmentParams().clear();
 
-        if (isMovingToHome == true) {
+        if (isMovingToHome) {
             return;
         }
 
         isMovingToHome = true;
 
-        Utilities.showAlertDialogWithOptions(this, false, "Thank You for using our service. You can check details in Appointment Section. Stay Healthy!!", new String[]{"Done"}, new UtilitiesInterfaces.AlertCallback() {
+//        Utilities.showAlertDialogWithOptions(this, false, "", new String[]{"Done"}, new UtilitiesInterfaces.AlertCallback() {
+//            @Override
+//            public void onOptionClick(DialogInterface dialog, int buttonIndex) {
+//
+//            }
+//        });
+        String message = "Thank You for using our service. You can check details in Appointment Section. Stay Healthy!!";
+        ConfirmDialog confirmDialog = new ConfirmDialog(VideoConferenceActivity.this, false, message, new ConfirmDialog.DialogListener() {
             @Override
-            public void onOptionClick(DialogInterface dialog, int buttonIndex) {
+            public void onYes() {
                 Intent homeScreen = new Intent(getApplicationContext(), DashboardMapActivity.class);
                 homeScreen.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(homeScreen);
             }
+
+            @Override
+            public void onNO() {
+
+            }
+        }, new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+
+            }
         });
-
-
+        if (getApplicationContext() != null) {
+            Objects.requireNonNull(confirmDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            confirmDialog.show();
+        }
     }
 
 
