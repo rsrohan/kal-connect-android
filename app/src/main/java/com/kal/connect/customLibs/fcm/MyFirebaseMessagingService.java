@@ -190,38 +190,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             notificationBuilder.build().flags |= Notification.FLAG_AUTO_CANCEL;
             notificationManager.notify(987, notificationBuilder.build());
         }
-//        startForeground(987, notificationBuilder.build());
-        // Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE); vibrator.vibrate(2000);
-    }
-
-
-    private void sendMyNotification(String message) {
-
-        //On click of notification it redirect to this Activity
-        Intent intent = new Intent(this, ChatActivity.class);
-        intent.putExtra("doctorName", message);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-        startActivity(intent);
-
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
-
-        Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("My Firebase Push notification")
-                .setContentText(message)
-                .setAutoCancel(true)
-                .setSound(soundUri)
-                .setContentIntent(pendingIntent);
-
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-        notificationManager.notify(0, notificationBuilder.build());
 
     }
+
 
     private void prepareNotificationForRemainder(String message) {
         createNotificationChannel();
@@ -268,13 +239,5 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
     }
 
-    private boolean isMyServiceRunning(Class<?> serviceClass) {
-        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (serviceClass.getName().equals(service.service.getClassName())) {
-                return true;
-            }
-        }
-        return false;
-    }
+
 }

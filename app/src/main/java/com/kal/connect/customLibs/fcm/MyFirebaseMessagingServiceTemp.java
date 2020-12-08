@@ -29,22 +29,14 @@ public class MyFirebaseMessagingServiceTemp extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage message) {
-//        sendMyNotification(message.getNotification().getBody());
-
 
         Map<String, String> messageData = message.getData();
         if (messageData.containsKey("title") && message.getData().get("title").toString().toLowerCase().contains("video")) {
             if (messageData.containsKey("sessionID") && messageData.containsKey("tokenID")) {
-//                Intent intent = new Intent(this, IncommingCall.class);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                intent.putExtra("SESSION_ID",message.getData().get("sessionID").toString());
-//                intent.putExtra("TOKEN",message.getData().get("tokenID").toString());
 
                 OpenTokConfigConstants.SESSION_ID = message.getData().get("sessionID");
                 OpenTokConfigConstants.TOKEN = message.getData().get("tokenID");
-//                intent.putExtra("CALER_NAME",message.getData().get("body").toString());
-//                intent.putExtra("CALL_TYPE",1);
+
 
                 Intent myInCallService = new Intent(this, MyInCallService.class);
                 myInCallService.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -53,8 +45,6 @@ public class MyFirebaseMessagingServiceTemp extends FirebaseMessagingService {
 
 
                 try {
-                    //Issue here, this below line not happening sometime because of we calling from Background service.
-//                    startActivity(intent);
 
                     ActivityManager.RunningAppProcessInfo myProcess = new ActivityManager.RunningAppProcessInfo();
                     ActivityManager.getMyMemoryState(myProcess);
@@ -94,32 +84,6 @@ public class MyFirebaseMessagingServiceTemp extends FirebaseMessagingService {
     }
 
 
-    private void sendMyNotification(String message) {
-
-        //On click of notification it redirect to this Activity
-//        Intent intent = new Intent(this, CallerUI.class);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//
-//        startActivity(intent);
-
-//        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
-//
-//        Uri soundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-//        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-//                .setSmallIcon(R.mipmap.ic_launcher)
-//                .setContentTitle("My Firebase Push notification")
-//                .setContentText(message)
-//                .setAutoCancel(true)
-//                .setSound(soundUri)
-//                .setContentIntent(pendingIntent);
-//
-//        NotificationManager notificationManager =
-//                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-//
-//        notificationManager.notify(0, notificationBuilder.build());
-
-    }
 
     private void prepareNotificationForRemainder(String message) {
         createNotificationChannel();
@@ -166,13 +130,4 @@ public class MyFirebaseMessagingServiceTemp extends FirebaseMessagingService {
         }
     }
 
-    private boolean isMyServiceRunning(Class<?> serviceClass) {
-        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (serviceClass.getName().equals(service.service.getClassName())) {
-                return true;
-            }
-        }
-        return false;
-    }
 }

@@ -132,7 +132,7 @@ public class IncomingCallActivity extends CustomActivity {
                 moveToHome();
 
             }
-        }, 45000);
+        }, 60000);
 
         playRingTone();
 
