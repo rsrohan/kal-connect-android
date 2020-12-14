@@ -50,8 +50,13 @@ public class SoapAPIManager extends AsyncTask<String, String, String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        if (pDialog != null)
-            pDialog.dismiss();
+        if (pDialog != null){
+            try{
+                pDialog.dismiss();
+
+            }catch (Exception e){}
+
+        }
 
         try {
             apiCallback.responseCallback(context, response);

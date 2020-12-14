@@ -58,7 +58,7 @@ public class AppointmentDetailActivity extends CustomActivity implements View.On
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.appointment_detail);
+        setContentView(R.layout.activity_appointment_detail);
 
         buildUI();
 
@@ -216,6 +216,7 @@ public class AppointmentDetailActivity extends CustomActivity implements View.On
 
             GlobValues.getInstance().addAppointmentInputParams("ComplaintID", selectedAppointmentData.get("ComplaintID").toString());
 
+            Log.e(TAG, "setAppointmentParams: "+selectedAppointmentData.get("doctorId") );
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -236,8 +237,10 @@ public class AppointmentDetailActivity extends CustomActivity implements View.On
                     JSONArray responseAry = new JSONArray(response);
                     if (responseAry.length() > 0) {
                         JSONObject commonDataInfo = responseAry.getJSONObject(0);
-                        if (commonDataInfo.has("APIStatus") && Integer.parseInt(commonDataInfo.getString("APIStatus")) == -1) {
-                            if (commonDataInfo.has("APIStatus") && !commonDataInfo.getString("Message").isEmpty()) {
+                        if (commonDataInfo.has("APIStatus")
+                                && Integer.parseInt(commonDataInfo.getString("APIStatus")) == -1) {
+                            if (commonDataInfo.has("APIStatus")
+                                    && !commonDataInfo.getString("Message").isEmpty()) {
                                 Utilities.showAlert(context, commonDataInfo.getString("Message"), false);
                             } else {
                                 Utilities.showAlert(context, "Please check again!", false);
@@ -246,14 +249,17 @@ public class AppointmentDetailActivity extends CustomActivity implements View.On
 
                         }
 
-                        if (commonDataInfo.has("VCToekn") && !commonDataInfo.getString("VCToekn").isEmpty() &&
-                                commonDataInfo.has("VSSessionID") && !commonDataInfo.getString("VSSessionID").isEmpty()) {
+                        if (commonDataInfo.has("VCToekn") &&
+                                !commonDataInfo.getString("VCToekn").isEmpty() &&
+                                commonDataInfo.has("VSSessionID") &&
+                                !commonDataInfo.getString("VSSessionID").isEmpty()) {
 
 
                             Intent intent = new Intent(context, VideoConferenceActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            intent.putExtra("DocterId", selectedAppointmentData.get("doctorId").toString());
+                            //intent.putExtra("DocterId", selectedAppointmentData.get("doctorId").toString());
+                            intent.putExtra("DocterId", mStrDocId);
 
 
                             OpenTokConfigConstants.SESSION_ID = commonDataInfo.getString("VSSessionID");
@@ -270,6 +276,7 @@ public class AppointmentDetailActivity extends CustomActivity implements View.On
 
                     }
                 } catch (Exception e) {
+                    Log.e(TAG, ""+e);
 
                 }
             }

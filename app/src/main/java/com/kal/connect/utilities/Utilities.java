@@ -35,14 +35,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amulyakhare.textdrawable.TextDrawable;
@@ -1233,7 +1231,7 @@ public class Utilities {
                     languageDialogClass.dismiss();
 
                     LocalizeManager.setNewLocale(activity,item.get("languageCode").toString());
-                    Intent i = new Intent(activity.getApplicationContext(), Splash.class);
+                    Intent i = new Intent(activity.getApplicationContext(), SplashActivity.class);
                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     getContext().startActivity(i);
                 }

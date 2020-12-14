@@ -341,7 +341,9 @@ public class DashboardMapActivity extends CustomMapActivity implements View.OnCl
     @Override
     protected void onResume() {
         super.onResume();
-        PlayStoreUpdateView.versionCheck1(DashboardMapActivity.this);
+        if(false){
+            PlayStoreUpdateView.versionCheck1(DashboardMapActivity.this);
+        }
     }
 }
 

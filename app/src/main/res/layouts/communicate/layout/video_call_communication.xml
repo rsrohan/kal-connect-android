@@ -64,7 +64,6 @@
             android:layout_marginBottom="@dimen/dialer_margin_top"
             android:rotation="135"
             android:src="@drawable/ic_phone_call_accept"
-
             app:tint="@color/red" />
 
 
@@ -109,13 +108,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:background="@color/background_grey"
+                        android:background="@color/transparent_bg"
                         android:visibility="gone">
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center"
+                            android:textAppearance="@style/CustomFont.Bold"
                             android:text="@string/doc_disable_msg"
                             android:textColor="@color/white" />
 

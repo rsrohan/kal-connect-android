@@ -33,14 +33,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
+                android:gravity="center"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:gravity="center"
                 android:text="@string/conserns_are"
                 android:textColor="@color/colorPrimaryDark" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                xmlns:android="http://schemas.android.com/apk/res/android"
+            <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/issuesSelectedRecyclerVW"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -61,10 +60,10 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="8dp"
                     android:layout_centerVertical="true"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginEnd="8dp"
                     android:src="@drawable/ic_proceed_arrow"
                     app:tint="@color/colorPrimary" />
 
@@ -99,10 +98,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Additional Information (Optional)"
-                android:gravity="center"
                 android:layout_marginTop="2dp"
-                android:padding="8dp"/>
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="Additional Information (Optional)" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -136,7 +135,7 @@
                         <EditText
                             android:id="@+id/vitals_weight"
                             android:layout_width="match_parent"
-                            android:layout_height="50dp"
+                            android:layout_height="wrap_content"
                             android:hint="@string/vitals_weight"
                             android:inputType="numberDecimal"
                             android:selectAllOnFocus="true" />
@@ -149,7 +148,7 @@
                         <EditText
                             android:id="@+id/vitals_height"
                             android:layout_width="match_parent"
-                            android:layout_height="50dp"
+                            android:layout_height="wrap_content"
                             android:hint="@string/vitals_height"
                             android:inputType="numberDecimal"
                             android:selectAllOnFocus="true" />
@@ -163,7 +162,7 @@
                         <EditText
                             android:id="@+id/bodyTemperature"
                             android:layout_width="match_parent"
-                            android:layout_height="50dp"
+                            android:layout_height="wrap_content"
                             android:hint="@string/body_temp"
                             android:inputType="numberDecimal"
                             android:selectAllOnFocus="true" />
@@ -176,7 +175,7 @@
                         <EditText
                             android:id="@+id/spo"
                             android:layout_width="match_parent"
-                            android:layout_height="50dp"
+                            android:layout_height="wrap_content"
                             android:hint="@string/spo"
                             android:inputType="numberDecimal"
                             android:selectAllOnFocus="true" />
@@ -185,10 +184,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/default_margin"
-                        android:text="@string/bp"
                         android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/default_margin"
                         android:layout_marginBottom="4dp"
+                        android:text="@string/bp"
                         android:textColor="@color/colorPrimaryDark" />
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -199,7 +198,7 @@
                         <EditText
                             android:id="@+id/systolicsys"
                             android:layout_width="match_parent"
-                            android:layout_height="50dp"
+                            android:layout_height="wrap_content"
                             android:hint="@string/systolicsys"
                             android:inputType="numberDecimal"
                             android:selectAllOnFocus="true" />
@@ -213,7 +212,7 @@
                         <EditText
                             android:id="@+id/diastolic"
                             android:layout_width="match_parent"
-                            android:layout_height="50dp"
+                            android:layout_height="wrap_content"
                             android:hint="@string/diastolic"
                             android:inputType="numberDecimal"
                             android:selectAllOnFocus="true" />
@@ -227,7 +226,7 @@
                         <EditText
                             android:id="@+id/pulse_rate"
                             android:layout_width="match_parent"
-                            android:layout_height="50dp"
+                            android:layout_height="wrap_content"
                             android:hint="@string/pulse_rate"
                             android:inputType="numberDecimal"
                             android:selectAllOnFocus="true" />
@@ -541,7 +540,6 @@
 
         <!--            android:drawableRight="@drawable/next_white_small"-->
         <!--            android:textStyle="bold" />-->
-
 
 
     </RelativeLayout>

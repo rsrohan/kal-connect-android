@@ -4,7 +4,6 @@ import android.app.ActivityManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
@@ -20,7 +19,7 @@ import com.kal.connect.appconstants.OpenTokConfigConstants;
 import com.kal.connect.modules.communicate.services.HeadsUpNotificationService;
 import com.kal.connect.modules.dashboard.DashboardMapActivity;
 import com.kal.connect.utilities.AppPreferences;
-import com.kal.connect.utilities.Splash;
+import com.kal.connect.utilities.SplashActivity;
 
 import java.util.Map;
 
@@ -85,7 +84,7 @@ public class MyFirebaseMessagingServiceTemp extends FirebaseMessagingService {
 
     private void prepareNotificationForRemainder(String message) {
         createNotificationChannel();
-        Intent intent = new Intent(this, Splash.class);
+        Intent intent = new Intent(this, SplashActivity.class);
 
         if (AppPreferences.getInstance().checkLogin(getApplicationContext())) {
             intent = new Intent(this, DashboardMapActivity.class);

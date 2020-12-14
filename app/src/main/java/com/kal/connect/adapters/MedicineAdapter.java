@@ -69,7 +69,7 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
     }
 
     // Step 2: Create View Holder class to set the data for each cell
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView lblName, lblTimeStamp, mTxtAmount;
         NumberPicker numberPicker;
@@ -93,7 +93,7 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
 
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.medicine_list_item, parent, false);
-        return new MedicineAdapter.ViewHolder(itemView);
+        return new ViewHolder(itemView);
 
     }
 
@@ -193,7 +193,7 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
                 }
 
                 if (sentParams.size() > 0) {
-                    //placeOrder(holder);
+                    placeOrder(holder);
                 } else {
                     Utilities.showAlert(mContext, "Please add medicine!", false);
                 }
@@ -213,18 +213,18 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
 
     }
 
-    public void changeColor(ImageView mImgSelect, TextView mTxtSelect) {
-        mImgAddProduct.setColorFilter(ContextCompat.getColor(mActivity, R.color.black));
-        mImgOrder.setColorFilter(ContextCompat.getColor(mActivity, R.color.black));
-        mImgUplod.setColorFilter(ContextCompat.getColor(mActivity, R.color.black));
-
-        mTxtAddProduct.setTextColor(mContext.getResources().getColor(R.color.black));
-        mTxtPlaceOrder.setTextColor(mContext.getResources().getColor(R.color.black));
-        mTxtUpload.setTextColor(mContext.getResources().getColor(R.color.black));
-
-        mImgSelect.setColorFilter(ContextCompat.getColor(mActivity, R.color.colorPrimary));
-        mTxtSelect.setTextColor(mContext.getResources().getColor(R.color.colorPrimary));
-    }
+//    public void changeColor(ImageView mImgSelect, TextView mTxtSelect) {
+//        mImgAddProduct.setColorFilter(ContextCompat.getColor(mActivity, R.color.black));
+//        mImgOrder.setColorFilter(ContextCompat.getColor(mActivity, R.color.black));
+//        mImgUplod.setColorFilter(ContextCompat.getColor(mActivity, R.color.black));
+//
+//        mTxtAddProduct.setTextColor(mContext.getResources().getColor(R.color.black));
+//        mTxtPlaceOrder.setTextColor(mContext.getResources().getColor(R.color.black));
+//        mTxtUpload.setTextColor(mContext.getResources().getColor(R.color.black));
+//
+//        mImgSelect.setColorFilter(ContextCompat.getColor(mActivity, R.color.colorPrimary));
+//        mTxtSelect.setTextColor(mContext.getResources().getColor(R.color.colorPrimary));
+//    }
 
     @Override
     public int getItemCount() {

@@ -73,6 +73,8 @@ public class VideoConferenceActivity extends AppCompatActivity
     private static final int RC_SETTINGS_SCREEN_PERM = 123;
     private static final int RC_VIDEO_APP_PERM = 124;
 
+    boolean callConnected = false;
+
     private Session mSession;
     private Publisher mPublisher;
 
@@ -128,15 +130,23 @@ public class VideoConferenceActivity extends AppCompatActivity
     private Subscriber mSubscriber, mSubscriberAdditional;
 
     boolean isMovingToHome = false;
+    private String message="";
 
 
     @OnClick(R.id.disconnect)
     void disconnectCall() {
         if (Config.isDisconnect) {
+            disconnectSession();
             moveToHome();
         } else {
             getEndCall();
         }
+//        if (Config.isDisconnect) {
+//            getEndCall();
+//        } else {
+//            moveToHome();
+//
+//        }
     }
 
     @OnClick(R.id.switch_camera)
@@ -152,6 +162,7 @@ public class VideoConferenceActivity extends AppCompatActivity
     @OnClick(R.id.dialer_disconnect)
     void dialerDisconnectCall() {
         if (Config.isDisconnect) {
+            disconnectSession();
             moveToHome();
         } else {
             getEndCall();
@@ -168,6 +179,7 @@ public class VideoConferenceActivity extends AppCompatActivity
 
         mLlVideoSubscriberRootAdditional.setVisibility(View.GONE);
 
+        message = "Thank You for using our service. You can check details in Appointment Section. Stay Healthy!!";
 
         if (getIntent().getExtras().getInt("CALL_TYPE") == 2) {
             dialHandler(true);
@@ -202,9 +214,15 @@ public class VideoConferenceActivity extends AppCompatActivity
                 }
 
                 public void onFinish() {
-                    if (mSession == null) {
-                        dialerDisconnectCall();
+                    try{
+                        if (!callConnected) {
+                            message = "Doctor is not able to pick up your call right now. Please wait for some time.";
+                            dialerDisconnectCall();
+                        }
+                    }catch (Exception e){
+                        Log.e(TAG, "onFinish: "+e );
                     }
+
 
                 }
             };
@@ -325,21 +343,6 @@ public class VideoConferenceActivity extends AppCompatActivity
         }
     }
 
-    public void setPublisherView() {
-        mPublisher = new Publisher.Builder(this).build();
-        mPublisher.setPublisherListener(this);
-
-        // set publisher video style to fill view
-        mPublisher.getRenderer().setStyle(BaseVideoRenderer.STYLE_VIDEO_SCALE,
-                BaseVideoRenderer.STYLE_VIDEO_FILL);
-        mPublisherViewContainer.addView(mPublisher.getView());
-        if (mPublisher.getView() instanceof GLSurfaceView) {
-            ((GLSurfaceView) mPublisher.getView()).setZOrderOnTop(true);
-        }
-
-
-        mSession.publish(mPublisher);
-    }
 
     @Override
     public void onDisconnected(Session session) {
@@ -358,16 +361,10 @@ public class VideoConferenceActivity extends AppCompatActivity
     }
 
 
-    private int getResIdForSubscriberIndex(int index) {
-        TypedArray arr = getResources().obtainTypedArray(R.array.subscriber_view_ids);
-        int subId = arr.getResourceId(index, 0);
-        arr.recycle();
-        return subId;
-    }
-
     @Override
     public void onStreamReceived(Session session, Stream stream) {
         Config.isDisconnect = true;
+        callConnected = true;
         Log.e(TAG, "onStreamReceived: New stream " + stream.getStreamId() + " in session " + session.getSessionId());
 
 
@@ -442,6 +439,22 @@ public class VideoConferenceActivity extends AppCompatActivity
         moveToHome();
     }
 
+    public void setPublisherView() {
+        mPublisher = new Publisher.Builder(this).build();
+        mPublisher.setPublisherListener(this);
+
+        // set publisher video style to fill view
+        mPublisher.getRenderer().setStyle(BaseVideoRenderer.STYLE_VIDEO_SCALE,
+                BaseVideoRenderer.STYLE_VIDEO_FILL);
+        mPublisherViewContainer.addView(mPublisher.getView());
+        if (mPublisher.getView() instanceof GLSurfaceView) {
+            ((GLSurfaceView) mPublisher.getView()).setZOrderOnTop(true);
+        }
+
+
+        mSession.publish(mPublisher);
+    }
+
     public void moveToHome() {
         if (GlobValues.getAddAppointmentParams() != null)
             GlobValues.getAddAppointmentParams().clear();
@@ -458,7 +471,6 @@ public class VideoConferenceActivity extends AppCompatActivity
 //
 //            }
 //        });
-        String message = "Thank You for using our service. You can check details in Appointment Section. Stay Healthy!!";
         ConfirmDialog confirmDialog = new ConfirmDialog(VideoConferenceActivity.this, false, message, new ConfirmDialog.DialogListener() {
             @Override
             public void onYes() {

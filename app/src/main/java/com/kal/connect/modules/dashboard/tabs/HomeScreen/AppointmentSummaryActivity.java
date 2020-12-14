@@ -77,7 +77,7 @@ public class AppointmentSummaryActivity extends CustomActivity implements View.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.appointment_summary);
+        setContentView(R.layout.activity_appointment_summary);
         ButterKnife.bind(this);
         buildUI();
     }

@@ -26,7 +26,7 @@ import com.kal.connect.modules.communicate.services.HeadsUpNotificationService;
 import com.kal.connect.modules.dashboard.DashboardMapActivity;
 import com.kal.connect.utilities.AppPreferences;
 import com.kal.connect.utilities.Config;
-import com.kal.connect.utilities.Splash;
+import com.kal.connect.utilities.SplashActivity;
 
 import java.util.Map;
 
@@ -196,7 +196,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private void prepareNotificationForRemainder(String message) {
         createNotificationChannel();
-        Intent intent = new Intent(this, Splash.class);
+        Intent intent = new Intent(this, SplashActivity.class);
 
         if (AppPreferences.getInstance().checkLogin(getApplicationContext())) {
             intent = new Intent(this, DashboardMapActivity.class);

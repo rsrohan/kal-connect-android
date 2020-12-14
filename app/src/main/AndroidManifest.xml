@@ -40,7 +40,7 @@
         tools:replace="android:allowBackup">
 
         <activity
-            android:name="com.kal.connect.utilities.Splash"
+            android:name="com.kal.connect.utilities.SplashActivity"
             android:configChanges="locale">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

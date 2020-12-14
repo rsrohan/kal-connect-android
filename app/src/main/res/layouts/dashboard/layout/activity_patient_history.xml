@@ -70,7 +70,6 @@
                     android:id="@+id/history_of_illness"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
                     android:gravity="top"
                     android:hint="@string/histor_of_illness"
                     android:inputType="textMultiLine"

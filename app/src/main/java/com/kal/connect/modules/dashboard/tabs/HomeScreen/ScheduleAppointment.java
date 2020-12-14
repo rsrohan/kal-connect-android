@@ -61,7 +61,7 @@ public class ScheduleAppointment extends CustomActivity implements CalendarView.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.schedule_appointment);
+        setContentView(R.layout.activity_schedule_appointment);
         ButterKnife.bind(this);
         buildUI();
     }
