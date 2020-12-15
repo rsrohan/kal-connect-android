@@ -6,9 +6,12 @@ import android.content.Intent;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 //import androidx.annotation.Nullable;
+import android.util.Log;
 import android.widget.TextView;
 
 
@@ -29,6 +32,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,9 +44,13 @@ public class IncomingCallActivity extends CustomActivity {
     @BindView(R.id.caller)
     TextView callerName;
 
+    @BindView(R.id.timer)
+    TextView tv_timer;
+
     @BindView(R.id.callState)
     TextView callType;
     String SpecialistID = "";
+    private CountDownTimer countDownTimer;
 
     @OnClick(R.id.declineButton)
     void disconnectCall() {
@@ -54,6 +62,17 @@ public class IncomingCallActivity extends CustomActivity {
         } else {
             getEndCall();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        try{
+            if (ringtone.isPlaying()){
+                ringtone.stop();
+            }
+        }catch (Exception e){}
+
     }
 
     @OnClick(R.id.answerButton)
@@ -93,6 +112,9 @@ public class IncomingCallActivity extends CustomActivity {
     void playRingTone() {
         Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
         ringtone = RingtoneManager.getRingtone(this, uri);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            ringtone.setLooping(true);
+        }
         ringtone.play();
     }
 
@@ -122,7 +144,21 @@ public class IncomingCallActivity extends CustomActivity {
             }
         } catch (Exception e) {
         }
+        countDownTimer = new CountDownTimer(60000, 1000) {
 
+            public void onTick(long millisUntilFinished) {
+                tv_timer.setText("" + String.format("%02d : %02d",
+                        TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished),
+                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
+                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
+            }
+
+            public void onFinish() {
+                
+
+            }
+        };
+        countDownTimer.start();
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override

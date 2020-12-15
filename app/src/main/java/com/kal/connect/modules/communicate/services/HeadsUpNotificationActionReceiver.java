@@ -1,6 +1,7 @@
 package com.kal.connect.modules.communicate.services;
 
 
+import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +12,8 @@ import android.net.Uri;
 import com.kal.connect.appconstants.CallFeatureConstant;
 import com.kal.connect.modules.communicate.VideoConferenceActivity;
 import com.kal.connect.utilities.Config;
+
+import static com.kal.connect.modules.communicate.services.HeadsUpNotificationService.mAudioPlayer;
 
 
 public class HeadsUpNotificationActionReceiver extends BroadcastReceiver {
@@ -45,15 +48,20 @@ public class HeadsUpNotificationActionReceiver extends BroadcastReceiver {
     private void performClickAction(Context context, String action) {
 
         try {
+            NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.cancel(1);
+
+            mAudioPlayer.stopRingtone();
+
             if (action.equals(CallFeatureConstant.CALL_RECEIVE_ACTION)) {
                 Intent videoIntent = null;
                 try {
                     videoIntent = new Intent(context, VideoConferenceActivity.class);
                     videoIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-                    if(Config.ringtone!=null){
-                        Config.ringtone.stop();
-                    }
+//                    if(Config.ringtone!=null){
+//                        Config.ringtone.stop();
+//                    }
 
     //                if(isTaskRoot()){
     //                    videoIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -66,9 +74,9 @@ public class HeadsUpNotificationActionReceiver extends BroadcastReceiver {
                     e.printStackTrace();
                 }
             }else if (action.equals(CallFeatureConstant.CALL_CANCEL_ACTION)) {
-                if(Config.ringtone!=null){
-                    Config.ringtone.stop();
-                }
+//                if(Config.ringtone!=null){
+//                    Config.ringtone.stop();
+//                }
                 context.stopService(new Intent(context, HeadsUpNotificationService.class));
                 Intent it = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
                 context.sendBroadcast(it);

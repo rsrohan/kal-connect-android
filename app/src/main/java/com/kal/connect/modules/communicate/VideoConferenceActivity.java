@@ -15,6 +15,7 @@ import android.os.CountDownTimer;
 //import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -131,6 +132,9 @@ public class VideoConferenceActivity extends AppCompatActivity
 
     boolean isMovingToHome = false;
     private String message="";
+    private CountDownTimer patientPresentTimer;
+    private boolean isDoctorPresent = false;
+    private TextView tv_patientPresent;
 
 
     @OnClick(R.id.disconnect)
@@ -174,8 +178,11 @@ public class VideoConferenceActivity extends AppCompatActivity
         Log.e(TAG, "onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.video_call_communication);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
         Config.mActivity = this;
         ButterKnife.bind(this);
+        tv_patientPresent = findViewById(R.id.tv_patient_present);
 
         mLlVideoSubscriberRootAdditional.setVisibility(View.GONE);
 
@@ -341,6 +348,7 @@ public class VideoConferenceActivity extends AppCompatActivity
         if (getIntent().getExtras().getInt("CALL_TYPE") == 1) {
             setPublisherView();
         }
+
     }
 
 
@@ -365,6 +373,8 @@ public class VideoConferenceActivity extends AppCompatActivity
     public void onStreamReceived(Session session, Stream stream) {
         Config.isDisconnect = true;
         callConnected = true;
+        tv_patientPresent.setVisibility(View.GONE);
+        isDoctorPresent = true;
         Log.e(TAG, "onStreamReceived: New stream " + stream.getStreamId() + " in session " + session.getSessionId());
 
 
@@ -423,6 +433,29 @@ public class VideoConferenceActivity extends AppCompatActivity
     @Override
     public void onStreamCreated(PublisherKit publisherKit, Stream stream) {
         Log.e(TAG, "onStreamCreated: Own stream " + stream.getStreamId() + " created");
+        patientPresentTimer = new CountDownTimer(30000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                tv_patientPresent.setText("Connecting... " + String.format("%02d",
+                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
+                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)))+" Sec");
+            }
+
+            public void onFinish() {
+                try{
+                    tv_patientPresent.setText("Connecting... ");
+                }catch (Exception e){}
+                if(!isDoctorPresent){
+                    try{
+                        message = "Apologies! Doctor is not able to connect to the session.";
+                        disconnectCall();
+
+                    }catch (Exception e){}
+                }
+
+            }
+        };
+        patientPresentTimer.start();
     }
 
     @Override

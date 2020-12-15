@@ -36,7 +36,17 @@
             android:gravity="center_vertical"
             android:textSize="18sp"
             android:textAllCaps="false" />
-
+        <TextView
+            android:id="@+id/timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="00:00"
+            android:gravity="center_vertical"
+            android:textSize="18sp"
+            android:padding="12dp"
+            android:textAppearance="@style/CustomFont.Bold"
+            android:textAllCaps="false" />
     </LinearLayout>
 
     <LinearLayout

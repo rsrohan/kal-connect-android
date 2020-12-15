@@ -48,7 +48,7 @@
                         android:id="@+id/lblName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Dr Sadiq"
+                        android:text=""
                         android:textAppearance="@style/CustomFont.Bold"
                         android:textSize="@dimen/doctor_font_size" />
 

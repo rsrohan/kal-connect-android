@@ -51,7 +51,10 @@ public class AppointmentDetailActivity extends CustomActivity implements View.On
     FloatingActionMenu floatingMenu;
     FloatingActionButton btnTechnician, btnVideoConference, btnLocation, btnStatus, btnConsultNow;
     HashMap<String, Object> selectedAppointmentData;
-    String mStrDocName = "", mStrDocId;
+    String mStrDocName = "", mStrDocId = "", mStrDocQual = "";
+    String mStrAppointmentTime = "";
+    String mStrAppointmentStatus = "";
+
 
     // MARK : Lifecycle
     @Override
@@ -71,6 +74,9 @@ public class AppointmentDetailActivity extends CustomActivity implements View.On
         if (mBundle.containsKey("doctorName") && mBundle.getString("doctorName") != null) {
             mStrDocName = mBundle.getString("doctorName");
             mStrDocId = mBundle.getString("docId");
+            mStrDocQual = mBundle.getString("docQual");
+            mStrAppointmentTime = mBundle.getString("appointmentTime");
+            mStrAppointmentStatus = mBundle.getString("appointmentStatus");
         }
 
         setHeaderView(R.id.headerView, AppointmentDetailActivity.this, AppointmentDetailActivity.this.getResources().getString(R.string.appointment_detail_title));
@@ -79,17 +85,17 @@ public class AppointmentDetailActivity extends CustomActivity implements View.On
         //Header for details
 
         doctorName = (TextView) findViewById(R.id.lblName);
+        doctorName.setText(mStrDocName);
         qualification = (TextView) findViewById(R.id.lblDegree);
+        qualification.setText(mStrDocQual);
         appointmentTime = (TextView) findViewById(R.id.lblTimeStamp);
+        appointmentTime.setText(mStrAppointmentTime);
         cosultMode = (TextView) findViewById(R.id.appointmemt_mode_name);
         appStatus = (TextView) findViewById(R.id.appointmemt_status_name);
+        appStatus.setText(mStrAppointmentStatus);
         consultModeImgVw = (ImageView) findViewById(R.id.appointmemt_mode_img);
-
-
         tabContainer = (TabLayout) findViewById(R.id.tabs);
         tabPager = (ViewPager) findViewById(R.id.tabPager);
-
-
 
         buildTabs();
         buildFloatingMenu();

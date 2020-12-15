@@ -40,6 +40,7 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
 
     // Step 1: Initialize By receiving the data via constructor
     Context mContext;
+    static String TAG = "AppointmentsAdapter";
     ArrayList<HashMap<String, Object>> items;
     private static AppointmentsAdapter.ItemClickListener itemClickListener;
     HashMap<String, Object> appointmentinputParams;
@@ -83,23 +84,9 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
 
             lblStatus = (TextView) view.findViewById(R.id.lblStatus);
 
-            // item view for selection
-//            itemView.setOnClickListener(this);
-
-            // Options to choose
-//            techStatusLayout.setOnClickListener(this);
-//            videoLayout.setOnClickListener(this);
-//            directionLayout.setOnClickListener(this);
-//            statusLayout.setOnClickListener(this);
 
         }
 
-
-//        @Override
-//        public void onClick(View v) {
-//            itemClickListener.onItemClick(getAdapterPosition(), v);
-//            notifyDataSetChanged();
-//        }
 
     }
 
@@ -118,28 +105,18 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
 
         HashMap<String, Object> item = items.get(position);
 
+        Log.e(TAG, "onBindViewHolder: " + item.toString());
+
         String doctorName = (item.get("doctorName") != null) ? item.get("doctorName").toString() : "";
         holder.lblName.setText(doctorName);
 
         String qualification = (item.get("qualification") != null) ? item.get("qualification").toString() : "";
         holder.lblDegree.setText(qualification);
 
-//        String appointmentDate = (item.get("appointmentData") != null)? item.get("appointmentData").toString() : "";
-//        if(!appointmentDate.isEmpty())
-//        {
-//            appointmentDate = Utilities.changeStringFormat(appointmentDate,"yyyy-mm-dd","dd/mm/yyyy");
-//        }
         holder.lblTimeStamp.setText(item.get("appointmentDate").toString());
 
         String appointmentStatus = (item.get("status") != null) ? item.get("status").toString() : "Status";
         holder.lblStatus.setText(Utilities.getStatus(mContext, appointmentStatus));
-
-//        if((boolean)item.get("technicianRequired")){
-//            holder.tecStatusContainer.setVisibility(View.VISIBLE);
-//        }else{
-//            holder.tecStatusContainer.setVisibility(View.GONE);
-//        }
-
 
         if (item.get("cancelstatus") != null && !item.get("cancelstatus").equals("false")) {
             holder.mImgDelete.setVisibility(View.VISIBLE);
@@ -161,9 +138,7 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
                     public void onClick(DialogInterface dialog, int which) {
                         // Do nothing but close the dialog
                         cancelAppointment(position, item.get("time").toString(), item.get("appointmentDate").toString(), item.get("appointmentId").toString());
-//                            appointmentinputParams.remove(position);
-//                            notifyItemRemoved(position);
-//                            notifyItemRangeChanged(position, appointmentinputParams.size());
+
                         dialog.dismiss();
                     }
                 });
@@ -199,7 +174,7 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
                 if (selectedItem.get("appointmentId") != null) {
                     GlobValues.getInstance().setSelectedAppointment(selectedItem.get("appointmentId").toString());
                     GlobValues.getInstance().setSelectedAppointmentData(selectedItem);
-                    getAppointmentsDetails(doctorName,item.get("doctorId").toString());
+                    getAppointmentsDetails(doctorName, item.get("doctorId").toString(), qualification,item.get("appointmentDate").toString(), Utilities.getStatus(mContext, appointmentStatus));
                 }
             }
         });
@@ -221,7 +196,7 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
         this.itemClickListener = clickListener;
     }
 
-    void getAppointmentsDetails(String doctorName,String docId) {
+    void getAppointmentsDetails(String doctorName, String docId, String docQual, String appointmentTime, String appointmentStatus) {
 
 
         HashMap<String, Object> inputParams = AppPreferences.getInstance().sendingInputParam();
@@ -230,7 +205,6 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
         inputParams.put("appointmentID", selectedAppointmentData.get("appointmentId").toString());
         inputParams.put("ComplaintID", selectedAppointmentData.get("ComplaintID").toString());
 
-//        inputParams.put("ComplaintID","29445");
         SoapAPIManager apiManager = new SoapAPIManager(mContext, inputParams, new APICallback() {
             @Override
             public void responseCallback(Context context, String response) throws JSONException {
@@ -248,11 +222,14 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
                             }
                             return;
                         }
-//                        loadAppointments(responseAry);
+
                         GlobValues.getInstance().setAppointmentCompleteDetails(responseAry.getJSONObject(0));
                         Intent detailsScreen = new Intent(mContext, AppointmentDetailActivity.class);
-                        detailsScreen.putExtra("doctorName",doctorName);
-                        detailsScreen.putExtra("docId",docId);
+                        detailsScreen.putExtra("doctorName", doctorName);
+                        detailsScreen.putExtra("docId", docId);
+                        detailsScreen.putExtra("docQual",docQual);
+                        detailsScreen.putExtra("appointmentTime",appointmentTime);
+                        detailsScreen.putExtra("appointmentStatus",appointmentStatus);
                         mContext.startActivity(detailsScreen);
 
                         Utilities.pushAnimation(mActivity);
@@ -306,7 +283,6 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
 
         }
     }
-
 
 
 }

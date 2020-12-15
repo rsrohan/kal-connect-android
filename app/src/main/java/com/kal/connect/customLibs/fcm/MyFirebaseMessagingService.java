@@ -58,6 +58,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                             if (message.getData().containsKey("SpecialistID")) {
                                 fullScreenIntent.putExtra("SpecialistID", message.getData().get("SpecialistID").toString());
                             }
+                            fullScreenIntent.putExtra("CALER_NAME", message.getData().get("body").toString());
+
                             fullScreenIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             fullScreenIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(fullScreenIntent);
@@ -89,6 +91,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                             if (message.getData().containsKey("SpecialistID")) {
                                 fullScreenIntent.putExtra("SpecialistID", message.getData().get("SpecialistID").toString());
                             }
+                            fullScreenIntent.putExtra("CALER_NAME", message.getData().get("body").toString());
+
                             fullScreenIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             fullScreenIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(fullScreenIntent);
