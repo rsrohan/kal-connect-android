@@ -141,6 +141,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_consult_now"
             app:fab_colorNormal="@color/media"
+            android:visibility="gone"
             app:fab_label="@string/appointment_detail_consult"
             app:maxImageSize="30dp" />
 
