@@ -44,6 +44,7 @@ import java.util.HashMap;
 public class PrescriptionUploadActivity extends CustomActivity {
 
 
+    private static final String TAG = "PrescriptionUploadAct";
     LinearLayout mLlCamera, mLlGallery, mLlPrescription, mLlHideDetails, mLlShowPrescription, mLlContinue;
     ImageView mImgHide;
     LinearLayout mHorizontalScrollView;
@@ -151,19 +152,24 @@ public class PrescriptionUploadActivity extends CustomActivity {
                         if (commonDataInfo.has("APIStatus") && Integer.parseInt(commonDataInfo.getString("APIStatus")) == 1) {
                             if (commonDataInfo.has("RespText")) {
                                 Utilities.showAlert(PrescriptionUploadActivity.this, commonDataInfo.getString("RespText"), false);
+                                Toast.makeText(context, commonDataInfo.getString("RespText"), Toast.LENGTH_SHORT).show();
+                                Intent mIntent = new Intent(PrescriptionUploadActivity.this, MedicineActivity.class);
+                                startActivity(mIntent);
+                                finish();
                             } else {
+                                Log.e(TAG, "responseCallback: do not has response" );
                                 Utilities.showAlert(PrescriptionUploadActivity.this, "Please check again!", false);
                             }
                             return;
+                        }else{
+                            Utilities.showAlert(PrescriptionUploadActivity.this, "Error Occurred", false);
+
                         }
 
                     }
                 } catch (Exception e) {
                     e.getMessage();
-                } finally {
-                    Intent mIntent = new Intent(PrescriptionUploadActivity.this, MedicineActivity.class);
-                    startActivity(mIntent);
-                    finish();
+                    Log.e(TAG, "responseCallback: "+e );
                 }
             }
         }, true);

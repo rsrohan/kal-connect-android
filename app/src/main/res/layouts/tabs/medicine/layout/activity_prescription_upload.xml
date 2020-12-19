@@ -260,7 +260,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:text="Never lose the digital copy of your prescription. It will be with you whenever you go"
+                            android:text="Never lose the digital copy of your prescription. It will be with you wherever you go"
                             android:textAllCaps="false"
                             android:textColor="@color/text_vw_text_color"
                             android:textSize="15dp" />
@@ -285,7 +285,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:text="Is your prescription hard to understand? kal pharmacists will help you in placing your order"
+                            android:text="Is your prescription hard to understand? KAL pharmacists will help you in placing your order"
                             android:textAllCaps="false"
                             android:textColor="@color/text_vw_text_color"
                             android:textSize="15dp" />

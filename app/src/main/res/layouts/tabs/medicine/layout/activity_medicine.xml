@@ -119,8 +119,6 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
                 android:layout_margin="4dp"
-                android:background="@drawable/proceed_button_bg"
-                android:backgroundTint="@color/issue_selected"
                 android:orientation="vertical">
 
                 <ImageView
@@ -135,12 +133,14 @@
 
                 <TextView
                     android:id="@+id/txt_place_order"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:gravity="center"
                     android:text="Place Order"
                     android:textAllCaps="true"
+                    android:background="@drawable/proceed_button_bg"
+                    android:backgroundTint="@color/issue_selected"
                     android:textAppearance="@style/CustomFont.Bold"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
