@@ -281,10 +281,14 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
             GlobValues.getInstance().setSelectedIssuesModelList(selectedIssuesModelList);
             GlobValues.getInstance().setupAddAppointmentParams();
             if (!addComplaints.getText().toString().trim().isEmpty()) {
-                selectedIssuesListId.add(addComplaints.getText().toString().trim());
-                selectedIssuesModelList.add(new IssuesModel("10001", addComplaints.getText().toString().trim(), 1));
-                intent.putExtra("NewComplaints", addComplaints.getText().toString().trim());
-                GlobValues.getInstance().addAppointmentInputParams("NewComplaints", addComplaints.getText().toString().trim());
+                if (!selectedIssuesListId.contains(addComplaints.getText().toString().trim()))
+                {
+                    selectedIssuesListId.add(addComplaints.getText().toString().trim());
+                    selectedIssuesModelList.add(new IssuesModel("10001", addComplaints.getText().toString().trim(), 1));
+                    intent.putExtra("NewComplaints", addComplaints.getText().toString().trim());
+                    GlobValues.getInstance().addAppointmentInputParams("NewComplaints", addComplaints.getText().toString().trim());
+                }
+
             }
 
             GlobValues.getInstance().addAppointmentInputParams("PresentComplaint", android.text.TextUtils.join(",", selectedIssuesListId));
