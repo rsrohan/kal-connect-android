@@ -48,22 +48,22 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
     ArrayList<HashMap<String, Object>> items;
     HashMap<String, Object> mHashMapMedcine;
     Activity mActivity;
-    ImageView mImgAddProduct, mImgOrder, mImgUplod;
+    //    ImageView mImgAddProduct, mImgOrder, mImgUplod;
     ArrayList<HashMap<String, Object>> sentParams;
     MedicineActivity mMedicineActivity;
     TextView mTxtPlaceOrder, mTxtAddProduct, mTxtUpload;
 
-    public MedicineAdapter(MedicineActivity mMedicineActivity, ArrayList<HashMap<String, Object>> partnerItems, Context context, ImageView mImgAddProduct, ImageView mImgOrder, ImageView mImgUplod, TextView mTxtAddProduct, TextView mTxtPlaceOrder, TextView mTxtUpload) {
+    public MedicineAdapter(MedicineActivity mMedicineActivity, ArrayList<HashMap<String, Object>> partnerItems, Context context, TextView mTxtPlaceOrder) {
         this.items = partnerItems;
         this.mContext = context;
         this.mMedicineActivity = mMedicineActivity;
-        this.mImgAddProduct = mImgAddProduct;
-        this.mImgOrder = mImgOrder;
-        this.mImgUplod = mImgUplod;
+//        this.mImgAddProduct = mImgAddProduct;
+//        this.mImgOrder = mImgOrder;
+//        this.mImgUplod = mImgUplod;
 
         this.mTxtPlaceOrder = mTxtPlaceOrder;
-        this.mTxtAddProduct = mTxtAddProduct;
-        this.mTxtUpload = mTxtUpload;
+//        this.mTxtAddProduct = mTxtAddProduct;
+//        this.mTxtUpload = mTxtUpload;
         mActivity = (Activity) context;
         sentParams = new ArrayList<>();
     }
@@ -71,7 +71,7 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
     // Step 2: Create View Holder class to set the data for each cell
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView lblName, lblTimeStamp, mTxtAmount;
+        public TextView lblName, lblTimeStamp, mTxtAmount, tv_delete;
         NumberPicker numberPicker;
         ImageView mImgRubees;
 
@@ -82,6 +82,7 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
             lblTimeStamp = (TextView) view.findViewById(R.id.lblTimeStamp);
             numberPicker = (NumberPicker) view.findViewById(R.id.number_picker);
             mImgRubees = (ImageView) view.findViewById(R.id.img_amt);
+            tv_delete = view.findViewById(R.id.tv_delete);
         }
 
 
@@ -119,19 +120,16 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
         if (item.containsKey("amount") && item.get("amount") != null) {
             holder.mTxtAmount.setText(item.get("amount").toString());
             holder.mImgRubees.setVisibility(View.VISIBLE);
-            holder.numberPicker.setMax(15);
-            holder.numberPicker.setMin(0);
-            holder.numberPicker.setUnit(1);
-            holder.numberPicker.setValue(0);
         } else {
             holder.mImgRubees.setVisibility(View.GONE);
             holder.mTxtAmount.setText("");
-            holder.numberPicker.setMax(15);
-            holder.numberPicker.setMin(0);
-            holder.numberPicker.setUnit(1);
-            holder.numberPicker.setValue(0);
         }
+        holder.numberPicker.setMax(15);
+        holder.numberPicker.setMin(0);
+        holder.numberPicker.setUnit(1);
+        holder.numberPicker.setValue(1);
 
+        //item.put("isEnabled", true);
 
         holder.numberPicker.setValueChangedListener(new ValueChangedListener() {
             @Override
@@ -161,19 +159,33 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
             }
         });
 
-
-        mTxtAddProduct.setOnClickListener(new View.OnClickListener() {
+        holder.tv_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //changeColor(mImgAddProduct, mTxtAddProduct);
+                HashMap<String, Object> item = items.get(position);
 
-                Intent mIntent = new Intent(mActivity, AddProductActivity.class);
-                mActivity.startActivityForResult(mIntent, 101);
-
+                item.put("isEnabled", false);
+                if (item.get("amount") != null && !item.get("amount").toString().equalsIgnoreCase("")) {
+                    int newPosition = holder.getAdapterPosition();
+                    items.remove(newPosition);
+                    notifyItemRemoved(newPosition);
+                    notifyItemRangeChanged(newPosition, items.size());
+                }
             }
         });
 
-
+//        mTxtAddProduct.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //changeColor(mImgAddProduct, mTxtAddProduct);
+//
+//                Intent mIntent = new Intent(mActivity, AddProductActivity.class);
+//                mActivity.startActivityForResult(mIntent, 101);
+//
+//            }
+//        });
+//
+//
         mTxtPlaceOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -201,15 +213,15 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
 
             }
         });
-
-        mTxtUpload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //changeColor(mImgUplod, mTxtUpload);
-                Intent mIntent = new Intent(mContext, PrescriptionUploadActivity.class);
-                mContext.startActivity(mIntent);
-            }
-        });
+//
+//        mTxtUpload.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //changeColor(mImgUplod, mTxtUpload);
+//                Intent mIntent = new Intent(mContext, PrescriptionUploadActivity.class);
+//                mContext.startActivity(mIntent);
+//            }
+//        });
 
     }
 

@@ -32,7 +32,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     TextView mTxtNoData;
     RecyclerView mLvLocal;
 
-    public ProductAdapter(  ArrayList<ProductModel> mAlProduct, Context context, RecyclerView mLvLocal, TextView mTxtNoData) {
+    public ProductAdapter(ArrayList<ProductModel> mAlProduct, Context context, RecyclerView mLvLocal, TextView mTxtNoData) {
         this.mAlProduct = mAlProduct;
         this.mContext = context;
         this.arraylist = mAlProduct;
@@ -87,9 +87,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         holder.mTxtOriginalAmt.setText(mProductModel.getOriginalprice()+"");
         if (!String.valueOf(mProductModel.getDiscount()).equalsIgnoreCase("0.0")) {
             holder.mTxtOffer.setVisibility(View.VISIBLE);
-            holder.mTxtOffer.setText("            "+mProductModel.getDiscount()+"Off ");
+            holder.mTxtOffer.setText("  "+mProductModel.getDiscount()+"0% Off ");
+            holder.mTxtOriginalAmt.setVisibility(View.VISIBLE);
         }else{
             holder.mTxtOffer.setVisibility(View.GONE);
+            holder.mTxtOriginalAmt.setVisibility(View.GONE);
         }
 
         Picasso.get()

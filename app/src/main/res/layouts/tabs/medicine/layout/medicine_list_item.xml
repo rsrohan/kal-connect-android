@@ -41,6 +41,7 @@
                 android:layout_gravity="end"
                 android:layout_marginBottom="4dp"
                 android:visibility="visible"
+                android:id="@+id/tv_delete"
                 android:drawableStart="@drawable/ic_delete_med"
                 android:text="" />
 
