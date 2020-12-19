@@ -34,6 +34,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,6 +53,7 @@ public class MedicineActivity extends CustomActivity implements View.OnClickList
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medicine);
 
@@ -87,24 +90,61 @@ public class MedicineActivity extends CustomActivity implements View.OnClickList
             }
         });
 
-//        mTxtAddProduct.setOnClickListener(new View.OnClickListener() {
+        mTxtAddProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //changeColor(mImgAddProduct, mTxtAddProduct);
+
+                Intent mIntent = new Intent(getApplicationContext(), AddProductActivity.class);
+                startActivityForResult(mIntent, 101);
+
+            }
+        });
+
+
+//        mTxtPlaceOrder.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
-//                //changeColor(mImgAddProduct, mTxtAddProduct);
+//                //changeColor(mImgOrder, mTxtPlaceOrder);
+//                sentParams.clear();
 //
-//                Intent mIntent = new Intent(getApplicationContext(), AddProductActivity.class);
-//                startActivityForResult(mIntent, 101);
+//                for (int i = 0; i < items.size(); i++) {
+//                    if (items.get(i).containsKey("isEnabled") && items.get(i).get("isEnabled").toString().equalsIgnoreCase("true")) {
+//                        Iterator entries = items.get(i).entrySet().iterator();
+//                        mHashMapMedcine = new HashMap<>();
+//                        while (entries.hasNext()) {
+//                            Map.Entry entry = (Map.Entry) entries.next();
+//                            mHashMapMedcine.put(entry.getKey().toString(), entry.getValue());
+//                        }
+//                        sentParams.add(mHashMapMedcine);
+//                    }
+//                }
+//
+//                if (sentParams.size() > 0) {
+//                    placeOrder(holder);
+//                } else {
+//                    Utilities.showAlert(mContext, "Please add medicine!", false);
+//                }
+//
 //
 //            }
 //        });
 
+        mTxtUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //changeColor(mImgUplod, mTxtUpload);
+                Intent mIntent = new Intent(getApplicationContext(), PrescriptionUploadActivity.class);
+                startActivity(mIntent);
+            }
+        });
 
     }
 
 
     private void buildListView() {
 
-        dataAdapter = new MedicineAdapter(MedicineActivity.this, dataItems, MedicineActivity.this, mImgAddProduct, mImgOrder, mImgUplod, mTxtAddProduct, mTxtPlaceOrder, mTxtUpload);
+        dataAdapter = new MedicineAdapter(MedicineActivity.this, dataItems, MedicineActivity.this, mTxtPlaceOrder);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(MedicineActivity.this, LinearLayoutManager.VERTICAL, false);
 
         vwAppointments.setNestedScrollingEnabled(false);
@@ -132,9 +172,24 @@ public class MedicineActivity extends CustomActivity implements View.OnClickList
             mHashMapAddToCard.put("Medicinename", mProductModel.getMedicineName());
             mHashMapAddToCard.put("amount", mProductModel.getDiscountedprice());
             mHashMapAddToCard.put("ReportComment", mProductModel.getMeddiscription());
-            mHashMapAddToCard.put("isEnabled", false);
-            dataItems.add(mHashMapAddToCard);
+            mHashMapAddToCard.put("isEnabled", true);
+            if (dataItems.size()>0)
+            {
+                if (dataItems.contains(mHashMapAddToCard)){
+
+                    Utilities.showAlert(MedicineActivity.this, "Already Exists", false);
+
+
+                }else{
+                    dataItems.add(mHashMapAddToCard);
+                }
+
+            }else{
+                dataItems.add(mHashMapAddToCard);
+            }
             dataAdapter.notifyDataSetChanged();
+            vwAppointments.setAdapter(dataAdapter);
+
         }
 
     }
@@ -160,7 +215,7 @@ public class MedicineActivity extends CustomActivity implements View.OnClickList
 
                 item.put("PriscriptionDate", singleObj.getString("PriscriptionDate"));
                 item.put("Medicinename", singleObj.getString("Medicinename"));
-                item.put("isEnabled", false);
+                item.put("isEnabled", true);
                 item.put("ReportComment", singleObj.getString("ReportComment"));
 
                 dataItems.add(item);
