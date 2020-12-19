@@ -51,7 +51,6 @@ public class MedicineActivity extends CustomActivity implements View.OnClickList
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medicine);
 
@@ -87,6 +86,18 @@ public class MedicineActivity extends CustomActivity implements View.OnClickList
                 getMedicineList();
             }
         });
+
+//        mTxtAddProduct.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //changeColor(mImgAddProduct, mTxtAddProduct);
+//
+//                Intent mIntent = new Intent(getApplicationContext(), AddProductActivity.class);
+//                startActivityForResult(mIntent, 101);
+//
+//            }
+//        });
+
 
     }
 
