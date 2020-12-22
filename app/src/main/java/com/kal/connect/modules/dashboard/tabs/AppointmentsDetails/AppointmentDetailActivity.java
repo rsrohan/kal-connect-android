@@ -22,6 +22,7 @@ import com.kal.connect.customLibs.appCustomization.CustomActivity;
 import com.kal.connect.modules.communicate.ChatActivity;
 import com.kal.connect.appconstants.OpenTokConfigConstants;
 import com.kal.connect.modules.communicate.VideoConferenceActivity;
+import com.kal.connect.modules.dashboard.tabs.BuyMedicineScreen.PrescriptionUploadActivity;
 import com.kal.connect.utilities.AppPreferences;
 import com.kal.connect.utilities.Config;
 import com.kal.connect.utilities.GlobValues;
@@ -292,6 +293,7 @@ public class AppointmentDetailActivity extends CustomActivity implements View.On
         if (Utilities.isNetworkAvailable(this)) {
             apiManager.execute(url);
         } else {
+            Utilities.showAlert(AppointmentDetailActivity.this, "Please check internet!", false);
 
         }
     }
@@ -364,6 +366,9 @@ public class AppointmentDetailActivity extends CustomActivity implements View.On
 
         if (Utilities.isNetworkAvailable(this)) {
             apiManager.execute(url);
+        }else{
+            Utilities.showAlert(AppointmentDetailActivity.this, "Please check internet!", false);
+
         }
     }
 

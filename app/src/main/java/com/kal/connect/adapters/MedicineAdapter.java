@@ -43,6 +43,7 @@ import java.util.Map;
 public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHolder> {
 
 
+    private static final String TAG = "MedicineAdapter";
     // Step 1: Initialize By receiving the data via constructor
     Context mContext;
     ArrayList<HashMap<String, Object>> items;
@@ -256,10 +257,11 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
         HashMap<String, Object> inputParams = AppPreferences.getInstance().sendingInputParamBuyMedicine();
         inputParams.put("objMedicineList", new JSONArray(sentParams));
 
+        Log.e(TAG, "placeOrder: "+inputParams.toString() );
         SoapAPIManager apiManager = new SoapAPIManager(mContext, inputParams, new APICallback() {
             @Override
             public void responseCallback(Context context, String response) throws JSONException {
-                Log.e("***response***", response);
+                Log.e(TAG, response);
 
                 try {
                     JSONArray responseAry = new JSONArray(response);
@@ -277,6 +279,7 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
 
                     }
                 } catch (Exception e) {
+                    Log.e(TAG, "responseCallback: "+e);
                     e.getMessage();
                 } finally {
                     mMedicineActivity.getMedicineList();
@@ -286,14 +289,15 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
         String[] url = {Config.WEB_Services1, Config.EMAIL_MEDICINE_TO_PHARMACY, "POST"};
 
         if (Utilities.isNetworkAvailable(mContext)) {
+            Log.e(TAG, "placeOrder: "+url );
             apiManager.execute(url);
-        } else {
+        }else{
+            Utilities.showAlert(mContext, "Please check internet!", false);
 
         }
     }
 
     void showAlert(String message) {
-        System.out.println("RESPONSE HI");
         final Dialog dialog = new Dialog(mActivity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
@@ -307,6 +311,9 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
+                try{
+                    ((Activity) mContext).finish();
+                }catch (Exception e){}
             }
         });
 
@@ -315,6 +322,9 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
                 @Override
                 public void run() {
                     dialog.dismiss();
+                    try{
+                        ((Activity) mContext).finish();
+                    }catch (Exception e){}
                 }
             }, 15000);
         }

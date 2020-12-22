@@ -160,7 +160,6 @@ public class PrescriptionUploadActivity extends CustomActivity {
                                 Log.e(TAG, "responseCallback: do not has response" );
                                 Utilities.showAlert(PrescriptionUploadActivity.this, "Please check again!", false);
                             }
-                            return;
                         }else{
                             Utilities.showAlert(PrescriptionUploadActivity.this, "Error Occurred", false);
 
@@ -173,12 +172,12 @@ public class PrescriptionUploadActivity extends CustomActivity {
                 }
             }
         }, true);
-        String[] url = {Config.WEB_Services1, Config.EMAIL_MEDICINE_TO_PHARMACY, "POST"};
+        String[] url = {Config.WEB_Services1, Config.UPLOAD_FILES, "POST"};
 
         if (Utilities.isNetworkAvailable(PrescriptionUploadActivity.this)) {
             apiManager.execute(url);
         } else {
-
+            Utilities.showAlert(PrescriptionUploadActivity.this, "Please check internet!", false);
         }
     }
 
@@ -221,7 +220,6 @@ public class PrescriptionUploadActivity extends CustomActivity {
                 File file = FileUtil.from(PrescriptionUploadActivity.this, selectedImage);
                 Log.d("file", "File...:::: uti - " + file.getPath() + " file -" + file + " : " + file.exists());
                 AddImage(selectedImage, file.getPath());
-
             } catch (IOException e) {
                 e.printStackTrace();
             } finally {

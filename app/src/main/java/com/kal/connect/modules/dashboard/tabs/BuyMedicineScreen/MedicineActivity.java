@@ -277,6 +277,7 @@ public class MedicineActivity extends CustomActivity implements View.OnClickList
         if (Utilities.isNetworkAvailable(MedicineActivity.this)) {
             apiManager.execute(url);
         } else {
+            Utilities.showAlert(MedicineActivity.this, "Please check internet!", false);
 
         }
     }
