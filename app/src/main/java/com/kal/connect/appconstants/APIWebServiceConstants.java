@@ -27,9 +27,11 @@ public class APIWebServiceConstants {
 
     private static String NAMESPACE = "https://www.medi360.in/";
     public static final String BASE_URL="https://www.medi360.in/";
-    static String LIVE_URL = "https://www.ayurvaidya.live/WebServices/";
-    //private static String LIVE_URL = "http://ec2-13-127-154-179.ap-south-1.compute.amazonaws.com/WebServices/";
+    //static String LIVE_URL = "https://www.ayurvaidya.live/WebServices/";
+    //public static boolean isTesting = false;
 
+    private static String LIVE_URL = "http://ec2-13-127-154-179.ap-south-1.compute.amazonaws.com/WebServices/";
+    public static boolean isTesting = true;
     private static String SOAP_ACTION = "https://www.medi360.in/";
 
     public static String LIVE_LINK = "https://www.medi360.in/";

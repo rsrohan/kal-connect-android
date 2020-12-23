@@ -3,6 +3,7 @@ package com.kal.connect.modules.dashboard.tabs.HomeScreen;
 import android.content.Intent;
 import android.os.Bundle;
 //import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -22,6 +23,7 @@ import butterknife.OnClick;
 
 public class AboutDoctorActivity extends CustomActivity {
 
+    private static final String TAG = "AboutDoctorAct";
     TextView docName, location, desc;
 
     GlobValues g = GlobValues.getInstance();
@@ -43,6 +45,7 @@ public class AboutDoctorActivity extends CustomActivity {
 
         Intent mIntent = new Intent(this, AppointmentSummaryActivity.class);
         mIntent.putExtra("specialistID",specialistID);
+        Log.e(TAG, "consultNow: "+specialistID );
         startActivity(mIntent);
 
 

@@ -146,7 +146,7 @@ public class DoctorsListAdapter extends RecyclerView.Adapter<DoctorsListAdapter.
                 g.setDoctor(doctor);
 
                 Intent mIntent = new Intent(context, AboutDoctorActivity.class);
-                mIntent.putExtra("SpecialistID", doctor.getSpecialistID());
+                mIntent.putExtra("SpecialistID", doctor.getSpecialistID().toString());
                 context.startActivity(mIntent);
 
                 Utilities.pushAnimation((Activity) context);

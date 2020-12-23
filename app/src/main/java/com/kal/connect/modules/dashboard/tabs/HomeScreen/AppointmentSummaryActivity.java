@@ -55,6 +55,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.kal.connect.appconstants.APIWebServiceConstants.isTesting;
+
 public class AppointmentSummaryActivity extends CustomActivity implements View.OnClickListener, PaymentResultListener {
     private static final String TAG = "AppointmentSummary";
     RecyclerView selectedRecyclerView;
@@ -174,9 +176,6 @@ public class AppointmentSummaryActivity extends CustomActivity implements View.O
         if (selectedDoctor.getVCCharge() != null) {
             cosultChargeAmount = (int) (Double.parseDouble(selectedDoctor.getVCCharge().toString()) * 100);
         }
-
-
-
     }
 
     @Override
@@ -197,7 +196,7 @@ public class AppointmentSummaryActivity extends CustomActivity implements View.O
         SoapAPIManager apiManager = new SoapAPIManager(AppointmentSummaryActivity.this, appointmentinputParams, new APICallback() {
             @Override
             public void responseCallback(Context context, String response) throws JSONException {
-                Log.e("***response***", response);
+                Log.e(TAG, response);
 
                 try {
                     JSONArray responseAry = new JSONArray(response);
@@ -225,6 +224,7 @@ public class AppointmentSummaryActivity extends CustomActivity implements View.O
         if (Utilities.isNetworkAvailable(AppointmentSummaryActivity.this)) {
             apiManager.execute(url);
         } else {
+            Utilities.showAlert(AppointmentSummaryActivity.this, "No Internet", false);
 
         }
     }
@@ -268,6 +268,8 @@ public class AppointmentSummaryActivity extends CustomActivity implements View.O
 
                             intent.putExtra("CALER_NAME", docName.getText().toString());
                             intent.putExtra("CALL_TYPE", 2);
+                            intent.putExtra("docId", specialistID);
+                            Log.e(TAG, "responseCallback: "+specialistID );
                             startActivity(intent);
 
                             Utilities.pushAnimation(AppointmentSummaryActivity.this);
@@ -277,6 +279,7 @@ public class AppointmentSummaryActivity extends CustomActivity implements View.O
 
                     }
                 } catch (Exception e) {
+                    Utilities.showAlert(AppointmentSummaryActivity.this, "Something went wrong...", false);
 
                 }
             }
@@ -285,6 +288,9 @@ public class AppointmentSummaryActivity extends CustomActivity implements View.O
 
         if (Utilities.isNetworkAvailable(AppointmentSummaryActivity.this)) {
             apiManager.execute(url);
+        } else {
+            Utilities.showAlert(AppointmentSummaryActivity.this, "No Internet", false);
+
         }
     }
 
@@ -472,6 +478,9 @@ public class AppointmentSummaryActivity extends CustomActivity implements View.O
     @Override
     public void onPaymentError(int i, String s) {
         Utilities.showAlert(AppointmentSummaryActivity.this, getString(R.string.payment_failure), false);
+        if (isTesting){
+            getVideoCallConfigurations(s, String.valueOf(cosultChargeAmount));
+        }
     }
 
 
@@ -479,7 +488,6 @@ public class AppointmentSummaryActivity extends CustomActivity implements View.O
         HashMap<String, Object> inputParams = AppPreferences.getInstance().sendingInputParam();
 
         HashMap<String, Object> appointmentParms = GlobValues.getInstance().getAddAppointmentParams();
-
 
 
         inputParams.put("AppointmentDate", appointmentParms.get("AppointmentDate").toString());
@@ -492,7 +500,7 @@ public class AppointmentSummaryActivity extends CustomActivity implements View.O
         SoapAPIManager apiManager = new SoapAPIManager(AppointmentSummaryActivity.this, inputParams, new APICallback() {
             @Override
             public void responseCallback(Context context, String response) throws JSONException {
-                Log.e("***response***", response);
+                Log.e(TAG, response);
 
                 try {
                     JSONArray responseAry = new JSONArray(response);
@@ -510,7 +518,7 @@ public class AppointmentSummaryActivity extends CustomActivity implements View.O
                             startPayment();
                         } else {
                             if ((int) GlobValues.getAddAppointmentParams().get("ConsultNow") == 2) {
-                                bookAppointment("","");
+                                bookAppointment("", "");
                             } else {
                                 getVideoCallConfigurations("", "");
                             }
@@ -526,7 +534,7 @@ public class AppointmentSummaryActivity extends CustomActivity implements View.O
         if (Utilities.isNetworkAvailable(AppointmentSummaryActivity.this)) {
             apiManager.execute(url);
         } else {
-
+            Utilities.showAlert(AppointmentSummaryActivity.this, "No Internet", false);
         }
     }
 }

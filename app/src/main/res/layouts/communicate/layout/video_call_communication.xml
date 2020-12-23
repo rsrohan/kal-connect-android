@@ -88,7 +88,7 @@
             />
 
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -96,9 +96,9 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="2">
 
                 <LinearLayout
@@ -156,13 +156,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:background="@color/background_grey"
+                        android:background="@color/transparent_bg"
                         android:visibility="gone">
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center"
+                            android:textAppearance="@style/CustomFont.Bold"
                             android:text="@string/doc_disable_msg"
                             android:textColor="@color/white" />
 
@@ -174,12 +175,13 @@
 
             <FrameLayout
                 android:id="@+id/temp_publisher_id"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_width="100dp"
+                android:layout_height="120dp"
+                android:layout_margin="22dp"
                 android:layout_weight="1"
                 android:orientation="vertical" />
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
 
