@@ -51,7 +51,7 @@ public class PrescriptionUploadActivity extends CustomActivity {
     LayoutInflater mLayoutInflater;
     ProgressBar mProgressBar;
     ArrayList<PrescriptionModel> mAlImage;
-    ArrayList<String> mAlBase64;
+    public static ArrayList<String> mAlBase64;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -137,48 +137,56 @@ public class PrescriptionUploadActivity extends CustomActivity {
 
         HashMap<String, Object> inputParams = AppPreferences.getInstance().sendingInputParamBuyMedicine();
 
+        inputParams.put("uploadedFiles", new JSONArray(mAlBase64));
+        Log.e(TAG, "uploadPrescription: "+inputParams.get("uploadedFiles") );
 
-        inputParams.put("objMedicineList", new JSONArray(mAlBase64));
+        Bundle bundle = new Bundle();
+        bundle.putBoolean("uploadedFiles", true);
 
-        SoapAPIManager apiManager = new SoapAPIManager(PrescriptionUploadActivity.this, inputParams, new APICallback() {
-            @Override
-            public void responseCallback(Context context, String response) throws JSONException {
-                Log.e("***response***", response);
+        Intent i = new Intent(getApplicationContext(), MedicineActivity.class);
+        i.putExtras(bundle);
+        startActivity(i);
+        finish();
 
-                try {
-                    JSONArray responseAry = new JSONArray(response);
-                    if (responseAry.length() > 0) {
-                        JSONObject commonDataInfo = responseAry.getJSONObject(0);
-                        if (commonDataInfo.has("APIStatus") && Integer.parseInt(commonDataInfo.getString("APIStatus")) == 1) {
-                            if (commonDataInfo.has("RespText")) {
-                                Utilities.showAlert(PrescriptionUploadActivity.this, commonDataInfo.getString("RespText"), false);
-                                Toast.makeText(context, commonDataInfo.getString("RespText"), Toast.LENGTH_SHORT).show();
-                                Intent mIntent = new Intent(PrescriptionUploadActivity.this, MedicineActivity.class);
-                                startActivity(mIntent);
-                                finish();
-                            } else {
-                                Log.e(TAG, "responseCallback: do not has response" );
-                                Utilities.showAlert(PrescriptionUploadActivity.this, "Please check again!", false);
-                            }
-                        }else{
-                            Utilities.showAlert(PrescriptionUploadActivity.this, "Error Occurred", false);
-
-                        }
-
-                    }
-                } catch (Exception e) {
-                    e.getMessage();
-                    Log.e(TAG, "responseCallback: "+e );
-                }
-            }
-        }, true);
-        String[] url = {Config.WEB_Services1, Config.UPLOAD_FILES, "POST"};
-
-        if (Utilities.isNetworkAvailable(PrescriptionUploadActivity.this)) {
-            apiManager.execute(url);
-        } else {
-            Utilities.showAlert(PrescriptionUploadActivity.this, "Please check internet!", false);
-        }
+//        SoapAPIManager apiManager = new SoapAPIManager(PrescriptionUploadActivity.this, inputParams, new APICallback() {
+//            @Override
+//            public void responseCallback(Context context, String response) throws JSONException {
+//                Log.e("***response***", response);
+//
+//                try {
+//                    JSONArray responseAry = new JSONArray(response);
+//                    if (responseAry.length() > 0) {
+//                        JSONObject commonDataInfo = responseAry.getJSONObject(0);
+//                        if (commonDataInfo.has("APIStatus") && Integer.parseInt(commonDataInfo.getString("APIStatus")) == 1) {
+//                            if (commonDataInfo.has("RespText")) {
+//                                Utilities.showAlert(PrescriptionUploadActivity.this, commonDataInfo.getString("RespText"), false);
+//                                Toast.makeText(context, commonDataInfo.getString("RespText"), Toast.LENGTH_SHORT).show();
+//                                Intent mIntent = new Intent(PrescriptionUploadActivity.this, MedicineActivity.class);
+//                                startActivity(mIntent);
+//                                finish();
+//                            } else {
+//                                Log.e(TAG, "responseCallback: do not has response" );
+//                                Utilities.showAlert(PrescriptionUploadActivity.this, "Please check again!", false);
+//                            }
+//                        }else{
+//                            Utilities.showAlert(PrescriptionUploadActivity.this, "Error Occurred", false);
+//
+//                        }
+//
+//                    }
+//                } catch (Exception e) {
+//                    e.getMessage();
+//                    Log.e(TAG, "responseCallback: "+e );
+//                }
+//            }
+//        }, true);
+//        String[] url = {Config.WEB_Services1, Config.UPLOAD_FILES, "POST"};
+//
+//        if (Utilities.isNetworkAvailable(PrescriptionUploadActivity.this)) {
+//            apiManager.execute(url);
+//        } else {
+//            Utilities.showAlert(PrescriptionUploadActivity.this, "Please check internet!", false);
+//        }
     }
 
     private void buildUI() {
@@ -260,5 +268,11 @@ public class PrescriptionUploadActivity extends CustomActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
 
+        startActivity(new Intent(getApplicationContext(), MedicineActivity.class));
+        finish();
+
+    }
 }

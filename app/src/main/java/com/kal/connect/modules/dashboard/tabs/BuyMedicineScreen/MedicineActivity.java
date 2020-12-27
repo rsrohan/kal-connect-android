@@ -1,13 +1,17 @@
 package com.kal.connect.modules.dashboard.tabs.BuyMedicineScreen;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -40,8 +44,11 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.kal.connect.modules.dashboard.tabs.BuyMedicineScreen.PrescriptionUploadActivity.mAlBase64;
+
 public class MedicineActivity extends CustomActivity implements View.OnClickListener {
 
+    private static final String TAG = "MedicineActivity";
     private ArrayList<HashMap<String, Object>> dataItems = new ArrayList<HashMap<String, Object>>();
     RecyclerView vwAppointments;
     public MedicineAdapter dataAdapter = null;
@@ -49,6 +56,7 @@ public class MedicineActivity extends CustomActivity implements View.OnClickList
     TextView mTxtPlaceOrder, mTxtAddProduct, mTxtUpload;
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout mSwipeRefreshLayout;
+    ArrayList<String> uploadedFilesArrayList = new ArrayList<>();
 
 
     @Override
@@ -102,33 +110,33 @@ public class MedicineActivity extends CustomActivity implements View.OnClickList
         });
 
 
-//        mTxtPlaceOrder.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                //changeColor(mImgOrder, mTxtPlaceOrder);
-//                sentParams.clear();
-//
-//                for (int i = 0; i < items.size(); i++) {
-//                    if (items.get(i).containsKey("isEnabled") && items.get(i).get("isEnabled").toString().equalsIgnoreCase("true")) {
-//                        Iterator entries = items.get(i).entrySet().iterator();
-//                        mHashMapMedcine = new HashMap<>();
-//                        while (entries.hasNext()) {
-//                            Map.Entry entry = (Map.Entry) entries.next();
-//                            mHashMapMedcine.put(entry.getKey().toString(), entry.getValue());
-//                        }
-//                        sentParams.add(mHashMapMedcine);
-//                    }
-//                }
-//
-//                if (sentParams.size() > 0) {
-//                    placeOrder(holder);
-//                } else {
-//                    Utilities.showAlert(mContext, "Please add medicine!", false);
-//                }
-//
-//
-//            }
-//        });
+        mTxtPlaceOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //changeColor(mImgOrder, mTxtPlaceOrder);
+                ArrayList<HashMap<String, Object>> sentParams;
+                sentParams = new ArrayList<>();
+                sentParams.clear();
+
+                HashMap<String, Object> mHashMapMedcine;
+
+                for (int i = 0; i < dataItems.size(); i++) {
+                    if (dataItems.get(i).containsKey("isEnabled") && dataItems.get(i).get("isEnabled").toString().equalsIgnoreCase("true")) {
+                        Iterator entries = dataItems.get(i).entrySet().iterator();
+                        mHashMapMedcine = new HashMap<>();
+                        while (entries.hasNext()) {
+                            Map.Entry entry = (Map.Entry) entries.next();
+                            mHashMapMedcine.put(entry.getKey().toString(), entry.getValue());
+                        }
+                        sentParams.add(mHashMapMedcine);
+                    }
+                }
+
+                placeOrder(sentParams);
+
+
+            }
+        });
 
         mTxtUpload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,11 +144,124 @@ public class MedicineActivity extends CustomActivity implements View.OnClickList
                 //changeColor(mImgUplod, mTxtUpload);
                 Intent mIntent = new Intent(getApplicationContext(), PrescriptionUploadActivity.class);
                 startActivity(mIntent);
+                finish();
             }
         });
 
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            boolean uploadedFiles = bundle.getBoolean("uploadedFiles", false);
+            Log.e(TAG, "buildUI: " + uploadedFiles + (new JSONArray(mAlBase64)));
+            uploadedFilesArrayList = mAlBase64;
+            mTxtUpload.setText("Prescription Uploaded!");
+            // mTxtUpload.setBackgroundColor(Color.parseColor("#000000"));
+        } else {
+            Log.e(TAG, "buildUI: No uploadedFiles");
+            mTxtUpload.setText("Upload Prescription");
+            // mTxtUpload.setBackgroundColor(Color.parseColor("#000000"));
+        }
+
     }
 
+    void placeOrder(ArrayList<HashMap<String, Object>> sentParams) {
+
+        HashMap<String, Object> inputParams = AppPreferences.getInstance().sendingInputParamBuyMedicine();
+
+        if (sentParams.size() > 0) {
+            inputParams.put("objMedicineList", new JSONArray(sentParams));
+        }
+        if (uploadedFilesArrayList.size() > 0) {
+            inputParams.put("Uploadprescription", new JSONArray(uploadedFilesArrayList));
+        }
+        if (sentParams.size() <= 0 && uploadedFilesArrayList.size() <= 0) {
+            Utilities.showAlert(MedicineActivity.this, "No Medicine or Uploaded Prescription found.", false);
+        } else {
+            Log.e(TAG, "placeOrder: " + inputParams.toString());
+            SoapAPIManager apiManager = new SoapAPIManager(MedicineActivity.this, inputParams, new APICallback() {
+                @Override
+                public void responseCallback(Context context, String response) throws JSONException {
+                    Log.e(TAG, response);
+
+                    try {
+                        JSONArray responseAry = new JSONArray(response);
+                        if (responseAry.length() > 0) {
+                            JSONObject commonDataInfo = responseAry.getJSONObject(0);
+                            if (commonDataInfo.has("APIStatus") && Integer.parseInt(commonDataInfo.getString("APIStatus")) == 1) {
+                                if (commonDataInfo.has("RespText")) {
+//                                Utilities.showAlert(mContext, commonDataInfo.getString("RespText"), false);
+                                    showAlert(commonDataInfo.getString("RespText"));
+                                } else {
+                                    Utilities.showAlert(MedicineActivity.this, "Please check again!", false);
+                                }
+                            } else {
+                                Utilities.showAlert(MedicineActivity.this, "Error Occurred!", false);
+                            }
+
+                        } else {
+                            Utilities.showAlert(MedicineActivity.this, "Error Occurred!", false);
+                        }
+                    } catch (Exception e) {
+                        Log.e(TAG, "responseCallback: " + e);
+                        e.getMessage();
+                        Utilities.showAlert(MedicineActivity.this, "Error Occurred!", false);
+
+                    }
+                }
+            }, true);
+            String[] url = {Config.WEB_Services1, Config.EMAIL_MEDICINE_TO_PHARMACY, "POST"};
+
+            if (Utilities.isNetworkAvailable(getApplicationContext())) {
+                Log.e(TAG, "placeOrder: " + url);
+                apiManager.execute(url);
+            } else {
+                Utilities.showAlert(MedicineActivity.this, "Please check internet!", false);
+
+            }
+        }
+
+
+    }
+
+    void showAlert(String message) {
+        Intent i = new Intent(getApplicationContext(), OrderSuccessfulActivity.class);
+        i.putExtra("message", message);
+        startActivity(i);
+        finish();
+//        final Dialog dialog = new Dialog(MedicineActivity.this);
+//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        dialog.setCancelable(false);
+//        dialog.setContentView(R.layout.playstore_update_view);
+//
+//        TextView text = (TextView) dialog.findViewById(R.id.lblMessage);
+//        text.setText(message);
+//
+//        Button mBtnOk = (Button) dialog.findViewById(R.id.playstore_update);
+//        mBtnOk.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dialog.dismiss();
+//                try{
+//                    finish();
+//                }catch (Exception e){}
+//            }
+//        });
+//
+//        if (dialog != null) {
+//            new Handler().postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    dialog.dismiss();
+//                    try{
+//                        finish();
+//                    }catch (Exception e){}
+//                }
+//            }, 15000);
+//        }
+//
+//        dialog.show();
+
+
+    }
 
     private void buildListView() {
 
@@ -172,19 +293,18 @@ public class MedicineActivity extends CustomActivity implements View.OnClickList
             mHashMapAddToCard.put("Medicinename", mProductModel.getMedicineName());
             mHashMapAddToCard.put("amount", mProductModel.getDiscountedprice());
             mHashMapAddToCard.put("ReportComment", mProductModel.getMeddiscription());
-            mHashMapAddToCard.put("isEnabled", true);
-            if (dataItems.size()>0)
-            {
-                if (dataItems.contains(mHashMapAddToCard)){
+            mHashMapAddToCard.put("isEnabled", false);
+            if (dataItems.size() > 0) {
+                if (dataItems.contains(mHashMapAddToCard)) {
 
                     Utilities.showAlert(MedicineActivity.this, "Already Exists", false);
 
 
-                }else{
+                } else {
                     dataItems.add(mHashMapAddToCard);
                 }
 
-            }else{
+            } else {
                 dataItems.add(mHashMapAddToCard);
             }
             dataAdapter.notifyDataSetChanged();
@@ -215,7 +335,7 @@ public class MedicineActivity extends CustomActivity implements View.OnClickList
 
                 item.put("PriscriptionDate", singleObj.getString("PriscriptionDate"));
                 item.put("Medicinename", singleObj.getString("Medicinename"));
-                item.put("isEnabled", true);
+                item.put("isEnabled", false);
                 item.put("ReportComment", singleObj.getString("ReportComment"));
 
                 dataItems.add(item);

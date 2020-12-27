@@ -128,7 +128,7 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
         holder.numberPicker.setMax(15);
         holder.numberPicker.setMin(0);
         holder.numberPicker.setUnit(1);
-        holder.numberPicker.setValue(1);
+        holder.numberPicker.setValue(0);
 
         //item.put("isEnabled", true);
 
@@ -187,33 +187,33 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
 //        });
 //
 //
-        mTxtPlaceOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //changeColor(mImgOrder, mTxtPlaceOrder);
-                sentParams.clear();
-
-                for (int i = 0; i < items.size(); i++) {
-                    if (items.get(i).containsKey("isEnabled") && items.get(i).get("isEnabled").toString().equalsIgnoreCase("true")) {
-                        Iterator entries = items.get(i).entrySet().iterator();
-                        mHashMapMedcine = new HashMap<>();
-                        while (entries.hasNext()) {
-                            Map.Entry entry = (Map.Entry) entries.next();
-                            mHashMapMedcine.put(entry.getKey().toString(), entry.getValue());
-                        }
-                        sentParams.add(mHashMapMedcine);
-                    }
-                }
-
-                if (sentParams.size() > 0) {
-                    placeOrder(holder);
-                } else {
-                    Utilities.showAlert(mContext, "Please add medicine!", false);
-                }
-
-
-            }
-        });
+//        mTxtPlaceOrder.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //changeColor(mImgOrder, mTxtPlaceOrder);
+//                sentParams.clear();
+//
+//                for (int i = 0; i < items.size(); i++) {
+//                    if (items.get(i).containsKey("isEnabled") && items.get(i).get("isEnabled").toString().equalsIgnoreCase("true")) {
+//                        Iterator entries = items.get(i).entrySet().iterator();
+//                        mHashMapMedcine = new HashMap<>();
+//                        while (entries.hasNext()) {
+//                            Map.Entry entry = (Map.Entry) entries.next();
+//                            mHashMapMedcine.put(entry.getKey().toString(), entry.getValue());
+//                        }
+//                        sentParams.add(mHashMapMedcine);
+//                    }
+//                }
+//
+//                if (sentParams.size() > 0) {
+//                    placeOrder();
+//                } else {
+//                    Utilities.showAlert(mContext, "Please add medicine!", false);
+//                }
+//
+//
+//            }
+//        });
 //
 //        mTxtUpload.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -252,7 +252,7 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
         mContext.startActivity(i);
     }
 
-    void placeOrder(ViewHolder holder) {
+    void placeOrder() {
 
         HashMap<String, Object> inputParams = AppPreferences.getInstance().sendingInputParamBuyMedicine();
         inputParams.put("objMedicineList", new JSONArray(sentParams));

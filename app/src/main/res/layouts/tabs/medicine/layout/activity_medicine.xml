@@ -48,7 +48,7 @@
                 android:layout_marginEnd="4dp"
                 android:gravity="center"
                 android:layout_weight="1"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:textSize="14sp"
                 android:text="Upload Prescription"
                 android:textAppearance="@style/CustomFont.Bold"
