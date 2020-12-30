@@ -18,14 +18,12 @@
     <string name="add_new_complaints">Add new complaints</string>
 
 
-
     <!-- Tabs -->
-<!--    <string name="tab_home_search">Search</string>-->
+    <!--    <string name="tab_home_search">Search</string>-->
     <string name="tab_home">Home</string>
     <string name="tab_appointments">Appointments</string>a
     <string name="tab_medicine">Buy Medicine</string>
     <string name="tab_account">Account</string>
-
 
 
     <!-- Add More profile info -->
@@ -123,7 +121,6 @@
     <string name="vitals_date">Date</string>
 
     <string name="payment_screen">Payment</string>
-
 
 
     <!-- Empty message -->
@@ -233,7 +230,7 @@
     <string name="consulted">Consulted</string>
     <string name="not_consulted">Not Consulted</string>
 
-<!--    New Version-->
+    <!--    New Version-->
     <string name="hospitals">Hospitals</string>
 
     <string name="no_hospitals_found" translatable="false">No Hospitals are found!</string>
@@ -270,8 +267,7 @@
     <string name="family_social_occupational">Family/Social/Occupational(Relevent only)</string>
 
 
-
-<!--    multilinetext: Diet, Bowel, Appetite, Bladder, Sleep, Addiction, Excercise, Menstrual-->
+    <!--    multilinetext: Diet, Bowel, Appetite, Bladder, Sleep, Addiction, Excercise, Menstrual-->
 
     <string name="diet">Diet</string>
     <string name="bowel">Bowel</string>
@@ -281,7 +277,7 @@
     <string name="addiction">Addiction</string>
     <string name="excercise">Excercise</string>
     <string name="menstrual">Menstrual</string>
-    
+
     <string name="visit_therapist">Select If you want our Therapist to visit home</string>
     <string name="deliver_medicine">Select if you want Medicine to be delivered at home</string>
     <string name="patient_examination">Patient Examination</string>

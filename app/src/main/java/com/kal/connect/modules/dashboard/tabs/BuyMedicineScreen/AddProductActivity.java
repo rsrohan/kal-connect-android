@@ -185,7 +185,7 @@ public class AddProductActivity extends CustomActivity implements SearchView.OnQ
         if (Utilities.isNetworkAvailable(AddProductActivity.this)) {
             apiManager.execute(url);
         } else {
-            Toast.makeText(this, "Internet not Available", Toast.LENGTH_SHORT).show();
+            Utilities.showAlert(AddProductActivity.this, "Please check internet!", false);
         }
     }
 

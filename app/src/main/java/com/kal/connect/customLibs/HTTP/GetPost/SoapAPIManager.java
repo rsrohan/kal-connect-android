@@ -78,7 +78,7 @@ public class SoapAPIManager extends AsyncTask<String, String, String> {
         myHttpClient.context = this.context;
 
         //set the Response
-        Log.d("API URL and Methos", requestUrlEND+"/"+requestMethodName);
+        Log.d("API URL and Method", requestUrlEND+"/"+requestMethodName);
         Log.d("Input Params", "" + paramsToSend);
 
         //make API call        //Check interne connection

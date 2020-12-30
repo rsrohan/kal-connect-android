@@ -237,6 +237,7 @@ public class AppointmentsFragment extends Fragment implements View.OnClickListen
         if (Utilities.isNetworkAvailable(getContext())) {
             apiManager.execute(url);
         }else{
+            Utilities.showAlert(getContext(), "Please check internet!", false);
 
         }
     }

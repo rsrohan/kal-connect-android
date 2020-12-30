@@ -27,6 +27,7 @@ import com.kal.connect.appconstants.OpenTokConfigConstants;
 import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
 import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
 import com.kal.connect.customdialogbox.ConfirmDialog;
+import com.kal.connect.modules.dashboard.tabs.HomeScreen.AppointmentSummaryActivity;
 import com.kal.connect.utilities.AppPreferences;
 import com.kal.connect.utilities.Config;
 import com.opentok.android.BaseVideoRenderer;
@@ -70,7 +71,7 @@ public class VideoConferenceActivity extends AppCompatActivity
         SubscriberKit.SubscriberListener,
         Session.SessionListener, SubscriberKit.VideoListener {
 
-    private static final String TAG = "VideoConference";
+    private static final String TAG = "VideoConferenceAct";
     private static final int RC_SETTINGS_SCREEN_PERM = 123;
     private static final int RC_VIDEO_APP_PERM = 124;
 
@@ -80,6 +81,8 @@ public class VideoConferenceActivity extends AppCompatActivity
     private Publisher mPublisher;
 
     Boolean isEndCall = false;
+
+    String docId = "";
 
     private ArrayList<Subscriber> mSubscribers = new ArrayList<Subscriber>();
     private HashMap<Stream, Subscriber> mSubscriberStreams = new HashMap<Stream, Subscriber>();
@@ -165,12 +168,13 @@ public class VideoConferenceActivity extends AppCompatActivity
 
     @OnClick(R.id.dialer_disconnect)
     void dialerDisconnectCall() {
-        if (Config.isDisconnect) {
-            disconnectSession();
-            moveToHome();
-        } else {
-            getEndCall();
-        }
+        getEndCall();
+//        if (Config.isDisconnect) {
+//            disconnectSession();
+//            moveToHome();
+//        } else {
+//            getEndCall();
+//        }
     }
 
     @Override
@@ -179,6 +183,8 @@ public class VideoConferenceActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.video_call_communication);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        docId = getIntent().getStringExtra("docId");
 
         Config.mActivity = this;
         ButterKnife.bind(this);
@@ -213,7 +219,7 @@ public class VideoConferenceActivity extends AppCompatActivity
             } catch (Exception e) {
             }
 
-            countDownTimer = new CountDownTimer(1 * 60000, 1000) {
+            countDownTimer = new CountDownTimer(60000, 1000) {
 
                 public void onTick(long millisUntilFinished) {
                     long seconds = millisUntilFinished / 1000;
@@ -634,11 +640,8 @@ public class VideoConferenceActivity extends AppCompatActivity
 
     public void getEndCall() {
 
-        String docId = "";
-        Bundle mBundle = getIntent().getExtras();
-        if (mBundle.containsKey("DocterId")) {
-            docId = mBundle.getString("DocterId");
-        }
+
+        Log.e(TAG, "getEndCall: "+docId);
         HashMap<String, Object> endCallParams = new HashMap<>();
         endCallParams.put("User_id", docId);
         endCallParams.put("SpecialistID", docId);
@@ -647,18 +650,23 @@ public class VideoConferenceActivity extends AppCompatActivity
 
         try {
             endCallParams.put("PatientID", accInfo.getString("PatientID"));
-        } catch (JSONException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            Log.e(TAG, "getEndCall: "+e);
         }
         SoapAPIManager apiManager = new SoapAPIManager(VideoConferenceActivity.this, endCallParams, new APICallback() {
             @Override
             public void responseCallback(Context context, String response) throws JSONException {
+                Log.e(TAG, "responseCallback: "+response );
 
                 JSONArray mJsonArray = new JSONArray(response);
                 JSONObject mJsonObject = mJsonArray.getJSONObject(0);
                 if (mJsonObject.has("APIStatus")) {
                     if (mJsonObject.getString("APIStatus").equalsIgnoreCase("1")) {
                         moveToHome();
+                    }else{
+                        Utilities.showAlert(VideoConferenceActivity.this, "Something went wrong...", false);
+
                     }
                 }
 
@@ -669,6 +677,7 @@ public class VideoConferenceActivity extends AppCompatActivity
         if (Utilities.isNetworkAvailable(VideoConferenceActivity.this)) {
             apiManager.execute(url);
         } else {
+            Utilities.showAlert(VideoConferenceActivity.this, "No Internet", false);
 
         }
     }
