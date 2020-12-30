@@ -227,7 +227,7 @@ public class PrescriptionUploadActivity extends CustomActivity {
             try {
                 File file = FileUtil.from(PrescriptionUploadActivity.this, selectedImage);
                 Log.d("file", "File...:::: uti - " + file.getPath() + " file -" + file + " : " + file.exists());
-                AddImage(selectedImage, file.getPath());
+                AddImage(file.getPath());
             } catch (IOException e) {
                 e.printStackTrace();
             } finally {
@@ -239,7 +239,7 @@ public class PrescriptionUploadActivity extends CustomActivity {
     }
 
 
-    public void AddImage(final Uri mUri, final String MediaPath) {
+    public void AddImage(final String MediaPath) {
         final View mView = mLayoutInflater.inflate(R.layout.app_common_media, null, false);
         ImageView mImgView = (ImageView) mView.findViewById(R.id.img_thumb);
         ImageView mImgDelete = (ImageView) mView.findViewById(R.id.img_delete);
@@ -249,6 +249,7 @@ public class PrescriptionUploadActivity extends CustomActivity {
 
         mView.setTag(MediaPath);
         mImgDelete.setTag(MediaPath);
+
         PrescriptionModel mPrescriptionModel = new PrescriptionModel();
         mPrescriptionModel.setmStrUrl(MediaPath);
         mPrescriptionModel.setSelected(false);
