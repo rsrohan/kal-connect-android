@@ -3,10 +3,12 @@ package com.kal.connect.modules.dashboard.tabs.HomeScreen;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 
+import com.google.android.gms.common.data.DataHolder;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -30,16 +32,21 @@ import org.json.JSONObject;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
-public class DoctorsListActivity extends CustomActivity {
+import io.github.luizgrp.sectionedrecyclerviewadapter.Section;
+
+public class DoctorsListActivity extends CustomActivity implements SearchView.OnQueryTextListener {
 
     RecyclerView doctorsListRecyclerVw;
     DoctorsListAdapter doctorsListAdapter;
     ArrayList<DoctorModel> doctorslist = new ArrayList<>();
+    private SearchView searchView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.doctors_list);
+        setContentView(R.layout.activity_doctors_list);
         buildUI();
     }
 
@@ -47,7 +54,12 @@ public class DoctorsListActivity extends CustomActivity {
 
         setHeaderView(R.id.headerView, DoctorsListActivity.this, DoctorsListActivity.this.getResources().getString(R.string.doctor_list));
         headerView.showBackOption();
-
+        searchView = (SearchView) findViewById(R.id.search_txt_vw);
+        //Turn iconified to false:
+        searchView.setIconified(false);
+        searchView.setOnQueryTextListener(this);
+        //To remove the keyboard, but make sure you keep the expanded version:
+        searchView.clearFocus();
         doctorsListRecyclerVw = (RecyclerView) findViewById(R.id.doctors_list);
 //        createDoctorsList();
         doctorsListAdapter = new DoctorsListAdapter(this,doctorslist);
@@ -175,7 +187,33 @@ public class DoctorsListActivity extends CustomActivity {
         if (Utilities.isNetworkAvailable(DoctorsListActivity.this)) {
             apiManager.execute(url);
         }else{
+            Utilities.showAlert(DoctorsListActivity.this,"No Internet!",false);
 
         }
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        filter(newText.toLowerCase());
+
+        return false;
+    }
+    void filter(String text){
+        ArrayList<DoctorModel> temp = new ArrayList();
+        for(DoctorModel d: doctorslist){
+            //or use .equal(text) with you want equal match
+            //use .toLowerCase() for better matches
+            if(d.getName().toLowerCase().contains(text)){
+                temp.add(d);
+            }
+        }
+        //update recyclerview
+        doctorsListAdapter.updateList(temp);
     }
 }
