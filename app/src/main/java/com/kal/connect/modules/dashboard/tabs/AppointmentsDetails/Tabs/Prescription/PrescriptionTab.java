@@ -43,7 +43,7 @@ public class PrescriptionTab extends Fragment implements View.OnClickListener, P
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.prescription, container, false);
+        view = inflater.inflate(R.layout.fragment_prescription, container, false);
         buildUI();
         return view;
 

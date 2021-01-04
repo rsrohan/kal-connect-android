@@ -58,13 +58,12 @@ public class TabsAdapter extends FragmentStatePagerAdapter {
 //        pages[8] = new PresentCompliantTab();
 //        pages[9] = new FamilyHistoryTab();
 
-        pages[0] = new PresentCompliantTab();
-//        pages[0] = new PatientExamination();
-        pages[1] = new PatientDetails();
-        pages[2] = new VitalsTab();
-        pages[3] = new RecordsTab();
-        pages[4] = new PatientExamination();
-        pages[5] = new PrescriptionTab();
+        pages[0] = new PrescriptionTab();
+        pages[1] = new PresentCompliantTab();
+        pages[2] = new PatientDetails();
+        pages[3] = new VitalsTab();
+        pages[4] = new RecordsTab();
+        pages[5] = new PatientExamination();
 
 
 

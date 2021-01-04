@@ -43,7 +43,10 @@ public class FlipProgressDialog extends DialogFragment {
     @Override
     public void onStart() {
         super.onStart();
-        setBackgroundDim();
+        try{
+            setBackgroundDim();
+
+        }catch (Exception e){}
     }
 
     @Override

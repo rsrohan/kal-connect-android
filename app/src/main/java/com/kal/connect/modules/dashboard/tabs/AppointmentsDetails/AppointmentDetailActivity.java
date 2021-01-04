@@ -124,7 +124,7 @@ public class AppointmentDetailActivity extends CustomActivity implements View.On
         btnVideoConference.setOnClickListener(this);
         btnConsultNow.setOnClickListener(this);
         btnStatus.setOnClickListener(this);
-        floatingMenu.setVisibility(View.VISIBLE);
+        floatingMenu.setVisibility(View.GONE);
         btnTechnician.setVisibility(View.VISIBLE);
 
     }
@@ -158,14 +158,13 @@ public class AppointmentDetailActivity extends CustomActivity implements View.On
         Resources res = getApplicationContext().getResources();
 
         // Build Tabs
-
+        tabContainer.addTab(tabContainer.newTab().setText(res.getString(R.string.appointment_prescription_title)));
         tabContainer.addTab(tabContainer.newTab().setText(res.getString(R.string.appointment_detail_present_compliant_title)));
         tabContainer.addTab(tabContainer.newTab().setText(res.getString(R.string.personal_history)));
         tabContainer.addTab(tabContainer.newTab().setText(res.getString(R.string.appointment_detail_vitals_title)));
 
         tabContainer.addTab(tabContainer.newTab().setText(res.getString(R.string.appointment_detail_records_title)));
         tabContainer.addTab(tabContainer.newTab().setText(res.getString(R.string.patient_examination)));
-        tabContainer.addTab(tabContainer.newTab().setText(res.getString(R.string.appointment_prescription_title)));
 
 
 
