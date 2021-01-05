@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.common.data.DataHolder;
 import com.google.android.material.circularreveal.cardview.CircularRevealCardView;
 import com.kal.connect.R;
 import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
@@ -33,6 +34,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -54,7 +56,7 @@ public class DoctorsListAdapter extends RecyclerView.Adapter<DoctorsListAdapter.
     @Override
     public DoctorsListAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View itemView = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.doctors_list_item, viewGroup, false);
+                .inflate(R.layout.item_doctors_list, viewGroup, false);
         itemView.setBackgroundColor(Color.WHITE);
         MyViewHolder myViewHolder = new MyViewHolder(itemView);
 
@@ -259,6 +261,10 @@ public class DoctorsListAdapter extends RecyclerView.Adapter<DoctorsListAdapter.
         } else {
 
         }
+    }
+    public void updateList(ArrayList<DoctorModel> list){
+        doctorslist = list;
+        notifyDataSetChanged();
     }
 
 }
