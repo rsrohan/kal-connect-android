@@ -22,6 +22,7 @@ import java.util.List;
 
 public class AppPreferences {
 
+    private static final String COUNTRY_CODE = "country_code";
     //Configurations
     static int PRIVATE_MODE = 0;
     static SharedPreferences pref;
@@ -473,5 +474,12 @@ public class AppPreferences {
 
     }
 
+    public void setCountryCode(String countryCode) {
+        setPreferences(COUNTRY_CODE, countryCode);
 
+    }
+
+    public String getCountryCode() {
+        return pref.getString(COUNTRY_CODE, "");
+    }
 }

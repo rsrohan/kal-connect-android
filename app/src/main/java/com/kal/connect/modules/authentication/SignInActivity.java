@@ -74,16 +74,11 @@ public class SignInActivity extends CustomActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
         buildUI();
-
-
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        // put your code here...
-//        Utilities.setAppLocale(this);
-
     }
 
     public void buildUI() {
@@ -94,11 +89,9 @@ public class SignInActivity extends CustomActivity implements View.OnClickListen
         password = (EditText) findViewById(R.id.password);
         getOTP = (Button) findViewById(R.id.get_otp_btn);
 
-//        password.setText("02241591");
-        // passoedTxtLayout = (TextInputLayout) findViewById(R.id.passoedTxtLayout);
+
         signIN = (Button) findViewById(R.id.sign_in_btn);
 
-//        mobile.setText("12345");
         signIN.setOnClickListener(this);
         getOTP.setOnClickListener(this);
 
@@ -211,11 +204,11 @@ public class SignInActivity extends CustomActivity implements View.OnClickListen
                                 }
                             }, 5000);
                         } else {
+                            AppPreferences.getInstance().setCountryCode(countryCode.getSelectedCountryCodeWithPlus());
                             AppPreferences.getInstance().setLoginInfo(userInfo.toString());
                             startActivity(new Intent(SignInActivity.this, DashboardMapActivity.class));
                             finish();
                         }
-//                        finish();
 
                     }
                 } catch (Exception e) {
@@ -230,7 +223,7 @@ public class SignInActivity extends CustomActivity implements View.OnClickListen
         if (Utilities.isNetworkAvailable(this)) {
             apiManager.execute(url);
         } else {
-
+            Utilities.showAlert(SignInActivity.this, "No Internet!", false);
         }
     }
 
@@ -245,11 +238,9 @@ public class SignInActivity extends CustomActivity implements View.OnClickListen
     public void onClick(View v) {
         if (v.getId() == R.id.sign_in_btn) {
             if (validate()) {
-//                authedicateType = loginTypeSwich.getSelectedTab()==0?0:2;
                 authedicateType = 2;
                 signIN();
             }
-//            startActivity(new Intent(SignIn.this,Dashboard.class));
         }
         if (v.getId() == R.id.get_otp_btn) {
 
@@ -257,25 +248,6 @@ public class SignInActivity extends CustomActivity implements View.OnClickListen
                 authedicateType = 1;
                 signIN();
             }
-
-//            signIN.setVisibility(View.VISIBLE);
-//            password.setVisibility(View.VISIBLE);
-//            getOTP.setClickable(false);
-//            getOTP.setAlpha(.4f);
-//            mobile.setEnabled(false);
-//            new Handler().postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    getOTP.setText(R.string.resend_otp);
-//                    getOTP.setClickable(true);
-//                    getOTP.setAlpha(1f);
-//                    mobile.setEnabled(true);
-//                }},5000);
-
-
         }
-
     }
-
-
 }

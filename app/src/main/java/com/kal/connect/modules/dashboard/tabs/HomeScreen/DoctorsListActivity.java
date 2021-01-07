@@ -84,54 +84,7 @@ public class DoctorsListActivity extends CustomActivity implements SearchView.On
         AppComponents.reloadCustomDataWithEmptyHint(doctorsListRecyclerVw, doctorsListAdapter, doctorslist, this.getResources().getString(R.string.no_doctors_found));
     }
 
-    public void createDoctorsList(JSONArray doctorsListAry){
-        for (int loop = 0; loop < doctorsListAry.length(); loop++) {
 
-            try {
-//                JSONObject singleObj = doctorsListAry.getJSONObject(loop);
-//
-//                DoctorModel d = new DoctorModel(singleObj.getString("SpecialistID"),singleObj.getString("SpecializationName"),
-//                        singleObj.getString("Qualification"),"",singleObj.getString("Name"),"",
-//                        (singleObj.has("DocCharge") && !singleObj.getString("DocCharge").isEmpty())?singleObj.getString("DocCharge"):"300",
-//                        singleObj.getString("TechnicianCharge"),singleObj.getBoolean("isLoggedIn"));
-//
-//                if(!singleObj.getString("CityID").isEmpty())
-//                {
-//                    String cityLocation = GlobValues.cityNameFromID(singleObj.getString("CityID"));
-//                    if(!cityLocation.isEmpty())
-//                        d.setLocation(cityLocation);
-//                }
-//
-//
-//
-//                String description = "";
-//
-//                if(singleObj.has("Breifnote") && !singleObj.getString("Breifnote").isEmpty()){
-//                    description = singleObj.getString("Breifnote");
-//                }
-////                if(singleObj.has("DocLocation") && !singleObj.getString("DocLocation").isEmpty()){
-////                    description = singleObj.getString("DocLocation");
-////                }
-//                d.setDescription(description);
-//                doctorslist.add(d);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-//        if(doctorsListAry.length()==0){
-//            EmptyRecyclerViewAdapter emptyAdapter = new EmptyRecyclerViewAdapter("No doctors found!");
-//            doctorsListRecyclerVw.setAdapter(emptyAdapter);
-//            emptyAdapter.notifyDataSetChanged();
-//            if (DoctorsList.this != null)
-//                AppComponents.reloadCustomDataWithEmptyHint(doctorsListRecyclerVw, doctorsListAdapter, doctorslist, this.getResources().getString(R.string.no_appointments_found));
-
-//        }
-//        doctorsListAdapter.notifyDataSetChanged();
-
-        if (DoctorsListActivity.this != null)
-            AppComponents.reloadCustomDataWithEmptyHint(doctorsListRecyclerVw, doctorsListAdapter, doctorslist, this.getResources().getString(R.string.no_doctors_found));
-
-    }
     void getDoctorsList(){
         HashMap<String, Object> inputParams = AppPreferences.getInstance().sendingInputParam();
 
@@ -153,6 +106,8 @@ public class DoctorsListActivity extends CustomActivity implements SearchView.On
         inputParams.put("Lattitude",hospital.getHospitalLat());
         inputParams.put("Longitude",hospital.getHospitalLong());
         inputParams.put("CurrentTime",Utilities.getCurrentTime());
+        //inputParams.put("InternationalVCCharge", AppPreferences.getInstance().getCountryCode());
+        inputParams.put("InternationalVCCharge", "+1");
 
 
 
