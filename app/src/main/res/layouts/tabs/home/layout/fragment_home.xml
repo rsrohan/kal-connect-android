@@ -90,6 +90,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="@string/proceed"
+                    android:id="@+id/tv_proceed"
                     android:textAllCaps="true"
                     android:paddingVertical="2dp"
                     android:paddingHorizontal="12dp"

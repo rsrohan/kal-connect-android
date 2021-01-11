@@ -121,6 +121,8 @@ public class IssueDescriptorMapActivity extends CustomMapActivity implements Vie
     }
 
     public void buildUI() {
+        TextView tv_proceed = findViewById(R.id.tv_proceed);
+        tv_proceed.setText(tv_proceed.getText()+" (3/3)");
         isMap = false;
         ButterKnife.bind(this);
         setHeaderView(R.id.headerView, IssueDescriptorMapActivity.this, IssueDescriptorMapActivity.this.getResources().getString(R.string.issue_descriptor_title));

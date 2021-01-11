@@ -123,6 +123,9 @@ public class DoctorModel {
     @SerializedName("DocCharge")
     @Expose
     private Object docCharge;
+    @SerializedName("InternationalVCCharge")
+    @Expose
+    private Object docIntCharge;
     @SerializedName("Name")
     @Expose
     private String name;
@@ -417,9 +420,17 @@ public class DoctorModel {
         }
         return docCharge.toString();
     }
-
+    public String getDocIntCharge() {
+        if(docIntCharge == null){
+            return "";
+        }
+        return docIntCharge.toString();
+    }
     public void setDocCharge(Object docCharge) {
         this.docCharge = docCharge;
+    }
+    public void setDocIntCharge(Object docIntCharge) {
+        this.docIntCharge = docIntCharge;
     }
 
     public String getName() {

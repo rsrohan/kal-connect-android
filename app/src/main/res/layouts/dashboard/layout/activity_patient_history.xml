@@ -38,6 +38,7 @@
             android:layout_centerInParent="true"
             android:gravity="center"
             android:text="@string/proceed"
+            android:id="@+id/tv_proceed"
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textStyle="bold" />

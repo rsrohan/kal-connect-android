@@ -107,7 +107,7 @@ public class DoctorsListActivity extends CustomActivity implements SearchView.On
         inputParams.put("Longitude",hospital.getHospitalLong());
         inputParams.put("CurrentTime",Utilities.getCurrentTime());
         //inputParams.put("InternationalVCCharge", AppPreferences.getInstance().getCountryCode());
-        inputParams.put("InternationalVCCharge", "+1");
+        //inputParams.put("InternationalVCCharge", "+1");
 
 
 

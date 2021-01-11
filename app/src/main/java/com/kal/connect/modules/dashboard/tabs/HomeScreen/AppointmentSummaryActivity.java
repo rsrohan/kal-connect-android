@@ -169,13 +169,30 @@ public class AppointmentSummaryActivity extends CustomActivity implements View.O
         docLocation.setText(selectedDoctor.getLocation());
 
         hospitalName.setText(selectedHospital.getHospitalName());
+        if(AppPreferences.getInstance().getCountryCode().toString().equals("+91")){
+            consultCharge.setText(selectedDoctor.getDocCharge().isEmpty() ? "" : "Rs " + selectedDoctor.getVCCharge().toString());
 
-        consultCharge.setText(selectedDoctor.getDocCharge().isEmpty() ? "" : "Rs " + selectedDoctor.getVCCharge().toString());
+        }else{
+            consultCharge.setText(selectedDoctor.getDocIntCharge().isEmpty() ? selectedDoctor.getDocCharge().isEmpty() ? "" : "Rs " + selectedDoctor.getVCCharge().toString() : "Rs " + selectedDoctor.getDocIntCharge().toString());
 
-
-        if (selectedDoctor.getVCCharge() != null) {
-            cosultChargeAmount = (int) (Double.parseDouble(selectedDoctor.getVCCharge().toString()) * 100);
         }
+
+
+        if(AppPreferences.getInstance().getCountryCode().toString().equals("+91")) {
+            if (!selectedDoctor.getVCCharge().equals("")) {
+                cosultChargeAmount = (int) (Double.parseDouble(selectedDoctor.getVCCharge().toString()) * 100);
+                Log.e(TAG, "setupDetails: "+cosultChargeAmount );
+            }
+        }else{
+            if (!selectedDoctor.getDocIntCharge().equals("")) {
+                cosultChargeAmount = (int) (Double.parseDouble(selectedDoctor.getDocIntCharge().toString()) * 100);
+            }else{
+                if (!selectedDoctor.getVCCharge().equals("")) {
+                    cosultChargeAmount = (int) (Double.parseDouble(selectedDoctor.getVCCharge().toString()) * 100);
+                }
+            }
+        }
+
     }
 
     @Override
@@ -455,6 +472,7 @@ public class AppointmentSummaryActivity extends CustomActivity implements View.O
              * Eg: "500" = INR 5.00
              */
             options.put("amount", cosultChargeAmount);
+            Log.e(TAG, "startPayment: "+cosultChargeAmount );
 
             co.open(activity, options);
         } catch (Exception e) {
