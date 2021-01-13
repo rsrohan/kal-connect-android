@@ -166,12 +166,12 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
                 HashMap<String, Object> item = items.get(position);
 
                 item.put("isEnabled", false);
-                if (item.get("amount") != null && !item.get("amount").toString().equalsIgnoreCase("")) {
+               // if (item.get("amount") != null && !item.get("amount").toString().equalsIgnoreCase("")) {
                     int newPosition = holder.getAdapterPosition();
                     items.remove(newPosition);
                     notifyItemRemoved(newPosition);
                     notifyItemRangeChanged(newPosition, items.size());
-                }
+               // }
             }
         });
 

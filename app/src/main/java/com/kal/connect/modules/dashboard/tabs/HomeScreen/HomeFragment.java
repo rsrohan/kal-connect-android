@@ -182,6 +182,8 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         issuesRecyclerView = (RecyclerView) v.findViewById(R.id.issuesRecyclerVW);
         selectedRecyclerView = (RecyclerView) v.findViewById(R.id.issuesSelectedRecyclerVW);
         proceedBtn = (LinearLayout) v.findViewById(R.id.proceed_btn);
+        TextView tv_proceed = v.findViewById(R.id.tv_proceed);
+        tv_proceed.setText(tv_proceed.getText()+" (1/3)");
         addComplaints = (EditText) v.findViewById(R.id.addComplaints);
 
 

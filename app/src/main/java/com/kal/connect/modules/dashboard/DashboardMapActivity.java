@@ -65,6 +65,7 @@ public class DashboardMapActivity extends CustomMapActivity implements View.OnCl
         buildUI();
     }
 
+
     // MARK : UIActions
     @Override
     public void onClick(View v) {

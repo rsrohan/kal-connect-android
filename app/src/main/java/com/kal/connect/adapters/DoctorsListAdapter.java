@@ -24,6 +24,7 @@ import com.kal.connect.models.DoctorModel;
 import com.kal.connect.appconstants.OpenTokConfigConstants;
 import com.kal.connect.modules.communicate.VideoConferenceActivity;
 import com.kal.connect.modules.dashboard.tabs.HomeScreen.AboutDoctorActivity;
+import com.kal.connect.utilities.AppPreferences;
 import com.kal.connect.utilities.Config;
 import com.kal.connect.utilities.GlobValues;
 import com.kal.connect.utilities.Utilities;
@@ -81,8 +82,21 @@ public class DoctorsListAdapter extends RecyclerView.Adapter<DoctorsListAdapter.
         else
             holder.onlineStatus.setImageResource(R.drawable.icon_offline);
 
-        if (!doctor.getDocCharge().isEmpty())
-            holder.doctorCharge.setText("Consultation Charge : " + doctor.getDocCharge());
+        if(AppPreferences.getInstance().getCountryCode().toString().equals("+91"))
+        {
+            if (!doctor.getVCCharge().isEmpty())
+                holder.doctorCharge.setText("Consultation Charge : Rs " + doctor.getVCCharge());
+        }else{
+            if (!doctor.getDocIntCharge().isEmpty()){
+                holder.doctorCharge.setText("Consultation Charge : Rs " + doctor.getDocIntCharge());
+            }else{
+                if (!doctor.getVCCharge().isEmpty())
+                    holder.doctorCharge.setText("Consultation Charge : Rs " + doctor.getVCCharge());
+            }
+
+        }
+
+
 
 //        if(doctor.getId().equals("17956")){
 //            holder.doctorsList.setText("Dr Dinesh Raj \nDr Amit Raj \nDr Keyur Jatakiya \nDr Nihar Sojitra");

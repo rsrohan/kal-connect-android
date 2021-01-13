@@ -1,6 +1,7 @@
 package com.kal.connect.modules.communicate;
 
 import android.app.ActivityManager;
+import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.media.Ringtone;
@@ -12,6 +13,7 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 //import androidx.annotation.Nullable;
 import android.util.Log;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 
@@ -98,6 +100,20 @@ public class IncomingCallActivity extends CustomActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1)
+        {
+            setShowWhenLocked(true);
+            setTurnScreenOn(true);
+            KeyguardManager keyguardManager = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
+            if(keyguardManager!=null)
+                keyguardManager.requestDismissKeyguard(this, null);
+        }
+        else
+        {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
+                    WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
+                    WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+        }
         setContentView(R.layout.activity_incoming_video_call);
         Config.mActivity = this;
         buildUI();

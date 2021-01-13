@@ -12,6 +12,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.PowerManager;
+import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -33,6 +34,8 @@ import java.util.Map;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
+    private static final String TAG = "MyFirebaseMsgService";
+
     @Override
     public void onMessageReceived(RemoteMessage message) {
 
@@ -42,7 +45,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         ActivityManager.RunningAppProcessInfo myProcess = new ActivityManager.RunningAppProcessInfo();
         ActivityManager.getMyMemoryState(myProcess);
-        Boolean isInBackground = myProcess.importance != ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND;
+        boolean isInBackground = myProcess.importance != ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND;
         if (messageData.containsKey("title") && message.getData().get("title").toString().contains("Video Call")) {
             if (messageData.containsKey("sessionID") && messageData.containsKey("tokenID")) {
                 OpenTokConfigConstants.SESSION_ID = message.getData().get("sessionID");
@@ -50,8 +53,16 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
                 if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
                     if (!isScreenOn) {
-                        sendNotification(this, "", message.getData().get("title").toString(), message.getData().get("SpecialistID").toString());
-                        return;
+                        //sendNotification(this, "", message.getData().get("title").toString(), message.getData().get("SpecialistID").toString());
+                        Intent fullScreenIntent = new Intent(getApplicationContext(), IncomingCallActivity.class);
+                        if (message.getData().containsKey("SpecialistID")) {
+                            fullScreenIntent.putExtra("SpecialistID", message.getData().get("SpecialistID").toString());
+                        }
+                        fullScreenIntent.putExtra("CALER_NAME", message.getData().get("body").toString());
+
+                        fullScreenIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        fullScreenIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(fullScreenIntent);
                     } else {
                         if (!isInBackground) {
                             Intent fullScreenIntent = new Intent(getApplicationContext(), IncomingCallActivity.class);
@@ -63,7 +74,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                             fullScreenIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             fullScreenIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(fullScreenIntent);
-                            return;
                         } else {
                             Intent headsup = new Intent(this, HeadsUpNotificationService.class);
                             headsup.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -74,30 +84,46 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                             headsup.putExtra("CALER_NAME", message.getData().get("body").toString());
                             headsup.putExtra("CALL_TYPE", 1);
                             startService(headsup);
-                            return;
                         }
                     }
                 } else {
                     if (!isScreenOn) {
+                        Log.e(TAG, "onMessageReceived: Screen is not ON");
+
                         if (message.getData().containsKey("SpecialistID")) {
-                            sendNotification(this, "", message.getData().get("title").toString(), message.getData().get("SpecialistID").toString());
+                            //sendNotification(this, "", message.getData().get("title").toString(), message.getData().get("SpecialistID").toString());
+                            Intent fullScreenIntent = new Intent(getApplicationContext(), IncomingCallActivity.class);
+                            fullScreenIntent.putExtra("SpecialistID", message.getData().get("SpecialistID").toString());
+                            fullScreenIntent.putExtra("CALER_NAME", message.getData().get("body").toString());
+                            fullScreenIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            fullScreenIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(fullScreenIntent);
                         } else {
-                            sendNotification(this, "", message.getData().get("title").toString(), "");
+                            //sendNotification(this, "", message.getData().get("title").toString(), "");
+                            Intent fullScreenIntent = new Intent(getApplicationContext(), IncomingCallActivity.class);
+                            fullScreenIntent.putExtra("SpecialistID", "");
+                            fullScreenIntent.putExtra("CALER_NAME", message.getData().get("body").toString());
+                            fullScreenIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            fullScreenIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(fullScreenIntent);
                         }
-                        return;
                     } else {
+                        Log.e(TAG, "onMessageReceived: Screen is ON");
+
                         if (!isInBackground) {
+
                             Intent fullScreenIntent = new Intent(getApplicationContext(), IncomingCallActivity.class);
                             if (message.getData().containsKey("SpecialistID")) {
                                 fullScreenIntent.putExtra("SpecialistID", message.getData().get("SpecialistID").toString());
                             }
                             fullScreenIntent.putExtra("CALER_NAME", message.getData().get("body").toString());
-
                             fullScreenIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             fullScreenIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(fullScreenIntent);
-                            return;
+                            Log.e(TAG, "onMessageReceived: Screen is ON and Not In Background" + fullScreenIntent);
+
                         } else {
+
                             Intent headsup = new Intent(this, HeadsUpNotificationService.class);
                             headsup.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             headsup.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -107,7 +133,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                             headsup.putExtra("CALER_NAME", message.getData().get("body").toString());
                             headsup.putExtra("CALL_TYPE", 1);
                             startService(headsup);
-                            return;
+                            Log.e(TAG, "onMessageReceived: Screen is ON and In Background");
+
                         }
                     }
 
@@ -213,7 +240,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "Remainder-ID")
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.mipmap.ayurvedha)
                 .setContentTitle("Reminder")
                 .setContentText(message)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -118,6 +119,8 @@ public class PatientHistoryActivity extends CustomActivity {
     }
 
     public void buildUI() {
+        TextView tv_proceed = findViewById(R.id.tv_proceed);
+        tv_proceed.setText(tv_proceed.getText()+" (2/3)");
         ButterKnife.bind(this);
         setHeaderView(R.id.headerView, PatientHistoryActivity.this, PatientHistoryActivity.this.getResources().getString(R.string.issue_descriptor_title));
         headerView.showBackOption();
