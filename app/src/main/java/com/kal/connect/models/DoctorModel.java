@@ -116,7 +116,7 @@ public class DoctorModel {
     private Object createrid;
     @SerializedName("VCCharge")
     @Expose
-    private Object vCCharge;
+    private String vCCharge;
     @SerializedName("PaymentAccNumber")
     @Expose
     private Object paymentAccNumber;
@@ -398,11 +398,11 @@ public class DoctorModel {
         this.createrid = createrid;
     }
 
-    public Object getVCCharge() {
+    public String getVCCharge() {
         return vCCharge;
     }
 
-    public void setVCCharge(Object vCCharge) {
+    public void setVCCharge(String vCCharge) {
         this.vCCharge = vCCharge;
     }
 
