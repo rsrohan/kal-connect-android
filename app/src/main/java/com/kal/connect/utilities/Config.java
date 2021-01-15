@@ -103,6 +103,7 @@ public class Config {
 
     public static final String CREATE_ORDER = PAYMENT_BASE_URL+ "orders";
 
+    public static final String IMAGE_URL_FOR_SPEED = "https://telehealth.keralaayurveda.biz/images/logo.png";
 
 
 

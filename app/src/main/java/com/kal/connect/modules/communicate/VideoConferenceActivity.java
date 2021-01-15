@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -31,6 +32,7 @@ import com.kal.connect.modules.dashboard.tabs.HomeScreen.AppointmentSummaryActiv
 import com.kal.connect.utilities.AppPreferences;
 import com.kal.connect.utilities.Config;
 import com.opentok.android.BaseVideoRenderer;
+import com.opentok.android.Connection;
 import com.opentok.android.OpentokError;
 import com.opentok.android.Publisher;
 import com.opentok.android.PublisherKit;
@@ -43,6 +45,9 @@ import com.kal.connect.utilities.GlobValues;
 import com.kal.connect.utilities.Utilities;
 import com.kal.connect.utilities.UtilitiesInterfaces;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -54,6 +59,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -61,17 +67,26 @@ import org.json.JSONObject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Headers;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
+
+import static com.kal.connect.appconstants.OpenTokConfigConstants.TYPE_MESSAGE;
+import static com.kal.connect.utilities.Config.IMAGE_URL_FOR_SPEED;
 
 public class VideoConferenceActivity extends AppCompatActivity
         implements EasyPermissions.PermissionCallbacks,
         Publisher.PublisherListener,
         SubscriberKit.SubscriberListener,
-        Session.SessionListener, SubscriberKit.VideoListener {
+        Session.SessionListener, SubscriberKit.VideoListener, Session.SignalListener, Session.ReconnectionListener {
 
-    private static final String TAG = "VideoConferenceAct";
+    private static final String TAG = "VideoConfrnceAct";
     private static final int RC_SETTINGS_SCREEN_PERM = 123;
     private static final int RC_VIDEO_APP_PERM = 124;
 
@@ -204,7 +219,89 @@ public class VideoConferenceActivity extends AppCompatActivity
 
         requestPermissions();
     }
+    long startTime;
+    long endTime;
+    long fileSize;
+    OkHttpClient client = new OkHttpClient();
 
+    // bandwidth in kbps
+    private int POOR_BANDWIDTH = 350;
+    private int AVERAGE_BANDWIDTH = 550;
+    private int GOOD_BANDWIDTH = 2000;
+
+    private void checkInternetSpeed() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        Request request = new Request.Builder()
+                .url(IMAGE_URL_FOR_SPEED)
+                //.url("Image")
+                .build();
+
+        startTime = System.currentTimeMillis();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+
+                Headers responseHeaders = response.headers();
+                for (int i = 0, size = responseHeaders.size(); i < size; i++) {
+                    Log.d(TAG, responseHeaders.name(i) + ": " + responseHeaders.value(i));
+                }
+
+                InputStream input = response.body().byteStream();
+
+                try {
+                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                    byte[] buffer = new byte[1024];
+
+                    while (input.read(buffer) != -1) {
+                        bos.write(buffer);
+                    }
+                    byte[] docBuffer = bos.toByteArray();
+                    fileSize = bos.size();
+
+                } finally {
+                    input.close();
+                }
+
+                endTime = System.currentTimeMillis();
+
+
+                // calculate how long it took by subtracting endtime from starttime
+
+                double timeTakenMills = Math.floor(endTime - startTime);  // time taken in milliseconds
+                double timeTakenInSecs = timeTakenMills / 1000;  // divide by 1000 to get time in seconds
+                final int kilobytePerSec = (int) Math.round(1024 / timeTakenInSecs);
+
+                if (kilobytePerSec <= POOR_BANDWIDTH) {
+                    // slow connection
+                    Utilities.showAlert(VideoConferenceActivity.this, "Slow Internet Detected", false);
+                }else{
+                    //Utilities.showAlert(VideoConferenceActivity.this, "Good Internet", false);
+
+                }
+
+                // get the download speed by dividing the file size by time taken to download
+                double speed = fileSize / timeTakenMills;
+
+                Log.d(TAG, "Time taken in secs: " + timeTakenInSecs);
+                Log.d(TAG, "kilobyte per sec: " + kilobytePerSec);
+                Log.d(TAG, "Download Speed: " + speed);
+                Log.d(TAG, "File size: " + fileSize);
+
+            }
+
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                e.printStackTrace();
+
+            }
+
+        });
+
+
+    }
     void dialHandler(boolean shouldShow) {
         if (shouldShow) {
             dialerView.setVisibility(View.VISIBLE);
@@ -338,6 +435,8 @@ public class VideoConferenceActivity extends AppCompatActivity
                 }
             }).build();
             mSession.setSessionListener(this);
+            mSession.setSignalListener(this);
+            mSession.setReconnectionListener(this);
             mSession.connect(OpenTokConfigConstants.TOKEN);
 
         } else {
@@ -362,14 +461,15 @@ public class VideoConferenceActivity extends AppCompatActivity
     public void onDisconnected(Session session) {
         Log.e(TAG, "onDisconnected: disconnected from session " + session.getSessionId());
 
-        moveToHome();
+        try{
+            checkInternetSpeed();
+        }catch (Exception e){}
+        //moveToHome();
     }
 
     @Override
     public void onError(Session session, OpentokError opentokError) {
         Log.e(TAG, "onError: Error (" + opentokError.getMessage() + ") in session " + session.getSessionId());
-
-        //Toast.makeText(this, "Session error. See the logcat please." + opentokError.getMessage(), Toast.LENGTH_LONG).show();
 
         moveToHome();
     }
@@ -417,8 +517,7 @@ public class VideoConferenceActivity extends AppCompatActivity
     public void onStreamDropped(Session session, Stream stream) {
         Log.e(TAG, "onStreamDropped: Stream " + stream.getStreamId() + " dropped from session " + session.getSessionId());
         Config.isDisconnect = false;
-
-
+        tv_patientPresent.setVisibility(View.VISIBLE);
 
         if (mSubscriberAdditional != null && mSubscriberAdditional.getStream() != null && mSubscriberAdditional.getStream().getStreamId().equalsIgnoreCase(stream.getStreamId())) {
             mSubscriberAdditional = null;
@@ -442,14 +541,14 @@ public class VideoConferenceActivity extends AppCompatActivity
         patientPresentTimer = new CountDownTimer(30000, 1000) {
 
             public void onTick(long millisUntilFinished) {
-                tv_patientPresent.setText("Connecting... " + String.format("%02d",
+                tv_patientPresent.setText("Connecting... \n" + String.format("%02d",
                         TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
                                 TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)))+" Sec");
             }
 
             public void onFinish() {
                 try{
-                    tv_patientPresent.setText("Connecting... ");
+                    tv_patientPresent.setText("Reconnecting... ");
                 }catch (Exception e){}
                 if(!isDoctorPresent){
                     try{
@@ -568,6 +667,13 @@ public class VideoConferenceActivity extends AppCompatActivity
 
     }
 
+
+    @Override
+    public void onSignalReceived(Session session, String s, String s1, Connection connection) {
+        Utilities.showAlert(VideoConferenceActivity.this, s1, false);
+
+    }
+
     @Override
     public void onConnected(SubscriberKit subscriberKit) {
 
@@ -682,4 +788,14 @@ public class VideoConferenceActivity extends AppCompatActivity
         }
     }
 
+    @Override
+    public void onReconnecting(Session session) {
+        mSession.sendSignal(TYPE_MESSAGE, "Reconnecting...");
+    }
+
+    @Override
+    public void onReconnected(Session session) {
+        mSession.sendSignal(TYPE_MESSAGE, "Reconnected!");
+
+    }
 }
