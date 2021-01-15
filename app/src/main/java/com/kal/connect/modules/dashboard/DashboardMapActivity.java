@@ -50,6 +50,7 @@ import androidx.fragment.app.Fragment;
 
 public class DashboardMapActivity extends CustomMapActivity implements View.OnClickListener {
 
+    private static final String TAG = "HomeActivity";
     // MARK : Properties
     BottomNavigationView bottomTab = null;
 
@@ -80,6 +81,9 @@ public class DashboardMapActivity extends CustomMapActivity implements View.OnCl
 
         buildBottomTabs();
         getStateCityList();
+        if (AppPreferences.getInstance().getCountryCode()==null || AppPreferences.getInstance().getCountryCode().equals("")){
+            getCountryCodeFromServer();
+        }
 
         try {
             if (GlobValues.getInstance().getAddAppointmentParams() != null)
@@ -293,7 +297,62 @@ public class DashboardMapActivity extends CustomMapActivity implements View.OnCl
             }
         });
     }
+    void getCountryCodeFromServer() {
+        HashMap<String, Object> inputParams = new HashMap<String, Object>();
+        try {
+            inputParams.put("PatientID", AppPreferences.getInstance().getUserInfo().getString("PatientID"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
+
+        SoapAPIManager apiManager = new SoapAPIManager(this, inputParams, new APICallback() {
+            @Override
+            public void responseCallback(Context context, String response) throws JSONException {
+                Log.e(TAG, response);
+
+                try {
+                    JSONArray responseAry = new JSONArray(response);
+                    if (responseAry.length() > 0) {
+                        JSONObject commonDataInfo = responseAry.getJSONObject(0);
+                        if (commonDataInfo.has("APIStatus") && Integer.parseInt(commonDataInfo.getString("APIStatus")) == -1) {
+                            if (commonDataInfo.has("APIStatus") && !commonDataInfo.getString("Message").isEmpty()) {
+                                Utilities.showAlert(DashboardMapActivity.this, commonDataInfo.getString("Message"), false);
+                            } else {
+                                Utilities.showAlert(DashboardMapActivity.this, "Please check again!", false);
+                            }
+
+                        }else{
+                            try{
+                                String cc = commonDataInfo.getString("countryCode");
+                                AppPreferences.getInstance().setCountryCode(cc);
+
+                            }catch (Exception e){
+                                Log.e(TAG, "responseCallback: not able to save country code" );
+                            }
+                        }
+//                        JSONArray cityAry = commonDataInfo.getJSONArray("City");
+//                        JSONArray stateAry = commonDataInfo.getJSONArray("State");
+//
+//                        GlobValues.setCityAry(cityAry);
+//                        GlobValues.setStateAry(stateAry);
+
+
+                    }
+                } catch (Exception e) {
+
+                }
+            }
+        }, true);
+        String[] url = {Config.WEB_Services1, Config.GET_PATIENT_DATA, "GET"};
+
+        if (Utilities.isNetworkAvailable(DashboardMapActivity.this)) {
+            apiManager.execute(url);
+        } else {
+            Utilities.showAlert(DashboardMapActivity.this, "No Internet!", false);
+
+        }
+    }
 
     void getStateCityList() {
         HashMap<String, Object> inputParams = new HashMap<String, Object>();
@@ -335,6 +394,7 @@ public class DashboardMapActivity extends CustomMapActivity implements View.OnCl
         if (Utilities.isNetworkAvailable(DashboardMapActivity.this)) {
             apiManager.execute(url);
         } else {
+            Utilities.showAlert(DashboardMapActivity.this, "No Internet!", false);
 
         }
     }
