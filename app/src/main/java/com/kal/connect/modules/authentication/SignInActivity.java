@@ -204,7 +204,9 @@ public class SignInActivity extends CustomActivity implements View.OnClickListen
                                 }
                             }, 5000);
                         } else {
+                            //AppPreferences.getInstance().setCountryCode("");
                             AppPreferences.getInstance().setCountryCode(countryCode.getSelectedCountryCodeWithPlus());
+
                             AppPreferences.getInstance().setLoginInfo(userInfo.toString());
                             startActivity(new Intent(SignInActivity.this, DashboardMapActivity.class));
                             finish();

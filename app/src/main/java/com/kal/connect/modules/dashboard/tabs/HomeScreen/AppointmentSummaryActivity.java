@@ -170,7 +170,7 @@ public class AppointmentSummaryActivity extends CustomActivity implements View.O
 
         hospitalName.setText(selectedHospital.getHospitalName());
         if(AppPreferences.getInstance().getCountryCode().toString().equals("+91")){
-            consultCharge.setText(selectedDoctor.getDocCharge().isEmpty() ? "" : "Rs " + selectedDoctor.getVCCharge().toString());
+            consultCharge.setText(selectedDoctor.getVCCharge().isEmpty() ? "" : "Rs " + selectedDoctor.getVCCharge().toString());
 
         }else{
             consultCharge.setText(selectedDoctor.getDocIntCharge().isEmpty() ? selectedDoctor.getDocCharge().isEmpty() ? "" : "Rs " + selectedDoctor.getVCCharge().toString() : "Rs " + selectedDoctor.getDocIntCharge().toString());

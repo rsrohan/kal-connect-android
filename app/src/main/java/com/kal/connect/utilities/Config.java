@@ -61,6 +61,7 @@ public class Config {
 
     // COmmonData
     public static final String GET_APP_COMMON_DATA =  "GetPatientAppCommonData";
+    public static final String GET_PATIENT_DATA =  "GetPatientProfileData";
 
     public static final String GET_ISSUES_DATA =  "GetComplaintsList";
 

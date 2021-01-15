@@ -4,13 +4,10 @@ import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 
 
-import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -18,8 +15,6 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.facebook.network.connectionclass.ConnectionClassManager;
-import com.facebook.network.connectionclass.ConnectionQuality;
 import com.google.android.gms.location.places.Place;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -43,26 +38,15 @@ import com.kal.connect.utilities.GlobValues;
 import com.kal.connect.utilities.Utilities;
 import com.kal.connect.utilities.UtilitiesInterfaces;
 
-import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Headers;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 public class DashboardMapActivity extends CustomMapActivity implements View.OnClickListener {
 
@@ -80,160 +64,6 @@ public class DashboardMapActivity extends CustomMapActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard);
         buildUI();
-       checkInternetSpeed();
-    }
-    long startTime;
-    long endTime;
-    long fileSize;
-    OkHttpClient client = new OkHttpClient();
-
-    // bandwidth in kbps
-    private int POOR_BANDWIDTH = 350;
-    private int AVERAGE_BANDWIDTH = 550;
-    private int GOOD_BANDWIDTH = 2000;
-    private void checkInternetSpeed() {
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo info = cm.getActiveNetworkInfo();
-        if(info.getType() == ConnectivityManager.TYPE_WIFI){
-            // do something
-            //Utilities.showAlert(DashboardMapActivity.this, "Using Wifi...", false);
-
-
-            Request request = new Request.Builder()
-                    .url("https://www.keralaayurveda.biz/uploads/settings/1575957795-Kal%20plus%2075%20Logo.png")
-                    .build();
-
-            startTime = System.currentTimeMillis();
-
-            client.newCall(request).enqueue(new Callback() {
-                @Override
-                public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                    if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
-
-                    Headers responseHeaders = response.headers();
-                    for (int i = 0, size = responseHeaders.size(); i < size; i++) {
-                        Log.d(TAG, responseHeaders.name(i) + ": " + responseHeaders.value(i));
-                    }
-
-                    InputStream input = response.body().byteStream();
-
-                    try {
-                        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                        byte[] buffer = new byte[1024];
-
-                        while (input.read(buffer) != -1) {
-                            bos.write(buffer);
-                        }
-                        byte[] docBuffer = bos.toByteArray();
-                        fileSize = bos.size();
-
-                    } finally {
-                        input.close();
-                    }
-
-                    endTime = System.currentTimeMillis();
-
-
-                    // calculate how long it took by subtracting endtime from starttime
-
-                    double timeTakenMills = Math.floor(endTime - startTime);  // time taken in milliseconds
-                    double timeTakenInSecs = timeTakenMills / 1000;  // divide by 1000 to get time in seconds
-                    final int kilobytePerSec = (int) Math.round(1024 / timeTakenInSecs);
-
-                    if(kilobytePerSec <= POOR_BANDWIDTH){
-                        // slow connection
-                        Utilities.showAlert(DashboardMapActivity.this, "Slow Internet", false);
-
-                    }
-
-                    // get the download speed by dividing the file size by time taken to download
-                    double speed = fileSize / timeTakenMills;
-
-                    Log.d(TAG, "Time taken in secs: " + timeTakenInSecs);
-                    Log.d(TAG, "kilobyte per sec: " + kilobytePerSec);
-                    Log.d(TAG, "Download Speed: " + speed);
-                    Log.d(TAG, "File size: " + fileSize);
-
-
-                }
-
-                @Override
-                public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                    e.printStackTrace();
-
-                }
-
-
-            });
-        } else if(info.getType() == ConnectivityManager.TYPE_MOBILE){
-
-
-            Request request = new Request.Builder()
-                    .url("https://www.keralaayurveda.biz/uploads/settings/1575957795-Kal%20plus%2075%20Logo.png")
-                    .build();
-
-            startTime = System.currentTimeMillis();
-
-            client.newCall(request).enqueue(new Callback() {
-                @Override
-                public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                    if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
-
-                    Headers responseHeaders = response.headers();
-                    for (int i = 0, size = responseHeaders.size(); i < size; i++) {
-                        Log.d(TAG, responseHeaders.name(i) + ": " + responseHeaders.value(i));
-                    }
-
-                    InputStream input = response.body().byteStream();
-
-                    try {
-                        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                        byte[] buffer = new byte[1024];
-
-                        while (input.read(buffer) != -1) {
-                            bos.write(buffer);
-                        }
-                        byte[] docBuffer = bos.toByteArray();
-                        fileSize = bos.size();
-
-                    } finally {
-                        input.close();
-                    }
-
-                    endTime = System.currentTimeMillis();
-
-
-                    // calculate how long it took by subtracting endtime from starttime
-
-                    double timeTakenMills = Math.floor(endTime - startTime);  // time taken in milliseconds
-                    double timeTakenInSecs = timeTakenMills / 1000;  // divide by 1000 to get time in seconds
-                    final int kilobytePerSec = (int) Math.round(1024 / timeTakenInSecs);
-
-                    if(kilobytePerSec <= POOR_BANDWIDTH){
-                        // slow connection
-                        Utilities.showAlert(DashboardMapActivity.this, "Slow Internet", false);
-                    }
-
-                    // get the download speed by dividing the file size by time taken to download
-                    double speed = fileSize / timeTakenMills;
-
-                    Log.d(TAG, "Time taken in secs: " + timeTakenInSecs);
-                    Log.d(TAG, "kilobyte per sec: " + kilobytePerSec);
-                    Log.d(TAG, "Download Speed: " + speed);
-                    Log.d(TAG, "File size: " + fileSize);
-
-                }
-
-                @Override
-                public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                    e.printStackTrace();
-
-                }
-
-            });
-
-        }
     }
 
 
@@ -251,6 +81,9 @@ public class DashboardMapActivity extends CustomMapActivity implements View.OnCl
 
         buildBottomTabs();
         getStateCityList();
+        if (AppPreferences.getInstance().getCountryCode()==null || AppPreferences.getInstance().getCountryCode().equals("")){
+            getCountryCodeFromServer();
+        }
 
         try {
             if (GlobValues.getInstance().getAddAppointmentParams() != null)
@@ -464,7 +297,62 @@ public class DashboardMapActivity extends CustomMapActivity implements View.OnCl
             }
         });
     }
+    void getCountryCodeFromServer() {
+        HashMap<String, Object> inputParams = new HashMap<String, Object>();
+        try {
+            inputParams.put("PatientID", AppPreferences.getInstance().getUserInfo().getString("PatientID"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
+
+        SoapAPIManager apiManager = new SoapAPIManager(this, inputParams, new APICallback() {
+            @Override
+            public void responseCallback(Context context, String response) throws JSONException {
+                Log.e(TAG, response);
+
+                try {
+                    JSONArray responseAry = new JSONArray(response);
+                    if (responseAry.length() > 0) {
+                        JSONObject commonDataInfo = responseAry.getJSONObject(0);
+                        if (commonDataInfo.has("APIStatus") && Integer.parseInt(commonDataInfo.getString("APIStatus")) == -1) {
+                            if (commonDataInfo.has("APIStatus") && !commonDataInfo.getString("Message").isEmpty()) {
+                                Utilities.showAlert(DashboardMapActivity.this, commonDataInfo.getString("Message"), false);
+                            } else {
+                                Utilities.showAlert(DashboardMapActivity.this, "Please check again!", false);
+                            }
+
+                        }else{
+                            try{
+                                String cc = commonDataInfo.getString("countryCode");
+                                AppPreferences.getInstance().setCountryCode(cc);
+
+                            }catch (Exception e){
+                                Log.e(TAG, "responseCallback: not able to save country code" );
+                            }
+                        }
+//                        JSONArray cityAry = commonDataInfo.getJSONArray("City");
+//                        JSONArray stateAry = commonDataInfo.getJSONArray("State");
+//
+//                        GlobValues.setCityAry(cityAry);
+//                        GlobValues.setStateAry(stateAry);
+
+
+                    }
+                } catch (Exception e) {
+
+                }
+            }
+        }, true);
+        String[] url = {Config.WEB_Services1, Config.GET_PATIENT_DATA, "GET"};
+
+        if (Utilities.isNetworkAvailable(DashboardMapActivity.this)) {
+            apiManager.execute(url);
+        } else {
+            Utilities.showAlert(DashboardMapActivity.this, "No Internet!", false);
+
+        }
+    }
 
     void getStateCityList() {
         HashMap<String, Object> inputParams = new HashMap<String, Object>();
@@ -506,6 +394,7 @@ public class DashboardMapActivity extends CustomMapActivity implements View.OnCl
         if (Utilities.isNetworkAvailable(DashboardMapActivity.this)) {
             apiManager.execute(url);
         } else {
+            Utilities.showAlert(DashboardMapActivity.this, "No Internet!", false);
 
         }
     }
