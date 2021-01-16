@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -18,6 +19,12 @@ import android.widget.TextView;
 import com.google.android.gms.location.places.Place;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.play.core.appupdate.AppUpdateInfo;
+import com.google.android.play.core.appupdate.AppUpdateManager;
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
+import com.google.android.play.core.install.model.AppUpdateType;
+import com.google.android.play.core.install.model.UpdateAvailability;
+import com.google.android.play.core.tasks.Task;
 import com.kal.connect.R;
 import com.kal.connect.modules.dashboard.tabs.HomeScreen.HomeFragment;
 import com.kal.connect.utilities.PlayStoreUpdateView;
@@ -51,6 +58,7 @@ import androidx.fragment.app.Fragment;
 public class DashboardMapActivity extends CustomMapActivity implements View.OnClickListener {
 
     private static final String TAG = "HomeActivity";
+    private static final int MY_REQUEST_CODE = 111;
     // MARK : Properties
     BottomNavigationView bottomTab = null;
 
@@ -64,8 +72,56 @@ public class DashboardMapActivity extends CustomMapActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard);
         buildUI();
+
+        try{
+            checkForUpdate();
+
+        }catch (Exception e){
+            Log.e(TAG, "onCreate: Update failed" );
+        }
+    }
+    private void checkForUpdate() {
+        // Creates instance of the manager.
+        AppUpdateManager appUpdateManager = AppUpdateManagerFactory.create(getApplicationContext());
+
+// Returns an intent object that you use to check for an update.
+        Task<AppUpdateInfo> appUpdateInfoTask = appUpdateManager.getAppUpdateInfo();
+
+// Checks that the platform will allow the specified type of update.
+        appUpdateInfoTask.addOnSuccessListener(appUpdateInfo -> {
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE) {
+                // Request the update.
+                try {
+                    appUpdateManager.startUpdateFlowForResult(
+                            // Pass the intent that is returned by 'getAppUpdateInfo()'.
+                            appUpdateInfo,
+                            // Or 'AppUpdateType.FLEXIBLE' for flexible updates.
+                            AppUpdateType.IMMEDIATE,
+                            // The current activity making the update request.
+                            this,
+                            // Include a request code to later monitor this update request.
+                            MY_REQUEST_CODE);
+                } catch (IntentSender.SendIntentException e) {
+                    Log.e(TAG, "checkForUpdate: "+e );
+                    e.printStackTrace();
+                }
+            }else{
+                Log.e(TAG, "checkForUpdate: No update available" );
+            }
+        });
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == MY_REQUEST_CODE) {
+            if (resultCode != RESULT_OK) {
+                Log.e(TAG, "onActivityResult: Update flow failed! Result code: " + resultCode);
+                // If the update is cancelled or fails,
+                // you can request to start the update again.
+            }
+        }
+    }
 
     // MARK : UIActions
     @Override
