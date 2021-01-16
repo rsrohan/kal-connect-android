@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:alpha="0.7"
+        android:scaleType="centerCrop"
+        android:src="@drawable/login_back" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/default_small_margin"
+        android:layout_marginStart="@dimen/default_small_margin"
+        android:layout_marginTop="@dimen/default_min_margin"
+        app:cardCornerRadius="@dimen/card_radius"
+        app:cardElevation="@dimen/card_elevation"
+        android:layout_above="@+id/sign_in_container"
+        android:layout_marginLeft="@dimen/default_small_margin"
+        android:layout_marginBottom="150dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:background="@color/colorAccent"
+            android:padding="@dimen/default_small_padding"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:text="@string/choose_language"/>
+            <ImageView
+                android:id="@+id/language"
+                android:layout_width="@dimen/button_medium_height"
+                android:layout_height="@dimen/button_medium_height"
+                android:layout_marginLeft="@dimen/default_small_padding"
+                android:gravity="center"
+                android:src="@drawable/locale_icon"
+                />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    
+
+
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentBottom="true"-->
+
+<!--        app:cardBackgroundColor="@color/colorPrimaryDarkTransparent"-->
+<!--        app:cardCornerRadius="@dimen/card_radius"-->
+<!--        app:cardElevation="@dimen/card_elevation">-->
+
+        <LinearLayout
+            android:id="@+id/sign_in_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimaryDark"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+
+                <com.rilixtech.widget.countrycodepicker.CountryCodePicker
+                    android:id="@+id/country_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/default_margin"
+                    android:layout_alignParentLeft="true"
+                    app:ccp_textColor="@color/white"
+                    android:padding="@dimen/default_very_small_margin"
+                    android:background="@drawable/edit_text_login_style"
+                    />
+
+
+                <EditText
+                    android:id="@+id/mobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="@dimen/default_margin"
+                    android:background="@drawable/edit_text_login_style"
+                    android:hint="@string/sign_in_mobile"
+                    android:inputType="phone"
+                    android:textColor="@color/white"
+                    android:paddingStart="@dimen/default_padding"
+
+                    android:textCursorDrawable="@color/white"
+                    android:layout_toRightOf="@+id/country_code"
+                    android:textColorHint="@color/white" />
+
+            </RelativeLayout>
+
+
+            <lib.kingja.switchbutton.SwitchMultiButton
+                android:id="@+id/signin_options"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/default_margin"
+                android:layout_marginStart="@dimen/default_margin"
+                android:padding="@dimen/default_min_padding"
+                android:textColor="@color/white"
+                app:selectedColor="@color/colorPrimary"
+                app:selectedTab="0"
+                app:strokeWidth="1dp"
+                android:visibility="gone"
+                android:background="@color/white"
+                app:switchTabs="@array/login_options"
+                app:textSize="14sp" />
+            <Button
+                android:id="@+id/get_otp_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/default_padding"
+                android:textColor="@color/white"
+                android:background="@android:color/transparent"
+                android:text="@string/get_otp"/>
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/default_margin"
+                android:background="@drawable/edit_text_login_style"
+                android:hint="@string/sign_in_otp"
+                android:inputType="numberPassword"
+                android:padding="@dimen/default_padding"
+                android:textColor="@color/white"
+                android:textCursorDrawable="@color/white"
+                android:textColorHint="@color/white" />
+
+
+            <Button
+                android:id="@+id/sign_in_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:padding="@dimen/default_padding"
+
+                android:text="@string/sign_in_login"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+<!--    </androidx.cardview.widget.CardView>-->
+
+</RelativeLayout>

@@ -153,7 +153,7 @@ Basic Project Setup:
     	- Copy the following files for implmenting slide menu
     		- slidemenu folder and .xml files
     		- "Home" will contain the redirections to various activities
-    		- Also add splash screen that will actually launch the login or home screen based on the login flag
+    		- Also add splash screen that will actually launch the login or homeFragment screen based on the login flag
 
     	- Add AppPreferences file to keeptrack the login session 
     	- Modify the Android manifest for launching the first Activity should be "Home" which is actually the fils located in side menu

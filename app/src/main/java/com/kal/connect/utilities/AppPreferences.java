@@ -9,7 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.kal.connect.customLibs.JSONHandler.JSONHandler;
 import com.kal.connect.customLibs.appCustomization.CustomApplication;
-import com.kal.connect.modules.authentication.SignIn;
+import com.kal.connect.modules.authentication.SignInActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,6 +22,7 @@ import java.util.List;
 
 public class AppPreferences {
 
+    private static final String COUNTRY_CODE = "country_code";
     //Configurations
     static int PRIVATE_MODE = 0;
     static SharedPreferences pref;
@@ -53,6 +54,7 @@ public class AppPreferences {
     public static final String CITY_DATA = "CITY_DATA";
     public static final String STATE_DATA = "STATE_DATA";
     public static final String APP_KILLED = "APP_KILLED";
+    public static final String VERSION_CODE = "VERSION_CODE";
 
     public static final String LOCATION_REQUESTED = "LOCATION_REQUESTED";
 
@@ -61,6 +63,7 @@ public class AppPreferences {
      * Singleton Instance to read
      */
     static AppPreferences instance = null;
+
     public static AppPreferences getInstance() {
 
         if (instance == null) {
@@ -78,7 +81,6 @@ public class AppPreferences {
     /**
      * Store user info in session once loggedIn
      *
-     *
      * @param userInfo
      */
     public void setLoginInfo(String userInfo) {
@@ -88,42 +90,41 @@ public class AppPreferences {
         editor.commit();
     }
 
-    public void setCityData(String deviceToken){
+    public void setCityData(String deviceToken) {
         setPreferences(CITY_DATA, deviceToken);
 
     }
 
-    public String getCityData(){
+    public String getCityData() {
         return pref.getString(CITY_DATA, "");
     }
 
-    public void setStateData(String deviceToken){
+    public void setStateData(String deviceToken) {
         setPreferences(STATE_DATA, deviceToken);
 
     }
 
-    public String getStateData(){
+    public String getStateData() {
         return pref.getString(STATE_DATA, "");
     }
 
 
-    public void setIsAppKilled(Boolean status){
+    public void setIsAppKilled(Boolean status) {
         editor.putBoolean(STATE_DATA, status);
         editor.commit();
     }
 
-    public Boolean getIsAppKilled(){
+    public Boolean getIsAppKilled() {
         return pref.getBoolean(STATE_DATA, false);
     }
 
 
-
-    public void setDeviceToken(String deviceToken){
+    public void setDeviceToken(String deviceToken) {
         setPreferences(DEVICE_TOKEN, deviceToken);
 
     }
 
-    public String getDeviceToken(){
+    public String getDeviceToken() {
         return pref.getString(DEVICE_TOKEN, "");
     }
 
@@ -145,14 +146,12 @@ public class AppPreferences {
     public JSONObject getUserInfo() {
 
         String profileInfo = pref.getString(USER_INFO, null);
-        if(profileInfo != null) {
+        if (profileInfo != null) {
 
-            try{
-                JSONObject userInfo =  new JSONObject(profileInfo);
+            try {
+                JSONObject userInfo = new JSONObject(profileInfo);
                 return userInfo;
-            }
-
-            catch (JSONException e){
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
@@ -160,14 +159,14 @@ public class AppPreferences {
 
     }
 
-    public HashMap<String, Object> sendingInputParamBuyMedicine(){
+    public HashMap<String, Object> sendingInputParamBuyMedicine() {
         HashMap<String, Object> inputParams = new HashMap<String, Object>();
         String profileInfo = pref.getString(USER_INFO, null);
-        if(profileInfo != null) {
+        if (profileInfo != null) {
 
-            try{
-                JSONObject userInfo =  new JSONObject(profileInfo);
-                inputParams.put("Patientid",userInfo.getString("PatientID"));
+            try {
+                JSONObject userInfo = new JSONObject(profileInfo);
+                inputParams.put("Patientid", userInfo.getString("PatientID"));
 //                inputParams.put("PatientName",userInfo.getString("FirstName")+" "+userInfo.getString("LastName"));
 //
 //                inputParams.put("ClientID",userInfo.getString("ClientID"));
@@ -177,9 +176,7 @@ public class AppPreferences {
 //                inputParams.put("PatPhone",userInfo.getString("ContactNo"));
 //
 //                inputParams.put("Offset", "-330");
-            }
-
-            catch (JSONException e){
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
@@ -188,31 +185,26 @@ public class AppPreferences {
     }
 
 
-
-    public HashMap<String, Object> sendingInputParam(){
+    public HashMap<String, Object> sendingInputParam() {
         HashMap<String, Object> inputParams = new HashMap<String, Object>();
         String profileInfo = pref.getString(USER_INFO, null);
-        if(profileInfo != null) {
+        if (profileInfo != null) {
 
-            try{
-                JSONObject userInfo =  new JSONObject(profileInfo);
-                inputParams.put("patientID",userInfo.getString("PatientID"));
-                inputParams.put("PatientName",userInfo.getString("FirstName")+" "+userInfo.getString("LastName"));
+            try {
+                JSONObject userInfo = new JSONObject(profileInfo);
+                inputParams.put("patientID", userInfo.getString("PatientID"));
+                inputParams.put("PatientName", userInfo.getString("FirstName") + " " + userInfo.getString("LastName"));
 
-                inputParams.put("ClientID",userInfo.getString("ClientID"));
-                inputParams.put("PatientID",userInfo.getString("PatientID"));
+                inputParams.put("ClientID", userInfo.getString("ClientID"));
+                inputParams.put("PatientID", userInfo.getString("PatientID"));
 
-                inputParams.put("PatEmail",userInfo.getString("Email"));
-                inputParams.put("PatPhone",userInfo.getString("ContactNo"));
+                inputParams.put("PatEmail", userInfo.getString("Email"));
+                inputParams.put("PatPhone", userInfo.getString("ContactNo"));
 
                 inputParams.put("Offset", "-330");
 
 
-
-
-            }
-
-            catch (JSONException e){
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
@@ -225,17 +217,15 @@ public class AppPreferences {
         String profileInfo = pref.getString(USER_INFO, null);
         String defaultURL = "";
 
-        if(profileInfo != null) {
+        if (profileInfo != null) {
 
             try {
-                JSONObject userInfo =  new JSONObject(profileInfo);
-                if(!userInfo.isNull(SITE_URL)){
-                    return (userInfo.getString(SITE_URL).length() > 0)? userInfo.getString(SITE_URL) : defaultURL;
+                JSONObject userInfo = new JSONObject(profileInfo);
+                if (!userInfo.isNull(SITE_URL)) {
+                    return (userInfo.getString(SITE_URL).length() > 0) ? userInfo.getString(SITE_URL) : defaultURL;
                 }
                 return defaultURL;
-            }
-
-            catch (JSONException e){
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
 
@@ -247,14 +237,13 @@ public class AppPreferences {
     public String getProfileName() {
 
         String profileInfo = pref.getString(USER_INFO, null);
-        if(profileInfo != null) {
-            try{
-                JSONObject userInfo =  new JSONObject(profileInfo);
+        if (profileInfo != null) {
+            try {
+                JSONObject userInfo = new JSONObject(profileInfo);
                 if (userInfo.getString("full_name") != null) {
                     return userInfo.getString("full_name");
                 }
-            }
-            catch (JSONException e){
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
 
@@ -297,7 +286,7 @@ public class AppPreferences {
 
         if (!this.isLoggedIn()) {
 
-            Intent authHome = new Intent(context, SignIn.class);
+            Intent authHome = new Intent(context, SignInActivity.class);
             context.startActivity(authHome);
             Utilities.pushAnimation((Activity) context);
             return false;
@@ -319,9 +308,10 @@ public class AppPreferences {
 
     /**
      * For Localaization
+     *
      * @return
      */
-    public String retrieveLanguage(){
+    public String retrieveLanguage() {
         return pref.getString(LANGUAGE, "en");
     }
 
@@ -359,6 +349,17 @@ public class AppPreferences {
 
     }
 
+
+    public void setVersionCode(int value) {
+        editor.putInt(VERSION_CODE, value);
+        editor.commit();
+    }
+
+    public int getVersionCode() {
+        return pref.getInt(VERSION_CODE, 0);
+    }
+
+
     /**
      * Logout and clear the session
      */
@@ -370,7 +371,7 @@ public class AppPreferences {
         editor.commit();
 
         //call this to clear the activities and open the dashboard
-        Intent homeScreen = new Intent(context, SignIn.class);
+        Intent homeScreen = new Intent(context, SignInActivity.class);
         homeScreen.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(homeScreen);
     }
@@ -385,15 +386,15 @@ public class AppPreferences {
 
     }
 
-    public ArrayList<HashMap<String, Object>> retrieveCategories(){
+    public ArrayList<HashMap<String, Object>> retrieveCategories() {
 
         ArrayList<HashMap<String, Object>> categoriesInLocal = new ArrayList<HashMap<String, Object>>();
-        try{
+        try {
 
             String categoriesJSON = getPreferences(SAVED_CATEGORIES);
-            JSONArray categoryItems = (categoriesJSON != null)? new JSONArray(categoriesJSON) : new JSONArray();
+            JSONArray categoryItems = (categoriesJSON != null) ? new JSONArray(categoriesJSON) : new JSONArray();
 
-            for(int index = 0; index < categoryItems.length(); index++){
+            for (int index = 0; index < categoryItems.length(); index++) {
 
                 JSONObject categoryItem = categoryItems.getJSONObject(index);
                 HashMap<String, Object> item = JSONHandler.jsonObjectToHashMap(categoryItem);
@@ -401,8 +402,7 @@ public class AppPreferences {
 
             }
 
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return new ArrayList<HashMap<String, Object>>();
         }
@@ -410,17 +410,16 @@ public class AppPreferences {
 
     }
 
-    public void addToSelectedCategory(String categoryID){
+    public void addToSelectedCategory(String categoryID) {
 
-        if(categoryID != null){
+        if (categoryID != null) {
 
             ArrayList<String> savedCategories = getSelectedCategories();
-            savedCategories = (savedCategories != null)? savedCategories : new ArrayList<String>();
+            savedCategories = (savedCategories != null) ? savedCategories : new ArrayList<String>();
 
-            if(savedCategories.contains(categoryID)){
+            if (savedCategories.contains(categoryID)) {
                 savedCategories.remove(categoryID);
-            }
-            else{
+            } else {
                 savedCategories.add(categoryID);
             }
 
@@ -432,7 +431,7 @@ public class AppPreferences {
 
     }
 
-    public void resetSelectedCategories(){
+    public void resetSelectedCategories() {
         setPreferences(SELECTED_CATEGORIES, "");
     }
 
@@ -440,9 +439,10 @@ public class AppPreferences {
 
         Gson gson = new Gson();
         String json = getPreferences(SELECTED_CATEGORIES);
-        Type type = new TypeToken<List<String>>() {}.getType();
+        Type type = new TypeToken<List<String>>() {
+        }.getType();
         ArrayList<String> categoryList = gson.fromJson(json, type);
-        categoryList = (categoryList != null)? categoryList : new ArrayList<String>();
+        categoryList = (categoryList != null) ? categoryList : new ArrayList<String>();
         return categoryList;
 
     }
@@ -453,27 +453,33 @@ public class AppPreferences {
         setPreferences(SELECTED_ADDRESS, locationName);
     }
 
-    public String getSelectedLatitude(){
+    public String getSelectedLatitude() {
         return pref.getString(SELECTED_LATTITUDE, "");
     }
 
-    public String getSelectedLongitude(){
-           return pref.getString(SELECTED_LONGITUDE, "");
+    public String getSelectedLongitude() {
+        return pref.getString(SELECTED_LONGITUDE, "");
     }
 
-    public String getSelectedAddress(){
+    public String getSelectedAddress() {
         return pref.getString(SELECTED_ADDRESS, "Choose your location");
     }
 
-    public boolean isLocationRequested(){
-        return  pref.getBoolean(LOCATION_REQUESTED, false);
+    public boolean isLocationRequested() {
+        return pref.getBoolean(LOCATION_REQUESTED, false);
     }
 
-    public void setLocationRequested(boolean locationRequested){
+    public void setLocationRequested(boolean locationRequested) {
         editor.putBoolean(LOCATION_REQUESTED, locationRequested);
 
     }
 
+    public void setCountryCode(String countryCode) {
+        setPreferences(COUNTRY_CODE, countryCode);
 
+    }
 
+    public String getCountryCode() {
+        return pref.getString(COUNTRY_CODE, "");
+    }
 }

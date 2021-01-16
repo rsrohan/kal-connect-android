@@ -10,8 +10,7 @@ import android.widget.TextView;
 
 
 import com.kal.connect.R;
-import com.kal.connect.models.ObjAvalTime;
-import com.kal.connect.modules.dashboard.tabs.Appointments.AppointmentsAdapter;
+import com.kal.connect.models.ObjAvalTimeModel;
 
 import java.util.ArrayList;
 
@@ -27,7 +26,7 @@ import butterknife.OnClick;
 public class AppointmentSchedulerAdapter extends RecyclerView.Adapter<AppointmentSchedulerAdapter.MyViewHolder> {
 
     Context context;
-    ArrayList<ObjAvalTime> appointmentSchedules;
+    ArrayList<ObjAvalTimeModel> appointmentSchedules;
 
     private static AppointmentsAdapter.ItemClickListener itemClickListener;
 
@@ -35,7 +34,7 @@ public class AppointmentSchedulerAdapter extends RecyclerView.Adapter<Appointmen
         AppointmentSchedulerAdapter.itemClickListener = itemClickListener;
     }
 
-    public AppointmentSchedulerAdapter(Context context, ArrayList<ObjAvalTime> appointmentSchedules) {
+    public AppointmentSchedulerAdapter(Context context, ArrayList<ObjAvalTimeModel> appointmentSchedules) {
         this.context = context;
         this.appointmentSchedules = appointmentSchedules;
     }
@@ -52,7 +51,7 @@ public class AppointmentSchedulerAdapter extends RecyclerView.Adapter<Appointmen
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int i) {
-        ObjAvalTime appointmentScheduleTimer = appointmentSchedules.get(i);
+        ObjAvalTimeModel appointmentScheduleTimer = appointmentSchedules.get(i);
         holder.timeDisplay.setText(appointmentScheduleTimer.getTime());
 
 
@@ -80,7 +79,7 @@ public class AppointmentSchedulerAdapter extends RecyclerView.Adapter<Appointmen
     }
 
 
-    public void setAppointmentSchedules(ArrayList<ObjAvalTime> appointmentSchedules) {
+    public void setAppointmentSchedules(ArrayList<ObjAvalTimeModel> appointmentSchedules) {
         this.appointmentSchedules = appointmentSchedules;
     }
 

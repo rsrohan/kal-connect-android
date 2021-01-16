@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:id="@+id/headerView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/menu_height"
+        android:layout_alignParentTop="true" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/issuesSelectedCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/headerView"
+        android:layout_marginStart="@dimen/default_small_margin"
+        android:layout_marginTop="@dimen/default_min_margin"
+        android:layout_marginEnd="@dimen/default_small_margin"
+        app:cardCornerRadius="@dimen/card_radius"
+        app:cardElevation="@dimen/card_elevation">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/default_min_padding">
+
+            <TextView
+                android:id="@+id/header_selected_prob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="@string/conserns_are"
+                android:textColor="@color/colorPrimaryDark" />
+
+            <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/issuesSelectedRecyclerVW"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_small_padding"
+                android:background="@color/white" />
+
+            <RelativeLayout
+                android:id="@+id/next_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="4dp"
+                android:background="@drawable/proceed_button_bg"
+                android:backgroundTint="@color/issue_selected"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginEnd="8dp"
+                    android:src="@drawable/ic_proceed_arrow"
+                    app:tint="@color/colorPrimary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:text="@string/proceed"
+                    android:id="@+id/tv_proceed"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/issuesSelectedCard">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="Additional Information (Optional)" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_small_margin"
+                android:layout_marginEnd="@dimen/default_small_margin"
+                app:cardCornerRadius="@dimen/card_radius"
+                app:cardElevation="@dimen/card_elevation">
+
+                <EditText
+                    android:id="@+id/description_edit_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:hint=" Describe about your issue"
+                    android:minHeight="150dp"
+                    android:padding="@dimen/default_min_padding"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/default_min_padding">
+
+                    <com.google.android.material.textfield.TextInputLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/vitals_weight"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/vitals_weight"
+                            android:inputType="numberDecimal"
+                            android:selectAllOnFocus="true" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/vitals_height"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/vitals_height"
+                            android:inputType="numberDecimal"
+                            android:selectAllOnFocus="true" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/bodyTemperature"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/body_temp"
+                            android:inputType="numberDecimal"
+                            android:selectAllOnFocus="true" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/spo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/spo"
+                            android:inputType="numberDecimal"
+                            android:selectAllOnFocus="true" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/default_margin"
+                        android:layout_marginBottom="4dp"
+                        android:text="@string/bp"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/systolicsys"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/systolicsys"
+                            android:inputType="numberDecimal"
+                            android:selectAllOnFocus="true" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/diastolic"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/diastolic"
+                            android:inputType="numberDecimal"
+                            android:selectAllOnFocus="true" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/pulse_rate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/pulse_rate"
+                            android:inputType="numberDecimal"
+                            android:selectAllOnFocus="true" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/default_margin"
+                        android:text="@string/covid"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:visibility="gone" />
+
+                    <RadioGroup
+
+                        android:id="@+id/covidRG"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:visibility="gone"
+                        android:weightSum="3">
+
+                        <RadioButton
+                            android:id="@+id/not_tested"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="7dp"
+                            android:layout_weight="1"
+                            android:text="@string/not_tested" />
+
+                        <RadioButton
+                            android:id="@+id/positive"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+
+                            android:text="@string/positive" />
+
+                        <RadioButton
+                            android:id="@+id/negative"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="7dp"
+                            android:layout_weight="1"
+                            android:text="@string/negative" />
+                    </RadioGroup>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_small_margin"
+                android:layout_marginTop="@dimen/default_min_margin"
+                android:layout_marginEnd="@dimen/default_small_margin"
+                app:cardCornerRadius="@dimen/card_radius"
+                app:cardElevation="@dimen/card_elevation">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:visibility="gone"
+                    android:weightSum="2">
+
+
+                    <LinearLayout
+                        android:id="@+id/consult_now_layout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/time" />
+
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="5dp"
+                            android:text="Consult Now"
+                            android:textColor="@color/colorPrimary" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/gray_border">
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/header_select_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10dp"
+                            android:src="@drawable/cal_icon" />
+
+                        <TextView
+                            android:id="@+id/appointmentTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:padding="10dp"
+                            android:text="Appointment Time"
+                            android:textColor="@color/colorPrimaryDark" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_small_margin"
+                android:layout_marginTop="@dimen/default_min_margin"
+                android:layout_marginEnd="@dimen/default_small_margin"
+                android:visibility="visible"
+                app:cardCornerRadius="@dimen/card_radius"
+                app:cardElevation="@dimen/card_elevation">
+
+                <LinearLayout
+                    android:id="@+id/tec_container_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/default_margin"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <LinearLayout
+                        android:id="@+id/tec_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/default_padding"
+                        android:visibility="visible"
+                        android:weightSum="100">
+
+                        <CheckBox
+                            android:id="@+id/technician_req_chk"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="95"
+                            android:text="@string/tech_required"
+                            android:visibility="visible" />
+
+                        <Button
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_centerInParent="true"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="3dp"
+                            android:layout_toRightOf="@+id/technician_req_chk"
+                            android:background="@drawable/info_icon"
+                            android:visibility="gone" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/addressTxtVw"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:padding="10dp"
+                        android:text=" "
+                        android:textSize="@dimen/button_font_size"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
+
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="25dp"
+                        android:text="@string/deliver_medicine"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/medicine_delivery_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:padding="10dp"
+                        android:text=" "
+                        android:textSize="@dimen/button_font_size"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_small_margin"
+                android:layout_marginTop="@dimen/default_min_margin"
+                android:layout_marginEnd="@dimen/default_small_margin"
+                android:layout_marginBottom="@dimen/default_min_margin"
+                app:cardCornerRadius="@dimen/card_radius"
+                app:cardElevation="@dimen/card_elevation">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <lib.kingja.switchbutton.SwitchMultiButton
+                        android:id="@+id/signin_options"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:padding="10dp"
+                        android:textColor="@color/white"
+                        app:selectedColor="@color/technical"
+                        app:selectedTab="0"
+                        app:strokeRadius="5dp"
+                        app:strokeWidth="1dp"
+                        app:switchTabs="@array/consult_options"
+                        app:textSize="14sp" />
+
+                    <com.google.android.material.circularreveal.cardview.CircularRevealCardView
+
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        app:cardBackgroundColor="@color/technical"
+                        app:cardCornerRadius="25dp">
+
+                        <ImageView
+                            android:id="@+id/imgCommunication"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_margin="12dp"
+                            android:src="@drawable/icon_video_call" />
+
+                    </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/bottomVW"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="@dimen/default_margin"
+        android:layout_marginBottom="@dimen/default_margin">
+
+        <!--        <Button-->
+        <!--            android:id="@+id/next_btn"-->
+        <!--            android:layout_width="40dp"-->
+        <!--            android:layout_height="40dp"-->
+        <!--            android:layout_alignParentBottom="true"-->
+        <!--            android:layout_alignParentRight="true"-->
+        <!--            android:background="@drawable/select_rounded" />-->
+
+
+        <!--        <Button-->
+        <!--            android:id="@+id/next_btn"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="40dp"-->
+        <!--            android:layout_alignParentBottom="true"-->
+        <!--            android:layout_alignParentEnd="true"-->
+        <!--            android:layout_marginBottom="75dp"-->
+        <!--            android:layout_marginEnd="15dp"-->
+        <!--            android:text="Proceed"-->
+        <!--            android:padding="@dimen/default_very_small_margin"-->
+        <!--            android:textColor="@color/white"-->
+        <!--            android:background="@drawable/btn_rounded"-->
+        <!--            android:drawablePadding="@dimen/default_very_small_margin"-->
+
+        <!--            android:drawableRight="@drawable/next_white_small"-->
+        <!--            android:textStyle="bold" />-->
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

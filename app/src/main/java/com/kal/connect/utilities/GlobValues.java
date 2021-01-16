@@ -1,8 +1,8 @@
 package com.kal.connect.utilities;
 
 import com.kal.connect.models.DoctorModel;
-import com.kal.connect.models.Issues;
-import com.kal.connect.modules.dashboard.tabs.Appointments.Tabs.Examination.DataModel.AyurvedaModule;
+import com.kal.connect.models.IssuesModel;
+import com.kal.connect.modules.dashboard.tabs.AppointmentsDetails.Tabs.Examination.DataModel.AyurvedaModule;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -113,7 +113,7 @@ public class GlobValues {
         GlobValues.instance = instance;
     }
 
-    private ArrayList<Issues> selectedIssuesList = new ArrayList<>();
+    private ArrayList<IssuesModel> selectedIssuesModelList = new ArrayList<>();
 
     private GlobValues() {
     }
@@ -126,12 +126,12 @@ public class GlobValues {
         GlobValues.selectedAppointment = selectedAppointment;
     }
 
-    public ArrayList<Issues> getSelectedIssuesList() {
-        return selectedIssuesList;
+    public ArrayList<IssuesModel> getSelectedIssuesModelList() {
+        return selectedIssuesModelList;
     }
 
-    public void setSelectedIssuesList(ArrayList<Issues> selectedIssuesList) {
-        this.selectedIssuesList = selectedIssuesList;
+    public void setSelectedIssuesModelList(ArrayList<IssuesModel> selectedIssuesModelList) {
+        this.selectedIssuesModelList = selectedIssuesModelList;
     }
 
     public static JSONObject getAppointmentCompleteDetails() {

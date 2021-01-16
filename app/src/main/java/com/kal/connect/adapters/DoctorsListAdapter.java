@@ -15,14 +15,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.common.data.DataHolder;
 import com.google.android.material.circularreveal.cardview.CircularRevealCardView;
 import com.kal.connect.R;
 import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
 import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
 import com.kal.connect.models.DoctorModel;
-import com.kal.connect.modules.communicate.OpenTokConfig;
-import com.kal.connect.modules.communicate.VideoConference;
-import com.kal.connect.modules.dashboard.tabs.Home.AboutDoctor;
+import com.kal.connect.appconstants.OpenTokConfigConstants;
+import com.kal.connect.modules.communicate.VideoConferenceActivity;
+import com.kal.connect.modules.dashboard.tabs.HomeScreen.AboutDoctorActivity;
+import com.kal.connect.utilities.AppPreferences;
 import com.kal.connect.utilities.Config;
 import com.kal.connect.utilities.GlobValues;
 import com.kal.connect.utilities.Utilities;
@@ -33,6 +35,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -54,7 +57,7 @@ public class DoctorsListAdapter extends RecyclerView.Adapter<DoctorsListAdapter.
     @Override
     public DoctorsListAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View itemView = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.doctors_list_item, viewGroup, false);
+                .inflate(R.layout.item_doctors_list, viewGroup, false);
         itemView.setBackgroundColor(Color.WHITE);
         MyViewHolder myViewHolder = new MyViewHolder(itemView);
 
@@ -79,8 +82,21 @@ public class DoctorsListAdapter extends RecyclerView.Adapter<DoctorsListAdapter.
         else
             holder.onlineStatus.setImageResource(R.drawable.icon_offline);
 
-        if (!doctor.getDocCharge().isEmpty())
-            holder.doctorCharge.setText("Consultation Charge : " + doctor.getDocCharge());
+        if(AppPreferences.getInstance().getCountryCode().toString().equals("+91"))
+        {
+            if (!doctor.getVCCharge().isEmpty())
+                holder.doctorCharge.setText("Consultation Charge : Rs " + doctor.getVCCharge());
+        }else{
+            if (!doctor.getDocIntCharge().isEmpty()){
+                holder.doctorCharge.setText("Consultation Charge : Rs " + doctor.getDocIntCharge());
+            }else{
+                if (!doctor.getVCCharge().isEmpty())
+                    holder.doctorCharge.setText("Consultation Charge : Rs " + doctor.getVCCharge());
+            }
+
+        }
+
+
 
 //        if(doctor.getId().equals("17956")){
 //            holder.doctorsList.setText("Dr Dinesh Raj \nDr Amit Raj \nDr Keyur Jatakiya \nDr Nihar Sojitra");
@@ -145,8 +161,8 @@ public class DoctorsListAdapter extends RecyclerView.Adapter<DoctorsListAdapter.
                 g.addAppointmentInputParams("SpecialistName", doctor.getName());
                 g.setDoctor(doctor);
 
-                Intent mIntent = new Intent(context,AboutDoctor.class);
-                mIntent.putExtra("SpecialistID", doctor.getSpecialistID());
+                Intent mIntent = new Intent(context, AboutDoctorActivity.class);
+                mIntent.putExtra("SpecialistID", doctor.getSpecialistID().toString());
                 context.startActivity(mIntent);
 
                 Utilities.pushAnimation((Activity) context);
@@ -160,7 +176,7 @@ public class DoctorsListAdapter extends RecyclerView.Adapter<DoctorsListAdapter.
                 g.addAppointmentInputParams("SpecialistName", doctor.getName());
                 g.setDoctor(doctor);
 
-                Intent mIntent = new Intent(context,AboutDoctor.class);
+                Intent mIntent = new Intent(context, AboutDoctorActivity.class);
                 mIntent.putExtra("SpecialistID", doctor.getSpecialistID().toString());
                 context.startActivity(mIntent);
 
@@ -227,15 +243,15 @@ public class DoctorsListAdapter extends RecyclerView.Adapter<DoctorsListAdapter.
 //                            startActivity(intent);
 //                            Utilities.pushAnimation(context);
 
-                            Intent intent = new Intent(context, VideoConference.class);
+                            Intent intent = new Intent(context, VideoConferenceActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
 //                            intent.putExtra("SESSION_ID",commonDataInfo.getString("VSSessionID"));
 //                            intent.putExtra("TOKEN",commonDataInfo.getString("VCToekn"));
 
-                            OpenTokConfig.SESSION_ID = commonDataInfo.getString("VSSessionID");
-                            OpenTokConfig.TOKEN = commonDataInfo.getString("VCToekn");
+                            OpenTokConfigConstants.SESSION_ID = commonDataInfo.getString("VSSessionID");
+                            OpenTokConfigConstants.TOKEN = commonDataInfo.getString("VCToekn");
                             intent.putExtra("CALER_NAME", doctorName);
 
                             intent.putExtra("CALL_TYPE", 2);
@@ -259,6 +275,10 @@ public class DoctorsListAdapter extends RecyclerView.Adapter<DoctorsListAdapter.
         } else {
 
         }
+    }
+    public void updateList(ArrayList<DoctorModel> list){
+        doctorslist = list;
+        notifyDataSetChanged();
     }
 
 }

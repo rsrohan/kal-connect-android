@@ -13,8 +13,8 @@ import android.widget.TextView;
 
 import com.kal.connect.R;
 import com.kal.connect.models.HospitalModel;
-import com.kal.connect.modules.dashboard.tabs.Home.DoctorsList;
-import com.kal.connect.modules.hospitals.AboutHospital;
+import com.kal.connect.modules.dashboard.tabs.HomeScreen.DoctorsListActivity;
+import com.kal.connect.modules.hospitals.AboutHospitalActivity;
 import com.kal.connect.utilities.Utilities;
 
 import java.util.ArrayList;
@@ -89,14 +89,14 @@ public class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapte
         void selectHospital(View view){
             HospitalModel hospital = (HospitalModel) view.getTag();
             Utilities.selectedHospitalModel = hospital;
-            context.startActivity(new Intent(context, DoctorsList.class));
+            context.startActivity(new Intent(context, DoctorsListActivity.class));
         }
 
         @OnClick(R.id.about_btn)
         void hospitalInfo(View view){
             HospitalModel hospital = (HospitalModel) view.getTag();
             Utilities.selectedHospitalModel = hospital;
-            context.startActivity(new Intent(context, AboutHospital.class));
+            context.startActivity(new Intent(context, AboutHospitalActivity.class));
         }
 
         @Override

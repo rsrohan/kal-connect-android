@@ -233,10 +233,9 @@
                             android:layout_height="match_parent"
                             android:layout_gravity="center_vertical"
                             android:layout_weight="1"
-                            android:background="@drawable/appointment_edit_text_style"
+                            android:background="@drawable/appointment_edit_text_style2"
                             android:hint="@string/systolicsys"
                             android:inputType="numberDecimal"
-
                             android:padding="@dimen/button_padding"
                             android:gravity="center"
                             android:textAppearance="@style/CustomFont.Regular"
@@ -246,26 +245,26 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent" />
+
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:textAlignment="center"
-                            android:background="@color/media"
-                            android:textColor="@color/white"
-                            android:gravity="center"
+                            android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:textSize="35dp"
-                            android:text="/"/>
+                            android:background="@color/media"
+                            android:gravity="center"
+                            android:text="/"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="35dp" />
                         <EditText
                             android:id="@+id/txtDia"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_gravity="center_vertical"
                             android:layout_weight="1"
-                            android:background="@drawable/appointment_edit_text_style"
+                            android:background="@drawable/appointment_edit_text_style3"
                             android:hint="@string/diastolic"
                             android:inputType="numberDecimal"
-
                             android:padding="@dimen/button_padding"
                             android:gravity="center"
                             android:textAppearance="@style/CustomFont.Regular"

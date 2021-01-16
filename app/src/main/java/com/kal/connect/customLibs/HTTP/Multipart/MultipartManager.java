@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import com.kal.connect.customdialogbox.FlipProgressDialog;
 import com.kal.connect.utilities.Utilities;
 
 import org.json.JSONException;
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 public class MultipartManager extends AsyncTask<String, String, String> {
 
     Context context;
-    ProgressDialog pDialog;
+    FlipProgressDialog pDialog;
     MultipartCallback multipartCallback;
     ArrayList<MultipartModel> paramsToSend;
     String response = "";

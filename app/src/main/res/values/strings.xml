@@ -18,14 +18,12 @@
     <string name="add_new_complaints">Add new complaints</string>
 
 
-
     <!-- Tabs -->
-<!--    <string name="tab_home_search">Search</string>-->
+    <!--    <string name="tab_home_search">Search</string>-->
     <string name="tab_home">Home</string>
     <string name="tab_appointments">Appointments</string>a
     <string name="tab_medicine">Buy Medicine</string>
     <string name="tab_account">Account</string>
-
 
 
     <!-- Add More profile info -->
@@ -57,10 +55,6 @@
 
     <!-- Issue descriptor -->
     <string name="issue_descriptor_title">Describe your issue</string>
-
-
-
-
 
     <!-- MARK : Appointments Details - Screen -->
     <string name="appointment_detail_title">Consult Details</string>
@@ -129,7 +123,6 @@
     <string name="payment_screen">Payment</string>
 
 
-
     <!-- Empty message -->
     <string name="no_appointments_found">No appointments found!</string>
     <string name="no_data_found">No Data found!</string>
@@ -139,7 +132,7 @@
 
     <string name="increment">+</string>
     <string name="decrement">-</string>
-    <string name="display">1</string>
+    <string name="display">0</string>
 
 
     <!-- ||||||||||||||||||||||||||     Project Setup    ||||||||||||||||||||||||| -->
@@ -170,9 +163,8 @@
     <string name="alert_logout">Are you sure that you want to logout?</string>
     <string name="alert_delete">Are you sure that you want to delete?</string>
 
-    <string name="alert_exit">Are you sure want to exit?</string>
+    <string name="alert_exit">Are you sure you want to exit ?</string>
     <string name="alert_map_options">Please update your current location ,it will be helpful to send our Medical Assistant if required.</string>
-
 
 
     <!-- Buttons -->
@@ -216,7 +208,7 @@
     <string name="negative">Negative</string>
     <string name="not_tested">NA</string>
 
-    <string name="tech_required">Select if you want our Medical Assistant or Medicine to visit home</string>
+    <string name="tech_required">Select if you want our Medical Assistant to visit or Medicines to be Delivered at Home.</string>
 
     <string name="powered_by">Telemedicine Solution by Medi360</string>
 
@@ -238,7 +230,7 @@
     <string name="consulted">Consulted</string>
     <string name="not_consulted">Not Consulted</string>
 
-<!--    New Version-->
+    <!--    New Version-->
     <string name="hospitals">Hospitals</string>
 
     <string name="no_hospitals_found" translatable="false">No Hospitals are found!</string>
@@ -275,8 +267,7 @@
     <string name="family_social_occupational">Family/Social/Occupational(Relevent only)</string>
 
 
-
-<!--    multilinetext: Diet, Bowel, Appetite, Bladder, Sleep, Addiction, Excercise, Menstrual-->
+    <!--    multilinetext: Diet, Bowel, Appetite, Bladder, Sleep, Addiction, Excercise, Menstrual-->
 
     <string name="diet">Diet</string>
     <string name="bowel">Bowel</string>
@@ -286,7 +277,7 @@
     <string name="addiction">Addiction</string>
     <string name="excercise">Excercise</string>
     <string name="menstrual">Menstrual</string>
-    
+
     <string name="visit_therapist">Select If you want our Therapist to visit home</string>
     <string name="deliver_medicine">Select if you want Medicine to be delivered at home</string>
     <string name="patient_examination">Patient Examination</string>
@@ -295,9 +286,11 @@
     <string name="doc_disable_msg">Doctor is viewing your reports ... Please wait</string>
 
 
-
-
-
+    <string name="update_title">Update Kerala Ayurveda Connect?</string>
+    <string name="update_message">"An update for Kerala Ayurveda Connect is available on Play Store."</string>
+    <string name="btn_update">Update</string>
+    <string name="btn_later">No Thanks</string>
+    <string name="no_medicines_found">No Medicines Found</string>
 
 
 </resources>

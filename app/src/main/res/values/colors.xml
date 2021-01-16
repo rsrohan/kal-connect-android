@@ -11,8 +11,9 @@
     <!-- Tab bar -->
     <color name="bgBottomNavigation">#00000000</color>
     <color name="badgeCountColor">#FF0000</color>
-
+    <color name="green">#388e3c</color>
     <color name="red">#EC0636</color>
+    <color name="gray_color">#ccc</color>
     <color name="appoinment_red">#ff3232</color>
 
     <color name="bio_red">#e74c3c</color>
@@ -20,6 +21,15 @@
 
     <color name="check_box_color">#a4c639</color>
     <color name="account_profile_color">#fc166e</color>
+    <color name="title_gray">#434343</color>
+    <color name="bg_msg_you">#5eb964</color>
+    <color name="bg_msg_from">#e5e7eb</color>
+    <color name="msg_border_color">#a1a1a1</color>
+    <color name="bg_btn_join">#1e6258</color>
+    <color name="bg_msg_input">#e8e8e8</color>
+    <color name="text_msg_input">#626262</color>
+    <color name="lblFromName">#777777</color>
+    <color name="lblbg">#F26C50</color>
 
 
 

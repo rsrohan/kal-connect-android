@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.os.Environment;
 
 import com.kal.connect.customLibs.appCustomization.CustomActivity;
+import com.kal.connect.customdialogbox.FlipProgressDialog;
 import com.kal.connect.utilities.Utilities;
 import com.kal.connect.utilities.UtilitiesInterfaces;
 import com.zhihu.matisse.Matisse;
@@ -217,7 +218,7 @@ public class MediaManager extends CustomActivity {
 
             try {
 
-                ProgressDialog pDialog = Utilities.showLoading(MediaManager.this);
+                FlipProgressDialog pDialog = Utilities.showLoading(MediaManager.this);
                 // Get Bitmap from the file
                 File compressedImageFile = new Compressor(MediaManager.this).setQuality(50).compressToFile(imageFile);
                 Bitmap compressedBitmap = BitmapFactory.decodeFile(compressedImageFile.getPath());

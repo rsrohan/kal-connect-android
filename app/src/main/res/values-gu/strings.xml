@@ -160,5 +160,6 @@
 <!--    New Version-->
     <string name="hospitals">Hospitals</string>
     <string name="schedule_appointment">Schedule Appointment</string>
+    <string name="no_medicines_found">No Medicines Found</string>
 
 </resources>

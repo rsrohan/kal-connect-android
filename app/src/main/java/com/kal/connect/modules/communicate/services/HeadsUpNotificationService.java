@@ -13,19 +13,23 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
 import com.kal.connect.R;
+import com.kal.connect.appconstants.CallFeatureConstant;
 import com.kal.connect.utilities.Config;
 
 import java.util.Objects;
 
 public class HeadsUpNotificationService extends Service {
+    private static final String TAG = "HeadsUpNotification";
     private String CHANNEL_ID = "VoipChannel";
     private String CHANNEL_NAME = "Voip Channel";
+    public static AudioPlayer mAudioPlayer;
 
     @Nullable
     @Override
@@ -33,24 +37,24 @@ public class HeadsUpNotificationService extends Service {
         return null;
     }
 
+
+
+
     @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 //        Bundle data = null;
 
 
-        if (intent != null && intent.getExtras() != null) {
-//            data = intent.getBundleExtra("");
-        }
         try {
             Intent receiveCallAction = new Intent(getApplicationContext(), HeadsUpNotificationActionReceiver.class);
 
-            receiveCallAction.putExtra(ConstantApp.CALL_RESPONSE_ACTION_KEY, ConstantApp.CALL_RECEIVE_ACTION);
+            receiveCallAction.putExtra(CallFeatureConstant.CALL_RESPONSE_ACTION_KEY, CallFeatureConstant.CALL_RECEIVE_ACTION);
 //            receiveCallAction.putExtra(ConstantApp.FCM_DATA_KEY, data);
             receiveCallAction.setAction("RECEIVE_CALL");
 
             Intent cancelCallAction = new Intent(getApplicationContext(), HeadsUpNotificationActionReceiver.class);
-            cancelCallAction.putExtra(ConstantApp.CALL_RESPONSE_ACTION_KEY, ConstantApp.CALL_CANCEL_ACTION);
+            cancelCallAction.putExtra(CallFeatureConstant.CALL_RESPONSE_ACTION_KEY, CallFeatureConstant.CALL_CANCEL_ACTION);
 //            cancelCallAction.putExtra(ConstantApp.FCM_DATA_KEY, data);
             cancelCallAction.setAction("CANCEL_CALL");
 
@@ -59,47 +63,36 @@ public class HeadsUpNotificationService extends Service {
 
             createChannel();
             NotificationCompat.Builder notificationBuilder = null;
-//            if (data != null) {
-//                Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-//                notificationBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
-//                        .setContentText(intent.getStringExtra("remoteUserName"))
-//                        .setContentTitle("Incoming Video Call")
-//                        .setSmallIcon(R.drawable.call_icon)
-//                        .setPriority(NotificationCompat.PRIORITY_HIGH)
-//                        .setCategory(NotificationCompat.CATEGORY_CALL)
-//                        .addAction(R.drawable.call_icon, "Receive Call", receiveCallPendingIntent)
-//                        .addAction(R.drawable.call_disconnect, "Cancel call", cancelCallPendingIntent)
-//                        .setAutoCancel(true)
-//                        .setSound(defaultSoundUri)
-//                        .setFullScreenIntent(receiveCallPendingIntent, true);
-//            }
 
-            playRingTone();
+            mAudioPlayer = AudioPlayer.getInstance();
+            mAudioPlayer.playRingtone(getApplicationContext());
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    try{
+                        mAudioPlayer.stopRingtone();
+                    }catch (Exception e){
+                        Log.e(TAG, "run: "+e );
+                    }
+                }
+            }, 60000);
 
             Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
             notificationBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
                     .setContentText(intent.getStringExtra("remoteUserName"))
                     .setContentTitle("Incoming Video Call")
                     .setSmallIcon(R.drawable.call_icon)
-                    .setPriority(NotificationCompat.PRIORITY_MAX)
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
                     .setCategory(NotificationCompat.CATEGORY_CALL)
                     .addAction(R.drawable.call_icon, "Receive Call", receiveCallPendingIntent)
-                    .addAction(R.drawable.call_disconnect, "Cancel call", cancelCallPendingIntent)
+                    .addAction(R.drawable.call_disconnect, "Cancel Call", cancelCallPendingIntent)
                     .setAutoCancel(true)
                     .setSound(defaultSoundUri)
-                    .setTimeoutAfter(20000)
-                    .setFullScreenIntent(receiveCallPendingIntent, true).setAutoCancel(true);
+                    .setTimeoutAfter(60000)
+                    .setFullScreenIntent(receiveCallPendingIntent, true)
+                    .setAutoCancel(true);
+            notificationBuilder.setOngoing(true);
 
-//            NotificationCompat.Builder notification = new NotificationCompat.Builder(context)
-//                    .setSmallIcon(Util.getNotificationIcon(context))
-//                    .setContentTitle(new SessionManager().getDomainPreference(context))
-//                    .setAutoCancel(true)
-//                    .setOngoing(false)
-//                    .setPriority(NotificationCompat.PRIORITY_MAX)
-//                    .setShowWhen(false)
-//                    .setContentText(summaryText)
-//                    .setTimeoutAfter(3000) // add time in milliseconds
-//                    .setChannelId(CHANNEL_ID);
 
             Notification incomingCallNotification = null;
             if (notificationBuilder != null) {
@@ -118,44 +111,19 @@ public class HeadsUpNotificationService extends Service {
     }
 
     /*
-    Create noticiation channel if OS version is greater than or eqaul to Oreo
+    Create notification channel if OS version is greater than or equal to Oreo
     */
     public void createChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
             channel.setDescription("Call Notifications");
-//            Uri defaultRintoneUri = RingtoneManager.getActualDefaultRingtoneUri(this.getApplicationContext(), RingtoneManager.TYPE_RINGTONE);
-//
-//            AudioAttributes audioAttributes = new AudioAttributes.Builder()
-//                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-//                    .setUsage(AudioAttributes.USAGE_ALARM)
-//                    .build();
-
-//            channel.setSound(defaultRintoneUri,audioAttributes);
+            channel.enableVibration(true);
+            channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
 
             Objects.requireNonNull(getApplicationContext().getSystemService(NotificationManager.class)).createNotificationChannel(channel);
         }
     }
 
-    void playRingTone() {
-        try {
-            Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
-            Config.ringtone = RingtoneManager.getRingtone(this, uri);
-            Config.ringtone.play();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (Config.ringtone != null) {
-                    Config.ringtone.stop();
-                }
-            }
-        }, 10000);
-
-    }
 }
 
 

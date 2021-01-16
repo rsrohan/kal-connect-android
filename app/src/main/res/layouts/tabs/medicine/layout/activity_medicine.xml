@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/headerView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/nav_bar_height"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:gravity="center"
+            android:weightSum="2"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@+id/img_upload_descr"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="gone"
+                android:src="@drawable/ic_medical_prescription"
+                app:tint="@color/black" />
+
+            <TextView
+                android:id="@+id/txt_upload"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/proceed_button_bg"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:drawableStart="@drawable/ic_prescription_colorful"
+                android:drawablePadding="4dp"
+                android:layout_marginEnd="4dp"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:visibility="visible"
+                android:textSize="14sp"
+                android:text="Upload Prescription"
+                android:textAppearance="@style/CustomFont.Bold"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+
+                <ImageView
+                    android:id="@+id/img_product"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:visibility="gone"
+                    android:src="@drawable/ic_product_buy"
+                    app:tint="@color/black" />
+
+                <TextView
+                    android:id="@+id/txt_add_product"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/proceed_button_bg"
+                    android:backgroundTint="@color/colorPrimaryDark"
+                    android:drawableStart="@drawable/ic_shopping_cart"
+                    android:drawablePadding="4dp"
+                    android:gravity="center"
+                    android:layout_marginStart="4dp"
+                    android:textSize="14sp"
+                    android:layout_weight="1"
+                    android:text="Add More Products"
+                    android:textAppearance="@style/CustomFont.Bold"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="4dp"
+            android:text="Prescribed Medicines by Doctor" />
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/appointmentsView"
+                android:layout_width="match_parent"
+                tools:listitem="@layout/medicine_list_item"
+                android:layout_height="match_parent" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="3">
+            <RelativeLayout
+                android:id="@+id/next_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="4dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/img_order"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="8dp"
+                    android:layout_centerVertical="true"
+                    app:tint="@color/colorPrimary" />
+
+                <TextView
+                    android:id="@+id/txt_place_order"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:text="Place Order"
+                    android:textAllCaps="true"
+                    android:background="@drawable/proceed_button_bg"
+                    android:backgroundTint="@color/issue_selected"
+                    android:textAppearance="@style/CustomFont.Bold"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+
+            </RelativeLayout>
+
+
+
+
+            <Button
+                android:id="@+id/add_to_card"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/update_button_size"
+                android:layout_marginStart="@dimen/default_min_margin"
+                android:layout_marginTop="@dimen/default_small_margin"
+                android:layout_marginEnd="@dimen/default_min_margin"
+                android:layout_marginBottom="@dimen/default_small_margin"
+                android:layout_weight="1"
+                android:background="@color/mdtp_accent_color_dark"
+                android:text="Place Order"
+                android:textColor="@color/white"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <Button
+                android:id="@+id/goto_product"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/update_button_size"
+                android:layout_marginStart="@dimen/default_min_margin"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="@dimen/default_small_margin"
+                android:layout_marginEnd="@dimen/default_min_margin"
+                android:layout_marginBottom="@dimen/default_small_margin"
+                android:layout_weight="1"
+                android:background="@drawable/button_style"
+                android:text="Go To Product Catalog"
+                android:textColor="@color/white"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
+
+
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+    <!--<androidx.constraintlayout.widget.ConstraintLayout  xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--    xmlns:tools="http://schemas.android.com/tools"-->
+    <!--    android:layout_width="match_parent"-->
+    <!--    android:layout_height="match_parent">-->
+
+    <!--    <TextView-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="This is under development"-->
+    <!--        android:textAppearance="@style/CustomFont.Bold"-->
+    <!--        android:textColor="@color/black"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--        app:layout_constraintRight_toRightOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+    <!--</androidx.constraintlayout.widget.ConstraintLayout >-->

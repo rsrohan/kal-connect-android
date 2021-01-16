@@ -23,6 +23,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 
+import com.kal.connect.adapters.EmptyRecyclerViewAdapter;
 import com.kal.connect.models.DoctorModel;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;

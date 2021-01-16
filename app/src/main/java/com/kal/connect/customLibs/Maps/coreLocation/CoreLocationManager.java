@@ -26,6 +26,7 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStates;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.kal.connect.customdialogbox.FlipProgressDialog;
 import com.kal.connect.utilities.Utilities;
 
 import java.io.IOException;
@@ -64,7 +65,7 @@ public class CoreLocationManager implements GoogleApiClient.ConnectionCallbacks,
     //to handle permissions
     private static final int REQUEST_CHECK_SETTINGS = 0x1;
     public static final int ACCESS_FINE_LOCATION_INTENT_ID = 3;
-    public ProgressDialog loading = null;
+    public FlipProgressDialog loading = null;
     public CoreLocationManager(Context context, LocationCallback callback) {
         loading = Utilities.showLoading(context);
         this.mainContext = context;

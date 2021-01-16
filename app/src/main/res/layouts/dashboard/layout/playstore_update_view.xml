@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="275dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center|top"
+    android:layout_margin="@dimen/playstore_margin"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_root"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+           >
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/update_title"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/lblMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/playstore_content_margin"
+                android:text="@string/update_message"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/playstore_margin"
+                android:gravity="end"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/playstore_cancel"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:background="@color/transparent"
+                    android:text=""
+                    android:textColor="@color/green"
+                    android:visibility="invisible" />
+
+                <Button
+                    android:id="@+id/playstore_update"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="@dimen/medium_margin"
+                    android:background="@color/green"
+                    android:text="OK"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txt_line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/playstore_margin"
+                android:background="@color/gray_color"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/img_google"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="@dimen/playstore_content_margin"
+                android:adjustViewBounds="true"
+                android:src="@drawable/play_store"
+                android:visibility="gone" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.kal.connect.R;
-import com.kal.connect.models.Issues;
-import com.kal.connect.modules.dashboard.tabs.Home.Home;
+import com.kal.connect.models.IssuesModel;
+import com.kal.connect.modules.dashboard.tabs.HomeScreen.HomeFragment;
 import com.robertlevonyan.views.chip.Chip;
 import com.robertlevonyan.views.chip.OnCloseClickListener;
 
@@ -18,14 +18,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 public class SelectedIssueAdapter extends RecyclerView.Adapter<SelectedIssueAdapter.IssuesViewHolder>{
-    private List<Issues> horizontalIssuesist;
+    private List<IssuesModel> horizontalIssuesist;
     Context context;
-    Home home;
+    HomeFragment homeFragment;
 
-    public SelectedIssueAdapter(List<Issues> horizontalIssuesist, Context context, Home home){
+    public SelectedIssueAdapter(List<IssuesModel> horizontalIssuesist, Context context, HomeFragment homeFragment){
         this.horizontalIssuesist= horizontalIssuesist;
         this.context = context;
-        this.home = home;
+        this.homeFragment = homeFragment;
     }
 
     @Override
@@ -41,12 +41,12 @@ public class SelectedIssueAdapter extends RecyclerView.Adapter<SelectedIssueAdap
 //        holder.imageView.setImageResource(horizontalIssuesist.get(position)());
         holder.selectedIssueChip.setChipText(horizontalIssuesist.get(position).getTitle());
 
-        if(home ==null)
+        if(homeFragment ==null)
             return;
         holder.selectedIssueChip.setOnCloseClickListener(new OnCloseClickListener() {
             @Override
             public void onCloseClick(View v) {
-                home.removeSelectedIssue(position);
+                homeFragment.removeSelectedIssue(position);
             }
         });
     }
@@ -61,7 +61,7 @@ public class SelectedIssueAdapter extends RecyclerView.Adapter<SelectedIssueAdap
         public IssuesViewHolder(View view) {
             super(view);
             selectedIssueChip = (Chip) view.findViewById(R.id.selected_issue_chip);
-            if(home!=null){
+            if(homeFragment !=null){
                 selectedIssueChip.setClosable(true);
             }
 
