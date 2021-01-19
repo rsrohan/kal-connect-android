@@ -77,6 +77,7 @@ import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
 
+import static com.kal.connect.appconstants.OpenTokConfigConstants.TYPE_ERROR_FOR_DOCTOR;
 import static com.kal.connect.appconstants.OpenTokConfigConstants.TYPE_MESSAGE;
 import static com.kal.connect.utilities.Config.IMAGE_URL_FOR_SPEED;
 
@@ -277,6 +278,9 @@ public class VideoConferenceActivity extends AppCompatActivity
                 if (kilobytePerSec <= POOR_BANDWIDTH) {
                     // slow connection
                     Utilities.showAlert(VideoConferenceActivity.this, "Slow Internet Detected", false);
+                    try{
+                        mSession.sendSignal(TYPE_ERROR_FOR_DOCTOR, "Patient having slow internet!");
+                    }catch (Exception e){}
                 }else{
                     //Utilities.showAlert(VideoConferenceActivity.this, "Good Internet", false);
 
@@ -464,13 +468,15 @@ public class VideoConferenceActivity extends AppCompatActivity
         try{
             checkInternetSpeed();
         }catch (Exception e){}
-        //moveToHome();
     }
 
     @Override
     public void onError(Session session, OpentokError opentokError) {
         Log.e(TAG, "onError: Error (" + opentokError.getMessage() + ") in session " + session.getSessionId());
-
+        try{
+            checkInternetSpeed();
+            mSession.sendSignal(TYPE_ERROR_FOR_DOCTOR, "Error Occurred at Patient's end");
+        }catch (Exception e){}
         moveToHome();
     }
 
@@ -670,7 +676,9 @@ public class VideoConferenceActivity extends AppCompatActivity
 
     @Override
     public void onSignalReceived(Session session, String s, String s1, Connection connection) {
-        Utilities.showAlert(VideoConferenceActivity.this, s1, false);
+        if (!s.equals(TYPE_ERROR_FOR_DOCTOR)){
+            Utilities.showAlert(VideoConferenceActivity.this, s1, false);
+        }
 
     }
 
@@ -734,13 +742,18 @@ public class VideoConferenceActivity extends AppCompatActivity
     @Override
     public void onVideoDisableWarning(SubscriberKit subscriberKit) {
         Log.e(TAG, "&&&&&&&&&&  onVideoDisableWarning  &&&&&&&&&");
+        try{
+            checkInternetSpeed();
+        }catch (Exception e){}
 
     }
 
     @Override
     public void onVideoDisableWarningLifted(SubscriberKit subscriberKit) {
         Log.e(TAG, "&&&&&&&&&&  onVideoDisableWarningLifted  &&&&&&&&&");
-
+        try{
+            checkInternetSpeed();
+        }catch (Exception e){}
     }
 
 
@@ -790,12 +803,12 @@ public class VideoConferenceActivity extends AppCompatActivity
 
     @Override
     public void onReconnecting(Session session) {
-        mSession.sendSignal(TYPE_MESSAGE, "Reconnecting...");
+        mSession.sendSignal(TYPE_ERROR_FOR_DOCTOR, "Patient Reconnecting...");
     }
 
     @Override
     public void onReconnected(Session session) {
-        mSession.sendSignal(TYPE_MESSAGE, "Reconnected!");
+        mSession.sendSignal(TYPE_ERROR_FOR_DOCTOR, "Patient Reconnected!");
 
     }
 }
