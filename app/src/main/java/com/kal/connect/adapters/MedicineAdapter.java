@@ -3,6 +3,7 @@ package com.kal.connect.adapters;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Handler;
@@ -27,6 +28,7 @@ import com.kal.connect.modules.dashboard.tabs.BuyMedicineScreen.AddProductActivi
 import com.kal.connect.utilities.AppPreferences;
 import com.kal.connect.utilities.Config;
 import com.kal.connect.utilities.Utilities;
+import com.kal.connect.utilities.UtilitiesInterfaces;
 import com.travijuu.numberpicker.library.Enums.ActionEnum;
 import com.travijuu.numberpicker.library.Interface.ValueChangedListener;
 import com.travijuu.numberpicker.library.NumberPicker;
@@ -163,15 +165,44 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
         holder.tv_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                HashMap<String, Object> item = items.get(position);
 
-                item.put("isEnabled", false);
-               // if (item.get("amount") != null && !item.get("amount").toString().equalsIgnoreCase("")) {
+                try{
+                    Utilities.showAlertDialogWithOptions((Activity)mContext,
+                            "Are you sure to delete this medicine?",
+                            new String[]{mContext.getResources().getString(R.string.btn_no),
+                                    mContext.getResources().getString(R.string.btn_yes)},
+                            new UtilitiesInterfaces.AlertCallback() {
+                                @Override
+                                public void onOptionClick(DialogInterface dialog, int buttonIndex) {
+
+                                    if(buttonIndex == 1){
+                                        HashMap<String, Object> item = items.get(position);
+
+                                        item.put("isEnabled", false);
+                                        // if (item.get("amount") != null && !item.get("amount").toString().equalsIgnoreCase("")) {
+                                        int newPosition = holder.getAdapterPosition();
+                                        items.remove(newPosition);
+                                        notifyItemRemoved(newPosition);
+                                        notifyItemRangeChanged(newPosition, items.size());
+                                        // }
+                                    }
+
+                                }
+                            });
+
+                }catch (Exception e){
+                    HashMap<String, Object> item = items.get(position);
+
+                    item.put("isEnabled", false);
+                    // if (item.get("amount") != null && !item.get("amount").toString().equalsIgnoreCase("")) {
                     int newPosition = holder.getAdapterPosition();
                     items.remove(newPosition);
                     notifyItemRemoved(newPosition);
                     notifyItemRangeChanged(newPosition, items.size());
-               // }
+                    // }
+                }
+
+
             }
         });
 

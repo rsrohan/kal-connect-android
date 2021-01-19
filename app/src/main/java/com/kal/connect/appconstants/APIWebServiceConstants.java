@@ -32,11 +32,11 @@ public class APIWebServiceConstants {
     * Make sure about isTesting variable.
     * */
 
-//    static String LIVE_URL = "https://www.ayurvaidya.live/WebServices/";
-//    public static boolean isTesting = false;
+    static String LIVE_URL = "https://www.ayurvaidya.live/WebServices/";
+    public static boolean isTesting = false;
 
-    private static String LIVE_URL = "http://ec2-13-127-154-179.ap-south-1.compute.amazonaws.com/WebServices/";
-    public static boolean isTesting = true;
+//    private static String LIVE_URL = "http://ec2-13-127-154-179.ap-south-1.compute.amazonaws.com/WebServices/";
+//    public static boolean isTesting = true;
 
     private static String SOAP_ACTION = "https://www.medi360.in/";
 
@@ -76,59 +76,7 @@ public class APIWebServiceConstants {
         return resTxt;
     }
 
-    private static TrustManager[] trustManagers;
 
-    public static class _FakeX509TrustManager implements
-            javax.net.ssl.X509TrustManager {
-        private static final X509Certificate[] _AcceptedIssuers = new X509Certificate[] {};
-
-        public void checkClientTrusted(X509Certificate[] arg0, String arg1)
-                throws CertificateException {
-        }
-
-        public void checkServerTrusted(X509Certificate[] arg0, String arg1)
-                throws CertificateException {
-        }
-
-        public boolean isClientTrusted(X509Certificate[] chain) {
-            return (true);
-        }
-
-        public boolean isServerTrusted(X509Certificate[] chain) {
-            return (true);
-        }
-
-        public X509Certificate[] getAcceptedIssuers() {
-            return (_AcceptedIssuers);
-        }
-    }
-
-    public static void allowAllSSL() {
-
-        HttpsURLConnection
-                .setDefaultHostnameVerifier(new HostnameVerifier() {
-                    public boolean verify(String hostname, SSLSession session) {
-                        return true;
-                    }
-                });
-
-        javax.net.ssl.SSLContext context = null;
-
-        if (trustManagers == null) {
-            trustManagers = new TrustManager[] { new _FakeX509TrustManager() };
-        }
-
-        try {
-            context = javax.net.ssl.SSLContext.getInstance("TLS");
-            context.init(null, trustManagers, new SecureRandom());
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (KeyManagementException e) {
-            e.printStackTrace();
-        }
-        HttpsURLConnection.setDefaultSSLSocketFactory(context
-                .getSocketFactory());
-    }
 
 
 }
