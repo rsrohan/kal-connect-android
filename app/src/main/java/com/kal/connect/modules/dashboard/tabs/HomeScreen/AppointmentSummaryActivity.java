@@ -3,6 +3,7 @@ package com.kal.connect.modules.dashboard.tabs.HomeScreen;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,6 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Headers;
+import okhttp3.OkHttpClient;
 
 import android.util.Log;
 import android.view.View;
@@ -45,17 +50,23 @@ import com.kal.connect.utilities.Utilities;
 import com.razorpay.Checkout;
 import com.razorpay.PaymentResultListener;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import static com.kal.connect.appconstants.APIWebServiceConstants.isTesting;
+import static com.kal.connect.appconstants.OpenTokConfigConstants.TYPE_ERROR_FOR_DOCTOR;
+import static com.kal.connect.utilities.Config.IMAGE_URL_FOR_SPEED;
 
 public class AppointmentSummaryActivity extends CustomActivity implements View.OnClickListener, PaymentResultListener {
     private static final String TAG = "AppointmentSummary";
@@ -194,12 +205,101 @@ public class AppointmentSummaryActivity extends CustomActivity implements View.O
         }
 
     }
+    long startTime;
+    long endTime;
+    long fileSize;
+    OkHttpClient client = new OkHttpClient();
+
+    // bandwidth in kbps
+    private int POOR_BANDWIDTH = 350;
+    private int AVERAGE_BANDWIDTH = 550;
+    private int GOOD_BANDWIDTH = 2000;
+
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.next_btn) {
+            if (Utilities.isNetworkAvailable(AppointmentSummaryActivity.this)) {
+                try{
+                    pd = Utilities.showLoading(AppointmentSummaryActivity.this);
 
-            createRazorPayOrder();
+                    okhttp3.Request request = new okhttp3.Request.Builder()
+                            .url(IMAGE_URL_FOR_SPEED)
+                            //.url("Image")
+                            .build();
+
+                    startTime = System.currentTimeMillis();
+
+                    client.newCall(request).enqueue(new Callback() {
+                        @Override
+                        public void onResponse(@NotNull Call call, @NotNull okhttp3.Response response) throws IOException {
+                            if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+
+                            Headers responseHeaders = response.headers();
+                            for (int i = 0, size = responseHeaders.size(); i < size; i++) {
+                                Log.d(TAG, responseHeaders.name(i) + ": " + responseHeaders.value(i));
+                            }
+
+                            InputStream input = response.body().byteStream();
+
+                            try {
+                                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                                byte[] buffer = new byte[1024];
+
+                                while (input.read(buffer) != -1) {
+                                    bos.write(buffer);
+                                }
+                                byte[] docBuffer = bos.toByteArray();
+                                fileSize = bos.size();
+
+                            } finally {
+                                input.close();
+                            }
+
+                            endTime = System.currentTimeMillis();
+
+
+                            // calculate how long it took by subtracting endtime from starttime
+
+                            double timeTakenMills = Math.floor(endTime - startTime);  // time taken in milliseconds
+                            double timeTakenInSecs = timeTakenMills / 1000;  // divide by 1000 to get time in seconds
+                            final int kilobytePerSec = (int) Math.round(1024 / timeTakenInSecs);
+
+                            if (kilobytePerSec <= POOR_BANDWIDTH) {
+                                // slow connection
+                                pd.dismiss();
+                                Utilities.showAlert(AppointmentSummaryActivity.this, "Slow Internet Detected...\nWe request you to be in a good internet bandwidth for smooth experience.", false);
+                            }else{
+                                pd.dismiss();
+                                createRazorPayOrder();
+
+                            }
+
+                            Log.e(TAG, "KBPS: " + kilobytePerSec);
+
+
+                        }
+
+                        @Override
+                        public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                            e.printStackTrace();
+                            pd.dismiss();
+                            Utilities.showAlert(AppointmentSummaryActivity.this, "Slow Internet Detected...\nWe request you to be in a good internet bandwidth for smooth experience.", false);
+                        }
+
+                    });
+                }catch (Exception e){
+                    try{
+                        pd.dismiss();
+                    }catch (Exception ex){}
+                    Utilities.showAlert(AppointmentSummaryActivity.this, "Slow Internet Detected...\nWe request you to be in a good internet bandwidth for smooth experience.", false);
+
+                }
+            } else {
+                Utilities.showAlert(AppointmentSummaryActivity.this, "No Internet", false);
+            }
+
+
         }
 
     }
