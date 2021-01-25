@@ -151,7 +151,15 @@ public class VideoConferenceActivity extends AppCompatActivity
     private boolean isDoctorPresent = false;
     private TextView tv_patientPresent;
 
+    long startTime;
+    long endTime;
+    long fileSize;
+    OkHttpClient client = new OkHttpClient();
 
+    // bandwidth in kbps
+    private int POOR_BANDWIDTH = 350;
+    private int AVERAGE_BANDWIDTH = 550;
+    private int GOOD_BANDWIDTH = 2000;
     @OnClick(R.id.disconnect)
     void disconnectCall() {
         if (Config.isDisconnect) {
@@ -167,7 +175,65 @@ public class VideoConferenceActivity extends AppCompatActivity
         try {
             if (mPublisher != null)
                 mPublisher.cycleCamera();
+//            Request request = new Request.Builder()
+//                    .url(IMAGE_URL_FOR_SPEED)
+//                    //.url("Image")
+//                    .build();
+//
+//            startTime = System.currentTimeMillis();
+//
+//            client.newCall(request).enqueue(new Callback() {
+//                @Override
+//                public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+//                    if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+//
+//                    Headers responseHeaders = response.headers();
+//                    for (int i = 0, size = responseHeaders.size(); i < size; i++) {
+//                        Log.d(TAG, responseHeaders.name(i) + ": " + responseHeaders.value(i));
+//                    }
+//
+//                    InputStream input = response.body().byteStream();
+//
+//                    try {
+//                        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+//                        byte[] buffer = new byte[1024];
+//
+//                        while (input.read(buffer) != -1) {
+//                            bos.write(buffer);
+//                        }
+//                        byte[] docBuffer = bos.toByteArray();
+//                        fileSize = bos.size();
+//
+//                    } finally {
+//                        input.close();
+//                    }
+//
+//                    endTime = System.currentTimeMillis();
+//
+//
+//                    // calculate how long it took by subtracting endtime from starttime
+//
+//                    double timeTakenMills = Math.floor(endTime - startTime);  // time taken in milliseconds
+//                    double timeTakenInSecs = timeTakenMills / 1000;  // divide by 1000 to get time in seconds
+//                    final int kilobytePerSec = (int) Math.round(1024 / timeTakenInSecs);
+//
+//
+//                    Log.e(TAG, "KBPS: " + kilobytePerSec);
+//                    mSession.sendSignal(TYPE_ERROR_FOR_DOCTOR, "This is a test message!\nSpeed:- "+kilobytePerSec+" KBPS");
+//
+//
+//                }
+//
+//                @Override
+//                public void onFailure(@NotNull Call call, @NotNull IOException e) {
+//                    e.printStackTrace();
+//
+//                }
+//
+//            });
+
         } catch (Exception e) {
+            //Utilities.showAlert(VideoConferenceActivity.this, "Signal not sent", false);
         }
 
     }
@@ -199,15 +265,7 @@ public class VideoConferenceActivity extends AppCompatActivity
 
         requestPermissions();
     }
-    long startTime;
-    long endTime;
-    long fileSize;
-    OkHttpClient client = new OkHttpClient();
 
-    // bandwidth in kbps
-    private int POOR_BANDWIDTH = 350;
-    private int AVERAGE_BANDWIDTH = 550;
-    private int GOOD_BANDWIDTH = 2000;
 
     private void checkInternetSpeed() {
 

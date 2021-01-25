@@ -143,9 +143,9 @@ public class DashboardMapActivity extends CustomMapActivity implements View.OnCl
         }
         buildBottomTabs();
         getStateCityList();
-        if (AppPreferences.getInstance().getCountryCode()==null || AppPreferences.getInstance().getCountryCode().equals("")){
+        //if (AppPreferences.getInstance().getCountryCode()==null || AppPreferences.getInstance().getCountryCode().equals("")){
             getCountryCodeFromServer();
-        }
+        //}
 
         try {
             if (GlobValues.getAddAppointmentParams() != null)
@@ -393,11 +393,7 @@ public class DashboardMapActivity extends CustomMapActivity implements View.OnCl
                                 Log.e(TAG, "responseCallback: not able to save country code" );
                             }
                         }
-//                        JSONArray cityAry = commonDataInfo.getJSONArray("City");
-//                        JSONArray stateAry = commonDataInfo.getJSONArray("State");
-//
-//                        GlobValues.setCityAry(cityAry);
-//                        GlobValues.setStateAry(stateAry);
+
 
 
                     }
