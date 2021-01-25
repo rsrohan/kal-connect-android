@@ -110,6 +110,9 @@ public class AppointmentDetailActivity extends CustomActivity implements View.On
 
         // Floating menu items
         floatingMenu = (FloatingActionMenu) findViewById(R.id.floatingOptions);
+        if(mStrAppointmentStatus.toLowerCase().equals("active")){
+            floatingMenu.setVisibility(View.VISIBLE);
+        }
 
         // Options under the menu
         btnTechnician = (FloatingActionButton) findViewById(R.id.optionTechnical);
@@ -124,8 +127,7 @@ public class AppointmentDetailActivity extends CustomActivity implements View.On
         btnVideoConference.setOnClickListener(this);
         btnConsultNow.setOnClickListener(this);
         btnStatus.setOnClickListener(this);
-        floatingMenu.setVisibility(View.GONE);
-        btnTechnician.setVisibility(View.VISIBLE);
+        btnTechnician.setVisibility(View.GONE);
 
     }
 

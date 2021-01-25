@@ -29,7 +29,8 @@
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
-        <activity android:name=".modules.dashboard.tabs.BuyMedicineScreen.OrderSuccessfulActivity"></activity>
+        <activity android:name=".modules.communicate.CallEndedActivity"></activity>
+        <activity android:name=".modules.dashboard.tabs.BuyMedicineScreen.OrderSuccessfulActivity" />
         <activity
             android:name=".utilities.SplashActivity"
             android:configChanges="locale">
@@ -97,8 +98,8 @@
         <activity
             android:name=".modules.communicate.IncomingCallActivity"
             android:configChanges="orientation"
-            android:showOnLockScreen="true"
             android:screenOrientation="portrait"
+            android:showOnLockScreen="true"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".modules.payment.PaymentActivity"

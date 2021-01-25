@@ -55,6 +55,8 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import static com.kal.connect.customLibs.fcm.MyFirebaseMessagingService.CALL_DECLINE;
+
 public class DashboardMapActivity extends CustomMapActivity implements View.OnClickListener {
 
     private static final String TAG = "HomeActivity";
@@ -135,15 +137,19 @@ public class DashboardMapActivity extends CustomMapActivity implements View.OnCl
     // MARK : Instance Methods
     private void buildUI() {
 
+        if (getIntent()!=null && getIntent().getIntExtra(CALL_DECLINE, 0)==1)
+        {
+            Utilities.showAlert(DashboardMapActivity.this, "Doctor declined call...\nPlease wait for some time.", false);
+        }
         buildBottomTabs();
         getStateCityList();
-        if (AppPreferences.getInstance().getCountryCode()==null || AppPreferences.getInstance().getCountryCode().equals("")){
+        //if (AppPreferences.getInstance().getCountryCode()==null || AppPreferences.getInstance().getCountryCode().equals("")){
             getCountryCodeFromServer();
-        }
+        //}
 
         try {
-            if (GlobValues.getInstance().getAddAppointmentParams() != null)
-                GlobValues.getInstance().getAddAppointmentParams().clear();
+            if (GlobValues.getAddAppointmentParams() != null)
+                GlobValues.getAddAppointmentParams().clear();
         } catch (Exception e) {
 
         }
@@ -161,7 +167,7 @@ public class DashboardMapActivity extends CustomMapActivity implements View.OnCl
         }
 
 
-        ImageButton sos = (ImageButton) findViewById(R.id.sos);
+        ImageButton sos = findViewById(R.id.sos);
         sos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -219,7 +225,7 @@ public class DashboardMapActivity extends CustomMapActivity implements View.OnCl
     private void buildBottomTabs() {
 
         // Build Tab bar with bottom navigation view
-        bottomTab = (BottomNavigationView) findViewById(R.id.tab_bar);
+        bottomTab = findViewById(R.id.tab_bar);
 
         bottomTab.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -387,11 +393,7 @@ public class DashboardMapActivity extends CustomMapActivity implements View.OnCl
                                 Log.e(TAG, "responseCallback: not able to save country code" );
                             }
                         }
-//                        JSONArray cityAry = commonDataInfo.getJSONArray("City");
-//                        JSONArray stateAry = commonDataInfo.getJSONArray("State");
-//
-//                        GlobValues.setCityAry(cityAry);
-//                        GlobValues.setStateAry(stateAry);
+
 
 
                     }
@@ -462,5 +464,6 @@ public class DashboardMapActivity extends CustomMapActivity implements View.OnCl
 //            PlayStoreUpdateView.versionCheck1(DashboardMapActivity.this);
 //        }
     }
+
 }
 
