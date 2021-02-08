@@ -117,6 +117,8 @@ public class AppointmentDetailActivity extends CustomActivity implements View.On
         floatingMenu = (FloatingActionMenu) findViewById(R.id.floatingOptions);
         if(mStrAppointmentStatus.toLowerCase().equals("active")){
             floatingMenu.setVisibility(View.VISIBLE);
+        }else{
+            floatingMenu.setVisibility(View.GONE);
         }
 
         // Options under the menu
@@ -132,7 +134,7 @@ public class AppointmentDetailActivity extends CustomActivity implements View.On
         btnVideoConference.setOnClickListener(this);
         btnConsultNow.setOnClickListener(this);
         btnStatus.setOnClickListener(this);
-        btnTechnician.setVisibility(View.GONE);
+        //btnTechnician.setVisibility(View.VISIBLE);
 
     }
 
@@ -301,7 +303,6 @@ public class AppointmentDetailActivity extends CustomActivity implements View.On
             apiManager.execute(url);
         } else {
             Utilities.showAlert(AppointmentDetailActivity.this, "Please check internet!", false);
-
         }
     }
 

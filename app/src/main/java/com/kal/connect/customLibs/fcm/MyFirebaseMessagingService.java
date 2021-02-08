@@ -182,6 +182,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 fullScreenIntent = new Intent(context, IncomingCallActivity.class);
                 fullScreenIntent.putExtra("SpecialistID", specialistID);
             } else {
+                type = "Message from doctor...";
                 fullScreenIntent = new Intent(context, ChatActivity.class);
                 fullScreenIntent.putExtra("doctorName", body);
             }
