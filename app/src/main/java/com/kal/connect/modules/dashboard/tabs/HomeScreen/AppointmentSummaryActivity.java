@@ -265,15 +265,17 @@ public class AppointmentSummaryActivity extends CustomActivity implements View.O
                             double timeTakenInSecs = timeTakenMills / 1000;  // divide by 1000 to get time in seconds
                             final int kilobytePerSec = (int) Math.round(1024 / timeTakenInSecs);
 
-                            if (kilobytePerSec <= POOR_BANDWIDTH) {
-                                // slow connection
-                                pd.dismiss();
-                                Utilities.showAlert(AppointmentSummaryActivity.this, "Slow Internet Detected...\nWe request you to be in a good internet bandwidth for smooth experience.", false);
-                            }else{
-                                pd.dismiss();
-                                createRazorPayOrder();
-
-                            }
+//                            if (kilobytePerSec <= POOR_BANDWIDTH) {
+//                                // slow connection
+//                                pd.dismiss();
+//                                Utilities.showAlert(AppointmentSummaryActivity.this, "Slow Internet Detected...\nWe request you to be in a good internet bandwidth for smooth experience.", false);
+//                            }else{
+//                                pd.dismiss();
+//                                createRazorPayOrder();
+//
+//                            }
+                            pd.dismiss();
+                            createRazorPayOrder();
 
                             Log.e(TAG, "KBPS: " + kilobytePerSec);
 

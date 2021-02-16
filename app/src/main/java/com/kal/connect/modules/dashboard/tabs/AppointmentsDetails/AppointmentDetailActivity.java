@@ -134,7 +134,7 @@ public class AppointmentDetailActivity extends CustomActivity implements View.On
         btnVideoConference.setOnClickListener(this);
         btnConsultNow.setOnClickListener(this);
         btnStatus.setOnClickListener(this);
-        //btnTechnician.setVisibility(View.VISIBLE);
+        btnTechnician.setVisibility(View.GONE);
 
     }
 

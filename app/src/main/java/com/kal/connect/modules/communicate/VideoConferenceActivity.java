@@ -311,13 +311,13 @@ public class VideoConferenceActivity extends AppCompatActivity
                 double timeTakenInSecs = timeTakenMills / 1000;  // divide by 1000 to get time in seconds
                 final int kilobytePerSec = (int) Math.round(1024 / timeTakenInSecs);
 
-                if (kilobytePerSec <= POOR_BANDWIDTH) {
-                    // slow connection
-                    Utilities.showAlert(VideoConferenceActivity.this, "Slow Internet Detected", false);
-                    try{
-                        mSession.sendSignal(TYPE_ERROR_FOR_DOCTOR, "Patient having slow internet!");
-                    }catch (Exception e){}
-                }
+//                if (kilobytePerSec <= POOR_BANDWIDTH) {
+//                    // slow connection
+//                    Utilities.showAlert(VideoConferenceActivity.this, "Slow Internet Detected", false);
+//                    try{
+//                        mSession.sendSignal(TYPE_ERROR_FOR_DOCTOR, "Patient having slow internet!");
+//                    }catch (Exception e){}
+//                }
 
                 Log.e(TAG, "KBPS: " + kilobytePerSec);
 
