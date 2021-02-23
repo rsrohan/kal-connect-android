@@ -832,6 +832,8 @@ public class VideoConferenceActivity extends AppCompatActivity
 
         try {
             endCallParams.put("PatientID", accInfo.getString("PatientID"));
+            endCallParams.put("SpecialistID", accInfo.getString("PatientID"));
+
         } catch (Exception e) {
             e.printStackTrace();
             Log.e(TAG, "getEndCall: "+e);
