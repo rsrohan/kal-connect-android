@@ -23,8 +23,8 @@ public class SignalMessageAdapter extends ArrayAdapter<SignalMessage> {
 
     static {
         Map<Integer, Integer> aMap = new HashMap<Integer, Integer>();
-        aMap.put(VIEW_TYPE_LOCAL, R.layout.adapter_chat_left);
-        aMap.put(VIEW_TYPE_REMOTE, R.layout.adapter_chat_right);
+        aMap.put(VIEW_TYPE_REMOTE, R.layout.adapter_chat_left);
+        aMap.put(VIEW_TYPE_LOCAL, R.layout.adapter_chat_right);
         viewTypes = Collections.unmodifiableMap(aMap);
     }
 

@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -28,21 +29,20 @@ import com.opentok.android.OpentokError;
 import com.opentok.android.Session;
 import com.opentok.android.Stream;
 
+import pl.droidsonroids.gif.GifImageView;
+
 public class ChatActivity extends CustomActivity implements Session.SessionListener,
         Session.SignalListener, WebServiceCoordinator.Listener {
 
-    private static final String LOG_TAG = ChatActivity.class.getSimpleName();
+    private static final String LOG_TAG = "ChatActivity";
     public static final String SIGNAL_TYPE = "text-signal";
     EditText mEdtMessage;
     private Session mSession;
-    private WebServiceCoordinator mWebServiceCoordinator;
     private SignalMessageAdapter mMessageHistory;
     private ListView mMessageHistoryListView;
-    Button mBtnSend;
-    private FirebaseCrashlytics crashlytics;
-    private ProgressBar progressBar;
-    //        public static String SESSION_ID = "1_MX40NTQ2NzMwMn5-MTYwMTU1MDExMTQ5OH5vbVZXUmtzaG82UmtxM0syYmlmWVREdUN-fg";
-//    public static String TOKEN = "T1==cGFydG5lcl9pZD00NTQ2NzMwMiZzaWc9N2FlMDc5YjY3YjI1ZGUxZTgyZTBkZmU2ODc0YzI1N2I3ZjVlMjczODpzZXNzaW9uX2lkPTFfTVg0ME5UUTJOek13TW41LU1UWXdNVFUxTURFeE1UUTVPSDV2YlZaWFVtdHphRzgyVW10eE0wc3lZbWxtV1ZSRWRVTi1mZyZjcmVhdGVfdGltZT0xNjAxNTUwMTI4Jm5vbmNlPTAuMzM0NzY5Njg1OTg2MjAzOTQmcm9sZT1wdWJsaXNoZXImZXhwaXJlX3RpbWU9MTYwNDE0MjEyNSZpbml0aWFsX2xheW91dF9jbGFzc19saXN0PQ==";
+    ImageView mBtnSend;
+    private GifImageView progressBar;
+
     public static final String CHAT_SERVER_URL = null;
     public static final String SESSION_INFO_ENDPOINT = CHAT_SERVER_URL + "/session";
     String mStrDocName = "",Option="";
@@ -64,9 +64,9 @@ public class ChatActivity extends CustomActivity implements Session.SessionListe
 
 
         mMessageHistoryListView = (ListView) findViewById(R.id.message_history_list_view);
-        progressBar = (ProgressBar) findViewById(R.id.progressbar);
+        progressBar =  findViewById(R.id.progressbar);
         mEdtMessage = (EditText) findViewById(R.id.inputMsg);
-        mBtnSend = (Button) findViewById(R.id.btnSend);
+        mBtnSend =  findViewById(R.id.btnSend);
         mMessageHistory = new SignalMessageAdapter(this);
         mMessageHistoryListView.setAdapter(mMessageHistory);
 
@@ -110,7 +110,7 @@ public class ChatActivity extends CustomActivity implements Session.SessionListe
 
     @Override
     public void onConnected(Session session) {
-        Log.i(LOG_TAG, "Session Connected");
+        Log.e(LOG_TAG, "Session Connected");
         mMessageHistoryListView.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.GONE);
         mEdtMessage.setEnabled(true);
@@ -118,17 +118,17 @@ public class ChatActivity extends CustomActivity implements Session.SessionListe
 
     @Override
     public void onDisconnected(Session session) {
-        Log.i(LOG_TAG, "Session Disconnected");
+        Log.e(LOG_TAG, "Session Disconnected");
     }
 
     @Override
     public void onStreamReceived(Session session, Stream stream) {
-        Log.i(LOG_TAG, "Stream Received");
+        Log.e(LOG_TAG, "Stream Received");
     }
 
     @Override
     public void onStreamDropped(Session session, Stream stream) {
-        Log.i(LOG_TAG, "Stream Dropped");
+        Log.e(LOG_TAG, "Stream Dropped");
     }
 
     @Override

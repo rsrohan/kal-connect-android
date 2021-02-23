@@ -117,6 +117,8 @@ public class AppointmentDetailActivity extends CustomActivity implements View.On
         floatingMenu = (FloatingActionMenu) findViewById(R.id.floatingOptions);
         if(mStrAppointmentStatus.toLowerCase().equals("active")){
             floatingMenu.setVisibility(View.VISIBLE);
+        }else{
+            floatingMenu.setVisibility(View.GONE);
         }
 
         // Options under the menu
@@ -224,12 +226,12 @@ public class AppointmentDetailActivity extends CustomActivity implements View.On
 //            g.addAppointmentInputParams("SelectedComplaintId", selectedAppointmentData.get("ComplaintID").toString());
 //            g.addAppointmentInputParams("SelectedAppointmentId", selectedAppointmentData.get("appointmentId").toString());
 //
-//            g.addAppointmentInputParams("SpecialistID", selectedAppointmentData.get("doctorId").toString());
+            g.addAppointmentInputParams("SpecialistID", mStrDocId);
 //            g.addAppointmentInputParams("SpecialistName", selectedAppointmentData.get("doctorName").toString());
 //
 //            g.addAppointmentInputParams("ClientID", AppPreferences.getInstance().getUserInfo().getString("ClientID"));
 
-            Log.e(TAG, "setAppointmentParams: "+selectedAppointmentData.get("doctorId") );
+//            Log.e(TAG, "setAppointmentParams: "+selectedAppointmentData.get("doctorId") );
         } catch (Exception e) {
             Log.e(TAG, "setAppointmentParams: "+e );
             e.printStackTrace();
@@ -301,7 +303,6 @@ public class AppointmentDetailActivity extends CustomActivity implements View.On
             apiManager.execute(url);
         } else {
             Utilities.showAlert(AppointmentDetailActivity.this, "Please check internet!", false);
-
         }
     }
 
