@@ -33,7 +33,7 @@ public class APIWebServiceConstants {
     * */
 
     static String LIVE_URL = "https://www.ayurvaidya.live/WebServices/";
-    public static boolean isTesting = true;
+    public static boolean isTesting = false;
 
 //    private static String LIVE_URL = "http://ec2-13-127-154-179.ap-south-1.compute.amazonaws.com/WebServices/";
 //    public static boolean isTesting = true;
