@@ -25,7 +25,7 @@
         <RelativeLayout
             android:id="@+id/vwContainer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -44,43 +44,46 @@
                 android:layout_toLeftOf="@id/button_options"
                 android:layout_marginRight="@dimen/default_small_margin"
                 android:textAppearance="@style/CustomFont.Regular"
-                android:textSize="@dimen/default_font_size" />
+                 />
 
             <LinearLayout
                 android:id="@+id/button_options"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_margin="@dimen/default_small_margin"
                 android:orientation="horizontal">
 
-                <Button
+                <TextView
                     android:id="@+id/btnView"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_toLeftOf="@+id/btnDelete"
-                    android:background="@drawable/button_style"
+                    android:background="@drawable/btn_rounded"
                     android:padding="@dimen/button_padding"
                     android:text="View"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:layout_marginEnd="2dp"
                     android:textAppearance="@style/CustomFont.Regular"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/button_font_size"
                     />
 
-                <Button
+                <TextView
                     android:id="@+id/btnDelete"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentEnd="true"
-                    android:background="@color/red"
-
+                    android:background="@drawable/btn_rounded"
                     android:padding="@dimen/button_padding"
-                    android:text="@string/delete"
+                    android:backgroundTint="@color/red"
+                    android:layout_marginStart="2dp"
+                    android:text=""
+                    android:drawableTint="@color/white"
+                    android:drawableEnd="@drawable/ic_delete_med"
                     android:textAppearance="@style/CustomFont.Regular"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/button_font_size"
                     />
 
             </LinearLayout>
