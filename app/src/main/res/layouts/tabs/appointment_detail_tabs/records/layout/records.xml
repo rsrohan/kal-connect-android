@@ -5,24 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/upload"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="4dp"
+        android:layout_marginVertical="2dp"
+        android:background="@drawable/green_button"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="Upload Image"
+        android:textAppearance="@style/CustomFont.Bold"
+        android:textColor="@color/white"
+        android:tint="@color/white"
+        app:drawableEndCompat="@android:drawable/ic_input_add"
+        app:drawableTint="@color/white" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recordRecycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/update_layout" />
-
-    <ImageButton
-        android:id="@+id/upload"
-        android:layout_width="@dimen/medium_btn_round_size"
-        android:layout_height="@dimen/medium_btn_round_size"
-        android:layout_alignParentRight="true"
-        android:layout_marginLeft="@dimen/default_small_margin"
-        android:background="@drawable/green_button"
-        android:src="@android:drawable/ic_input_add"
         android:layout_above="@+id/update_layout"
-        android:layout_marginBottom="@dimen/default_margin"
-        android:layout_marginRight="@dimen/default_margin"
-        android:tint="@color/white" />
+        android:layout_below="@+id/upload" />
+
 
     <RelativeLayout
         android:id="@+id/update_layout"
@@ -35,9 +40,9 @@
             android:id="@+id/update"
             android:layout_width="match_parent"
             android:layout_height="@dimen/medium_btn_round_size"
-
-            android:background="@color/colorPrimaryDark"
+            android:background="@drawable/btn_rounded"
             android:text="@string/update"
+            android:textAppearance="@style/CustomFont.Bold"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:visibility="visible" />

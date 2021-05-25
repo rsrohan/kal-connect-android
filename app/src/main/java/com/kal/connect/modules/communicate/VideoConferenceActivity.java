@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -31,6 +32,7 @@ import com.kal.connect.modules.dashboard.tabs.HomeScreen.AppointmentSummaryActiv
 import com.kal.connect.utilities.AppPreferences;
 import com.kal.connect.utilities.Config;
 import com.opentok.android.BaseVideoRenderer;
+import com.opentok.android.Connection;
 import com.opentok.android.OpentokError;
 import com.opentok.android.Publisher;
 import com.opentok.android.PublisherKit;
@@ -43,6 +45,9 @@ import com.kal.connect.utilities.GlobValues;
 import com.kal.connect.utilities.Utilities;
 import com.kal.connect.utilities.UtilitiesInterfaces;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -54,6 +59,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -61,17 +67,27 @@ import org.json.JSONObject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Headers;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
+
+import static com.kal.connect.appconstants.OpenTokConfigConstants.TYPE_ERROR_FOR_DOCTOR;
+import static com.kal.connect.appconstants.OpenTokConfigConstants.TYPE_MESSAGE;
+import static com.kal.connect.utilities.Config.IMAGE_URL_FOR_SPEED;
 
 public class VideoConferenceActivity extends AppCompatActivity
         implements EasyPermissions.PermissionCallbacks,
         Publisher.PublisherListener,
         SubscriberKit.SubscriberListener,
-        Session.SessionListener, SubscriberKit.VideoListener {
+        Session.SessionListener, SubscriberKit.VideoListener, Session.SignalListener, Session.ReconnectionListener {
 
-    private static final String TAG = "VideoConferenceAct";
+    private static final String TAG = "VideoConfrnceAct";
     private static final int RC_SETTINGS_SCREEN_PERM = 123;
     private static final int RC_VIDEO_APP_PERM = 124;
 
@@ -126,10 +142,6 @@ public class VideoConferenceActivity extends AppCompatActivity
     @BindView(R.id.ll_subscriber_id_additional)
     LinearLayout mLlVideoSubscriberRootAdditional;
 
-//    private FrameLayout mPublisherViewContainer;
-//    private FrameLayout mSubscriberViewContainer;
-//    private String sessionId,token,callerName;
-//    String APIKEY = "45467302";
 
     private Subscriber mSubscriber, mSubscriberAdditional;
 
@@ -139,7 +151,15 @@ public class VideoConferenceActivity extends AppCompatActivity
     private boolean isDoctorPresent = false;
     private TextView tv_patientPresent;
 
+    long startTime;
+    long endTime;
+    long fileSize;
+    OkHttpClient client = new OkHttpClient();
 
+    // bandwidth in kbps
+    private int POOR_BANDWIDTH = 350;
+    private int AVERAGE_BANDWIDTH = 550;
+    private int GOOD_BANDWIDTH = 2000;
     @OnClick(R.id.disconnect)
     void disconnectCall() {
         if (Config.isDisconnect) {
@@ -148,12 +168,6 @@ public class VideoConferenceActivity extends AppCompatActivity
         } else {
             getEndCall();
         }
-//        if (Config.isDisconnect) {
-//            getEndCall();
-//        } else {
-//            moveToHome();
-//
-//        }
     }
 
     @OnClick(R.id.switch_camera)
@@ -161,7 +175,65 @@ public class VideoConferenceActivity extends AppCompatActivity
         try {
             if (mPublisher != null)
                 mPublisher.cycleCamera();
+//            Request request = new Request.Builder()
+//                    .url(IMAGE_URL_FOR_SPEED)
+//                    //.url("Image")
+//                    .build();
+//
+//            startTime = System.currentTimeMillis();
+//
+//            client.newCall(request).enqueue(new Callback() {
+//                @Override
+//                public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+//                    if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+//
+//                    Headers responseHeaders = response.headers();
+//                    for (int i = 0, size = responseHeaders.size(); i < size; i++) {
+//                        Log.d(TAG, responseHeaders.name(i) + ": " + responseHeaders.value(i));
+//                    }
+//
+//                    InputStream input = response.body().byteStream();
+//
+//                    try {
+//                        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+//                        byte[] buffer = new byte[1024];
+//
+//                        while (input.read(buffer) != -1) {
+//                            bos.write(buffer);
+//                        }
+//                        byte[] docBuffer = bos.toByteArray();
+//                        fileSize = bos.size();
+//
+//                    } finally {
+//                        input.close();
+//                    }
+//
+//                    endTime = System.currentTimeMillis();
+//
+//
+//                    // calculate how long it took by subtracting endtime from starttime
+//
+//                    double timeTakenMills = Math.floor(endTime - startTime);  // time taken in milliseconds
+//                    double timeTakenInSecs = timeTakenMills / 1000;  // divide by 1000 to get time in seconds
+//                    final int kilobytePerSec = (int) Math.round(1024 / timeTakenInSecs);
+//
+//
+//                    Log.e(TAG, "KBPS: " + kilobytePerSec);
+//                    mSession.sendSignal(TYPE_ERROR_FOR_DOCTOR, "This is a test message!\nSpeed:- "+kilobytePerSec+" KBPS");
+//
+//
+//                }
+//
+//                @Override
+//                public void onFailure(@NotNull Call call, @NotNull IOException e) {
+//                    e.printStackTrace();
+//
+//                }
+//
+//            });
+
         } catch (Exception e) {
+            //Utilities.showAlert(VideoConferenceActivity.this, "Signal not sent", false);
         }
 
     }
@@ -169,12 +241,7 @@ public class VideoConferenceActivity extends AppCompatActivity
     @OnClick(R.id.dialer_disconnect)
     void dialerDisconnectCall() {
         getEndCall();
-//        if (Config.isDisconnect) {
-//            disconnectSession();
-//            moveToHome();
-//        } else {
-//            getEndCall();
-//        }
+
     }
 
     @Override
@@ -194,17 +261,79 @@ public class VideoConferenceActivity extends AppCompatActivity
 
         message = "Thank You for using our service. You can check details in Appointment Section. Stay Healthy!!";
 
-        if (getIntent().getExtras().getInt("CALL_TYPE") == 2) {
-            dialHandler(true);
-
-        } else {
-            dialHandler(false);
-        }
-
+        dialHandler(getIntent().getExtras().getInt("CALL_TYPE") == 2);
 
         requestPermissions();
     }
 
+
+    private void checkInternetSpeed() {
+
+        Request request = new Request.Builder()
+                .url(IMAGE_URL_FOR_SPEED)
+                //.url("Image")
+                .build();
+
+        startTime = System.currentTimeMillis();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+
+                Headers responseHeaders = response.headers();
+                for (int i = 0, size = responseHeaders.size(); i < size; i++) {
+                    Log.d(TAG, responseHeaders.name(i) + ": " + responseHeaders.value(i));
+                }
+
+                InputStream input = response.body().byteStream();
+
+                try {
+                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                    byte[] buffer = new byte[1024];
+
+                    while (input.read(buffer) != -1) {
+                        bos.write(buffer);
+                    }
+                    byte[] docBuffer = bos.toByteArray();
+                    fileSize = bos.size();
+
+                } finally {
+                    input.close();
+                }
+
+                endTime = System.currentTimeMillis();
+
+
+                // calculate how long it took by subtracting endtime from starttime
+
+                double timeTakenMills = Math.floor(endTime - startTime);  // time taken in milliseconds
+                double timeTakenInSecs = timeTakenMills / 1000;  // divide by 1000 to get time in seconds
+                final int kilobytePerSec = (int) Math.round(1024 / timeTakenInSecs);
+
+//                if (kilobytePerSec <= POOR_BANDWIDTH) {
+//                    // slow connection
+//                    Utilities.showAlert(VideoConferenceActivity.this, "Slow Internet Detected", false);
+//                    try{
+//                        mSession.sendSignal(TYPE_ERROR_FOR_DOCTOR, "Patient having slow internet!");
+//                    }catch (Exception e){}
+//                }
+
+                Log.e(TAG, "KBPS: " + kilobytePerSec);
+
+
+            }
+
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                e.printStackTrace();
+
+            }
+
+        });
+
+
+    }
     void dialHandler(boolean shouldShow) {
         if (shouldShow) {
             dialerView.setVisibility(View.VISIBLE);
@@ -240,6 +369,7 @@ public class VideoConferenceActivity extends AppCompatActivity
                 }
             };
             countDownTimer.start();
+
         } else {
             if (countDownTimer != null)
                 countDownTimer.cancel();
@@ -283,6 +413,12 @@ public class VideoConferenceActivity extends AppCompatActivity
         Log.e(TAG, "onDestroy");
 
         disconnectSession();
+        try{
+            if (countDownTimer!=null){
+                countDownTimer.cancel();
+            }
+
+        }catch (Exception e){}
 
         super.onDestroy();
     }
@@ -338,6 +474,8 @@ public class VideoConferenceActivity extends AppCompatActivity
                 }
             }).build();
             mSession.setSessionListener(this);
+            mSession.setSignalListener(this);
+            mSession.setReconnectionListener(this);
             mSession.connect(OpenTokConfigConstants.TOKEN);
 
         } else {
@@ -362,16 +500,19 @@ public class VideoConferenceActivity extends AppCompatActivity
     public void onDisconnected(Session session) {
         Log.e(TAG, "onDisconnected: disconnected from session " + session.getSessionId());
 
-        moveToHome();
+        try{
+            checkInternetSpeed();
+        }catch (Exception e){}
     }
 
     @Override
     public void onError(Session session, OpentokError opentokError) {
         Log.e(TAG, "onError: Error (" + opentokError.getMessage() + ") in session " + session.getSessionId());
 
-        //Toast.makeText(this, "Session error. See the logcat please." + opentokError.getMessage(), Toast.LENGTH_LONG).show();
+            //mSession.sendSignal(TYPE_ERROR_FOR_DOCTOR, "Error Occurred at Patient's end");
+            moveToHome();
 
-        moveToHome();
+
     }
 
 
@@ -417,8 +558,7 @@ public class VideoConferenceActivity extends AppCompatActivity
     public void onStreamDropped(Session session, Stream stream) {
         Log.e(TAG, "onStreamDropped: Stream " + stream.getStreamId() + " dropped from session " + session.getSessionId());
         Config.isDisconnect = false;
-
-
+        tv_patientPresent.setVisibility(View.VISIBLE);
 
         if (mSubscriberAdditional != null && mSubscriberAdditional.getStream() != null && mSubscriberAdditional.getStream().getStreamId().equalsIgnoreCase(stream.getStreamId())) {
             mSubscriberAdditional = null;
@@ -442,14 +582,14 @@ public class VideoConferenceActivity extends AppCompatActivity
         patientPresentTimer = new CountDownTimer(30000, 1000) {
 
             public void onTick(long millisUntilFinished) {
-                tv_patientPresent.setText("Connecting... " + String.format("%02d",
+                tv_patientPresent.setText("Connecting... \n" + String.format("%02d",
                         TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
                                 TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)))+" Sec");
             }
 
             public void onFinish() {
                 try{
-                    tv_patientPresent.setText("Connecting... ");
+                    tv_patientPresent.setText("Reconnecting... ");
                 }catch (Exception e){}
                 if(!isDoctorPresent){
                     try{
@@ -475,7 +615,12 @@ public class VideoConferenceActivity extends AppCompatActivity
         Log.e(TAG, "onError: Error (" + opentokError.getMessage() + ") in publisher");
         Config.isDisconnect = false;
         //Toast.makeText(this, "Session error. See the logcat please.", Toast.LENGTH_LONG).show();
-        moveToHome();
+        try{
+            checkInternetSpeed();
+            mSession.sendSignal(TYPE_ERROR_FOR_DOCTOR, "Error Occurred at Patient's end");
+            moveToHome();
+
+        }catch (Exception e){}
     }
 
     public void setPublisherView() {
@@ -495,45 +640,62 @@ public class VideoConferenceActivity extends AppCompatActivity
     }
 
     public void moveToHome() {
-        if (GlobValues.getAddAppointmentParams() != null)
-            GlobValues.getAddAppointmentParams().clear();
-
         if (isMovingToHome) {
+            finish();
             return;
         }
 
         isMovingToHome = true;
-
-//        Utilities.showAlertDialogWithOptions(this, false, "", new String[]{"Done"}, new UtilitiesInterfaces.AlertCallback() {
+        if (GlobValues.getAddAppointmentParams() != null)
+            GlobValues.getAddAppointmentParams().clear();
+        Intent homeScreen = new Intent(getApplicationContext(), CallEndedActivity.class);
+        homeScreen.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        homeScreen.putExtra("message", message);
+        startActivity(homeScreen);
+        finish();
+//        if (isMovingToHome) {
+//            return;
+//        }
+//
+//        isMovingToHome = true;
+//
+//        ConfirmDialog confirmDialog = new ConfirmDialog(VideoConferenceActivity.this, false, message, new ConfirmDialog.DialogListener() {
 //            @Override
-//            public void onOptionClick(DialogInterface dialog, int buttonIndex) {
+//            public void onYes() {
+//                Intent homeScreen = new Intent(getApplicationContext(), DashboardMapActivity.class);
+//                homeScreen.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                startActivity(homeScreen);
+//                finish();
+//            }
+//
+//            @Override
+//            public void onNO() {
+//
+//            }
+//        }, new DialogInterface.OnCancelListener() {
+//            @Override
+//            public void onCancel(DialogInterface dialog) {
 //
 //            }
 //        });
-        ConfirmDialog confirmDialog = new ConfirmDialog(VideoConferenceActivity.this, false, message, new ConfirmDialog.DialogListener() {
-            @Override
-            public void onYes() {
-                Intent homeScreen = new Intent(getApplicationContext(), DashboardMapActivity.class);
-                homeScreen.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(homeScreen);
-            }
-
-            @Override
-            public void onNO() {
-
-            }
-        }, new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-
-            }
-        });
-        if (getApplicationContext() != null) {
-            Objects.requireNonNull(confirmDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            confirmDialog.show();
-        }
+//        if (getApplicationContext() != null) {
+//            Objects.requireNonNull(confirmDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//            confirmDialog.show();
+//        }
     }
 
+
+    public void moveToHomeWithoutConfirmationDialog() {
+        if (GlobValues.getAddAppointmentParams() != null)
+            GlobValues.getAddAppointmentParams().clear();
+
+        isMovingToHome = true;
+
+        Intent homeScreen = new Intent(getApplicationContext(), DashboardMapActivity.class);
+        homeScreen.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(homeScreen);
+        finish();
+    }
 
 
     private void disconnectSession() {
@@ -562,9 +724,20 @@ public class VideoConferenceActivity extends AppCompatActivity
             }
 
         } catch (Exception e) {
-
+            Log.e(TAG, "disconnectSession: "+e );
         }
 
+
+    }
+
+
+    @Override
+    public void onSignalReceived(Session session, String s, String s1, Connection connection) {
+        Log.e(TAG, "onSignalReceived: "+s+"\n\n"+s1 );
+
+        if (!s.equals(TYPE_ERROR_FOR_DOCTOR)){
+            Utilities.showAlert(VideoConferenceActivity.this, s1, false);
+        }
 
     }
 
@@ -628,18 +801,27 @@ public class VideoConferenceActivity extends AppCompatActivity
     @Override
     public void onVideoDisableWarning(SubscriberKit subscriberKit) {
         Log.e(TAG, "&&&&&&&&&&  onVideoDisableWarning  &&&&&&&&&");
+        try{
+            checkInternetSpeed();
+        }catch (Exception e){}
 
     }
 
     @Override
     public void onVideoDisableWarningLifted(SubscriberKit subscriberKit) {
         Log.e(TAG, "&&&&&&&&&&  onVideoDisableWarningLifted  &&&&&&&&&");
-
+        try{
+            checkInternetSpeed();
+        }catch (Exception e){}
     }
 
 
     public void getEndCall() {
 
+        if (countDownTimer != null)
+            countDownTimer.cancel();
+        dialerView.setVisibility(View.GONE);
+        //videoCallLayout.setVisibility(View.VISIBLE);
 
         Log.e(TAG, "getEndCall: "+docId);
         HashMap<String, Object> endCallParams = new HashMap<>();
@@ -650,6 +832,8 @@ public class VideoConferenceActivity extends AppCompatActivity
 
         try {
             endCallParams.put("PatientID", accInfo.getString("PatientID"));
+            endCallParams.put("SpecialistID", accInfo.getString("PatientID"));
+
         } catch (Exception e) {
             e.printStackTrace();
             Log.e(TAG, "getEndCall: "+e);
@@ -682,4 +866,14 @@ public class VideoConferenceActivity extends AppCompatActivity
         }
     }
 
+    @Override
+    public void onReconnecting(Session session) {
+        mSession.sendSignal(TYPE_ERROR_FOR_DOCTOR, "Patient Reconnecting...");
+    }
+
+    @Override
+    public void onReconnected(Session session) {
+        mSession.sendSignal(TYPE_ERROR_FOR_DOCTOR, "Patient Reconnected!");
+
+    }
 }

@@ -23,6 +23,7 @@ import com.kal.connect.R;
 import com.kal.connect.modules.communicate.ChatActivity;
 import com.kal.connect.modules.communicate.IncomingCallActivity;
 import com.kal.connect.appconstants.OpenTokConfigConstants;
+import com.kal.connect.modules.communicate.VideoConferenceActivity;
 import com.kal.connect.modules.communicate.services.HeadsUpNotificationService;
 import com.kal.connect.modules.dashboard.DashboardMapActivity;
 import com.kal.connect.utilities.AppPreferences;
@@ -35,6 +36,7 @@ import java.util.Map;
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "MyFirebaseMsgService";
+    public static final String CALL_DECLINE = "declined";
 
     @Override
     public void onMessageReceived(RemoteMessage message) {
@@ -158,13 +160,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             }
         } else if (messageData.containsKey("title") && message.getData().get("title").toString().equalsIgnoreCase("Decline Call")) {
             try {
-                if (Config.mActivity != null && !Config.mActivity.getClass().getSimpleName().equalsIgnoreCase("VideoConference")) {
-                    ((IncomingCallActivity) Config.mActivity).moveToHome();
-                } else {
                     Intent homeScreen = new Intent(getApplicationContext(), DashboardMapActivity.class);
                     homeScreen.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    homeScreen.putExtra(CALL_DECLINE, 1);
                     startActivity(homeScreen);
-                }
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -182,6 +182,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 fullScreenIntent = new Intent(context, IncomingCallActivity.class);
                 fullScreenIntent.putExtra("SpecialistID", specialistID);
             } else {
+                type = "Message from doctor...";
                 fullScreenIntent = new Intent(context, ChatActivity.class);
                 fullScreenIntent.putExtra("doctorName", body);
             }

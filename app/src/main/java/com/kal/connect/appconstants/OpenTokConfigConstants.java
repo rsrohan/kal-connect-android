@@ -11,6 +11,9 @@ public class OpenTokConfigConstants {
 
     public static String SESSION_ID = "";
     public static String TOKEN = "";
-
+    public static final String TYPE_ERROR_FOR_PATIENT = "ERROR_PAT";
+    public static final String TYPE_ERROR_FOR_DOCTOR = "ERROR_DOC";
+    public static final String TYPE_MESSAGE = "MESSAGE";
+    public static final String TYPE_OTHER = "OTHER";
 
 }

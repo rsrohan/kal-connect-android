@@ -230,6 +230,9 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
                         detailsScreen.putExtra("docQual",docQual);
                         detailsScreen.putExtra("appointmentTime",appointmentTime);
                         detailsScreen.putExtra("appointmentStatus",appointmentStatus);
+                        detailsScreen.putExtra("appointmentID",selectedAppointmentData.get("appointmentId").toString());
+                        detailsScreen.putExtra("complaintID",selectedAppointmentData.get("ComplaintID").toString());
+
                         mContext.startActivity(detailsScreen);
 
                         Utilities.pushAnimation(mActivity);
