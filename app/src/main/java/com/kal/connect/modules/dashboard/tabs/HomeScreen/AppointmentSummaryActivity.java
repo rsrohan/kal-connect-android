@@ -502,6 +502,7 @@ public class AppointmentSummaryActivity extends CustomActivity implements View.O
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     pd.dismiss();
+                    Log.e(TAG, "onErrorResponse: "+error.getMessage() );
                     showOrderErrorMessage();
                 }
             }) {    //this is the part, that adds the header to the request
