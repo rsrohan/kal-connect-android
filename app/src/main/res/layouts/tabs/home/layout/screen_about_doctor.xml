@@ -230,7 +230,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="5"
                 android:layout_margin="2dp"
-                android:text="@string/consult_now"
+                android:text="@string/consult_now2"
                 android:textStyle="bold"
                 android:textColor="@color/white"
                 android:background="@drawable/button_bg"
@@ -245,7 +245,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="5"
                 android:textStyle="bold"
-                android:text="@string/consult_later"
+                android:text="@string/consult_later2"
                 android:textColor="@color/white"
                 android:layout_margin="2dp"
                 android:background="@drawable/button_bg"/>
