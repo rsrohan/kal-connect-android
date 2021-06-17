@@ -57,7 +57,7 @@ public class OrderSummaryActivity extends AppCompatActivity {
                         Double.parseDouble(String.valueOf(sentParams.get(i).get("MedicineCount"))));
             }
         }
-        tv_total_amt.setText("Total Amount: Rs " + totalAmt);
+        tv_total_amt.setText("Total: Rs " + totalAmt);
 
 
     }
