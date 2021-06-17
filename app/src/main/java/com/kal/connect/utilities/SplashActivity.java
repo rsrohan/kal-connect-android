@@ -3,6 +3,8 @@ package com.kal.connect.utilities;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
@@ -118,7 +120,13 @@ public class SplashActivity extends AppCompatActivity {
             }
         }, 2000);
 
-
+        try {
+            PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            String version = pInfo.versionName;
+            txtTitle.setText(txtTitle.getText()+"\n\nVersion: "+version);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

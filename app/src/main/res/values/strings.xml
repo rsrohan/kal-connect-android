@@ -248,6 +248,8 @@
     <string name="schedule_appointment">Schedule Appointment</string>
     <string name="consult_now" translatable="false">Consult Now</string>
     <string name="consult_later" translatable="false">Consult Later</string>
+    <string name="consult_now2" translatable="false">Now</string>
+    <string name="consult_later2" translatable="false">Later</string>
 
     <string name="detailed_complaints">Detailed Complaints</string>
 

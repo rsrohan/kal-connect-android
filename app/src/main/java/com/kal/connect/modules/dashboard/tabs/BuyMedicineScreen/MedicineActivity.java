@@ -316,6 +316,7 @@ public class MedicineActivity extends CustomActivity implements View.OnClickList
 
     // MARK : API
     private void loadAppointments(JSONArray medicineNameArray) {
+        Log.e(TAG, "loadAppointments: "+medicineNameArray.toString() );
 
         // Show loading only at first time
         Boolean showLoading = dataItems.size() == 0;
@@ -327,16 +328,18 @@ public class MedicineActivity extends CustomActivity implements View.OnClickList
                 JSONObject singleObj = medicineNameArray.getJSONObject(loop);
                 HashMap<String, Object> item = new HashMap<String, Object>();
 
-                String PriscriptionDate = (singleObj.getString("PriscriptionDate") != null) ? singleObj.getString("PriscriptionDate") : "";
-                if (!PriscriptionDate.isEmpty()) {
-                    PriscriptionDate = Utilities.changeStringFormat(Utilities.dateRT(singleObj.getString("PriscriptionDate")), "yyyy-mm-dd", "dd/mm/yyyy");
-                    PriscriptionDate = PriscriptionDate + " " + singleObj.getString("PriscriptionDate");
-                }
+//                String PriscriptionDate = (singleObj.getString("PriscriptionDate") != null) ? singleObj.getString("PriscriptionDate") : "";
+//                if (!PriscriptionDate.isEmpty()) {
+//                    PriscriptionDate = Utilities.changeStringFormat(Utilities.dateRT(singleObj.getString("PriscriptionDate")), "yyyy-mm-dd", "dd/mm/yyyy");
+//                    PriscriptionDate = PriscriptionDate + " " + singleObj.getString("PriscriptionDate");
+//                }
 
                 item.put("PriscriptionDate", singleObj.getString("PriscriptionDate"));
                 item.put("Medicinename", singleObj.getString("Medicinename"));
                 item.put("isEnabled", false);
                 item.put("ReportComment", singleObj.getString("ReportComment"));
+                item.put("MedicinePrice", singleObj.getString("MedicinePrice"));
+                item.put("MedicineSKU", singleObj.getString("MedicineSKU"));
 
                 dataItems.add(item);
             } catch (Exception e) {

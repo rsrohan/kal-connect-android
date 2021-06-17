@@ -29,7 +29,8 @@
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
-        <activity android:name=".modules.communicate.CallEndedActivity"></activity>
+        <activity android:name=".modules.dashboard.tabs.BuyMedicineScreen.OrderSummaryActivity"></activity>
+        <activity android:name=".modules.communicate.CallEndedActivity" />
         <activity android:name=".modules.dashboard.tabs.BuyMedicineScreen.OrderSuccessfulActivity" />
         <activity
             android:name=".utilities.SplashActivity"

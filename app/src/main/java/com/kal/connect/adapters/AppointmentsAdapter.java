@@ -212,6 +212,8 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
 
                 try {
                     JSONArray responseAry = new JSONArray(response);
+                    //JSONArray jObjResponse = new JSONArray(String.valueOf(response));
+
                     if (responseAry.length() > 0) {
                         JSONObject commonDataInfo = responseAry.getJSONObject(0);
                         if (commonDataInfo.has("APIStatus")) {
