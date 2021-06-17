@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.kal.connect.R;
 import com.kal.connect.adapters.OrderSummaryAdapter;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -24,7 +25,7 @@ public class OrderSummaryActivity extends AppCompatActivity {
     RecyclerView rv_order_summary;
     ArrayList<HashMap<String, Object>> sentParams;
     ImageView iv_back;
-    TextView tv_total_amt;
+    TextView tv_total_amt, tv_confirm_add;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,7 @@ public class OrderSummaryActivity extends AppCompatActivity {
             }
         });
         tv_total_amt = findViewById(R.id.tv_total_amt);
+        tv_confirm_add = findViewById(R.id.tv_confirm_add);
         Intent intent = getIntent();
         Bundle args = intent.getBundleExtra("data");
 
@@ -58,6 +60,17 @@ public class OrderSummaryActivity extends AppCompatActivity {
             }
         }
         tv_total_amt.setText("Total: Rs " + totalAmt);
+
+        tv_confirm_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(OrderSummaryActivity.this, ConfirmAddressAndPayActivity.class);
+                Bundle args = new Bundle();
+                args.putSerializable("MedicineData", (Serializable) sentParams);
+                i.putExtra("data", args);
+                startActivity(i);
+            }
+        });
 
 
     }

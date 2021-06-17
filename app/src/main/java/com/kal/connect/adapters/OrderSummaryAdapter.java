@@ -61,7 +61,6 @@ public class OrderSummaryAdapter extends RecyclerView.Adapter<OrderSummaryAdapte
 
         }
 
-
     }
 
     @Override
@@ -102,7 +101,6 @@ public class OrderSummaryAdapter extends RecyclerView.Adapter<OrderSummaryAdapte
         } else {
             holder.mTxtQuantity.setText("Quantity: NA");
         }
-
 
     }
 

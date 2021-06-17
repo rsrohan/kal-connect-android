@@ -168,8 +168,8 @@ public class MedicineActivity extends CustomActivity implements View.OnClickList
 
         Intent i = new Intent(this, OrderSummaryActivity.class);
         Bundle args = new Bundle();
-        args.putSerializable("MedicineData",(Serializable)sentParams);
-        i.putExtra("data",args);
+        args.putSerializable("MedicineData", (Serializable) sentParams);
+        i.putExtra("data", args);
         startActivity(i);
 
 //        HashMap<String, Object> inputParams = AppPreferences.getInstance().sendingInputParamBuyMedicine();
@@ -329,7 +329,7 @@ public class MedicineActivity extends CustomActivity implements View.OnClickList
 
     // MARK : API
     private void loadAppointments(JSONArray medicineNameArray) {
-        Log.e(TAG, "loadAppointments: "+medicineNameArray.toString() );
+        Log.e(TAG, "loadAppointments: " + medicineNameArray.toString());
 
         // Show loading only at first time
         Boolean showLoading = dataItems.size() == 0;
@@ -351,10 +351,10 @@ public class MedicineActivity extends CustomActivity implements View.OnClickList
                 item.put("Medicinename", singleObj.getString("Medicinename"));
                 item.put("isEnabled", false);
                 item.put("ReportComment", singleObj.getString("ReportComment"));
-                try{
+                try {
                     item.put("amount", singleObj.getString("amount"));
                     item.put("MedicineSKU", singleObj.getString("MedicineSKU"));
-                }catch (Exception e){
+                } catch (Exception e) {
                     //Log.e(TAG, "loadAppointments: "+e );
                     item.put("amount", "1");
                     item.put("MedicineSKU", "1");
