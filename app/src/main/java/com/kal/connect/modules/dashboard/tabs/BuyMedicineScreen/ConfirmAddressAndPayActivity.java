@@ -38,9 +38,9 @@ public class ConfirmAddressAndPayActivity extends AppCompatActivity implements P
     ImageView iv_back;
     EditText et_name, et_phone, et_mainAddress1, et_mainAddress2, et_mainAddress3, et_city, et_state, et_pincode;
     TextView tv_proceed;
-    private String pAddress="";
-    private String pName="";
-    private String pPhone="";
+    private String pAddress = "";
+    private String pName = "";
+    private String pPhone = "";
     private Checkout checkout;
     private Intent intent;
 
@@ -164,11 +164,11 @@ public class ConfirmAddressAndPayActivity extends AppCompatActivity implements P
 
     @Override
     public void onPaymentError(int i, String s) {
-        if (isTesting){
-            showAlert("You are testing...");
-        }else{
-            Utilities.showAlert(ConfirmAddressAndPayActivity.this, "Payment Failed! If money deducted, it will be refunded.", false);
-        }
+//        if (isTesting){
+//            showAlert("You are testing...");
+//        }else{
+        Utilities.showAlert(ConfirmAddressAndPayActivity.this, "Payment Failed! If money deducted, it will be refunded.", false);
+        // }
     }
 
     void placeOrder(ArrayList<HashMap<String, Object>> sentParams, String pName, String pPhone, String pAddress, String payId) {
@@ -227,6 +227,7 @@ public class ConfirmAddressAndPayActivity extends AppCompatActivity implements P
 
 
     }
+
     void showAlert(String message) {
         Intent i = new Intent(getApplicationContext(), OrderSuccessfulActivity.class);
         i.putExtra("message", message);

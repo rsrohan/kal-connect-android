@@ -358,12 +358,12 @@ public class MedicineActivity extends CustomActivity implements View.OnClickList
                 item.put("isEnabled", false);
                 item.put("ReportComment", singleObj.getString("ReportComment"));
                 try {
-                    item.put("amount", singleObj.getString("amount"));
-                    item.put("MedicineSKU", singleObj.getString("MedicineSKU"));
+                    item.put("amount", singleObj.get("Amount").toString());
+                    item.put("SKUNumber", singleObj.getString("SKUNumber"));
                 } catch (Exception e) {
-                    //Log.e(TAG, "loadAppointments: "+e );
+                    Log.e(TAG, "loadAppointments: "+e );
                     item.put("amount", "1");
-                    item.put("MedicineSKU", "1");
+                    item.put("SKUNumber", "NA");
                 }
 
                 dataItems.add(item);
