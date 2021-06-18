@@ -142,10 +142,9 @@ public class MedicineActivity extends CustomActivity implements View.OnClickList
         mTxtUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //changeColor(mImgUplod, mTxtUpload);
-                Intent mIntent = new Intent(getApplicationContext(), PrescriptionUploadActivity.class);
-                startActivity(mIntent);
-                finish();
+//                Intent mIntent = new Intent(getApplicationContext(), PrescriptionUploadActivity.class);
+//                startActivity(mIntent);
+//                finish();
             }
         });
 
@@ -362,7 +361,7 @@ public class MedicineActivity extends CustomActivity implements View.OnClickList
                     item.put("SKUNumber", singleObj.getString("SKUNumber"));
                 } catch (Exception e) {
                     Log.e(TAG, "loadAppointments: "+e );
-                    item.put("amount", "1");
+                    item.put("amount", "0");
                     item.put("SKUNumber", "NA");
                 }
 
