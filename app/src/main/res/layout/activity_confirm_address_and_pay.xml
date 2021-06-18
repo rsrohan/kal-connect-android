@@ -38,9 +38,10 @@
 
     <ScrollView
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:scrollbars="none"
-        android:layout_height="wrap_content">
+        android:scrollbars="none">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -50,9 +51,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/app_color"
                 android:padding="12dp"
                 android:text="Deliver to:"
+                android:textColor="@color/app_color"
                 android:textStyle="bold" />
 
             <EditText
@@ -68,10 +69,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Contact No:"
                 android:layout_marginHorizontal="8dp"
                 android:padding="4dp"
-                android:textColor="@color/app_color"/>
+                android:text="Contact No:"
+                android:textColor="@color/app_color" />
+
             <EditText
                 android:id="@+id/et_phone"
                 android:layout_width="match_parent"
@@ -81,13 +83,15 @@
                 android:hint="Contact Number"
                 android:inputType="phone"
                 android:padding="8dp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Address:"
                 android:layout_marginHorizontal="8dp"
                 android:padding="4dp"
-                android:textColor="@color/app_color"/>
+                android:text="Address:"
+                android:textColor="@color/app_color" />
+
             <EditText
                 android:id="@+id/et_mainAddress1"
                 android:layout_width="match_parent"
@@ -117,13 +121,15 @@
                 android:hint="Landmark e.g. near Central Perk Cafe"
                 android:inputType="textPostalAddress"
                 android:padding="8dp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="City:"
                 android:layout_marginHorizontal="8dp"
                 android:padding="4dp"
-                android:textColor="@color/app_color"/>
+                android:text="City:"
+                android:textColor="@color/app_color" />
+
             <EditText
                 android:id="@+id/et_city"
                 android:layout_width="match_parent"
@@ -133,13 +139,15 @@
                 android:hint="Town/City"
                 android:inputType="textCapWords"
                 android:padding="8dp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="State:"
                 android:layout_marginHorizontal="8dp"
                 android:padding="4dp"
-                android:textColor="@color/app_color"/>
+                android:text="State:"
+                android:textColor="@color/app_color" />
+
             <EditText
                 android:id="@+id/et_state"
                 android:layout_width="match_parent"
@@ -149,13 +157,15 @@
                 android:hint="State/UT"
                 android:inputType="textCapWords"
                 android:padding="8dp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pin Code:"
                 android:layout_marginHorizontal="8dp"
                 android:padding="4dp"
-                android:textColor="@color/app_color"/>
+                android:text="Pin Code:"
+                android:textColor="@color/app_color" />
+
             <EditText
                 android:id="@+id/et_pincode"
                 android:layout_width="match_parent"
@@ -177,6 +187,8 @@
         android:layout_margin="4dp"
         android:background="@drawable/btn_rounded"
         android:backgroundTint="@color/appoinment_red"
+        android:drawableEnd="@drawable/ic_proceed_arrow"
+        android:drawableTint="@color/colorPrimary"
         android:gravity="center"
         android:padding="12dp"
         android:text="Proceed to Pay"
