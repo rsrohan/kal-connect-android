@@ -14,6 +14,7 @@ import com.kal.connect.R;
 import com.kal.connect.adapters.OrderSummaryAdapter;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -26,6 +27,7 @@ public class OrderSummaryActivity extends AppCompatActivity {
     ArrayList<HashMap<String, Object>> sentParams;
     ImageView iv_back;
     TextView tv_total_amt, tv_confirm_add;
+    private double totalAmt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +52,9 @@ public class OrderSummaryActivity extends AppCompatActivity {
         OrderSummaryAdapter orderSummaryAdapter = new OrderSummaryAdapter(sentParams, getApplicationContext());
 
         rv_order_summary.setAdapter(orderSummaryAdapter);
+        DecimalFormat precision = new DecimalFormat("0.00");
 
-        double totalAmt = 0;
+        totalAmt = 0;
         for (int i = 0; i < sentParams.size(); i++) {
             if (sentParams.get(i).containsKey("amount")) {
                 totalAmt = totalAmt + (Double.parseDouble(String.valueOf(sentParams.get(i).get("amount")))
@@ -59,7 +62,9 @@ public class OrderSummaryActivity extends AppCompatActivity {
                         Double.parseDouble(String.valueOf(sentParams.get(i).get("MedicineCount"))));
             }
         }
-        tv_total_amt.setText("Total: Rs " + totalAmt);
+// dblVariable is a number variable and not a String in this case
+        //totalAmt = (precision.format(totalAmt));
+        tv_total_amt.setText("Total: Rs " + precision.format(totalAmt));
 
         tv_confirm_add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +73,7 @@ public class OrderSummaryActivity extends AppCompatActivity {
                 Bundle args = new Bundle();
                 args.putSerializable("MedicineData", (Serializable) sentParams);
                 i.putExtra("data", args);
+                i.putExtra("amount", precision.format(totalAmt));
                 startActivity(i);
             }
         });
@@ -78,62 +84,5 @@ public class OrderSummaryActivity extends AppCompatActivity {
 
 
 
-    /*void placeOrder(ArrayList<HashMap<String, Object>> sentParams) {
-
-        HashMap<String, Object> inputParams = AppPreferences.getInstance().sendingInputParamBuyMedicine();
-
-        if (sentParams.size() > 0) {
-            inputParams.put("objMedicineList", new JSONArray(sentParams));
-        }
-        if (uploadedFilesArrayList.size() > 0) {
-            inputParams.put("Uploadprescription", new JSONArray(uploadedFilesArrayList));
-        }
-        if (sentParams.size() <= 0 && uploadedFilesArrayList.size() <= 0) {
-            Utilities.showAlert(MedicineActivity.this, "No Medicine or Uploaded Prescription found.", false);
-        } else {
-            Log.e(TAG, "placeOrder: " + inputParams.toString());
-            SoapAPIManager apiManager = new SoapAPIManager(MedicineActivity.this, inputParams, new APICallback() {
-                @Override
-                public void responseCallback(Context context, String response) throws JSONException {
-                    Log.e(TAG, response);
-
-                    try {
-                        JSONArray responseAry = new JSONArray(response);
-                        if (responseAry.length() > 0) {
-                            JSONObject commonDataInfo = responseAry.getJSONObject(0);
-                            if (commonDataInfo.has("APIStatus") && Integer.parseInt(commonDataInfo.getString("APIStatus")) == 1) {
-                                if (commonDataInfo.has("RespText")) {
-//                                Utilities.showAlert(mContext, commonDataInfo.getString("RespText"), false);
-                                    showAlert(commonDataInfo.getString("RespText"));
-                                } else {
-                                    Utilities.showAlert(MedicineActivity.this, "Please check again!", false);
-                                }
-                            } else {
-                                Utilities.showAlert(MedicineActivity.this, "Error Occurred!", false);
-                            }
-
-                        } else {
-                            Utilities.showAlert(MedicineActivity.this, "Error Occurred!", false);
-                        }
-                    } catch (Exception e) {
-                        Log.e(TAG, "responseCallback: " + e);
-                        e.getMessage();
-                        Utilities.showAlert(MedicineActivity.this, "Error Occurred!", false);
-
-                    }
-                }
-            }, true);
-            String[] url = {Config.WEB_Services1, Config.EMAIL_MEDICINE_TO_PHARMACY, "POST"};
-
-            if (Utilities.isNetworkAvailable(getApplicationContext())) {
-                Log.e(TAG, "placeOrder: " + url);
-                apiManager.execute(url);
-            } else {
-                Utilities.showAlert(MedicineActivity.this, "Please check internet!", false);
-
-            }
-        }
-
-
-    }*/
+    /**/
 }

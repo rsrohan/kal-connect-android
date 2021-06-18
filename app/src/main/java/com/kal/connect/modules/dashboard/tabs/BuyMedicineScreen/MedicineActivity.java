@@ -166,11 +166,17 @@ public class MedicineActivity extends CustomActivity implements View.OnClickList
 
     void placeOrder(ArrayList<HashMap<String, Object>> sentParams) {
 
-        Intent i = new Intent(this, OrderSummaryActivity.class);
-        Bundle args = new Bundle();
-        args.putSerializable("MedicineData", (Serializable) sentParams);
-        i.putExtra("data", args);
-        startActivity(i);
+        if (sentParams.size()>0){
+            Intent i = new Intent(this, OrderSummaryActivity.class);
+            Bundle args = new Bundle();
+            args.putSerializable("MedicineData", (Serializable) sentParams);
+            i.putExtra("data", args);
+            startActivity(i);
+        }else{
+            Utilities.showAlert(MedicineActivity.this, "No medicines selected!", false);
+        }
+
+
 
 //        HashMap<String, Object> inputParams = AppPreferences.getInstance().sendingInputParamBuyMedicine();
 //
