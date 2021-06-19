@@ -29,30 +29,36 @@ import javax.net.ssl.X509TrustManager;
 public class APIWebServiceConstants {
 
 
-    private static String NAMESPACE = "https://www.medi360.in/";
-    public static final String BASE_URL="https://www.medi360.in/";
+    static String new_url = "https://www.myayurveda.com/";
+    static String old_url = "https://www.medi360.in/";
 
-    /**
-    * Make sure about isTesting variable.
-    * */
+    private static String NAMESPACE = new_url;
+    public static final String BASE_URL = new_url;
+    private static String SOAP_ACTION = new_url;
 
-    static String LIVE_URL = "https://www.ayurvaidya.live/WebServices/";
+    /*************************************
+     * todo Make sure about isTesting variable.
+     *************************************/
+
+    //older domain
+    //static String LIVE_URL = "https://www.ayurvaidya.live/WebServices/";
+
+    //new domain
+    static String LIVE_URL = "https://www.myayurveda.com/WebServices/";
+
     public static boolean isTesting = false;
 
 //    private static String LIVE_URL = "http://ec2-13-127-154-179.ap-south-1.compute.amazonaws.com/WebServices/";
 //    public static boolean isTesting = true;
 
-    private static String SOAP_ACTION = "https://www.medi360.in/";
 
-    public static String LIVE_LINK = "https://www.medi360.in/";
-
-    public static String invokeWebservice(String jsonObjSend,String urlEnd, String webMethName) {
+    public static String invokeWebservice(String jsonObjSend, String urlEnd, String webMethName) {
         String resTxt = null;
 
 
-        Log.e("Webservices*** API URl", "$$$$$$$ "+SOAP_ACTION+webMethName);
-        Log.e("Webservices***", "$$$$$$$ "+urlEnd+"/"+webMethName);
-        Log.e("jsdata***", "$$$$$$$    : "+jsonObjSend);
+        Log.e("Webservices*** API URl", "$$$$$$$ " + SOAP_ACTION + webMethName);
+        Log.e("Webservices***", "$$$$$$$ " + urlEnd + "/" + webMethName);
+        Log.e("jsdata***", "$$$$$$$    : " + jsonObjSend);
 
         SoapObject request = new SoapObject(NAMESPACE, webMethName);
 
@@ -66,17 +72,17 @@ public class APIWebServiceConstants {
         HttpTransportSE androidHttpTransport;
         allowAllSSL();
 
-        androidHttpTransport = new HttpTransportSE(LIVE_URL+urlEnd);
+        androidHttpTransport = new HttpTransportSE(LIVE_URL + urlEnd);
 
 
         try {
-            androidHttpTransport.call(SOAP_ACTION+webMethName, envelope);
-            SoapPrimitive  response = (SoapPrimitive ) envelope.getResponse();
+            androidHttpTransport.call(SOAP_ACTION + webMethName, envelope);
+            SoapPrimitive response = (SoapPrimitive) envelope.getResponse();
             resTxt = response.toString();
 
         } catch (Exception e) {
             e.printStackTrace();
-            resTxt = "Error occurred\n"+e;
+            resTxt = "Error occurred\n" + e;
         }
 
         return resTxt;
@@ -142,6 +148,7 @@ public class APIWebServiceConstants {
                     public boolean verify(String hostname, SSLSession session) {
                         if (hostname.equalsIgnoreCase("www.medi360.in") ||
                                 hostname.equalsIgnoreCase("www.ayurvaidya.live") ||
+                                hostname.equalsIgnoreCase("www.myayurveda.com") ||
                                 hostname.equalsIgnoreCase("api.razorpay.com") ||
                                 hostname.equalsIgnoreCase("telehealth.keralaayurveda.biz") ||
                                 hostname.equalsIgnoreCase("ec2-13-127-154-179.ap-south-1.compute.amazonaws.com")
