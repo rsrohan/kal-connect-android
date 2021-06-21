@@ -41,7 +41,7 @@ public class APIWebServiceConstants {
      *************************************/
 
     //older domain
-    //static String LIVE_URL = "https://www.ayurvaidya.live/WebServices/";
+   //static String LIVE_URL = "https://www.ayurvaidya.live/WebServices/";
 
     //new domain
     static String LIVE_URL = "https://www.myayurveda.com/WebServices/";
