@@ -2,12 +2,14 @@ package com.kal.connect.modules.dashboard.tabs.BuyMedicineScreen;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import com.google.gson.internal.$Gson$Preconditions;
 import com.kal.connect.R;
+import com.kal.connect.modules.dashboard.DashboardMapActivity;
 
 public class OrderSuccessfulActivity extends AppCompatActivity {
 
@@ -23,7 +25,9 @@ public class OrderSuccessfulActivity extends AppCompatActivity {
         tv_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                Intent i = new Intent(OrderSuccessfulActivity.this, DashboardMapActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(i);
             }
         });
     }

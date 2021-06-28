@@ -23,6 +23,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.kal.connect.R;
 import com.kal.connect.adapters.MedicineAdapter;
+import com.kal.connect.customLibs.Callbacks.ScrollToTop;
 import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
 import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
 import com.kal.connect.customLibs.appCustomization.CustomActivity;
@@ -36,6 +37,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -116,7 +118,6 @@ public class MedicineActivity extends CustomActivity implements View.OnClickList
                 //changeColor(mImgOrder, mTxtPlaceOrder);
                 ArrayList<HashMap<String, Object>> sentParams;
                 sentParams = new ArrayList<>();
-                sentParams.clear();
 
                 HashMap<String, Object> mHashMapMedcine;
 
@@ -141,10 +142,9 @@ public class MedicineActivity extends CustomActivity implements View.OnClickList
         mTxtUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //changeColor(mImgUplod, mTxtUpload);
-                Intent mIntent = new Intent(getApplicationContext(), PrescriptionUploadActivity.class);
-                startActivity(mIntent);
-                finish();
+//                Intent mIntent = new Intent(getApplicationContext(), PrescriptionUploadActivity.class);
+//                startActivity(mIntent);
+//                finish();
             }
         });
 
@@ -165,59 +165,71 @@ public class MedicineActivity extends CustomActivity implements View.OnClickList
 
     void placeOrder(ArrayList<HashMap<String, Object>> sentParams) {
 
-        HashMap<String, Object> inputParams = AppPreferences.getInstance().sendingInputParamBuyMedicine();
-
-        if (sentParams.size() > 0) {
-            inputParams.put("objMedicineList", new JSONArray(sentParams));
+        if (sentParams.size()>0){
+            Intent i = new Intent(this, OrderSummaryActivity.class);
+            Bundle args = new Bundle();
+            args.putSerializable("MedicineData", (Serializable) sentParams);
+            i.putExtra("data", args);
+            startActivity(i);
+        }else{
+            Utilities.showAlert(MedicineActivity.this, "No medicines selected!", false);
         }
-        if (uploadedFilesArrayList.size() > 0) {
-            inputParams.put("Uploadprescription", new JSONArray(uploadedFilesArrayList));
-        }
-        if (sentParams.size() <= 0 && uploadedFilesArrayList.size() <= 0) {
-            Utilities.showAlert(MedicineActivity.this, "No Medicine or Uploaded Prescription found.", false);
-        } else {
-            Log.e(TAG, "placeOrder: " + inputParams.toString());
-            SoapAPIManager apiManager = new SoapAPIManager(MedicineActivity.this, inputParams, new APICallback() {
-                @Override
-                public void responseCallback(Context context, String response) throws JSONException {
-                    Log.e(TAG, response);
 
-                    try {
-                        JSONArray responseAry = new JSONArray(response);
-                        if (responseAry.length() > 0) {
-                            JSONObject commonDataInfo = responseAry.getJSONObject(0);
-                            if (commonDataInfo.has("APIStatus") && Integer.parseInt(commonDataInfo.getString("APIStatus")) == 1) {
-                                if (commonDataInfo.has("RespText")) {
-//                                Utilities.showAlert(mContext, commonDataInfo.getString("RespText"), false);
-                                    showAlert(commonDataInfo.getString("RespText"));
-                                } else {
-                                    Utilities.showAlert(MedicineActivity.this, "Please check again!", false);
-                                }
-                            } else {
-                                Utilities.showAlert(MedicineActivity.this, "Error Occurred!", false);
-                            }
 
-                        } else {
-                            Utilities.showAlert(MedicineActivity.this, "Error Occurred!", false);
-                        }
-                    } catch (Exception e) {
-                        Log.e(TAG, "responseCallback: " + e);
-                        e.getMessage();
-                        Utilities.showAlert(MedicineActivity.this, "Error Occurred!", false);
 
-                    }
-                }
-            }, true);
-            String[] url = {Config.WEB_Services1, Config.EMAIL_MEDICINE_TO_PHARMACY, "POST"};
-
-            if (Utilities.isNetworkAvailable(getApplicationContext())) {
-                Log.e(TAG, "placeOrder: " + url);
-                apiManager.execute(url);
-            } else {
-                Utilities.showAlert(MedicineActivity.this, "Please check internet!", false);
-
-            }
-        }
+//        HashMap<String, Object> inputParams = AppPreferences.getInstance().sendingInputParamBuyMedicine();
+//
+//        if (sentParams.size() > 0) {
+//            inputParams.put("objMedicineList", new JSONArray(sentParams));
+//        }
+//        if (uploadedFilesArrayList.size() > 0) {
+//            inputParams.put("Uploadprescription", new JSONArray(uploadedFilesArrayList));
+//        }
+//        if (sentParams.size() <= 0 && uploadedFilesArrayList.size() <= 0) {
+//            Utilities.showAlert(MedicineActivity.this, "No Medicine or Uploaded Prescription found.", false);
+//        } else {
+//            Log.e(TAG, "placeOrder: " + inputParams.toString());
+//            SoapAPIManager apiManager = new SoapAPIManager(MedicineActivity.this, inputParams, new APICallback() {
+//                @Override
+//                public void responseCallback(Context context, String response) throws JSONException {
+//                    Log.e(TAG, response);
+//
+//                    try {
+//                        JSONArray responseAry = new JSONArray(response);
+//                        if (responseAry.length() > 0) {
+//                            JSONObject commonDataInfo = responseAry.getJSONObject(0);
+//                            if (commonDataInfo.has("APIStatus") && Integer.parseInt(commonDataInfo.getString("APIStatus")) == 1) {
+//                                if (commonDataInfo.has("RespText")) {
+////                                Utilities.showAlert(mContext, commonDataInfo.getString("RespText"), false);
+//                                    showAlert(commonDataInfo.getString("RespText"));
+//                                } else {
+//                                    Utilities.showAlert(MedicineActivity.this, "Please check again!", false);
+//                                }
+//                            } else {
+//                                Utilities.showAlert(MedicineActivity.this, "Error Occurred!", false);
+//                            }
+//
+//                        } else {
+//                            Utilities.showAlert(MedicineActivity.this, "Error Occurred!", false);
+//                        }
+//                    } catch (Exception e) {
+//                        Log.e(TAG, "responseCallback: " + e);
+//                        e.getMessage();
+//                        Utilities.showAlert(MedicineActivity.this, "Error Occurred!", false);
+//
+//                    }
+//                }
+//            }, true);
+//            String[] url = {Config.WEB_Services1, Config.EMAIL_MEDICINE_TO_PHARMACY, "POST"};
+//
+//            if (Utilities.isNetworkAvailable(getApplicationContext())) {
+//                Log.e(TAG, "placeOrder: " + url);
+//                apiManager.execute(url);
+//            } else {
+//                Utilities.showAlert(MedicineActivity.this, "Please check internet!", false);
+//
+//            }
+//        }
 
 
     }
@@ -265,7 +277,13 @@ public class MedicineActivity extends CustomActivity implements View.OnClickList
 
     private void buildListView() {
 
-        dataAdapter = new MedicineAdapter(MedicineActivity.this, dataItems, MedicineActivity.this, mTxtPlaceOrder);
+        dataAdapter = new MedicineAdapter(MedicineActivity.this, dataItems, MedicineActivity.this, mTxtPlaceOrder, new ScrollToTop() {
+            @Override
+            public void scrollToTop() {
+                vwAppointments.scrollToPosition(0);
+
+            }
+        });
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(MedicineActivity.this, LinearLayoutManager.VERTICAL, false);
 
         vwAppointments.setNestedScrollingEnabled(false);
@@ -293,19 +311,19 @@ public class MedicineActivity extends CustomActivity implements View.OnClickList
             mHashMapAddToCard.put("Medicinename", mProductModel.getMedicineName());
             mHashMapAddToCard.put("amount", mProductModel.getDiscountedprice());
             mHashMapAddToCard.put("ReportComment", mProductModel.getMeddiscription());
-            mHashMapAddToCard.put("isEnabled", false);
+            mHashMapAddToCard.put("isEnabled", true);
+            mHashMapAddToCard.put("MedicineCount", "1");
             if (dataItems.size() > 0) {
                 if (dataItems.contains(mHashMapAddToCard)) {
 
                     Utilities.showAlert(MedicineActivity.this, "Already Exists", false);
 
-
                 } else {
-                    dataItems.add(mHashMapAddToCard);
+                    dataItems.add(0, mHashMapAddToCard);
                 }
 
             } else {
-                dataItems.add(mHashMapAddToCard);
+                dataItems.add(0, mHashMapAddToCard);
             }
             dataAdapter.notifyDataSetChanged();
             vwAppointments.setAdapter(dataAdapter);
@@ -316,6 +334,7 @@ public class MedicineActivity extends CustomActivity implements View.OnClickList
 
     // MARK : API
     private void loadAppointments(JSONArray medicineNameArray) {
+        Log.e(TAG, "loadAppointments: " + medicineNameArray.toString());
 
         // Show loading only at first time
         Boolean showLoading = dataItems.size() == 0;
@@ -327,16 +346,24 @@ public class MedicineActivity extends CustomActivity implements View.OnClickList
                 JSONObject singleObj = medicineNameArray.getJSONObject(loop);
                 HashMap<String, Object> item = new HashMap<String, Object>();
 
-                String PriscriptionDate = (singleObj.getString("PriscriptionDate") != null) ? singleObj.getString("PriscriptionDate") : "";
-                if (!PriscriptionDate.isEmpty()) {
-                    PriscriptionDate = Utilities.changeStringFormat(Utilities.dateRT(singleObj.getString("PriscriptionDate")), "yyyy-mm-dd", "dd/mm/yyyy");
-                    PriscriptionDate = PriscriptionDate + " " + singleObj.getString("PriscriptionDate");
-                }
+//                String PriscriptionDate = (singleObj.getString("PriscriptionDate") != null) ? singleObj.getString("PriscriptionDate") : "";
+//                if (!PriscriptionDate.isEmpty()) {
+//                    PriscriptionDate = Utilities.changeStringFormat(Utilities.dateRT(singleObj.getString("PriscriptionDate")), "yyyy-mm-dd", "dd/mm/yyyy");
+//                    PriscriptionDate = PriscriptionDate + " " + singleObj.getString("PriscriptionDate");
+//                }
 
                 item.put("PriscriptionDate", singleObj.getString("PriscriptionDate"));
                 item.put("Medicinename", singleObj.getString("Medicinename"));
                 item.put("isEnabled", false);
                 item.put("ReportComment", singleObj.getString("ReportComment"));
+                try {
+                    item.put("amount", singleObj.get("Amount").toString());
+                    item.put("SKUNumber", singleObj.getString("SKUNumber"));
+                } catch (Exception e) {
+                    Log.e(TAG, "loadAppointments: "+e );
+                    item.put("amount", "0");
+                    item.put("SKUNumber", "NA");
+                }
 
                 dataItems.add(item);
             } catch (Exception e) {

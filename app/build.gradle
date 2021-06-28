@@ -186,7 +186,7 @@ dependencies {
     implementation 'com.github.joielechong:countrycodepicker:2.4.1'
 
 //    Razorpay -> Payment Gateway
-    implementation 'com.razorpay:checkout:1.5.10'
+    implementation 'com.razorpay:checkout:1.5.16'
 
     implementation 'androidx.browser:browser:1.0.0'
 

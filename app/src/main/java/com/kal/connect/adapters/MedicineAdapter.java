@@ -20,6 +20,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kal.connect.R;
+import com.kal.connect.customLibs.Callbacks.ScrollToTop;
 import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
 import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
 import com.kal.connect.modules.dashboard.tabs.BuyMedicineScreen.MedicineActivity;
@@ -38,6 +39,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -55,8 +57,9 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
     ArrayList<HashMap<String, Object>> sentParams;
     MedicineActivity mMedicineActivity;
     TextView mTxtPlaceOrder, mTxtAddProduct, mTxtUpload;
+    ScrollToTop scrollToTop;
 
-    public MedicineAdapter(MedicineActivity mMedicineActivity, ArrayList<HashMap<String, Object>> partnerItems, Context context, TextView mTxtPlaceOrder) {
+    public MedicineAdapter(MedicineActivity mMedicineActivity, ArrayList<HashMap<String, Object>> partnerItems, Context context, TextView mTxtPlaceOrder, ScrollToTop scrollToTop) {
         this.items = partnerItems;
         this.mContext = context;
         this.mMedicineActivity = mMedicineActivity;
@@ -69,6 +72,7 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
 //        this.mTxtUpload = mTxtUpload;
         mActivity = (Activity) context;
         sentParams = new ArrayList<>();
+        this.scrollToTop = scrollToTop;
     }
 
     // Step 2: Create View Holder class to set the data for each cell
@@ -120,17 +124,50 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
         String medicineName = (item.get("Medicinename") != null) ? item.get("Medicinename").toString() : "";
         holder.lblName.setText(medicineName);
 
-        if (item.containsKey("amount") && item.get("amount") != null) {
-            holder.mTxtAmount.setText(item.get("amount").toString());
-            holder.mImgRubees.setVisibility(View.VISIBLE);
-        } else {
-            holder.mImgRubees.setVisibility(View.GONE);
-            holder.mTxtAmount.setText("");
+        if (item.containsKey("MedicineCount") && item.get("MedicineCount") != null) {
+            String count = item.get("MedicineCount").toString();
+            try {
+                if (item.containsKey("amount") && item.get("amount") != null) {
+                    Double totalQtyAmt = Double.parseDouble(count)*Double.parseDouble(item.get("amount").toString());
+                    holder.mTxtAmount.setText(""+totalQtyAmt);
+                    holder.mImgRubees.setVisibility(View.VISIBLE);
+                } else {
+                    holder.mImgRubees.setVisibility(View.GONE);
+                    holder.mTxtAmount.setText("");
+                }
+            } catch (Exception e) {
+                Log.e(TAG, "onBindViewHolder: " + e);
+            }
+
+        }else {
+            if (item.containsKey("amount") && item.get("amount") != null) {
+                holder.mTxtAmount.setText(item.get("amount").toString());
+                holder.mImgRubees.setVisibility(View.VISIBLE);
+            } else {
+                holder.mImgRubees.setVisibility(View.GONE);
+                holder.mTxtAmount.setText("");
+            }
         }
-        holder.numberPicker.setMax(15);
+
+        holder.numberPicker.setMax(100);
         holder.numberPicker.setMin(0);
         holder.numberPicker.setUnit(1);
-        holder.numberPicker.setValue(0);
+        //String medicineCount = (item.get("MedicineCount") != null) ? item.get("MedicineCount").toString() : "";
+
+        if (item.get("MedicineCount") != null) {
+            String count = item.get("MedicineCount").toString();
+            try {
+                holder.numberPicker.setValue(Integer.parseInt(count));
+
+            } catch (Exception e) {
+                Log.e(TAG, "onBindViewHolder: " + e);
+                holder.numberPicker.setValue(0);
+            }
+
+        } else {
+            holder.numberPicker.setValue(0);
+        }
+
 
         //item.put("isEnabled", true);
 
@@ -142,6 +179,7 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
 
                 HashMap<String, Object> item = items.get(position);
                 if (value > 0) {
+
                     item.put("isEnabled", true);
                     item.put("MedicineCount", value);
                     if (item.get("amount") != null && !item.get("amount").toString().equalsIgnoreCase("")) {
@@ -149,6 +187,10 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
                         holder.mImgRubees.setVisibility(View.VISIBLE);
                     }
                     items.set(position, item);
+//                    Collections.swap(items, position, 0);
+//                    notifyItemMoved(position, 0);
+//                    scrollToTop.scrollToTop();
+                    //notifyDataSetChanged();
                 } else {
                     item.put("isEnabled", false);
                     if (item.get("amount") != null && !item.get("amount").toString().equalsIgnoreCase("")) {
@@ -166,8 +208,8 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
             @Override
             public void onClick(View view) {
 
-                try{
-                    Utilities.showAlertDialogWithOptions((Activity)mContext,
+                try {
+                    Utilities.showAlertDialogWithOptions((Activity) mContext,
                             "Are you sure to delete this medicine?",
                             new String[]{mContext.getResources().getString(R.string.btn_no),
                                     mContext.getResources().getString(R.string.btn_yes)},
@@ -175,7 +217,7 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
                                 @Override
                                 public void onOptionClick(DialogInterface dialog, int buttonIndex) {
 
-                                    if(buttonIndex == 1){
+                                    if (buttonIndex == 1) {
                                         HashMap<String, Object> item = items.get(position);
 
                                         item.put("isEnabled", false);
@@ -190,7 +232,7 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
                                 }
                             });
 
-                }catch (Exception e){
+                } catch (Exception e) {
                     HashMap<String, Object> item = items.get(position);
 
                     item.put("isEnabled", false);
@@ -288,7 +330,7 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
         HashMap<String, Object> inputParams = AppPreferences.getInstance().sendingInputParamBuyMedicine();
         inputParams.put("objMedicineList", new JSONArray(sentParams));
 
-        Log.e(TAG, "placeOrder: "+inputParams.toString() );
+        Log.e(TAG, "placeOrder: " + inputParams.toString());
         SoapAPIManager apiManager = new SoapAPIManager(mContext, inputParams, new APICallback() {
             @Override
             public void responseCallback(Context context, String response) throws JSONException {
@@ -310,7 +352,7 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
 
                     }
                 } catch (Exception e) {
-                    Log.e(TAG, "responseCallback: "+e);
+                    Log.e(TAG, "responseCallback: " + e);
                     e.getMessage();
                 } finally {
                     mMedicineActivity.getMedicineList();
@@ -320,9 +362,9 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
         String[] url = {Config.WEB_Services1, Config.EMAIL_MEDICINE_TO_PHARMACY, "POST"};
 
         if (Utilities.isNetworkAvailable(mContext)) {
-            Log.e(TAG, "placeOrder: "+url );
+            Log.e(TAG, "placeOrder: " + url);
             apiManager.execute(url);
-        }else{
+        } else {
             Utilities.showAlert(mContext, "Please check internet!", false);
 
         }
@@ -342,9 +384,10 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                try{
+                try {
                     ((Activity) mContext).finish();
-                }catch (Exception e){}
+                } catch (Exception e) {
+                }
             }
         });
 
@@ -353,9 +396,10 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
                 @Override
                 public void run() {
                     dialog.dismiss();
-                    try{
+                    try {
                         ((Activity) mContext).finish();
-                    }catch (Exception e){}
+                    } catch (Exception e) {
+                    }
                 }
             }, 15000);
         }
