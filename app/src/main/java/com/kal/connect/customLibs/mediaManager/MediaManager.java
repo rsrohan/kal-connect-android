@@ -1,7 +1,6 @@
 package com.kal.connect.customLibs.mediaManager;
 
 import android.Manifest;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -10,7 +9,7 @@ import android.graphics.BitmapFactory;
 import android.os.Environment;
 
 import com.kal.connect.customLibs.appCustomization.CustomActivity;
-import com.kal.connect.customdialogbox.FlipProgressDialog;
+import com.kal.connect.customLibs.customdialogbox.FlipProgressDialog;
 import com.kal.connect.utilities.Utilities;
 import com.kal.connect.utilities.UtilitiesInterfaces;
 import com.zhihu.matisse.Matisse;

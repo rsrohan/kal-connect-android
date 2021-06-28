@@ -3,7 +3,6 @@ package com.kal.connect.modules.dashboard.tabs.HomeScreen;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -34,7 +33,7 @@ import com.kal.connect.adapters.SelectedIssueAdapter;
 import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
 import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
 import com.kal.connect.customLibs.appCustomization.CustomActivity;
-import com.kal.connect.customdialogbox.FlipProgressDialog;
+import com.kal.connect.customLibs.customdialogbox.FlipProgressDialog;
 import com.kal.connect.models.DoctorModel;
 import com.kal.connect.models.HospitalModel;
 import com.kal.connect.models.NotesModel;
@@ -65,7 +64,6 @@ import java.util.List;
 import java.util.Map;
 
 import static com.kal.connect.appconstants.APIWebServiceConstants.isTesting;
-import static com.kal.connect.appconstants.OpenTokConfigConstants.TYPE_ERROR_FOR_DOCTOR;
 import static com.kal.connect.utilities.Config.IMAGE_URL_FOR_SPEED;
 
 public class AppointmentSummaryActivity extends CustomActivity implements View.OnClickListener, PaymentResultListener {

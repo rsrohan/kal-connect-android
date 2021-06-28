@@ -1,4 +1,4 @@
-package com.kal.connect.customdialogbox;
+package com.kal.connect.customLibs.customdialogbox;
 
 import android.app.Dialog;
 import android.content.Context;

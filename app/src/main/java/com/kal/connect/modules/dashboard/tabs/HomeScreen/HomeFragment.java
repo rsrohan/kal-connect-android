@@ -36,7 +36,7 @@ import com.kal.connect.R;
 import com.kal.connect.adapters.SelectedIssueAdapter;
 import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
 import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
-import com.kal.connect.customdialogbox.FlipProgressDialog;
+import com.kal.connect.customLibs.customdialogbox.FlipProgressDialog;
 import com.kal.connect.models.IssueHeaderModel;
 import com.kal.connect.models.IssuesModel;
 import com.kal.connect.modules.payment.PaymentActivity;

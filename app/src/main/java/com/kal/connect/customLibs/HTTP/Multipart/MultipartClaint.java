@@ -1,11 +1,10 @@
 package com.kal.connect.customLibs.HTTP.Multipart;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 
 import com.kal.connect.customLibs.HTTP.MultipartUtility;
-import com.kal.connect.customdialogbox.FlipProgressDialog;
+import com.kal.connect.customLibs.customdialogbox.FlipProgressDialog;
 import com.kal.connect.utilities.Utilities;
 
 import org.json.JSONException;

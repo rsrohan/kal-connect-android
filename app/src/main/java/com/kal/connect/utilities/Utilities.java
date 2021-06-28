@@ -47,7 +47,7 @@ import com.amulyakhare.textdrawable.TextDrawable;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.kal.connect.R;
-import com.kal.connect.customdialogbox.FlipProgressDialog;
+import com.kal.connect.customLibs.customdialogbox.FlipProgressDialog;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
