@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.kal.connect.R;
-import com.kal.connect.modules.dashboard.tabs.BuyMedicineScreen.models.PrescriptionModel;
+import com.kal.connect.modules.dashboard.BuyMedicine.models.PrescriptionModel;
 
 import java.util.ArrayList;
 

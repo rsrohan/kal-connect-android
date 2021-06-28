@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.kal.connect.R;
 import com.kal.connect.models.IssuesModel;
-import com.kal.connect.modules.dashboard.tabs.HomeScreen.HomeFragment;
+import com.kal.connect.modules.dashboard.BookAppointment.HomeFragment;
 import com.robertlevonyan.views.chip.Chip;
 import com.robertlevonyan.views.chip.OnCloseClickListener;
 

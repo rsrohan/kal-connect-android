@@ -19,7 +19,7 @@ import android.widget.TextView;
 import com.kal.connect.R;
 import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
 import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
-import com.kal.connect.modules.dashboard.tabs.AppointmentsDetails.AppointmentDetailActivity;
+import com.kal.connect.modules.dashboard.AppointmentsDetails.AppointmentDetailActivity;
 import com.kal.connect.utilities.AppPreferences;
 import com.kal.connect.utilities.Config;
 import com.kal.connect.utilities.GlobValues;
