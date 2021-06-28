@@ -53,7 +53,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:text="Dr. Krishna Kumar"
+                        android:text="Dr. Rohan Verma"
                         android:textAppearance="@style/CustomFont.Bold"
                         android:textColor="@color/white"
                         android:textSize="@dimen/doctor_font_size" />
