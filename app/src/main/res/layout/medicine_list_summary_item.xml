@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:numberpicker="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent">
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/default_min_margin"
+        android:layout_marginTop="@dimen/default_small_margin"
+        android:layout_marginEnd="@dimen/default_min_margin"
+        android:layout_marginBottom="@dimen/default_small_margin"
+        app:cardCornerRadius="@dimen/card_radius"
+        app:cardElevation="@dimen/card_elevation"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/vwContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight=".9"
+            android:orientation="vertical"
+            android:padding="@dimen/default_min_padding"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <LinearLayout
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/lblName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/ll_price"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:drawablePadding="4dp"
+                    android:text=""
+                    android:textColor="@color/black"
+                    app:drawableStartCompat="@drawable/ic_medicine" />
+
+                <LinearLayout
+                    android:id="@+id/ll_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="4dp"
+                    android:weightSum="2"
+                    android:visibility="visible">
+
+
+                    <ImageView
+                        android:id="@+id/img_amt"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:layout_toLeftOf="@+id/txt_medicine_offer_amt"
+                        android:src="@drawable/ic_rubees" />
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:id="@+id/txt_medicine_offer_amt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="34"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:id="@+id/tv_quantity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Quantity: " />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

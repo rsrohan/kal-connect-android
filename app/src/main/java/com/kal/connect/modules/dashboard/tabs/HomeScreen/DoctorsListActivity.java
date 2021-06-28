@@ -38,6 +38,7 @@ import io.github.luizgrp.sectionedrecyclerviewadapter.Section;
 
 public class DoctorsListActivity extends CustomActivity implements SearchView.OnQueryTextListener {
 
+    private static final String TAG = "ListOfDoctors";
     RecyclerView doctorsListRecyclerVw;
     DoctorsListAdapter doctorsListAdapter;
     ArrayList<DoctorModel> doctorslist = new ArrayList<>();
@@ -114,7 +115,7 @@ public class DoctorsListActivity extends CustomActivity implements SearchView.On
         SoapAPIManager apiManager = new SoapAPIManager(DoctorsListActivity.this, inputParams, new APICallback() {
             @Override
             public void responseCallback(Context context, String response) throws JSONException {
-                Log.e("***response***",response);
+                Log.e(TAG,response);
 
                 try{
                     JSONArray responseAry = new JSONArray(response);

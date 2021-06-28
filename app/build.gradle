@@ -6,8 +6,8 @@ android {
         applicationId "com.kal.connect"
         minSdkVersion 22
         targetSdkVersion 30
-        versionCode 8
-        versionName "0.0.8"
+        versionCode 13
+        versionName "0.1.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -149,7 +149,7 @@ dependencies {
     implementation 'com.wdullaer:materialdatetimepicker:2.3.0'
     implementation 'com.robertlevonyan.view:MaterialChipView:1.2.5'
 
-    implementation 'com.opentok.android:opentok-android-sdk:2.17.1'
+    implementation 'com.opentok.android:opentok-android-sdk:2.20.1'
     implementation 'pub.devrel:easypermissions:2.0.1'
     implementation 'com.android.volley:volley:1.1.1'
     implementation 'lib.kingja.switchbutton:switchbutton:1.1.8'
@@ -186,7 +186,7 @@ dependencies {
     implementation 'com.github.joielechong:countrycodepicker:2.4.1'
 
 //    Razorpay -> Payment Gateway
-    implementation 'com.razorpay:checkout:1.5.10'
+    implementation 'com.razorpay:checkout:1.5.16'
 
     implementation 'androidx.browser:browser:1.0.0'
 
@@ -196,5 +196,12 @@ dependencies {
 
     implementation 'com.squareup.okhttp3:okhttp:4.9.0'
 
+
+//    /*Doc picker */
+//    implementation 'com.greentoad.turtlebody.docpicker:doc-picker:$latestVersion'
+//
+//    /*for rxjava support*/
+//    implementation 'io.reactivex.rxjava2:rxjava:2.2.5'
+//    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
 }
 apply plugin: 'com.google.gms.google-services'

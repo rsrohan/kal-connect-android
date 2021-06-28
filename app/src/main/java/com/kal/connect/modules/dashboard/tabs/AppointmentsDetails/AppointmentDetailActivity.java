@@ -275,7 +275,8 @@ public class AppointmentDetailActivity extends CustomActivity implements View.On
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             //intent.putExtra("DocterId", selectedAppointmentData.get("doctorId").toString());
-                            intent.putExtra("DocterId", mStrDocId);
+                            //intent.putExtra("DocterId", mStrDocId);
+                            intent.putExtra("docId", mStrDocId);
 
 
                             OpenTokConfigConstants.SESSION_ID = commonDataInfo.getString("VSSessionID");

@@ -37,16 +37,16 @@ public class RecordsAdapter extends RecyclerView.Adapter<RecordsAdapter.ViewHold
         public ViewHolder(View view) {
             super(view);
 
-            btnView = (Button) view.findViewById(R.id.btnView);
-            btnDelete = (Button) view.findViewById(R.id.btnDelete);
+            btnView = (TextView) view.findViewById(R.id.btnView);
+            btnDelete = (TextView) view.findViewById(R.id.btnDelete);
             lblRecordName = (TextView) view.findViewById(R.id.lblRecordName);
 //            itemView.setOnClickListener(this);
             btnView.setOnClickListener(this);
             btnDelete.setOnClickListener(this);
         }
 
-        public Button btnView;
-        public Button btnDelete;
+        public TextView btnView;
+        public TextView btnDelete;
 
         @Override
         public void onClick(View v) {

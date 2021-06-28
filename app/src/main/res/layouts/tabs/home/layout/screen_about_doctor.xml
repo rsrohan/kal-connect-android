@@ -53,7 +53,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:text="Dr. Krishna Kumar"
+                        android:text="Dr. Rohan Verma"
                         android:textAppearance="@style/CustomFont.Bold"
                         android:textColor="@color/white"
                         android:textSize="@dimen/doctor_font_size" />
@@ -198,41 +198,60 @@
 
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/option_layout"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:layout_alignParentBottom="true"
-        android:gravity="center"
-        android:weightSum="10"
+        android:layout_height="wrap_content"
+        android:id="@+id/option_layout"
         android:background="#fffaed"
-        android:padding="8dp"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/consult_now"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="5"
-            android:layout_margin="2dp"
-            android:text="@string/consult_now"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:background="@drawable/button_bg"
-            />
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Consult"
+            android:drawablePadding="8dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:drawableStart="@drawable/ic_doctor"
+            android:background="#fffaed"
+            android:textAppearance="@style/CustomFont.Bold"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:gravity="center"
+            android:weightSum="10"
+            android:background="#fffaed"
+            android:padding="8dp"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/consult_now"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:layout_margin="2dp"
+                android:text="@string/consult_now2"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:background="@drawable/button_bg"
+                />
 
-        <View
-            android:layout_width="8dp"
-            android:layout_height="0dp"/>
-        <Button
-            android:id="@+id/consult_later"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="5"
-            android:textStyle="bold"
-            android:text="@string/consult_later"
-            android:textColor="@color/white"
-            android:layout_margin="2dp"
-            android:background="@drawable/button_bg"/>
+            <View
+                android:layout_width="8dp"
+                android:layout_height="0dp"/>
+            <Button
+                android:id="@+id/consult_later"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:textStyle="bold"
+                android:text="@string/consult_later2"
+                android:textColor="@color/white"
+                android:layout_margin="2dp"
+                android:background="@drawable/button_bg"/>
 
+        </LinearLayout>
     </LinearLayout>
+
 
 </RelativeLayout >

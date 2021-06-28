@@ -6,19 +6,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.provider.DocumentsContract;
-import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,23 +17,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-//import com.downloader.Error;
-//import com.downloader.OnCancelListener;
-//import com.downloader.OnDownloadListener;
-//import com.downloader.OnPauseListener;
-//import com.downloader.OnProgressListener;
-//import com.downloader.OnStartOrResumeListener;
-//import com.downloader.PRDownloader;
-//import com.downloader.PRDownloaderConfig;
-//import com.downloader.Progress;
 import com.google.gson.JsonArray;
 import com.kal.connect.R;
-import com.karumi.dexter.Dexter;
-import com.karumi.dexter.MultiplePermissionsReport;
-import com.karumi.dexter.PermissionToken;
-import com.karumi.dexter.listener.PermissionRequest;
-import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
 import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
 import com.kal.connect.customLibs.downloadService.DirectoryHelper;
@@ -53,6 +35,11 @@ import com.kal.connect.utilities.AppComponents;
 import com.kal.connect.utilities.Config;
 import com.kal.connect.utilities.GlobValues;
 import com.kal.connect.utilities.Utilities;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
 import org.androidannotations.api.rest.MediaType;
 import org.json.JSONArray;
@@ -72,6 +59,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+
 public class RecordsTab extends Fragment implements View.OnClickListener {
 
     // MARK : UIElements
@@ -80,9 +68,9 @@ public class RecordsTab extends Fragment implements View.OnClickListener {
     RecyclerView vwRecords;
     RecordsAdapter dataAdapter = null;
 
+    static String TAG = "RecordsTag";
     @BindView(R.id.update)
     Button updateBtn;
-
 
 
     /* access modifiers changed from: 0000 */
@@ -102,15 +90,18 @@ public class RecordsTab extends Fragment implements View.OnClickListener {
                         Manifest.permission.READ_EXTERNAL_STORAGE
 
                 ).withListener(new MultiplePermissionsListener() {
-            @Override public void onPermissionsChecked(MultiplePermissionsReport report) {/* ... */
-                Intent chooseFile = new Intent("android.intent.action.GET_CONTENT");
-                chooseFile.setType(MediaType.ALL);
-                startActivityForResult(Intent.createChooser(chooseFile, "Choose a file"), 1001);
+            @Override
+            public void onPermissionsChecked(MultiplePermissionsReport report) {/* ... */
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                startActivityForResult(Intent.createChooser(intent, "Choose a file..."), 1001);
 
             }
-            @Override public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+
+            @Override
+            public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
                 /* ... */
-                Log.v("","onPermissionRationaleShouldBeShown.....");
+                Log.v("", "onPermissionRationaleShouldBeShown.....");
                 token.continuePermissionRequest();
 
             }
@@ -125,17 +116,16 @@ public class RecordsTab extends Fragment implements View.OnClickListener {
     public static final int progress_bar_type = 0;
 
 
-
     // MARK : Lifecycle
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.records, container, false);
         buildUI();
-        ButterKnife.bind(this,view);
-        try{
+        ButterKnife.bind(this, view);
+        try {
             loadRecords(GlobValues.getAppointmentCompleteDetails().getJSONArray("PatRec"));
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
 
@@ -145,28 +135,40 @@ public class RecordsTab extends Fragment implements View.OnClickListener {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1001 && resultCode == -1) {
-            String filePath = getRealPathFromURI_API19(getContext(), data.getData());
+
+//            Uri uri = data.getData();
+//            String uriString = uri.toString();
+//            File myFile = new File(uriString);
+//            String path = myFile.getAbsolutePath();
+//            String displayName = null;
+//
+//            if (uriString.startsWith("content://")) {
+//                Cursor cursor = null;
+//                try {
+//                    cursor = getActivity().getContentResolver().query(uri, null, null, null, null);
+//                    if (cursor != null && cursor.moveToFirst()) {
+//                        displayName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+//                    }
+//                } finally {
+//                    cursor.close();
+//                }
+//            } else if (uriString.startsWith("file://")) {
+//                displayName = myFile.getName();
+//            }
+
+//            String filePath = data.getData().getPath();
+
+            String filePath = /*myFile.getAbsolutePath();//*/RealPathUtil.getRealPath(getContext(), data.getData());
             String fileName = filePath.substring(filePath.lastIndexOf("/") + 1);
             HashMap<String, Object> item = new HashMap<>();
 
-//            Utilities.showAlertDialogWithEditText(getActivity(), "Enter record details", fileName,new String[]{"OK"},
-//                    new UtilitiesInterfaces.AlertCallback() {
-//                @Override
-//                public void onOptionClick(DialogInterface dialog, int buttonIndex) {
-//
-//                }
-//            });
-
-
-
+            Log.e(TAG, fileName+"onActivityResult: "+filePath );
 
             AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
-
-
-            alert.setTitle("Aayurvedha");
+            alert.setTitle("Kerala Ayurveda");
             alert.setMessage("Enter record details");
             alert.setCancelable(false);
-// Set an EditText view to get user input
+
             final EditText input = new EditText(getContext());
             input.setTextColor(Color.BLACK);
             alert.setView(input);
@@ -175,15 +177,15 @@ public class RecordsTab extends Fragment implements View.OnClickListener {
                 public void onClick(DialogInterface dialog, int whichButton) {
                     String value = input.getText().toString().trim();
                     // Do something with value!
-                    if(value.isEmpty()){
+                    if (value.isEmpty()) {
                         item.put("recordName", fileName);
-                    }else{
+                    } else {
                         item.put("recordName", value);
                     }
 
 
                     item.put("recordImgPath", filePath);
-                    item.put("oldFile", Boolean.valueOf(false));
+                    item.put("oldFile", Boolean.FALSE);
                     dataItems.add(item);
                     AppComponents.reloadDataWithEmptyHint(vwRecords, dataAdapter, dataItems, getActivity().getResources().getString(R.string.no_data_found));
                     showUploadOptions();
@@ -221,21 +223,6 @@ public class RecordsTab extends Fragment implements View.OnClickListener {
         }
     }
 
-    public static String getRealPathFromURI_API19(Context context, Uri uri) {
-        String filePath = "";
-        if (!uri.getHost().contains("com.android.providers.media")) {
-            return "";
-        }
-        String id = DocumentsContract.getDocumentId(uri).split(":")[1];
-        String[] column = {"_data"};
-        Cursor cursor = context.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, column, "_id=?", new String[]{id}, null);
-        int columnIndex = cursor.getColumnIndex(column[0]);
-        if (cursor.moveToFirst()) {
-            filePath = cursor.getString(columnIndex);
-        }
-        cursor.close();
-        return filePath;
-    }
 
 
     @Override
@@ -282,8 +269,6 @@ public class RecordsTab extends Fragment implements View.OnClickListener {
             public void onItemClick(int position, View v, int viewID) {
 
 
-
-
                 try {
 
                     HashMap<String, Object> selectedItem = dataItems.get(position);
@@ -295,34 +280,26 @@ public class RecordsTab extends Fragment implements View.OnClickListener {
                         return;
                     }
                     if (!((Boolean) selectedItem.get("oldFile")).booleanValue()) {
-                        openFile(getContext(),new File(selectedItem.get("recordImgPath").toString()));
+                        openFile(getContext(), new File(selectedItem.get("recordImgPath").toString()));
 
                         return;
                     }
 
                     final JSONObject fileInfo = new JSONObject();
 
-                    String extension = selectedItem.get("recordImgPath").toString().substring(selectedItem.get("recordImgPath").toString().lastIndexOf(".")+1).toLowerCase();
-                    if(extension.equals("pdf")){
+                    String extension = selectedItem.get("recordImgPath").toString().substring(selectedItem.get("recordImgPath").toString().lastIndexOf(".") + 1).toLowerCase();
+                    if (extension.equals("pdf")) {
                         openRemoteFile(selectedItem);
                         return;
                     }
-                    if(extension.equals("jpg") || extension.equals("jpeg") || extension.equals("png")){
-//                        AlertDialog.Builder popupDialogBuilder = new AlertDialog.Builder(getContext());
-//                        ImageView popupImv = new ImageView(getContext());
-//                        Glide.with(getContext()).load(selectedItem.get("recordImgPath").toString())
-//                                .signature(new StringSignature(Long.toString(System.currentTimeMillis())))
-//                                .into(popupImv);
-//                        popupDialogBuilder.setView(popupImv);
-//                        AlertDialog alertDialog = popupDialogBuilder.create();
-//                        alertDialog.show();
+                    if (extension.equals("jpg") || extension.equals("jpeg") || extension.equals("png")) {
 
                         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(selectedItem.get("recordImgPath").toString()));
 //                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://cdn.pixabay.com/photo/2016/11/09/16/24/virus-1812092__480.jpg"));
 //                        intent.setType("image/*");
                         try {
                             startActivity(intent);
-                        } catch( Exception e ) {
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
 
@@ -330,16 +307,12 @@ public class RecordsTab extends Fragment implements View.OnClickListener {
                     }
 
 
-
-
-
-
-                    fileInfo.put(DownloadFileService.FILE_NAME_KEY,selectedItem.get("recordName").toString());
+                    fileInfo.put(DownloadFileService.FILE_NAME_KEY, selectedItem.get("recordName").toString());
                     // dummy data
 //                    fileInfo.put(DownloadFileService.FILE_URL_KEY, "https://imgix.bustle.com/uploads/image/2019/1/31/501c1ae6-5e39-4c4e-8394-713af0fd012b-150417-news-batman-superman.jpg?w=1020&h=574&fit=crop&crop=faces&auto=format&q=70");
-                     fileInfo.put(DownloadFileService.FILE_URL_KEY, selectedItem.get("recordImgPath"));
+                    fileInfo.put(DownloadFileService.FILE_URL_KEY, selectedItem.get("recordImgPath"));
 
-                     final String fileName = selectedItem.get("recordName").toString();
+                    final String fileName = selectedItem.get("recordName").toString();
 
 
                     Dexter.withActivity(getActivity())
@@ -348,7 +321,8 @@ public class RecordsTab extends Fragment implements View.OnClickListener {
                                     Manifest.permission.READ_EXTERNAL_STORAGE
 
                             ).withListener(new MultiplePermissionsListener() {
-                        @Override public void onPermissionsChecked(MultiplePermissionsReport report) {/* ... */
+                        @Override
+                        public void onPermissionsChecked(MultiplePermissionsReport report) {/* ... */
 
 
 //                            getActivity().startService(DownloadFileService.getDownloadService(getActivity(), fileInfo.toString(), DirectoryHelper.ROOT_DIRECTORY_NAME.concat("/")));
@@ -357,12 +331,13 @@ public class RecordsTab extends Fragment implements View.OnClickListener {
 //                            Utilities.showAlert(getActivity(), "Downloading "+ fileName, false);
 
                             getActivity().startService(DownloadFileService.getDownloadService(getActivity(), fileInfo.toString(), DirectoryHelper.ROOT_DIRECTORY_NAME.concat("/")));
-                            Utilities.showAlert(getActivity(), "Downloading "+ fileName, false);
+                            Utilities.showAlert(getActivity(), "Downloading " + fileName, false);
 
                         }
-                        @Override public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {/* ... */}
-                    }).check();
 
+                        @Override
+                        public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {/* ... */}
+                    }).check();
 
 
                     // Step 1: Build File properties
@@ -383,8 +358,7 @@ public class RecordsTab extends Fragment implements View.OnClickListener {
 //                        @Override public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {/* ... */}
 //                    }).check();
 
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -396,13 +370,9 @@ public class RecordsTab extends Fragment implements View.OnClickListener {
 
     }
 
-    public void openDocument(){
 
-    }
-
-    void openRemoteFile(HashMap<String, Object> selectedItem){
+    void openRemoteFile(HashMap<String, Object> selectedItem) {
         try {
-
 
 
 //                    final JSONObject fileInfo = new JSONObject();
@@ -422,7 +392,8 @@ public class RecordsTab extends Fragment implements View.OnClickListener {
                             Manifest.permission.READ_EXTERNAL_STORAGE
 
                     ).withListener(new MultiplePermissionsListener() {
-                @Override public void onPermissionsChecked(MultiplePermissionsReport report) {/* ... */
+                @Override
+                public void onPermissionsChecked(MultiplePermissionsReport report) {/* ... */
 
 
 //                            getActivity().startService(DownloadFileService.getDownloadService(getActivity(), fileInfo.toString(), DirectoryHelper.ROOT_DIRECTORY_NAME.concat("/")));
@@ -436,11 +407,12 @@ public class RecordsTab extends Fragment implements View.OnClickListener {
                     startActivity(i);
 
                 }
-                @Override public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {/* ... */}
+
+                @Override
+                public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {/* ... */}
             }).check();
 
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -452,7 +424,7 @@ public class RecordsTab extends Fragment implements View.OnClickListener {
         Boolean showLoading = dataItems.size() == 0;
         dataItems.clear();
 
-        try{
+        try {
 //             = GlobValues.getAppointmentCompleteDetails().getJSONArray("PatRec");
 
             // Make API Call here!
@@ -460,7 +432,7 @@ public class RecordsTab extends Fragment implements View.OnClickListener {
 
                 JSONObject singleObj = patientRecords.getJSONObject(loop);
                 HashMap<String, Object> item = new HashMap<String, Object>();
-                item.put("recordName", Utilities.dateRT(singleObj.getString("CreatedDate")) + (singleObj.getString("Filedescription").isEmpty()?"" : " : "+ singleObj.getString("Filedescription")));
+                item.put("recordName", Utilities.dateRT(singleObj.getString("CreatedDate")) + (singleObj.getString("Filedescription").isEmpty() ? "" : " : " + singleObj.getString("Filedescription")));
                 item.put("recordImgPath", singleObj.getString("File"));
                 item.put("oldFile", true);
                 // Add item one by one
@@ -469,7 +441,7 @@ public class RecordsTab extends Fragment implements View.OnClickListener {
             }
 
 
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
 
@@ -478,7 +450,7 @@ public class RecordsTab extends Fragment implements View.OnClickListener {
 
     }
 
-    void createRecordAfterUploadedData(JsonArray response){
+    void createRecordAfterUploadedData(JsonArray response) {
 
     }
 
@@ -524,31 +496,31 @@ public class RecordsTab extends Fragment implements View.OnClickListener {
         }
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-        try{
+        try {
             context.startActivity(intent);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
-    void uploadFilesToServer(){
+    void uploadFilesToServer() {
         HashMap<String, Object> inputParams = new HashMap<String, Object>();
-        try{
+        try {
             JSONArray semiAnalysor = GlobValues.getAppointmentCompleteDetails().getJSONArray("Vitals");
 
             JSONObject data = semiAnalysor.getJSONObject(0);
 
-            inputParams.put("KIOSKID",data.getString("KioskId"));
-            inputParams.put("ComplaintID",data.getString("ComplaintID"));
-            inputParams.put("PatientID",data.getString("PatientID"));
+            inputParams.put("KIOSKID", data.getString("KioskId"));
+            inputParams.put("ComplaintID", data.getString("ComplaintID"));
+            inputParams.put("PatientID", data.getString("PatientID"));
 
             JSONArray misc = new JSONArray();
             JSONArray fileNotes = new JSONArray();
 
-            for(int i =0 ; i<dataItems.size(); i++){
-                HashMap<String, Object> dataItem =   dataItems.get(i);
-                if(!(boolean)dataItem.get("oldFile")){
+            for (int i = 0; i < dataItems.size(); i++) {
+                HashMap<String, Object> dataItem = dataItems.get(i);
+                if (!(boolean) dataItem.get("oldFile")) {
 
                     File file = new File(dataItem.get("recordImgPath").toString());
                     int size = (int) file.length();
@@ -570,10 +542,10 @@ public class RecordsTab extends Fragment implements View.OnClickListener {
                 }
             }
 
-            inputParams.put("MiscDocuments",misc);
-            inputParams.put("FileNotes",fileNotes);
+            inputParams.put("MiscDocuments", misc);
+            inputParams.put("FileNotes", fileNotes);
 
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
 
@@ -586,7 +558,7 @@ public class RecordsTab extends Fragment implements View.OnClickListener {
 
                 try {
                     JSONArray responseAry = new JSONArray(response);
-                    if(responseAry.length() > 0){
+                    if (responseAry.length() > 0) {
                         loadRecords(responseAry);
 
                     }
@@ -594,7 +566,7 @@ public class RecordsTab extends Fragment implements View.OnClickListener {
                 } catch (Exception e) {
                 }
             }
-        },true);
+        }, true);
 
         String[] url = {Config.WEB_Services1, Config.UPLOAD_FILES, "POST"};
 

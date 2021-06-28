@@ -55,40 +55,38 @@ public class PDFViewerActivity extends CustomActivity implements DownloadFile.Li
     FlipProgressDialog progressDialog;
 
     @OnClick(R.id.close)
-    void close(){
+    void close() {
         finish();
     }
 
     @OnClick(R.id.share)
-    void share(){
+    void share() {
 
-        if(true)
-        {
+        if (true) {
             downloadToLocal();
             return;
         }
 
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("MEDI360 CONNECT");
+        setTitle("KAL CONNECT");
         setContentView(R.layout.activity_remote_pdf);
 
         ButterKnife.bind(this);
 
         root = findViewById(R.id.remote_pdf_root);
-//        etPdfUrl = findViewById(R.id.et_pdfUrl);
-//        btnDownload = findViewById(R.id.btn_download);
 
-        try{
-             url = getIntent().getStringExtra("Url");
-            if(url != null && !url.isEmpty()){
+        try {
+            url = getIntent().getStringExtra("Url");
+            if (url != null && !url.isEmpty()) {
                 setDownloadButtonListener();
-            }else{
+            } else {
                 finish();
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             finish();
         }
 
@@ -104,7 +102,7 @@ public class PDFViewerActivity extends CustomActivity implements DownloadFile.Li
         }
     }
 
-    void downloadToLocal(){
+    void downloadToLocal() {
 
         Dexter.withActivity(this)
                 .withPermissions(
@@ -112,65 +110,45 @@ public class PDFViewerActivity extends CustomActivity implements DownloadFile.Li
                         Manifest.permission.READ_EXTERNAL_STORAGE
 
                 ).withListener(new MultiplePermissionsListener() {
-            @Override public void onPermissionsChecked(MultiplePermissionsReport report) {/* ... */
+            @Override
+            public void onPermissionsChecked(MultiplePermissionsReport report) {/* ... */
 
-                try{
+                try {
                     final JSONObject fileInfo = new JSONObject();
-                    String filename=url.substring(url.lastIndexOf("/")+1);
-                    fileInfo.put(DownloadFileService.FILE_NAME_KEY,filename);
+                    String filename = url.substring(url.lastIndexOf("/") + 1);
+                    fileInfo.put(DownloadFileService.FILE_NAME_KEY, filename);
                     fileInfo.put(DownloadFileService.FILE_URL_KEY, url);
                     startService(DownloadFileService.getDownloadService(PDFViewerActivity.this, fileInfo.toString(), DirectoryHelper.ROOT_DIRECTORY_NAME.concat("/")));
 
                     // Step 3: Show the detail in alertview
-                    Utilities.showAlert(PDFViewerActivity.this, "Downloading "+ filename, false);
+                    Utilities.showAlert(PDFViewerActivity.this, "Downloading " + filename, false);
 
-                }catch (Exception e){
+                } catch (Exception e) {
 
                 }
             }
-            @Override public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {/* ... */}
+
+            @Override
+            public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {/* ... */}
         }).check();
     }
 
     protected void setDownloadButtonListener() {
         final Context ctx = this;
         final DownloadFile.Listener listener = this;
-//        btnDownload.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                remotePDFViewPager = new RemotePDFViewPager(ctx, getUrlFromEditText(), listener);
-//                remotePDFViewPager.setId(R.id.pdfViewPager);
-//                hideDownloadButton();
-//            }
-//        });
+
         remotePDFViewPager = new RemotePDFViewPager(ctx, url, listener);
         remotePDFViewPager.setId(R.id.pdfViewPager);
-         progressDialog = Utilities.showLoading(this);
+        progressDialog = Utilities.showLoading(this);
 
 
     }
 
-//    protected String getUrlFromEditText() {
-//        return etPdfUrl.getText().toString().trim();
-//    }
-
-//    public void showDownloadButton() {
-//        btnDownload.setVisibility(View.VISIBLE);
-//    }
-//
-//    public void hideDownloadButton() {
-//        btnDownload.setVisibility(View.INVISIBLE);
-//    }
 
     public void updateLayout() {
         pdfViewContainer.removeAllViewsInLayout();
-//        root.addView(etPdfUrl,
-//                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-//        root.addView(closeButton,
-//                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         pdfViewContainer.addView(remotePDFViewPager,
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-//        shareBtn.setVisibility(View.VISIBLE);
     }
 
     @Override
