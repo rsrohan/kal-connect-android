@@ -28,6 +28,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static com.kal.connect.utilities.Config.IS_FROM_PATIENT;
+
 public class ConfirmAddressAndPayActivity extends AppCompatActivity implements PaymentResultListener {
     private static final String TAG = "PayANDAddress";
     ArrayList<HashMap<String, Object>> sentParams;
@@ -39,6 +41,7 @@ public class ConfirmAddressAndPayActivity extends AppCompatActivity implements P
     private String pPhone = "";
     private Checkout checkout;
     private Intent intent;
+    String amountPaid = "0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,7 +158,7 @@ public class ConfirmAddressAndPayActivity extends AppCompatActivity implements P
 
     @Override
     public void onPaymentSuccess(String s) {
-        placeOrder(sentParams, pName, pPhone, pAddress, s);
+        placeOrder(sentParams, pName, pPhone, pAddress, s, amountPaid);
     }
 
     @Override
@@ -163,11 +166,13 @@ public class ConfirmAddressAndPayActivity extends AppCompatActivity implements P
 //        if (isTesting){
 //            showAlert("You are testing...");
 //        }else{
+        placeOrder(sentParams, pName, pPhone, pAddress, s, amountPaid);
+
         Utilities.showAlert(ConfirmAddressAndPayActivity.this, "Payment Failed! If money deducted, it will be refunded.", false);
         // }
     }
 
-    void placeOrder(ArrayList<HashMap<String, Object>> sentParams, String pName, String pPhone, String pAddress, String payId) {
+    void placeOrder(ArrayList<HashMap<String, Object>> sentParams, String pName, String pPhone, String pAddress, String payId, String amountPaid) {
 
         HashMap<String, Object> inputParams = AppPreferences.getInstance().sendingInputParamBuyMedicine();
 
@@ -177,7 +182,9 @@ public class ConfirmAddressAndPayActivity extends AppCompatActivity implements P
         inputParams.put("PatientName", pName);
         inputParams.put("PatientPhone", pPhone);
         inputParams.put("PatientAddress", pAddress);
-        inputParams.put("PaymentId", payId);
+        inputParams.put("PaymentID", payId);
+        inputParams.put("OrderTotalPrice", amountPaid);
+        inputParams.put("isFromPat", IS_FROM_PATIENT);
 
         Log.e(TAG, "placeOrder: " + inputParams.toString());
         SoapAPIManager apiManager = new SoapAPIManager(ConfirmAddressAndPayActivity.this, inputParams, new APICallback() {
@@ -211,7 +218,7 @@ public class ConfirmAddressAndPayActivity extends AppCompatActivity implements P
                 }
             }
         }, true);
-        String[] url = {Config.WEB_Services1, Config.EMAIL_MEDICINE_TO_PHARMACY, "POST"};
+        String[] url = {Config.WEB_Services1, Config.PLACE_ORDER_FOR_MEDICINE, "POST"};
 
         if (Utilities.isNetworkAvailable(getApplicationContext())) {
             Log.e(TAG, "placeOrder: " + url);
@@ -232,6 +239,7 @@ public class ConfirmAddressAndPayActivity extends AppCompatActivity implements P
     }
 
     private void initialiseRazorPayForPayment(String consultAmount) {
+        amountPaid = consultAmount.substring(0, consultAmount.length()-2);
         checkout = new Checkout();
         checkout.setImage(R.drawable.kerala);
         checkout.setKeyID("rzp_live_Zg6HCW1SoWec80");

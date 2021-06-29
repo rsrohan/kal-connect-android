@@ -173,100 +173,6 @@ public class MedicineActivity extends CustomActivity implements View.OnClickList
 
 
 
-//        HashMap<String, Object> inputParams = AppPreferences.getInstance().sendingInputParamBuyMedicine();
-//
-//        if (sentParams.size() > 0) {
-//            inputParams.put("objMedicineList", new JSONArray(sentParams));
-//        }
-//        if (uploadedFilesArrayList.size() > 0) {
-//            inputParams.put("Uploadprescription", new JSONArray(uploadedFilesArrayList));
-//        }
-//        if (sentParams.size() <= 0 && uploadedFilesArrayList.size() <= 0) {
-//            Utilities.showAlert(MedicineActivity.this, "No Medicine or Uploaded Prescription found.", false);
-//        } else {
-//            Log.e(TAG, "placeOrder: " + inputParams.toString());
-//            SoapAPIManager apiManager = new SoapAPIManager(MedicineActivity.this, inputParams, new APICallback() {
-//                @Override
-//                public void responseCallback(Context context, String response) throws JSONException {
-//                    Log.e(TAG, response);
-//
-//                    try {
-//                        JSONArray responseAry = new JSONArray(response);
-//                        if (responseAry.length() > 0) {
-//                            JSONObject commonDataInfo = responseAry.getJSONObject(0);
-//                            if (commonDataInfo.has("APIStatus") && Integer.parseInt(commonDataInfo.getString("APIStatus")) == 1) {
-//                                if (commonDataInfo.has("RespText")) {
-////                                Utilities.showAlert(mContext, commonDataInfo.getString("RespText"), false);
-//                                    showAlert(commonDataInfo.getString("RespText"));
-//                                } else {
-//                                    Utilities.showAlert(MedicineActivity.this, "Please check again!", false);
-//                                }
-//                            } else {
-//                                Utilities.showAlert(MedicineActivity.this, "Error Occurred!", false);
-//                            }
-//
-//                        } else {
-//                            Utilities.showAlert(MedicineActivity.this, "Error Occurred!", false);
-//                        }
-//                    } catch (Exception e) {
-//                        Log.e(TAG, "responseCallback: " + e);
-//                        e.getMessage();
-//                        Utilities.showAlert(MedicineActivity.this, "Error Occurred!", false);
-//
-//                    }
-//                }
-//            }, true);
-//            String[] url = {Config.WEB_Services1, Config.EMAIL_MEDICINE_TO_PHARMACY, "POST"};
-//
-//            if (Utilities.isNetworkAvailable(getApplicationContext())) {
-//                Log.e(TAG, "placeOrder: " + url);
-//                apiManager.execute(url);
-//            } else {
-//                Utilities.showAlert(MedicineActivity.this, "Please check internet!", false);
-//
-//            }
-//        }
-
-
-    }
-
-    void showAlert(String message) {
-        Intent i = new Intent(getApplicationContext(), OrderSuccessfulActivity.class);
-        i.putExtra("message", message);
-        startActivity(i);
-        finish();
-//        final Dialog dialog = new Dialog(MedicineActivity.this);
-//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        dialog.setCancelable(false);
-//        dialog.setContentView(R.layout.playstore_update_view);
-//
-//        TextView text = (TextView) dialog.findViewById(R.id.lblMessage);
-//        text.setText(message);
-//
-//        Button mBtnOk = (Button) dialog.findViewById(R.id.playstore_update);
-//        mBtnOk.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                dialog.dismiss();
-//                try{
-//                    finish();
-//                }catch (Exception e){}
-//            }
-//        });
-//
-//        if (dialog != null) {
-//            new Handler().postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    dialog.dismiss();
-//                    try{
-//                        finish();
-//                    }catch (Exception e){}
-//                }
-//            }, 15000);
-//        }
-//
-//        dialog.show();
 
 
     }
@@ -306,6 +212,7 @@ public class MedicineActivity extends CustomActivity implements View.OnClickList
             HashMap<String, Object> mHashMapAddToCard = new HashMap<>();
             mHashMapAddToCard.put("Medicinename", mProductModel.getMedicineName());
             mHashMapAddToCard.put("amount", mProductModel.getDiscountedprice());
+            mHashMapAddToCard.put("SKUNumber", mProductModel.getSKUNumber());
             mHashMapAddToCard.put("ReportComment", mProductModel.getMeddiscription());
             mHashMapAddToCard.put("isEnabled", true);
             mHashMapAddToCard.put("MedicineCount", "1");
@@ -355,13 +262,13 @@ public class MedicineActivity extends CustomActivity implements View.OnClickList
                 try {
                     item.put("amount", singleObj.get("Amount").toString());
                     item.put("SKUNumber", singleObj.getString("SKUNumber"));
+                    dataItems.add(item);
+
                 } catch (Exception e) {
                     Log.e(TAG, "loadAppointments: "+e );
-                    item.put("amount", "0");
-                    item.put("SKUNumber", "NA");
+
                 }
 
-                dataItems.add(item);
             } catch (Exception e) {
                 e.printStackTrace();
 

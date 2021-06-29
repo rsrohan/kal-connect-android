@@ -94,9 +94,6 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
     }
 
-    public void checkUsername() {
-
-    }
 
     public void setupInitialIssuesData(JSONArray issueDetailsAry) {
         try {
@@ -183,7 +180,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         selectedRecyclerView = (RecyclerView) v.findViewById(R.id.issuesSelectedRecyclerVW);
         proceedBtn = (LinearLayout) v.findViewById(R.id.proceed_btn);
         TextView tv_proceed = v.findViewById(R.id.tv_proceed);
-        tv_proceed.setText(tv_proceed.getText()+" (1/3)");
+        tv_proceed.setText(tv_proceed.getText() + " (1/3)");
         addComplaints = (EditText) v.findViewById(R.id.addComplaints);
 
 
@@ -202,7 +199,6 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         selectedRecyclerView.setLayoutManager(horizontalLayoutManager);
         selectedRecyclerView.setAdapter(selectedIssueAdapter);
-
 
 
         GridLayoutManager glm = new GridLayoutManager(getContext(), 2);
@@ -283,8 +279,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
             GlobValues.getInstance().setSelectedIssuesModelList(selectedIssuesModelList);
             GlobValues.getInstance().setupAddAppointmentParams();
             if (!addComplaints.getText().toString().trim().isEmpty()) {
-                if (!selectedIssuesListId.contains(addComplaints.getText().toString().trim()))
-                {
+                if (!selectedIssuesListId.contains(addComplaints.getText().toString().trim())) {
                     selectedIssuesListId.add(addComplaints.getText().toString().trim());
                     selectedIssuesModelList.add(new IssuesModel("10001", addComplaints.getText().toString().trim(), 1));
                     intent.putExtra("NewComplaints", addComplaints.getText().toString().trim());

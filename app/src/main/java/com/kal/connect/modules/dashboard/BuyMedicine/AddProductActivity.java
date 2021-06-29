@@ -139,6 +139,7 @@ public class AddProductActivity extends CustomActivity implements SearchView.OnQ
                 mProductModel.setMedimage(mJsonObject.getString("medimage"));
                 mProductModel.setMeddiscription(mJsonObject.getString("meddiscription"));
                 mProductModel.setDiscount(mJsonObject.getDouble("discount"));
+                mProductModel.setSKUNumber(mJsonObject.getString("SKUNumber"));
                 mAlProduct.add(mProductModel);
             }
         } catch (JSONException e) {

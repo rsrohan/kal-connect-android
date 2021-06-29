@@ -29,7 +29,7 @@ import javax.net.ssl.X509TrustManager;
 public class APIWebServiceConstants {
 
 
-    static String new_url = "https://www.myayurveda.com/";
+    public static String new_url = "https://www.myayurveda.com/";
     static String old_url = "https://www.medi360.in/";
 
     private static String NAMESPACE = new_url;
@@ -44,12 +44,11 @@ public class APIWebServiceConstants {
    //static String LIVE_URL = "https://www.ayurvaidya.live/WebServices/";
 
     //new domain
-    static String LIVE_URL = "https://www.myayurveda.com/WebServices/";
+//    static String LIVE_URL = "https://www.myayurveda.com/WebServices/";
+//    public static boolean isTesting = false;
 
-    public static boolean isTesting = false;
-
-//    private static String LIVE_URL = "http://ec2-13-127-154-179.ap-south-1.compute.amazonaws.com/WebServices/";
-//    public static boolean isTesting = true;
+    private static String LIVE_URL = "http://ec2-13-127-154-179.ap-south-1.compute.amazonaws.com/WebServices/";
+    public static boolean isTesting = true;
 
 
     public static String invokeWebservice(String jsonObjSend, String urlEnd, String webMethName) {
