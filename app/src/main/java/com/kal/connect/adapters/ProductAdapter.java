@@ -15,8 +15,8 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kal.connect.R;
-import com.kal.connect.modules.dashboard.tabs.BuyMedicineScreen.MedicineActivity;
-import com.kal.connect.modules.dashboard.tabs.BuyMedicineScreen.models.ProductModel;
+import com.kal.connect.modules.dashboard.BuyMedicine.MedicineActivity;
+import com.kal.connect.modules.dashboard.BuyMedicine.models.ProductModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

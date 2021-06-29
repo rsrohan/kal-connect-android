@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.common.data.DataHolder;
 import com.google.android.material.circularreveal.cardview.CircularRevealCardView;
 import com.kal.connect.R;
 import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
@@ -23,7 +22,7 @@ import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
 import com.kal.connect.models.DoctorModel;
 import com.kal.connect.appconstants.OpenTokConfigConstants;
 import com.kal.connect.modules.communicate.VideoConferenceActivity;
-import com.kal.connect.modules.dashboard.tabs.HomeScreen.AboutDoctorActivity;
+import com.kal.connect.modules.dashboard.BookAppointment.AboutDoctorActivity;
 import com.kal.connect.utilities.AppPreferences;
 import com.kal.connect.utilities.Config;
 import com.kal.connect.utilities.GlobValues;
@@ -35,7 +34,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;

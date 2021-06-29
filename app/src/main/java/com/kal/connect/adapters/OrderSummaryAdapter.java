@@ -1,38 +1,15 @@
 package com.kal.connect.adapters;
 
-import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kal.connect.R;
-import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
-import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
-import com.kal.connect.modules.dashboard.tabs.BuyMedicineScreen.MedicineActivity;
-import com.kal.connect.utilities.AppPreferences;
-import com.kal.connect.utilities.Config;
-import com.kal.connect.utilities.Utilities;
-import com.kal.connect.utilities.UtilitiesInterfaces;
-import com.travijuu.numberpicker.library.Enums.ActionEnum;
-import com.travijuu.numberpicker.library.Interface.ValueChangedListener;
-import com.travijuu.numberpicker.library.NumberPicker;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;

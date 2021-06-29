@@ -5,6 +5,8 @@ import android.media.Ringtone;
 
 import org.json.JSONArray;
 
+import static com.kal.connect.appconstants.APIWebServiceConstants.new_url;
+
 public class Config {
 
     // For Default Validations
@@ -72,6 +74,7 @@ public class Config {
     public static final String GET_APPOINTMENTS_LIST =  "PatientAppointments";
     public static final String GET_APPOINTMENTS_DETAILS =  "GetPatientComplaintCompleteDetails";
     public static final String CANCEL_APPOINTMENT =  "CancelAppointment";
+    public static final String PLACE_ORDER_FOR_MEDICINE =  "PatientPlaceMedicineOrder";
 
     //DoctorsList
     public static final String GET_DOCTORS_LIST =  "SearchDoctor";
@@ -93,7 +96,7 @@ public class Config {
 
     public static final String GET_HOSPITALS_LIST =  "GetHospitalList";
 
-    public static final String GET_HOSPITAL_DOCTORS_LIST =  "GetHospitalDoctotList";
+    public static final String GET_HOSPITAL_DOCTORS_LIST =  "GetHospitalDoctorList";
     public static final String GET_CHECKING_PAYMENT_STATUS =  "CheckPatientsPaymentStatus";
 
     public static final String UPLOAD_FILES = "UploadPatFiles";
@@ -103,7 +106,10 @@ public class Config {
 
     public static final String CREATE_ORDER = PAYMENT_BASE_URL+ "orders";
 
-    public static final String IMAGE_URL_FOR_SPEED = "https://telehealth.keralaayurveda.biz/images/logo.png";
+    public static final String IMAGE_URL_FOR_SPEED = new_url+"images/logo.png";
+
+
+    public static final String IS_FROM_PATIENT = "1";
 
 
 

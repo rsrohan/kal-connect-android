@@ -1,7 +1,6 @@
 package com.kal.connect.modules.dashboard;
 
 import android.Manifest;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.widget.Button;
@@ -9,7 +8,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.kal.connect.R;
-import com.kal.connect.customdialogbox.FlipProgressDialog;
+import com.kal.connect.customLibs.customdialogbox.FlipProgressDialog;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;

@@ -16,16 +16,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kal.connect.R;
 import com.kal.connect.customLibs.Callbacks.ScrollToTop;
 import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
 import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
-import com.kal.connect.modules.dashboard.tabs.BuyMedicineScreen.MedicineActivity;
-import com.kal.connect.modules.dashboard.tabs.BuyMedicineScreen.PrescriptionUploadActivity;
-import com.kal.connect.modules.dashboard.tabs.BuyMedicineScreen.AddProductActivity;
+import com.kal.connect.modules.dashboard.BuyMedicine.MedicineActivity;
 import com.kal.connect.utilities.AppPreferences;
 import com.kal.connect.utilities.Config;
 import com.kal.connect.utilities.Utilities;
@@ -39,10 +36,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHolder> {
 

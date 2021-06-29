@@ -2,7 +2,7 @@ package com.kal.connect.utilities;
 
 import com.kal.connect.models.DoctorModel;
 import com.kal.connect.models.IssuesModel;
-import com.kal.connect.modules.dashboard.tabs.AppointmentsDetails.Tabs.Examination.DataModel.AyurvedaModule;
+import com.kal.connect.modules.dashboard.AppointmentsDetails.Tabs.Examination.DataModel.AyurvedaModule;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

@@ -1,7 +1,6 @@
 package com.kal.connect.customLibs.Maps.coreLocation;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
@@ -26,7 +25,7 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStates;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
-import com.kal.connect.customdialogbox.FlipProgressDialog;
+import com.kal.connect.customLibs.customdialogbox.FlipProgressDialog;
 import com.kal.connect.utilities.Utilities;
 
 import java.io.IOException;

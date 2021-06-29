@@ -2,12 +2,7 @@ package com.kal.connect.modules.communicate;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.TypedArray;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.net.ConnectivityManager;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -27,8 +22,6 @@ import com.kal.connect.R;
 import com.kal.connect.appconstants.OpenTokConfigConstants;
 import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
 import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
-import com.kal.connect.customdialogbox.ConfirmDialog;
-import com.kal.connect.modules.dashboard.tabs.HomeScreen.AppointmentSummaryActivity;
 import com.kal.connect.utilities.AppPreferences;
 import com.kal.connect.utilities.Config;
 import com.opentok.android.BaseVideoRenderer;
@@ -43,7 +36,6 @@ import com.opentok.android.SubscriberKit;
 import com.kal.connect.modules.dashboard.DashboardMapActivity;
 import com.kal.connect.utilities.GlobValues;
 import com.kal.connect.utilities.Utilities;
-import com.kal.connect.utilities.UtilitiesInterfaces;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -51,7 +43,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 
@@ -78,7 +69,6 @@ import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
 
 import static com.kal.connect.appconstants.OpenTokConfigConstants.TYPE_ERROR_FOR_DOCTOR;
-import static com.kal.connect.appconstants.OpenTokConfigConstants.TYPE_MESSAGE;
 import static com.kal.connect.utilities.Config.IMAGE_URL_FOR_SPEED;
 
 public class VideoConferenceActivity extends AppCompatActivity
