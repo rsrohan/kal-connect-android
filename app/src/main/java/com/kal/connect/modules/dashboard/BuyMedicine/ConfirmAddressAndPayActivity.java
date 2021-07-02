@@ -184,6 +184,7 @@ public class ConfirmAddressAndPayActivity extends AppCompatActivity implements P
         inputParams.put("PaymentID", payId);
         inputParams.put("OrderTotalPrice", amountPaid);
         inputParams.put("isFromPat", IS_FROM_PATIENT);
+        inputParams.put("SpecialistID", "0");
 
         Log.e(TAG, "placeOrder: " + inputParams.toString());
         SoapAPIManager apiManager = new SoapAPIManager(ConfirmAddressAndPayActivity.this, inputParams, new APICallback() {
