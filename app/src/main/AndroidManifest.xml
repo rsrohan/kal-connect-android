@@ -29,7 +29,8 @@
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
-        <activity android:name=".modules.dashboard.BuyMedicine.ConfirmAddressAndPayActivity"></activity>
+        <activity android:name=".modules.dashboard.AccountDetails.MyEarningsActivity"></activity>
+        <activity android:name=".modules.dashboard.BuyMedicine.ConfirmAddressAndPayActivity" />
         <activity android:name=".modules.dashboard.BuyMedicine.OrderSummaryActivity" />
         <activity android:name=".modules.communicate.CallEndedActivity" />
         <activity android:name=".modules.dashboard.BuyMedicine.OrderSuccessfulActivity" />
