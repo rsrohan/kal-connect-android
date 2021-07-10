@@ -166,7 +166,7 @@ public class ConfirmAddressAndPayActivity extends AppCompatActivity implements P
 //        if (isTesting){
 //            showAlert("You are testing...");
 //        }else{
-        placeOrder(sentParams, pName, pPhone, pAddress, s, amountPaid);
+        //placeOrder(sentParams, pName, pPhone, pAddress, s, amountPaid);
 
         Utilities.showAlert(ConfirmAddressAndPayActivity.this, "Payment Failed! If money deducted, it will be refunded.", false);
         // }
