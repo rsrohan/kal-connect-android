@@ -166,6 +166,7 @@ public class ConfirmAddressAndPayActivity extends AppCompatActivity implements P
 //        if (isTesting){
 //            showAlert("You are testing...");
 //        }else{
+        //placeOrder(sentParams, pName, pPhone, pAddress, s, amountPaid);
 
         Utilities.showAlert(ConfirmAddressAndPayActivity.this, "Payment Failed! If money deducted, it will be refunded.", false);
         // }
@@ -181,9 +182,11 @@ public class ConfirmAddressAndPayActivity extends AppCompatActivity implements P
         inputParams.put("PatientName", pName);
         inputParams.put("PatientPhone", pPhone);
         inputParams.put("PatientAddress", pAddress);
+        inputParams.put("CityName", et_city.getText().toString());
         inputParams.put("PaymentID", payId);
         inputParams.put("OrderTotalPrice", amountPaid);
         inputParams.put("isFromPat", IS_FROM_PATIENT);
+        inputParams.put("SpecialistID", "0");
 
         Log.e(TAG, "placeOrder: " + inputParams.toString());
         SoapAPIManager apiManager = new SoapAPIManager(ConfirmAddressAndPayActivity.this, inputParams, new APICallback() {
