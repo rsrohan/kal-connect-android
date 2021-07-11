@@ -183,6 +183,8 @@ public class ConfirmAddressAndPayActivity extends AppCompatActivity implements P
         inputParams.put("PatientPhone", pPhone);
         inputParams.put("PatientAddress", pAddress);
         inputParams.put("CityName", et_city.getText().toString());
+        inputParams.put("StateName", et_state.getText().toString());
+        inputParams.put("ZipCode", et_pincode.getText().toString());
         inputParams.put("PaymentID", payId);
         inputParams.put("OrderTotalPrice", amountPaid);
         inputParams.put("isFromPat", IS_FROM_PATIENT);
