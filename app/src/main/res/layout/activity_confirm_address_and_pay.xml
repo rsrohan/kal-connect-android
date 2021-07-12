@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="1"
-    tools:context=".modules.dashboard.tabs.BuyMedicineScreen.ConfirmAddressAndPayActivity">
+    tools:context=".modules.dashboard.BuyMedicine.ConfirmAddressAndPayActivity">
 
     <RelativeLayout
         android:id="@+id/header"

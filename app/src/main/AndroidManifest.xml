@@ -29,10 +29,11 @@
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
-        <activity android:name=".modules.dashboard.tabs.BuyMedicineScreen.ConfirmAddressAndPayActivity"></activity>
-        <activity android:name=".modules.dashboard.tabs.BuyMedicineScreen.OrderSummaryActivity" />
+        <activity android:name=".modules.dashboard.AccountDetails.MyEarningsActivity"></activity>
+        <activity android:name=".modules.dashboard.BuyMedicine.ConfirmAddressAndPayActivity" />
+        <activity android:name=".modules.dashboard.BuyMedicine.OrderSummaryActivity" />
         <activity android:name=".modules.communicate.CallEndedActivity" />
-        <activity android:name=".modules.dashboard.tabs.BuyMedicineScreen.OrderSuccessfulActivity" />
+        <activity android:name=".modules.dashboard.BuyMedicine.OrderSuccessfulActivity" />
         <activity
             android:name=".utilities.SplashActivity"
             android:configChanges="locale">
@@ -58,7 +59,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".modules.dashboard.tabs.HomeScreen.DoctorsListActivity"
+            android:name=".modules.dashboard.BookAppointment.DoctorsListActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
@@ -68,7 +69,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".modules.dashboard.tabs.HomeScreen.AboutDoctorActivity"
+            android:name=".modules.dashboard.BookAppointment.AboutDoctorActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
@@ -78,7 +79,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".modules.dashboard.tabs.HomeScreen.AppointmentSummaryActivity"
+            android:name=".modules.dashboard.BookAppointment.AppointmentSummaryActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
@@ -88,7 +89,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".modules.dashboard.tabs.AppointmentsDetails.AppointmentDetailActivity"
+            android:name=".modules.dashboard.AppointmentsDetails.AppointmentDetailActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
@@ -119,32 +120,32 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".modules.dashboard.tabs.HomeScreen.ScheduleAppointment"
+            android:name=".modules.dashboard.BookAppointment.ScheduleAppointment"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".modules.dashboard.tabs.HomeScreen.PatientHistoryActivity"
+            android:name=".modules.dashboard.BookAppointment.PatientHistoryActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".modules.dashboard.tabs.BuyMedicineScreen.AddProductActivity"
+            android:name=".modules.dashboard.BuyMedicine.AddProductActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".modules.dashboard.tabs.BuyMedicineScreen.MedicineActivity"
+            android:name=".modules.dashboard.BuyMedicine.MedicineActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".modules.dashboard.tabs.BuyMedicineScreen.PrescriptionUploadActivity"
+            android:name=".modules.dashboard.BuyMedicine.PrescriptionUploadActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".modules.dashboard.tabs.BuyMedicineScreen.MyPrescriptionActivity"
+            android:name=".modules.dashboard.BuyMedicine.MyPrescriptionActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
@@ -209,9 +210,9 @@
             android:name="com.razorpay.ApiKey"
             android:value="rzp_test_pkcsjivTghjNsf" />
 
-        <activity android:name=".modules.dashboard.tabs.HomeScreen.IssueDescriptorMapActivity" />
-        <activity android:name=".modules.dashboard.tabs.HomeScreen.PaymentWebVwActivity" />
-        <activity android:name=".modules.dashboard.tabs.AccountDetails.EditAccountActivity" />
+        <activity android:name=".modules.dashboard.BookAppointment.IssueDescriptorMapActivity" />
+        <activity android:name=".modules.dashboard.BookAppointment.PaymentWebVwActivity" />
+        <activity android:name=".modules.dashboard.AccountDetails.EditAccountActivity" />
 
         <service
             android:name=".customLibs.downloadService.DownloadFileService"

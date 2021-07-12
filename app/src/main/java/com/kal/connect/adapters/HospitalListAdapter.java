@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.kal.connect.R;
 import com.kal.connect.models.HospitalModel;
-import com.kal.connect.modules.dashboard.tabs.HomeScreen.DoctorsListActivity;
+import com.kal.connect.modules.dashboard.BookAppointment.DoctorsListActivity;
 import com.kal.connect.modules.hospitals.AboutHospitalActivity;
 import com.kal.connect.utilities.Utilities;
 

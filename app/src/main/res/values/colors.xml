@@ -14,7 +14,8 @@
     <color name="green">#388e3c</color>
     <color name="red">#EC0636</color>
     <color name="gray_color">#ccc</color>
-    <color name="appoinment_red">#ff3232</color>
+    <!--  <color name="appoinment_red">#ff3232</color>-->
+    <color name="appoinment_red">#cc0037c1</color>
 
     <color name="bio_red">#e74c3c</color>
     <color name="bio_grey">#666666</color>

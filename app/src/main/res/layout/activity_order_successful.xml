@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".modules.dashboard.tabs.BuyMedicineScreen.OrderSuccessfulActivity">
+    tools:context=".modules.dashboard.BuyMedicine.OrderSuccessfulActivity">
 
     <pl.droidsonroids.gif.GifImageView
         android:layout_width="200dp"

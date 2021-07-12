@@ -7,12 +7,12 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 //import androidx.core.app.FragmentStatePagerAdapter;
 
 //import com.patientapp.modules.dashboard.tabs.Appointments.Tabs.Examination.PatientExamination;
-import com.kal.connect.modules.dashboard.tabs.AppointmentsDetails.Tabs.Examination.PatientDetails;
-import com.kal.connect.modules.dashboard.tabs.AppointmentsDetails.Tabs.Examination.PatientExamination;
-import com.kal.connect.modules.dashboard.tabs.AppointmentsDetails.Tabs.Prescription.PrescriptionTab;
-import com.kal.connect.modules.dashboard.tabs.AppointmentsDetails.Tabs.PresentCompliant.PresentCompliantTab;
-import com.kal.connect.modules.dashboard.tabs.AppointmentsDetails.Tabs.Records.RecordsTab;
-import com.kal.connect.modules.dashboard.tabs.AppointmentsDetails.Tabs.Vitals.VitalsTab;
+import com.kal.connect.modules.dashboard.AppointmentsDetails.Tabs.Examination.PatientDetails;
+import com.kal.connect.modules.dashboard.AppointmentsDetails.Tabs.Examination.PatientExamination;
+import com.kal.connect.modules.dashboard.AppointmentsDetails.Tabs.Prescription.PrescriptionTab;
+import com.kal.connect.modules.dashboard.AppointmentsDetails.Tabs.PresentCompliant.PresentCompliantTab;
+import com.kal.connect.modules.dashboard.AppointmentsDetails.Tabs.Records.RecordsTab;
+import com.kal.connect.modules.dashboard.AppointmentsDetails.Tabs.Vitals.VitalsTab;
 
 public class TabsAdapter extends FragmentStatePagerAdapter {
 
