@@ -24,8 +24,10 @@ public class OrderSummaryActivity extends AppCompatActivity {
     RecyclerView rv_order_summary;
     ArrayList<HashMap<String, Object>> sentParams;
     ImageView iv_back;
-    TextView tv_total_amt, tv_confirm_add;
+    TextView tv_total_amt, tv_confirm_add, tv_del_charges;
     private double totalAmt;
+    public static double shippingCharges = 49;
+    boolean orderBelow500 = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,7 @@ public class OrderSummaryActivity extends AppCompatActivity {
         });
         tv_total_amt = findViewById(R.id.tv_total_amt);
         tv_confirm_add = findViewById(R.id.tv_confirm_add);
+        tv_del_charges = findViewById(R.id.txt_del_charge);
         Intent intent = getIntent();
         Bundle args = intent.getBundleExtra("data");
 
@@ -60,9 +63,19 @@ public class OrderSummaryActivity extends AppCompatActivity {
                         Double.parseDouble(String.valueOf(sentParams.get(i).get("MedicineCount"))));
             }
         }
+        if (totalAmt<500){
+            tv_total_amt.setText("Total: Rs " + precision.format(totalAmt+shippingCharges));
+            orderBelow500 = true;
+            tv_del_charges.setText("Rs 49 Delivery Charges applicable for orders below Rs 500");
+
+        }else{
+            tv_total_amt.setText("Total: Rs " + precision.format(totalAmt));
+            orderBelow500 = false;
+            tv_del_charges.setText("Free Delivery!!!");
+
+        }
 // dblVariable is a number variable and not a String in this case
         //totalAmt = (precision.format(totalAmt));
-        tv_total_amt.setText("Total: Rs " + precision.format(totalAmt));
 
         tv_confirm_add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +85,7 @@ public class OrderSummaryActivity extends AppCompatActivity {
                 args.putSerializable("MedicineData", (Serializable) sentParams);
                 i.putExtra("data", args);
                 i.putExtra("amount", precision.format(totalAmt));
+                i.putExtra("delCharge", orderBelow500);
                 startActivity(i);
             }
         });

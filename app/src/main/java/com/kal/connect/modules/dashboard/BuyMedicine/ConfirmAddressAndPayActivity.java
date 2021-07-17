@@ -28,6 +28,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static com.kal.connect.modules.dashboard.BuyMedicine.OrderSummaryActivity.shippingCharges;
 import static com.kal.connect.utilities.Config.IS_FROM_PATIENT;
 
 public class ConfirmAddressAndPayActivity extends AppCompatActivity implements PaymentResultListener {
@@ -72,7 +73,14 @@ public class ConfirmAddressAndPayActivity extends AppCompatActivity implements P
                     amount = amount.replace(".", "");
 //                    int amountInInt = Integer.parseInt(amount);
 //                    amountInInt = amountInInt*100;
-                    initialiseRazorPayForPayment(amount);
+                    boolean delChrg = intent.getBooleanExtra("delCharge", false);
+                    if (delChrg){
+                        int amt = Integer.parseInt(amount)+ 4900;
+                        initialiseRazorPayForPayment(amt+"");
+
+                    }else{
+                        initialiseRazorPayForPayment(amount);
+                    }
 
                 } else {
                     Utilities.showAlert(ConfirmAddressAndPayActivity.this, "Please check the details...", false);
