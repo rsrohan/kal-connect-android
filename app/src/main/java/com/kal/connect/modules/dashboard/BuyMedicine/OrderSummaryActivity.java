@@ -66,7 +66,7 @@ public class OrderSummaryActivity extends AppCompatActivity {
         if (totalAmt<500){
             tv_total_amt.setText("Total: Rs " + precision.format(totalAmt+shippingCharges));
             orderBelow500 = true;
-            tv_del_charges.setText("Rs 49 Delivery Charges applicable for orders below Rs 500");
+            tv_del_charges.setText("Delivery charges of Rs 49.00 is applicable for the orders below value of Rs 500.00");
 
         }else{
             tv_total_amt.setText("Total: Rs " + precision.format(totalAmt));
