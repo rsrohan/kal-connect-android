@@ -21,12 +21,16 @@ import java.util.HashMap;
 public class OrderSummaryActivity extends AppCompatActivity {
 
     private static final String TAG = "SummaryOrder";
+
+    private static final double MIN_ORDER_FOR_FREE_DELIVERY = 1000;
+    public static double shippingCharges = 100;
+    public static int SHIPPING_CHARGES_FOR_RAZORPAY = 10000;//in paisa
+
     RecyclerView rv_order_summary;
     ArrayList<HashMap<String, Object>> sentParams;
     ImageView iv_back;
     TextView tv_total_amt, tv_confirm_add, tv_del_charges;
     private double totalAmt;
-    public static double shippingCharges = 49;
     boolean orderBelow500 = false;
 
     @Override
@@ -63,10 +67,10 @@ public class OrderSummaryActivity extends AppCompatActivity {
                         Double.parseDouble(String.valueOf(sentParams.get(i).get("MedicineCount"))));
             }
         }
-        if (totalAmt<500){
+        if (totalAmt<MIN_ORDER_FOR_FREE_DELIVERY){
             tv_total_amt.setText("Total: Rs " + precision.format(totalAmt+shippingCharges));
             orderBelow500 = true;
-            tv_del_charges.setText("Delivery charges of Rs 49.00 is applicable for the orders below value of Rs 500.00");
+            tv_del_charges.setText("Delivery charges of Rs 100.00 is applicable for the orders below value of Rs 1000.00");
 
         }else{
             tv_total_amt.setText("Total: Rs " + precision.format(totalAmt));

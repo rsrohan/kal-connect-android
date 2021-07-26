@@ -28,6 +28,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static com.kal.connect.modules.dashboard.BuyMedicine.OrderSummaryActivity.SHIPPING_CHARGES_FOR_RAZORPAY;
 import static com.kal.connect.modules.dashboard.BuyMedicine.OrderSummaryActivity.shippingCharges;
 import static com.kal.connect.utilities.Config.IS_FROM_PATIENT;
 
@@ -75,7 +76,7 @@ public class ConfirmAddressAndPayActivity extends AppCompatActivity implements P
 //                    amountInInt = amountInInt*100;
                     boolean delChrg = intent.getBooleanExtra("delCharge", false);
                     if (delChrg){
-                        int amt = Integer.parseInt(amount)+ 4900;
+                        int amt = Integer.parseInt(amount)+ SHIPPING_CHARGES_FOR_RAZORPAY;
                         initialiseRazorPayForPayment(amt+"");
 
                     }else{
