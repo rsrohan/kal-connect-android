@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="170dp"
+        android:layout_height="120dp"
+        android:layout_margin="8dp"
+        android:src="@drawable/kal"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="@color/appoinment_red"
+        android:textAlignment="center"
+        android:text="Date: 2021-01-01"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:padding="8dp"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:text="Kerala Ayurveda Academy &amp; Wellness Center"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:padding="8dp"
+        android:layout_height="wrap_content"
+        android:text="LAST HIPAA NOTICE OF PRIVACY PRACTICES
+"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:text="@string/consent"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:textStyle="bold"
+        android:textColor="@color/appoinment_red"
+        android:textAlignment="center"
+        android:text="By pressing Next, I acknowledge receipt of the Notice of Privacy Practices..."/>
+</LinearLayout>

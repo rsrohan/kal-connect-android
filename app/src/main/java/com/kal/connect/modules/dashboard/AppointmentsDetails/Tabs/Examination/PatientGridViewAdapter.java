@@ -83,7 +83,7 @@ public class PatientGridViewAdapter extends RecyclerView.Adapter<PatientGridView
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(onItemCheck != null){
-                    onItemCheck.onItemCheck(b, (String)compoundButton.getTag());
+                    onItemCheck.onItemCheck(b, (String)compoundButton.getTag(), mAyurvedaModule.getModule());
                 }
 
             }
@@ -109,7 +109,7 @@ public class PatientGridViewAdapter extends RecyclerView.Adapter<PatientGridView
     }
 
     public interface OnItemCheck{
-        public void onItemCheck(boolean check, String checkID);
+        public void onItemCheck(boolean check, String checkID, String checkTitle);
     }
 
 

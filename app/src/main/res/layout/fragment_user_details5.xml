@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".modules.dashboard.BookAppointment.healthseeker.F1Questions">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="@string/any_other_problem_earlier"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/addDisease"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginHorizontal="4dp"
+                android:drawableStart="@drawable/ic_add_hsfm"
+                android:drawablePadding="8dp"
+                android:gravity="center"
+                android:paddingHorizontal="8dp"
+                android:text="Add Disease"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/any_disease"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/list_describe_issue_past_disease" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="@string/any_surgery"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/addInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginHorizontal="4dp"
+                android:drawableStart="@drawable/ic_add_hsfm"
+                android:drawablePadding="8dp"
+                android:gravity="center"
+                android:paddingHorizontal="8dp"
+                android:text="Add Information"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/any_surgery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/list_describe_issue_past_surgery" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="@string/any_hospitalization"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/addInfo2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginHorizontal="4dp"
+                android:drawableStart="@drawable/ic_add_hsfm"
+                android:drawablePadding="8dp"
+                android:gravity="center"
+                android:paddingHorizontal="8dp"
+                android:text="Add Information"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/any_hospitalization"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/list_any_hospitalization" />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</FrameLayout>

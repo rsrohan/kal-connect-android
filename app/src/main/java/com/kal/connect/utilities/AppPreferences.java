@@ -167,15 +167,6 @@ public class AppPreferences {
             try {
                 JSONObject userInfo = new JSONObject(profileInfo);
                 inputParams.put("Patientid", userInfo.getString("PatientID"));
-//                inputParams.put("PatientName",userInfo.getString("FirstName")+" "+userInfo.getString("LastName"));
-//
-//                inputParams.put("ClientID",userInfo.getString("ClientID"));
-//                inputParams.put("PatientID",userInfo.getString("PatientID"));
-//
-//                inputParams.put("PatEmail",userInfo.getString("Email"));
-//                inputParams.put("PatPhone",userInfo.getString("ContactNo"));
-//
-//                inputParams.put("Offset", "-330");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -184,6 +175,22 @@ public class AppPreferences {
 
     }
 
+    public String getPatientID() {
+        HashMap<String, Object> inputParams = new HashMap<String, Object>();
+        String profileInfo = pref.getString(USER_INFO, null);
+        if (profileInfo != null) {
+
+            try {
+                JSONObject userInfo = new JSONObject(profileInfo);
+                //inputParams.put("Patientid", userInfo.getString("PatientID"));
+                return userInfo.getString("PatientID");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return "0";
+
+    }
 
     public HashMap<String, Object> sendingInputParam() {
         HashMap<String, Object> inputParams = new HashMap<String, Object>();

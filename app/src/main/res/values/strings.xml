@@ -293,6 +293,43 @@
     <string name="btn_update">Update</string>
     <string name="btn_later">No Thanks</string>
     <string name="no_medicines_found">No Medicines Found</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hope_to_acheive">What do you hope to achieve with your health consultation today?</string>
+    <string name="whom_u_live_with">With whom do you live? (Include children, parents, other occupants and pets with ages)</string>
+    <string name="mildmodsev_desc">Mild – some discomfort\nModerate – creates much trouble, but can continue regular activities\nSevere – restricts your daily routine</string>
+    <string name="connect_with_yourself">Do you connect with yourself? How and how often? (Hobbies/music/ meditation/ community service etc)</string>
+    <string name="you_need_helps_with">Main problem(s) you would like help with...</string>
+    <string name="any_other_problem">Are you diagnosed with any medical conditions?</string>
+    <string name="any_medicine_taking" >Are you taking any prescription medications?</string>
+    <string name="any_alt_medicine_taking">"  Are you taking any herbal or alternative supplements?"</string>
+    <string name="any_alt_suppl_taking">Are you taking any vitamins or nutritional supplements?</string>
+    <string name="any_other_problem_earlier">Were there any diseases that you suffered from earlier? (Include major infections like typhoid, malaria, hepatitis)</string>
+    <string name="any_surgery">Have you had any kind of surgery or minor procedures performed on you? (Include any Panchakarma, Acupuncture and other treatments here as well)</string>
+    <string name="any_hospitalization">Please list any hospitalizations</string>
+    <string name="how_stressed">How stressed you have been?</string>
+    <string name="how_energized">What is your energy level?</string>
+    <string name="verypoor">Very Poor</string>
+    <string name="excellent">Excellent</string>
+    <string name="how_hungry">How hungry do you feel at different meal times?\n\n0 – not at all, 1-3 – mildly hungry, 4-7 moderately hungry,  8-9 – quite hungry, 10 – very hungry!</string>
+    <string name="notatall">Not at all</string>
+    <string name="veryhungry">Very Hungry</string>
+    <string name="patterniiregular">Is the eating pattern irregular?</string>
+    <string name="ifbelow1">If 3 or below, it indicates Vāta (Vishama)</string>
+    <string name="canskip">Can you skip meals easily?</string>
+    <string name="ifbelow_2">If 3 or below, it indicates Kapha/Āma (Manda)</string>
+    <string name="readytoeat">Are you mostly always ready to eat – whatever the time of the day it maybe?</string>
+    <string name="ifbelow_3">If 3 or below, it indicates Pitta (Tikshna)</string>
+    <string name="gratifiedhunger">If hunger is not gratified, do you feel uncomfortable or irritable?</string>
+    <string name="ifbelow_4">If 3 or below, it indicates Pitta (Tikshna)/ (Vāta)</string>
+    <string name="ifbelow_5">If 3 or below, it indicates Āma/ Vāta (Manda/Vishama)</string>
+    <string name="ifbelow_6">If 3 or below, it indicates Āma (Manda)</string>
+    <string name="ifbelow_7">If 3 or below, it indicates Vāta (Vishama)</string>
+    <string name="fuller">Do you end up feeling fuller earlier than expected at the start of a meal?</string>
+    <string name="arethere">Are there times when even little quantity of food doesn’t get digested for a long time</string>
+    <string name="digestion">Does your food get digested well on some days and sometimes not?</string>
+    <string name="please_mention">Please indicate below any symptoms you have experienced in the last three months:</string>
+    <string name="consent">"We keep medical records of the health care services we provide for you.  You may ask to see and copy your records.  You may ask to correct your records.  Your records will be kept confidential unless you give us written permission to release them or we are required to do so by law.   \n\nWe will ask you to sign a consent form allowing us to use and disclose your health information for purposes of consultations, payment and health technique operations in this office.  You may see your records or get more information about them by contacting our office.  \n\nFor more information about our privacy practices please inquire with us. By signing below, I acknowledge receipt of the Notice of Privacy Practices. "</string>
 
 
 </resources>

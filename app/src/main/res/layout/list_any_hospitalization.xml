@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_rounded_input_field" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginLeft="16dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:text="Duration"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp"
+            android:visibility="visible" />
+
+        <EditText
+            android:id="@+id/txt1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="16dp"
+            android:background="@android:color/transparent"
+            android:backgroundTint="@color/white"
+            android:ellipsize="end"
+            android:gravity="start"
+            android:paddingTop="10dp"
+            android:text="" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_rounded_input_field" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginLeft="16dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:text="Condition"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp"
+            android:visibility="visible" />
+
+        <EditText
+            android:id="@+id/txt2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="30dp"
+            android:background="@android:color/transparent"
+            android:backgroundTint="@color/white"
+            android:inputType="text|textCapWords"
+            android:maxLines="1"
+            android:paddingTop="10dp"
+            android:text="" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="92dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_rounded_input_field" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginLeft="16dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:text="Procedure done"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp"
+            android:visibility="visible" />
+
+        <EditText
+            android:id="@+id/txt3"
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="16dp"
+            android:background="@android:color/transparent"
+            android:backgroundTint="@color/white"
+            android:ellipsize="end"
+            android:gravity="start"
+            android:paddingTop="10dp"
+            android:text="" />
+    </RelativeLayout>
+</LinearLayout>

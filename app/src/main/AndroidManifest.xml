@@ -43,43 +43,58 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".modules.authentication.SignInActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name=".modules.communicate.ChatActivity"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden" />
+
+
+
         <activity
             android:name=".modules.dashboard.DashboardMapActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
+
         <activity
             android:name=".modules.dashboard.BookAppointment.DoctorsListActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
+
         <activity
             android:name=".modules.hospitals.HospitalsListActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
+
         <activity
             android:name=".modules.dashboard.BookAppointment.AboutDoctorActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
+
         <activity
             android:name=".modules.hospitals.AboutHospitalActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
+
         <activity
             android:name=".modules.dashboard.BookAppointment.AppointmentSummaryActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".modules.dashboard.BookAppointment.healthseeker.HealthSeekerActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+
+        <activity
+            android:name=".modules.communicate.ChatActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
@@ -125,7 +140,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".modules.dashboard.BookAppointment.PatientHistoryActivity"
+            android:name=".modules.dashboard.BookAppointment.PatientHistoryActivityS2"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
@@ -210,7 +225,7 @@
             android:name="com.razorpay.ApiKey"
             android:value="rzp_test_pkcsjivTghjNsf" />
 
-        <activity android:name=".modules.dashboard.BookAppointment.IssueDescriptorMapActivity" />
+        <activity android:name=".modules.dashboard.BookAppointment.IssueDescriptorMapActivityS3" />
         <activity android:name=".modules.dashboard.BookAppointment.PaymentWebVwActivity" />
         <activity android:name=".modules.dashboard.AccountDetails.EditAccountActivity" />
 

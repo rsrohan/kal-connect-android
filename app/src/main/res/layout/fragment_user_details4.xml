@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".modules.dashboard.BookAppointment.healthseeker.F1Questions">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/any_medicine_taking"
+                android:padding="8dp"
+                android:textStyle="bold"
+                android:gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:drawableStart="@drawable/ic_add_hsfm"
+                android:text="Add Medication"
+                android:drawablePadding="8dp"
+                android:paddingHorizontal="8dp"
+                android:id="@+id/addMedication"
+                android:layout_marginHorizontal="4dp"
+                android:gravity="center"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/medi_describe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/list_describe_medication" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/any_alt_medicine_taking"
+                android:padding="8dp"
+                android:textStyle="bold"
+                android:gravity="center"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:drawableStart="@drawable/ic_add_hsfm"
+                android:text="Add Medicine"
+                android:id="@+id/addMedicine"
+                android:drawablePadding="8dp"
+                android:paddingHorizontal="8dp"
+                android:layout_marginHorizontal="4dp"
+                android:gravity="center"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/medi_describe2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/list_describe_medication" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/any_alt_suppl_taking"
+                android:padding="8dp"
+                android:textStyle="bold"
+                android:gravity="center"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:drawableStart="@drawable/ic_add_hsfm"
+                android:text="Add Supplement"
+                android:drawablePadding="8dp"
+                android:id="@+id/addSupplement"
+                android:paddingHorizontal="8dp"
+                android:layout_marginHorizontal="4dp"
+                android:gravity="center"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/medi_describe3"
+                android:layout_marginTop="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/list_describe_medication" />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</FrameLayout>

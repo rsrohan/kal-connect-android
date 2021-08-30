@@ -60,7 +60,7 @@ import io.github.luizgrp.sectionedrecyclerviewadapter.SectionParameters;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter;
 import io.github.luizgrp.sectionedrecyclerviewadapter.StatelessSection;
 
-public class HomeFragment extends Fragment implements SearchView.OnQueryTextListener, View.OnClickListener {
+public class HomeFragmentS1 extends Fragment implements SearchView.OnQueryTextListener, View.OnClickListener {
 
     RecyclerView issuesRecyclerView, selectedRecyclerView;
 
@@ -82,12 +82,12 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
     private FlipProgressDialog mProgressDialog = new FlipProgressDialog();
 
 
-    public HomeFragment() {
+    public HomeFragmentS1() {
         // Required empty public constructor
     }
 
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
+    public static HomeFragmentS1 newInstance(String param1, String param2) {
+        HomeFragmentS1 fragment = new HomeFragmentS1();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -195,7 +195,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
         proceedBtn.setOnClickListener(this);
 
-        selectedIssueAdapter = new SelectedIssueAdapter(selectedIssuesModelList, getContext(), HomeFragment.this);
+        selectedIssueAdapter = new SelectedIssueAdapter(selectedIssuesModelList, getContext(), HomeFragmentS1.this);
         LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         selectedRecyclerView.setLayoutManager(horizontalLayoutManager);
         selectedRecyclerView.setAdapter(selectedIssueAdapter);
@@ -273,7 +273,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         if (v.getId() == R.id.proceed_btn) {
 
 
-            Intent intent = new Intent(getContext(), PatientHistoryActivity.class);
+            Intent intent = new Intent(getContext(), PatientHistoryActivityS2.class);
             intent.putExtra("SelectedIssues", selectedIssuesModelList);
 
             GlobValues.getInstance().setSelectedIssuesModelList(selectedIssuesModelList);

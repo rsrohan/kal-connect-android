@@ -21,6 +21,57 @@
         <item>@string/others</item>
 
     </string-array>
+    <string-array name="problem_category">
+        <item>@string/mild</item>
+        <item>@string/moderate</item>
+        <item>@string/severe</item>
+
+    </string-array>
+    <string-array name="warmcoolnone" >
+        <item>@string/warm</item>
+        <item>@string/cool</item>
+        <item>@string/none</item>
+    </string-array>
+    <string-array name="hotcoldnone" >
+        <item>@string/hot</item>
+        <item>@string/cold</item>
+        <item>@string/none</item>
+    </string-array>
+    <string-array name="tastes" >
+        <item>@string/sweet</item>
+        <item>@string/sour</item>
+        <item>@string/salty</item>
+        <item>@string/hot</item>
+        <item>@string/bitter</item>
+        <item>@string/astringent</item>
+    </string-array>
+    <string-array name="thristy" >
+        <item>@string/often</item>
+        <item>@string/moderate</item>
+        <item>@string/notmuch</item>
+    </string-array>
+    <string-array name="sweat" >
+        <item>@string/often</item>
+        <item>@string/notmuch</item>
+        <item>@string/rarely</item>
+    </string-array>
 
 
+
+    <string name="mild">Mild</string>
+    <string name="moderate">Moderate</string>
+    <string name="severe">Severe</string>
+    <string name="warm">Warm</string>
+    <string name="cool">Cool</string>
+    <string name="none">None</string>
+    <string name="hot">Hot</string>
+    <string name="cold">Cold</string>
+    <string name="sweet">Sweet</string>
+    <string name="sour">Sour</string>
+    <string name="salty">Salty</string>
+    <string name="bitter">Bitter</string>
+    <string name="astringent">Astringent</string>
+    <string name="often">Often</string>
+    <string name="notmuch">Not Much</string>
+    <string name="rarely">Rarely</string>
 </resources>

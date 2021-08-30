@@ -38,7 +38,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter;
 
-public class PatientHistoryActivity extends CustomActivity {
+public class PatientHistoryActivityS2 extends CustomActivity {
+    private static final String TAG = "PatientHistoryScreen";
     private ArrayList<IssuesModel> selectedIssuesModelList;
 
     RecyclerView mRvPatient;
@@ -54,6 +55,7 @@ public class PatientHistoryActivity extends CustomActivity {
     JSONObject appointmentDetails = GlobValues.getInstance(). getAppointmentCompleteDetails();
 
     public ArrayList<String> selectedIDs = new ArrayList();
+    public ArrayList<String> selectedPastIssues = new ArrayList();
 
 
 
@@ -61,7 +63,7 @@ public class PatientHistoryActivity extends CustomActivity {
 
     @OnClick(R.id.next_btn)
     void proceed(){
-        Intent intent = new Intent(PatientHistoryActivity.this, IssueDescriptorMapActivity.class);
+        Intent intent = new Intent(PatientHistoryActivityS2.this, IssueDescriptorMapActivityS3.class);
         intent.putExtra("SelectedIssues", selectedIssuesModelList);
 
 //        {
@@ -101,12 +103,9 @@ public class PatientHistoryActivity extends CustomActivity {
 
         GlobValues.getInstance().addAppointmentInputParams("objPatHx", historyData);
 
-
-
-
-
+        intent.putExtra("PastIssues", selectedPastIssues);
         startActivity(intent);
-        Utilities.pushAnimation(PatientHistoryActivity.this);
+        Utilities.pushAnimation(PatientHistoryActivityS2.this);
     }
 
 
@@ -122,7 +121,7 @@ public class PatientHistoryActivity extends CustomActivity {
         TextView tv_proceed = findViewById(R.id.tv_proceed);
         tv_proceed.setText(tv_proceed.getText()+" (2/3)");
         ButterKnife.bind(this);
-        setHeaderView(R.id.headerView, PatientHistoryActivity.this, PatientHistoryActivity.this.getResources().getString(R.string.issue_descriptor_title));
+        setHeaderView(R.id.headerView, PatientHistoryActivityS2.this, PatientHistoryActivityS2.this.getResources().getString(R.string.issue_descriptor_title));
         headerView.showBackOption();
 
         sectionedAdapter = new SectionedRecyclerViewAdapter();
@@ -177,19 +176,22 @@ public class PatientHistoryActivity extends CustomActivity {
                                     }
                                 }
                             }
-                            mAdapter = new PatientGridViewAdapter(PatientHistoryActivity.this, subElement.getAyurvedaModules());
+                            mAdapter = new PatientGridViewAdapter(PatientHistoryActivityS2.this, subElement.getAyurvedaModules());
                             mAdapter.setOnItemCheck(new PatientGridViewAdapter.OnItemCheck() {
                                 @Override
-                                public void onItemCheck(boolean check, String checkID) {
+                                public void onItemCheck(boolean check, String checkID, String checkTitle) {
                                     if(check){
                                         selectedIDs.add(checkID);
+                                        selectedPastIssues.add(checkTitle);
+                                        Log.e(TAG, "onItemCheck: "+checkTitle );
                                     }else{
                                         selectedIDs.remove(checkID);
+                                        selectedPastIssues.remove(checkTitle);
                                     }
 
                                 }
                             });
-                            GridLayoutManager gridLayoutManager = new GridLayoutManager(PatientHistoryActivity.this, 3);
+                            GridLayoutManager gridLayoutManager = new GridLayoutManager(PatientHistoryActivityS2.this, 3);
                             mRvPatient.setLayoutManager(gridLayoutManager);
                         }
                     }

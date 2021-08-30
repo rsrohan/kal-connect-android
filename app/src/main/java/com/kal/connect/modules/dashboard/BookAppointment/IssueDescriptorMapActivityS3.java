@@ -1,6 +1,7 @@
 package com.kal.connect.modules.dashboard.BookAppointment;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -14,6 +15,7 @@ import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -23,14 +25,23 @@ import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import static com.kal.connect.modules.dashboard.BookAppointment.healthseeker.HealthSeekerActivity.complaintID;
+import static com.kal.connect.modules.dashboard.BookAppointment.healthseeker.HealthSeekerActivity.oldComplaintID;
+import static com.kal.connect.modules.dashboard.BookAppointment.healthseeker.HealthSeekerActivity.patientID;
 
 import com.kal.connect.R;
 import com.kal.connect.adapters.SelectedIssueAdapter;
+import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
+import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
 import com.kal.connect.customLibs.Maps.Manager.CustomMapActivity;
 import com.kal.connect.models.IssuesModel;
 import com.kal.connect.models.LocationModel;
+import com.kal.connect.modules.dashboard.BookAppointment.healthseeker.F1Questions;
+import com.kal.connect.modules.dashboard.BookAppointment.healthseeker.HealthSeekerActivity;
+import com.kal.connect.modules.hospitals.AboutHospitalActivity;
 import com.kal.connect.modules.hospitals.HospitalsListActivity;
 import com.kal.connect.utilities.AppPreferences;
+import com.kal.connect.utilities.Config;
 import com.kal.connect.utilities.GlobValues;
 import com.kal.connect.utilities.Utilities;
 import com.kal.connect.utilities.UtilitiesInterfaces;
@@ -40,6 +51,8 @@ import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.Timepoint;
 import com.yarolegovich.lovelydialog.LovelyTextInputDialog;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -47,18 +60,18 @@ import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import lib.kingja.switchbutton.SwitchMultiButton;
 
-public class IssueDescriptorMapActivity extends CustomMapActivity implements View.OnClickListener, TimePickerDialog.OnTimeSetListener,
+public class IssueDescriptorMapActivityS3 extends CustomMapActivity implements View.OnClickListener, TimePickerDialog.OnTimeSetListener,
         DatePickerDialog.OnDateSetListener {
 
     private SelectedIssueAdapter selectedIssueAdapter;
     RecyclerView selectedRecyclerView;
-    //    GridView locationGridVw;
     LinearLayout selectTime, consultNow, tecContainerLayout;
     private ArrayList<IssuesModel> selectedIssuesModelList = new ArrayList<>();
     private ArrayList<LocationModel> locationsList = new ArrayList<>();
@@ -67,6 +80,8 @@ public class IssueDescriptorMapActivity extends CustomMapActivity implements Vie
     CheckBox techRequired;
 
     String selectedDateToSend;
+
+    Boolean isUSPatient = true;
 
     Boolean technicianRequiredEnableManuall = false;
 
@@ -112,6 +127,7 @@ public class IssueDescriptorMapActivity extends CustomMapActivity implements Vie
     EditText height;
     Boolean isMap = false;
     String addressInfo = "";
+    private HashMap<String, Object> appointmentinputParams;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,7 +141,7 @@ public class IssueDescriptorMapActivity extends CustomMapActivity implements Vie
         tv_proceed.setText(tv_proceed.getText()+" (3/3)");
         isMap = false;
         ButterKnife.bind(this);
-        setHeaderView(R.id.headerView, IssueDescriptorMapActivity.this, IssueDescriptorMapActivity.this.getResources().getString(R.string.issue_descriptor_title));
+        setHeaderView(R.id.headerView, IssueDescriptorMapActivityS3.this, IssueDescriptorMapActivityS3.this.getResources().getString(R.string.issue_descriptor_title));
         headerView.showBackOption();
 
         selectedRecyclerView = (RecyclerView) findViewById(R.id.issuesSelectedRecyclerVW);
@@ -133,28 +149,21 @@ public class IssueDescriptorMapActivity extends CustomMapActivity implements Vie
         consultNow = (LinearLayout) findViewById(R.id.consult_now_layout);
         tecContainerLayout = (LinearLayout) findViewById(R.id.tec_container_layout);
         addressTxtVw = (TextView) findViewById(R.id.addressTxtVw);
-        // addressTxtVw.setOnClickListener(this);
         descTxt = (EditText) findViewById(R.id.description_edit_txt);
         communicationImgVw = (ImageView) findViewById(R.id.imgCommunication);
         loginOptionBtn = (SwitchMultiButton) findViewById(R.id.signin_options);
 
-//        locationGridVw = (GridView) findViewById(R.id.location_gridview);
-
 
         selectedIssuesModelList = (ArrayList<IssuesModel>) getIntent().getSerializableExtra("SelectedIssues");
-//        if(getIntent().getStringExtra("NewComplaints") != null){
-//            selectedIssuesList.add(new Issues("10001", getIntent().getStringExtra("NewComplaints"),1));
-//        }
-        selectedIssueAdapter = new SelectedIssueAdapter(selectedIssuesModelList, IssueDescriptorMapActivity.this, null);
-        LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(IssueDescriptorMapActivity.this, LinearLayoutManager.HORIZONTAL, false);
+
+        selectedIssueAdapter = new SelectedIssueAdapter(selectedIssuesModelList, IssueDescriptorMapActivityS3.this, null);
+        LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(IssueDescriptorMapActivityS3.this, LinearLayoutManager.HORIZONTAL, false);
         selectedRecyclerView.setLayoutManager(horizontalLayoutManager);
         selectedRecyclerView.setAdapter(selectedIssueAdapter);
         appointmentTime = (TextView) findViewById(R.id.appointmentTime);
         nextBtn = findViewById(R.id.next_btn);
         techRequired = (CheckBox) findViewById(R.id.technician_req_chk);
 
-//        final LocationAdapter locationAdapter = new LocationAdapter(locationsList, this);
-//        locationGridVw.setAdapter(locationAdapter);
 
         l = new LovelyTextInputDialog(this, R.style.EditTextTintTheme)
                 .setTopColorRes(R.color.colorAccent)
@@ -253,7 +262,6 @@ public class IssueDescriptorMapActivity extends CustomMapActivity implements Vie
                     }
 
                     l.setHint("Enter Address");
-//                    l.setInputType(InputType.TYPE_CLASS_PHONE);
                     techRequired.setChecked(false);
                     l.show();
 
@@ -265,7 +273,6 @@ public class IssueDescriptorMapActivity extends CustomMapActivity implements Vie
                     }, 300);
 
 
-//                    technicianDialogShow();
                 } else {
                     addressTxtVw.setText("");
                     addressTxtVw.setVisibility(View.GONE);
@@ -288,40 +295,10 @@ public class IssueDescriptorMapActivity extends CustomMapActivity implements Vie
         });
 
 
-//        AdapterView.OnItemClickListener onItemClickListener = ;
-//        locationGridVw.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View v,
-//            int position, long id) {
-//
-//                LocationModel lm = locationsList.get(position);
-//                lm.setSelected(!lm.isSelected());
-//                locationsList.set(position,lm);
-//
-//                if(currentlySelected != position ){
-//
-//
-//                    if(currentlySelected > -1){
-//                        LocationModel lmOld = locationsList.get(currentlySelected);
-//                        lmOld.setSelected(!lmOld.isSelected());
-//                        locationsList.set(currentlySelected,lmOld);
-//                    }
-//                    currentlySelected = position;
-//                }else{
-//                    currentlySelected = -1;
-//                }
-//                locationAdapter.notifyDataSetChanged();
-//
-//            }
-//        });
-
-
-        //
-
         now = Calendar.getInstance();
         now.add(Calendar.HOUR, 12);
         datepickerdialog = DatePickerDialog.newInstance(
-                IssueDescriptorMapActivity.this,
+                IssueDescriptorMapActivityS3.this,
                 now.get(Calendar.YEAR),
                 now.get(Calendar.MONTH),
                 now.get(Calendar.DAY_OF_MONTH)
@@ -337,7 +314,7 @@ public class IssueDescriptorMapActivity extends CustomMapActivity implements Vie
         datepickerdialog.setMinDate(now);
 
 
-        timepickerdialog = TimePickerDialog.newInstance(IssueDescriptorMapActivity.this,
+        timepickerdialog = TimePickerDialog.newInstance(IssueDescriptorMapActivityS3.this,
                 now.get(Calendar.HOUR_OF_DAY), now.get(Calendar.MINUTE), false);
 
 
@@ -360,36 +337,6 @@ public class IssueDescriptorMapActivity extends CustomMapActivity implements Vie
 
     }
 
-    public void technicianDialogShow() {
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Address");
-        builder.setMessage(getResources().getString(R.string.sample_address));
-
-        // add the buttons
-        builder.setPositiveButton("Choose from Map", null);
-        builder.setPositiveButton("Select This", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                // do something like..
-            }
-        });
-
-        builder.setNegativeButton("Cancel", null);
-        // create and show the alert dialog
-        AlertDialog dialog = builder.create();
-        dialog.show();
-
-        Utilities.showAlertDialogWithEditText(IssueDescriptorMapActivity.this, "Enter your Address", "", new String[]{"Cancel", "Choose this", "Map"},
-                new UtilitiesInterfaces.AlertCallback() {
-                    @Override
-                    public void onOptionClick(DialogInterface dialog, int buttonIndex) {
-
-                    }
-                });
-    }
-
 
     public void createLocations() {
         locationsList.add(new LocationModel("1", "Bangalore", false));
@@ -404,7 +351,7 @@ public class IssueDescriptorMapActivity extends CustomMapActivity implements Vie
 //        if(!Utilities.validate(IssueDescriptor.this,descTxt,"Please enter valid description Also",false,5,700))
 //            return false;
         if (selectedDate.isEmpty() || selectedTime.isEmpty()) {
-            Utilities.showAlert(IssueDescriptorMapActivity.this, "Please select when you want to consult", false);
+            Utilities.showAlert(IssueDescriptorMapActivityS3.this, "Please select when you want to consult", false);
             return false;
         }
 
@@ -445,8 +392,17 @@ public class IssueDescriptorMapActivity extends CustomMapActivity implements Vie
         }
         g.addAppointmentInputParams("COVID", covid);
 
-        startActivity(new Intent(IssueDescriptorMapActivity.this, HospitalsListActivity.class));
-        Utilities.pushAnimation(IssueDescriptorMapActivity.this);
+        if(!AppPreferences.getInstance().getCountryCode().toString().equals("+1"))
+        {
+            GlobValues g = GlobValues.getInstance();
+            appointmentinputParams = g.getAddAppointmentParams();
+            Log.e(F1Questions.TAG, "onCreate: "+appointmentinputParams.toString() );
+            generateComplaintID(appointmentinputParams);
+
+        }else{
+            startActivity(new Intent(IssueDescriptorMapActivityS3.this, HospitalsListActivity.class));
+        }
+        Utilities.pushAnimation(IssueDescriptorMapActivityS3.this);
     }
 
     @Override
@@ -475,15 +431,6 @@ public class IssueDescriptorMapActivity extends CustomMapActivity implements Vie
             SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
             selectedDateToSend = dateFormat.format(calendar.getTime());
 
-//            Calendar calendar = Calendar.getInstance();
-//            SimpleDateFormat dateFormat = new SimpleDateFormat("mm/dd/yyyy");
-//            String formattedDate = dateFormat.format(calendar.getTime());
-//
-//            String time = new SimpleDateFormat("hh:mm").format(calendar.getTime());
-
-//            selectedDateToSend = formattedDate;
-//            selectedTime = time;
-
             selectedDate = selectedDateToSend;
             appointmentTime.setText("Appointment Time");
 
@@ -495,36 +442,6 @@ public class IssueDescriptorMapActivity extends CustomMapActivity implements Vie
             setupData();
 
 
-//            if(validate()){
-//                try{
-//                    g.addAppointmentInputParams("AppointmentDate", selectedDateToSend);
-//                    g.addAppointmentInputParams("AppointmentTime", selectedTime);
-//                    g.addAppointmentInputParams("Offset", "-330");
-//                    g.addAppointmentInputParams("ConsultationMode", loginOptionBtn.getSelectedTab()==0?"Video Conference":"Chat");
-//
-//                    g.addAppointmentInputParams("DoctorRole", "1");
-//
-//                    g.addAppointmentInputParams("isTechnician", techRequired.isChecked()?"1":"0");
-//                    g.addAppointmentInputParams("PatLoc", addressTxtVw.getText().toString());
-//                    if(techRequired.isChecked()){
-//                        g.addAppointmentInputParams("isTechnician", techRequired.isChecked()?"1":"0");
-//                    }else{
-//                        g.addAppointmentInputParams("Lattitude", "");
-//                        g.addAppointmentInputParams("Longitude", "");
-//                    }
-//
-//                    g.addAppointmentInputParams("isInstant", ""+"1");
-//                    g.addAppointmentInputParams("ConsultNow", ""+isInstant);
-//                    g.addAppointmentInputParams("ComplaintDescp", descTxt.getText().toString());
-//                    g.addAppointmentInputParams("ClientID", AppPreferences.getInstance().getUserInfo().getString("ClientID"));
-//
-//                }catch (Exception e){
-//
-//                }
-//                startActivity(new Intent(IssueDescriptor.this,DoctorsList.class));
-//                Utilities.pushAnimation(IssueDescriptor.this);
-//
-//            }
 
 
         }
@@ -533,19 +450,13 @@ public class IssueDescriptorMapActivity extends CustomMapActivity implements Vie
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
 
-//        now = Calendar.getInstance();
         if (now.get(Calendar.DATE) == dayOfMonth && now.get(Calendar.YEAR) == year && now.get(Calendar.MONTH) == monthOfYear) {
-//            now.add(Calendar.HOUR_OF_DAY, 12);
             Timepoint minTimePoint = new Timepoint(now.get(Calendar.HOUR_OF_DAY), now.get(Calendar.MINUTE));
             timepickerdialog.setMinTime(minTimePoint);
         } else {
             timepickerdialog.setMinTime(0, 0, 0);
         }
 
-//            timepickerdialog.setMinTime(now.get(Calendar.HOUR_OF_DAY), now.get(Calendar.MINUTE),0);
-
-//        Timepoint minTimePoint = new Timepoint(Calendar.HOUR_OF_DAY,Calendar.MINUTE);
-//        timepickerdialog.setMinTime(now.get(Calendar.HOUR_OF_DAY), now.get(Calendar.MINUTE),0);
 
         selectedDateToSend = (monthOfYear + 1) + "/" + dayOfMonth + "/" + year;
         selectedDate = dayOfMonth + " , " + MONTHS[monthOfYear] + ", " + year;
@@ -568,20 +479,7 @@ public class IssueDescriptorMapActivity extends CustomMapActivity implements Vie
 
         appointmentTime.setText(selectedDate + " " + selectedTime);
         isInstant = 0;
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//            appointmentTime.setTextColor(getResources().getColor(R.color.colorAccent,null));
-//
-//            tecContainerLayout.setVisibility(View.VISIBLE);
-//            selectTime.setBackgroundColor(getResources().getColor(R.color.background_grey));
-//            consultNow.setBackgroundColor(getResources().getColor(R.color.white));
-//
-//        }
-//
-//        selectTime.setBackgroundColor(getResources().getColor(R.color.background_grey));
-//        consultNow.setBackgroundColor(getResources().getColor(R.color.white));
-
-//        appointmentTime.setTextColor(getResources().getColor(R.color.colorAccent,null));
-        appointmentTime.setTextColor(ContextCompat.getColor(IssueDescriptorMapActivity.this, R.color.colorAccent));
+        appointmentTime.setTextColor(ContextCompat.getColor(IssueDescriptorMapActivityS3.this, R.color.colorAccent));
         tecContainerLayout.setVisibility(View.VISIBLE);
         selectTime.setBackgroundColor(getResources().getColor(R.color.background_grey));
         consultNow.setBackgroundColor(getResources().getColor(R.color.white));
@@ -637,55 +535,48 @@ public class IssueDescriptorMapActivity extends CustomMapActivity implements Vie
             }
         });
 
-
-
-//        showPlacePicker(new PlacePickCallback() {
-//            @Override
-//            public void receiveSelectedPlace(Boolean status, Place selectedPlace) {
-//
-//
-//                if (status) {
-//
-//                    if (selectedPlace != null) {
-//
-//                        // Name
-//                        addressInfo = (selectedPlace.getName() != null && selectedPlace.getName().length() > 0) ? selectedPlace.getName().toString() : addressInfo;
-//
-//                        // Address
-//                        addressInfo = (selectedPlace.getAddress() != null && selectedPlace.getAddress().length() > 0) ? addressInfo + ", " + selectedPlace.getAddress().toString() : addressInfo;
-//
-//                        // Phone
-//                        addressInfo = (selectedPlace.getPhoneNumber() != null && selectedPlace.getPhoneNumber().length() > 0) ? addressInfo + ", Phone: " + selectedPlace.getPhoneNumber().toString() : addressInfo;
-//
-//                        // Location
-////                        addressInfo = (selectedPlace.getLatLng() != null) ? addressInfo + ", " + selectedPlace.getLatLng() : addressInfo;
-//                        try {
-//                            isMap = true;
-//                            addressInfo = new Geocoder(getApplicationContext(), Locale.getDefault()).getFromLocation(selectedPlace.getLatLng().latitude, selectedPlace.getLatLng().longitude, 1).get(0).getAddressLine(0);
-//                        } catch (IOException e) {
-//                            isMap = false;
-//                            e.printStackTrace();
-//                        }
-//
-//                        g.addAppointmentInputParams("Lattitude", "" + selectedPlace.getLatLng().latitude);
-//                        g.addAppointmentInputParams("Longitude", "" + selectedPlace.getLatLng().longitude);
-//
-//
-//                    }
-//
-//                }
-//
-//                // Set the address details
-//                if (addressInfo.length() > 0) {
-//                    l.setInitialInput(addressInfo);
-//                    addressTxtVw.setVisibility(View.VISIBLE);
-//                    addressTxtVw.setText(addressInfo);
-//                    techRequired.setChecked(true);
-//
-//                }
-//            }
-//        });
     }
 
+    private void generateComplaintID(HashMap<String, Object> appointmentinputParams) {
+
+        SoapAPIManager apiManager = new SoapAPIManager(IssueDescriptorMapActivityS3.this, appointmentinputParams, new APICallback() {
+            @Override
+            public void responseCallback(Context context, String response) throws JSONException {
+                Log.e(F1Questions.TAG, response);
+
+                try {
+                    JSONArray responseAry = new JSONArray(response);
+                    if (responseAry.length() > 0) {
+                        JSONObject commonDataInfo = responseAry.getJSONObject(0);
+                        if (commonDataInfo.has("APIStatus") && Integer.parseInt(commonDataInfo.getString("APIStatus")) == 1) {
+
+                                complaintID = Integer.parseInt(commonDataInfo.get("ComplaintID").toString());
+                                oldComplaintID = Integer.parseInt(commonDataInfo.get("OldComplaintID").toString());
+                                Intent i = new Intent(IssueDescriptorMapActivityS3.this, HealthSeekerActivity.class);
+                                i.putExtra("issues", selectedIssuesModelList);
+                                i.putExtra("PastIssues", getIntent().getSerializableExtra("PastIssues"));
+                                startActivity(i);
+
+                        } else {
+                            Utilities.showAlert(IssueDescriptorMapActivityS3.this, "Something went wrong!", false);
+                        }
+
+
+                    }
+                } catch (Exception e) {
+                    Utilities.showAlert(IssueDescriptorMapActivityS3.this, "Something went wrong...", false);
+
+                }
+            }
+        }, true);
+        String[] url = {Config.WEB_Services1, Config.GENERATE_COMPLAINT_ID, "POST"};
+
+        if (Utilities.isNetworkAvailable(IssueDescriptorMapActivityS3.this)) {
+            apiManager.execute(url);
+        } else {
+            Utilities.showAlert(IssueDescriptorMapActivityS3.this, "No Internet", false);
+
+        }
+    }
 
 }
