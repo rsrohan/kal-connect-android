@@ -28,6 +28,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static com.kal.connect.modules.dashboard.BuyMedicine.OrderSummaryActivity.SHIPPING_CHARGES_FOR_RAZORPAY;
+import static com.kal.connect.modules.dashboard.BuyMedicine.OrderSummaryActivity.shippingCharges;
 import static com.kal.connect.utilities.Config.IS_FROM_PATIENT;
 
 public class ConfirmAddressAndPayActivity extends AppCompatActivity implements PaymentResultListener {
@@ -72,7 +74,14 @@ public class ConfirmAddressAndPayActivity extends AppCompatActivity implements P
                     amount = amount.replace(".", "");
 //                    int amountInInt = Integer.parseInt(amount);
 //                    amountInInt = amountInInt*100;
-                    initialiseRazorPayForPayment(amount);
+                    boolean delChrg = intent.getBooleanExtra("delCharge", false);
+                    if (delChrg){
+                        int amt = Integer.parseInt(amount)+ SHIPPING_CHARGES_FOR_RAZORPAY;
+                        initialiseRazorPayForPayment(amt+"");
+
+                    }else{
+                        initialiseRazorPayForPayment(amount);
+                    }
 
                 } else {
                     Utilities.showAlert(ConfirmAddressAndPayActivity.this, "Please check the details...", false);
@@ -166,7 +175,6 @@ public class ConfirmAddressAndPayActivity extends AppCompatActivity implements P
 //        if (isTesting){
 //            showAlert("You are testing...");
 //        }else{
-        //placeOrder(sentParams, pName, pPhone, pAddress, s, amountPaid);
 
         Utilities.showAlert(ConfirmAddressAndPayActivity.this, "Payment Failed! If money deducted, it will be refunded.", false);
         // }
@@ -189,6 +197,12 @@ public class ConfirmAddressAndPayActivity extends AppCompatActivity implements P
         inputParams.put("OrderTotalPrice", amountPaid);
         inputParams.put("isFromPat", IS_FROM_PATIENT);
         inputParams.put("SpecialistID", "0");
+
+        if (amountPaid.length()<4){
+            inputParams.put("CourierCharges", shippingCharges);
+        }else{
+            inputParams.put("CourierCharges", "0");
+        }
 
         Log.e(TAG, "placeOrder: " + inputParams.toString());
         SoapAPIManager apiManager = new SoapAPIManager(ConfirmAddressAndPayActivity.this, inputParams, new APICallback() {
