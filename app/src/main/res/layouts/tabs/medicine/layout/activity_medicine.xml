@@ -35,7 +35,7 @@
                 android:layout_height="0dp"
                 android:visibility="gone"
                 android:src="@drawable/ic_medical_prescription"
-                app:tint="@color/black" />
+                app:tint="@color/badgeCountColor" />
 
             <TextView
                 android:id="@+id/txt_upload"
@@ -48,7 +48,7 @@
                 android:layout_marginEnd="4dp"
                 android:gravity="center"
                 android:layout_weight="1"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:textSize="14sp"
                 android:text="Upload Prescription"
                 android:textAppearance="@style/CustomFont.Bold"
@@ -88,8 +88,23 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="4dp"
-            android:text="Prescribed Medicines by Doctor" />
-
+            android:text="Suggested Herbs by Practitioner" />
+        <TextView
+            android:id="@+id/msg_cart_empty"
+            android:layout_width="wrap_content"
+            android:layout_margin="24dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_horizontal"
+            android:drawableTop="@drawable/ic_empty_cart"
+            android:drawablePadding="12dp"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:gravity="center"
+            android:visibility="gone"
+            android:text="Cart is empty!!!\nAdd products to continue!"
+            android:textColor="@color/app_color"
+            android:textSize="18sp"
+            android:textStyle="bold" />
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipeRefreshLayout"
             android:layout_width="match_parent"

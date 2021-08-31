@@ -51,7 +51,7 @@ public class MedicineActivity extends CustomActivity implements View.OnClickList
     RecyclerView vwAppointments;
     public MedicineAdapter dataAdapter = null;
     ImageView mImgAddProduct, mImgOrder, mImgUplod;
-    TextView mTxtPlaceOrder, mTxtAddProduct, mTxtUpload;
+    TextView mTxtPlaceOrder, mTxtAddProduct, mTxtUpload, msg_cart_empty;
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout mSwipeRefreshLayout;
     ArrayList<String> uploadedFilesArrayList = new ArrayList<>();
@@ -70,6 +70,7 @@ public class MedicineActivity extends CustomActivity implements View.OnClickList
 
     private void buildUI() {
 
+        msg_cart_empty = (TextView) findViewById(R.id.msg_cart_empty);
         mTxtAddProduct = (TextView) findViewById(R.id.txt_add_product);
         mTxtPlaceOrder = (TextView) findViewById(R.id.txt_place_order);
         mTxtUpload = (TextView) findViewById(R.id.txt_upload);
@@ -255,19 +256,22 @@ public class MedicineActivity extends CustomActivity implements View.OnClickList
 //                    PriscriptionDate = PriscriptionDate + " " + singleObj.getString("PriscriptionDate");
 //                }
 
-                item.put("PriscriptionDate", singleObj.getString("PriscriptionDate"));
-                item.put("Medicinename", singleObj.getString("Medicinename"));
-                item.put("isEnabled", false);
-                item.put("ReportComment", singleObj.getString("ReportComment"));
-                try {
-                    item.put("amount", singleObj.get("Amount").toString());
-                    item.put("SKUNumber", singleObj.getString("SKUNumber"));
-                    dataItems.add(item);
+                if (!singleObj.getString("Medicinename").isEmpty()){
+                    item.put("PriscriptionDate", singleObj.getString("PriscriptionDate"));
+                    item.put("Medicinename", singleObj.getString("Medicinename"));
+                    item.put("isEnabled", false);
+                    item.put("ReportComment", singleObj.getString("ReportComment"));
+                    try {
+                        item.put("amount", singleObj.get("Amount").toString());
+                        item.put("SKUNumber", singleObj.getString("SKUNumber"));
+                        dataItems.add(item);
 
-                } catch (Exception e) {
-                    Log.e(TAG, "loadAppointments: "+e );
+                    } catch (Exception e) {
+                        Log.e(TAG, "loadAppointments: "+e );
 
+                    }
                 }
+
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -275,17 +279,23 @@ public class MedicineActivity extends CustomActivity implements View.OnClickList
             }
         }
 
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    AppComponents.reloadDataWithEmptyHint(vwAppointments, dataAdapter, dataItems, MedicineActivity.this.getResources().getString(R.string.no_data_found));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+//        if (dataItems.size() == 0) {
+//            msg_cart_empty.setVisibility(View.VISIBLE);
+//        }else{
+//            msg_cart_empty.setVisibility(View.GONE);
+//        }
 
-            }
-        });
+//        new Handler(Looper.getMainLooper()).post(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    AppComponents.reloadDataWithEmptyHint(vwAppointments, dataAdapter, dataItems, MedicineActivity.this.getResources().getString(R.string.no_data_found));
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//
+//            }
+//        });
 
 
     }
