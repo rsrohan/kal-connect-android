@@ -93,7 +93,7 @@ public class F2DescribeIssue extends Fragment {
         SoapAPIManager apiManager = new SoapAPIManager(getContext(), inputParams, new APICallback() {
             @Override
             public void responseCallback(Context context, String response) throws JSONException {
-               // Log.e(F1Questions.TAG, response);
+                Log.e(F1Questions.TAG, "describe issue: "+response);
 
                 try {
                     JSONArray responseAry = new JSONArray(response);

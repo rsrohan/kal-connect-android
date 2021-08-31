@@ -117,7 +117,9 @@ public class F10Symptoms extends Fragment {
     }
     public void saveData(){
 
-        symptomsAdapter.notifyDataSetChanged();
+        if (symptomsAdapter!=null){
+            symptomsAdapter.notifyDataSetChanged();
+        }
 
         ArrayList<HashMap<String, Object>> objArray = new ArrayList<>();
 

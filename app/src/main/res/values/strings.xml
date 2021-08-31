@@ -22,7 +22,7 @@
     <!--    <string name="tab_home_search">Search</string>-->
     <string name="tab_home">Home</string>
     <string name="tab_appointments">Appointments</string>a
-    <string name="tab_medicine">Buy Medicine</string>
+    <string name="tab_medicine">Purchase Herbs</string>
     <string name="tab_account">Account</string>
 
 
@@ -47,10 +47,10 @@
     <string name="address">Address</string>
 
     <!-- Doc List -->
-    <string name="doctor_list">Doctors List</string>
+    <string name="doctor_list">Practitioners List</string>
 
     <!-- Doc profile -->
-    <string name="about_doctor">About Doctor</string>
+    <string name="about_doctor">About Practitioner</string>
 
 
     <!-- Issue descriptor -->
@@ -72,7 +72,7 @@
     <string name="appointment_option_status_Accepted">Technical Accepted</string>
 
     <!-- Appointment Tabs Titles -->
-    <string name="appointment_prescription_title">Prescription</string>
+    <string name="appointment_prescription_title">Suggestion</string>
     <string name="appointment_detail_records_title">Records</string>
     <string name="appointment_detail_semi_analyser_title">Semi Analyzer</string>
     <string name="appointment_detail_blood_investigation_title">Blood investigation</string>
@@ -126,9 +126,9 @@
     <!-- Empty message -->
     <string name="no_appointments_found">No appointments found!</string>
     <string name="no_data_found">No Data found!</string>
-    <string name="no_prescrription_found">No Prescription found!</string>
+    <string name="no_prescrription_found">No Suggestion found!</string>
 
-    <string name="no_doctors_found">No Doctors are found!</string>
+    <string name="no_doctors_found">No Practitioners found!</string>
 
     <string name="increment">+</string>
     <string name="decrement">-</string>
@@ -208,7 +208,7 @@
     <string name="negative">Negative</string>
     <string name="not_tested">NA</string>
 
-    <string name="tech_required">Select if you want our Medical Assistant to visit or Medicines to be Delivered at Home.</string>
+    <string name="tech_required">Select if you want our Medical Assistant to visit or Herbs to be Delivered at Home.</string>
 
     <string name="powered_by">Telemedicine Solution by Medi360</string>
 
@@ -242,7 +242,7 @@
 
     <string name="map_direction" translatable="false">Location In Map</string>
     <string name="hospital_charge" translatable="false">Cost for consultation</string>
-    <string name="doctor_consultation" translatable="false">Doctor consultation charge</string>
+    <string name="doctor_consultation" translatable="false">Practitioner consultation charge</string>
     <string name="payment_failure" translatable="false">Payment have been failed, Please try again!</string>
 
     <string name="schedule_appointment">Schedule Appointment</string>
@@ -281,18 +281,18 @@
     <string name="menstrual">Menstrual</string>
 
     <string name="visit_therapist">Select If you want our Therapist to visit home</string>
-    <string name="deliver_medicine">Select if you want Medicine to be delivered at home</string>
-    <string name="patient_examination">Patient Examination</string>
+    <string name="deliver_medicine">Select if you want Herb to be delivered at home</string>
+    <string name="patient_examination">Client Examination</string>
     <string name="personal_history">Personal History</string>
     <string name="presenting_complaints">Presenting Complaints</string>
-    <string name="doc_disable_msg">Doctor is viewing your reports ... Please wait</string>
+    <string name="doc_disable_msg">Practitioner is viewing your reports ... Please wait</string>
 
 
     <string name="update_title">Update Kerala Ayurveda Connect?</string>
     <string name="update_message">"An update for Kerala Ayurveda Connect is available on Play Store."</string>
     <string name="btn_update">Update</string>
     <string name="btn_later">No Thanks</string>
-    <string name="no_medicines_found">No Medicines Found</string>
+    <string name="no_medicines_found">No Herbs Found</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="hope_to_acheive">What do you hope to achieve with your health consultation today?</string>

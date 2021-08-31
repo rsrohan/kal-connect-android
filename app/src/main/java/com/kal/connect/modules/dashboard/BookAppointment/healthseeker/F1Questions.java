@@ -83,7 +83,8 @@ public class F1Questions extends Fragment {
         SoapAPIManager apiManager = new SoapAPIManager(getContext(), inputParamsGET, new APICallback() {
             @Override
             public void responseCallback(Context context, String response) throws JSONException {
-               // Log.e(TAG, response);
+                Log.e(TAG,
+                        "internal details "+response);
 
                 try {
                     JSONArray responseAry = new JSONArray(response);
@@ -105,7 +106,7 @@ public class F1Questions extends Fragment {
 
                 }
             }
-        }, false);
+        }, true);
         String[] url = {Config.WEB_Services1, Config.F1_QUESTIONS_GET, "GET"};
 
         if (Utilities.isNetworkAvailable(Objects.requireNonNull(getContext()))) {
@@ -143,7 +144,7 @@ public class F1Questions extends Fragment {
             SoapAPIManager apiManager = new SoapAPIManager(getContext(), inputParams, new APICallback() {
                 @Override
                 public void responseCallback(Context context, String response) throws JSONException {
-                  //  Log.e(TAG, response);
+                    Log.e(TAG, response);
 
                     try {
                         JSONArray responseAry = new JSONArray(response);
@@ -162,7 +163,7 @@ public class F1Questions extends Fragment {
                         Utilities.showAlert(getActivity(), "Something went wrong!", false);
                     }
                 }
-            }, false);
+            }, true);
             String[] url = {Config.WEB_Services1, Config.F1_QUESTIONS_POST, "POST"};
 
             if (Utilities.isNetworkAvailable(Objects.requireNonNull(getContext()))) {

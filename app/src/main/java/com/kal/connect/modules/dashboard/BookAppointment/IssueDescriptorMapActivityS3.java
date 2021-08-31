@@ -392,7 +392,7 @@ public class IssueDescriptorMapActivityS3 extends CustomMapActivity implements V
         }
         g.addAppointmentInputParams("COVID", covid);
 
-        if(!AppPreferences.getInstance().getCountryCode().toString().equals("+1"))
+        if(AppPreferences.getInstance().getCountryCode().toString().equals("+1"))
         {
             GlobValues g = GlobValues.getInstance();
             appointmentinputParams = g.getAddAppointmentParams();

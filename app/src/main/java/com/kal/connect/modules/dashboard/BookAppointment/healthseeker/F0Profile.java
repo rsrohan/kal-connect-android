@@ -362,7 +362,7 @@ public class F0Profile extends Fragment implements View.OnClickListener, DatePic
         SoapAPIManager apiManager = new SoapAPIManager(getContext(), inputParams, new APICallback() {
             @Override
             public void responseCallback(Context context, String response) throws JSONException {
-               // Log.e("***response***", response);
+                Log.e("***response***", response);
 
                 try {
                     JSONArray responseAry = new JSONArray(response);
