@@ -963,7 +963,12 @@ public class Utilities {
 
 
     public static String dateRT(String date){
+        try{
         return date.substring(0, date.indexOf("T")) + " ";
+        }catch (Exception e){
+            return date;
+
+        }
     }
 
     public void updateEMR(Context context, HashMap<String, Object> inputParams, final UpdateEMRCallBack updateEMRCallback){

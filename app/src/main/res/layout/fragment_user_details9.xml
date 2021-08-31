@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".modules.dashboard.BookAppointment.healthseeker.F1Questions">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="20dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Personal Preference"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/white"
+                android:padding="12dp"
+                android:gravity="center"
+                android:textStyle="bold"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="12dp"
+                    android:text="Which weather do you prefer?"
+                    android:textColor="@color/appoinment_red"
+                    android:textStyle="bold" />
+
+                <lib.kingja.switchbutton.SwitchMultiButton
+                    android:id="@+id/level1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:padding="10dp"
+                    android:textColor="@color/white"
+                    app:selectedColor="@color/colorPrimaryDark"
+                    app:strokeRadius="5dp"
+                    app:strokeWidth="1dp"
+                    app:switchTabs="@array/warmcoolnone"
+                    app:textSize="14sp" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="12dp"
+                    android:text="Which extreme of weather are you unable to tolerate?"
+                    android:textColor="@color/appoinment_red"
+                    android:textStyle="bold" />
+
+                <lib.kingja.switchbutton.SwitchMultiButton
+                    android:id="@+id/level2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:padding="10dp"
+                    android:textColor="@color/white"
+                    app:selectedColor="@color/colorPrimaryDark"
+                    app:strokeRadius="5dp"
+                    app:strokeWidth="1dp"
+                    app:switchTabs="@array/hotcoldnone"
+                    app:textSize="14sp" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="12dp"
+                    android:text="Which taste do you prefer?"
+                    android:textColor="@color/appoinment_red"
+                    android:textStyle="bold" />
+
+                <lib.kingja.switchbutton.SwitchMultiButton
+                    android:id="@+id/level3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:padding="10dp"
+                    android:textColor="@color/white"
+                    app:selectedColor="@color/colorPrimaryDark"
+                    app:strokeRadius="5dp"
+                    app:strokeWidth="1dp"
+                    app:switchTabs="@array/tastes"
+                    app:textSize="14sp" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="12dp"
+                    android:text="How thirsty do you feel?"
+                    android:textColor="@color/appoinment_red"
+                    android:textStyle="bold" />
+
+                <lib.kingja.switchbutton.SwitchMultiButton
+                    android:id="@+id/level4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:padding="10dp"
+                    android:textColor="@color/white"
+                    app:selectedColor="@color/colorPrimaryDark"
+                    app:strokeRadius="5dp"
+                    app:strokeWidth="1dp"
+                    app:switchTabs="@array/thristy"
+                    app:textSize="14sp" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="12dp"
+                    android:text="Do you sweat easily?"
+                    android:textColor="@color/appoinment_red"
+                    android:textStyle="bold" />
+
+                <lib.kingja.switchbutton.SwitchMultiButton
+                    android:id="@+id/level5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:padding="10dp"
+                    android:textColor="@color/white"
+                    app:selectedColor="@color/colorPrimaryDark"
+                    app:strokeRadius="5dp"
+                    app:strokeWidth="1dp"
+                    app:switchTabs="@array/sweat"
+                    app:textSize="14sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+</FrameLayout>

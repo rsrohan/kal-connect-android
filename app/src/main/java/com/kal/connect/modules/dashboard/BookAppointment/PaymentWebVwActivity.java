@@ -1,5 +1,7 @@
 package com.kal.connect.modules.dashboard.BookAppointment;
 
+import static com.kal.connect.modules.dashboard.BookAppointment.healthseeker.HealthSeekerActivity.complaintID;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -187,6 +189,7 @@ public class PaymentWebVwActivity extends CustomActivity implements View.OnClick
     }
 
     void bookAppointment(){
+        appointmentinputParams.put("ComplaintID", complaintID);
 //        HashMap<String, Object> inputParams = AppPreferences.getInstance().sendingInputParam();
 
 //        final HashMap<String, Object> appointmentinputParams  = GlobValues.getInstance().getAddAppointmentParams();

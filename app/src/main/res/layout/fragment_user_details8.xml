@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".modules.dashboard.BookAppointment.healthseeker.F1Questions">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="20dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Habits"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/white"
+                android:padding="12dp"
+                android:gravity="center"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="1 = None, 2 = Light, 3 = Moderate, 4 = Heavy"
+                android:padding="12dp"
+                android:gravity="center"
+                android:textStyle="bold"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="12dp"
+                    android:text="Alcohol"
+                    android:textColor="@color/appoinment_red"
+                    android:textStyle="bold" />
+
+                <SeekBar
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:max="4"
+                    android:id="@+id/s1"
+                    android:padding="12dp"
+                    android:progress="0"
+                    android:progressTint="@color/appoinment_red"
+                    android:thumbTint="@color/colorPrimary" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="2"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:layout_weight="1"
+                        android:paddingHorizontal="12dp"
+                        android:textColor="@color/app_color"
+                        android:textStyle="italic|bold"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="4"
+                        android:gravity="end"
+                        android:layout_weight="1"
+                        android:paddingHorizontal="12dp"
+                        android:textColor="@color/app_color"
+                        android:textStyle="italic|bold"
+                        />
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="12dp"
+                    android:text="Coffee"
+                    android:textColor="@color/appoinment_red"
+                    android:textStyle="bold" />
+
+                <SeekBar
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:max="4"
+                    android:id="@+id/s2"
+                    android:padding="12dp"
+                    android:progress="0"
+                    android:progressTint="@color/appoinment_red"
+                    android:thumbTint="@color/colorPrimary" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="2"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:layout_weight="1"
+                        android:paddingHorizontal="12dp"
+                        android:textColor="@color/app_color"
+                        android:textStyle="italic|bold"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="4"
+                        android:gravity="end"
+                        android:layout_weight="1"
+                        android:paddingHorizontal="12dp"
+                        android:textColor="@color/app_color"
+                        android:textStyle="italic|bold"
+                        />
+                </LinearLayout>
+
+            </LinearLayout><LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="Tea"
+                android:textColor="@color/appoinment_red"
+                android:textStyle="bold" />
+
+            <SeekBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:max="4"
+                android:id="@+id/s3"
+                android:padding="12dp"
+                android:progress="0"
+                android:progressTint="@color/appoinment_red"
+                android:thumbTint="@color/colorPrimary" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:layout_weight="1"
+                    android:paddingHorizontal="12dp"
+                    android:textColor="@color/app_color"
+                    android:textStyle="italic|bold"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4"
+                    android:gravity="end"
+                    android:layout_weight="1"
+                    android:paddingHorizontal="12dp"
+                    android:textColor="@color/app_color"
+                    android:textStyle="italic|bold"
+                    />
+            </LinearLayout>
+
+        </LinearLayout><LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="Tobacco"
+                android:textColor="@color/appoinment_red"
+                android:textStyle="bold" />
+
+            <SeekBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:max="4"
+                android:id="@+id/s4"
+                android:padding="12dp"
+                android:progress="0"
+                android:progressTint="@color/appoinment_red"
+                android:thumbTint="@color/colorPrimary" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:layout_weight="1"
+                    android:paddingHorizontal="12dp"
+                    android:textColor="@color/app_color"
+                    android:textStyle="italic|bold"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4"
+                    android:gravity="end"
+                    android:layout_weight="1"
+                    android:paddingHorizontal="12dp"
+                    android:textColor="@color/app_color"
+                    android:textStyle="italic|bold"
+                    />
+            </LinearLayout>
+
+        </LinearLayout><LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="Marijuana"
+                android:textColor="@color/appoinment_red"
+                android:textStyle="bold" />
+
+            <SeekBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:max="4"
+                android:padding="12dp"
+                android:id="@+id/s5"
+                android:progress="0"
+                android:progressTint="@color/appoinment_red"
+                android:thumbTint="@color/colorPrimary" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:layout_weight="1"
+                    android:paddingHorizontal="12dp"
+                    android:textColor="@color/app_color"
+                    android:textStyle="italic|bold"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4"
+                    android:gravity="end"
+                    android:layout_weight="1"
+                    android:paddingHorizontal="12dp"
+                    android:textColor="@color/app_color"
+                    android:textStyle="italic|bold"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="62dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_rounded_input_field" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="16dp"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:text="Other"
+                    android:id="@+id/txt_since"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="14sp"
+                    android:visibility="visible" />
+
+                <EditText
+                    android:id="@+id/otherHabits"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="16dp"
+                    android:layout_below="@id/txt_since"
+                    android:layout_marginRight="16dp"
+                    android:background="@android:color/transparent"
+                    android:backgroundTint="@color/white"
+                    android:inputType="text|textCapWords"
+                    android:maxLines="1"
+                    android:paddingTop="10dp"
+                    android:text="" />
+                <SeekBar
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:max="4"
+                    android:layout_marginTop="30dp"
+                    android:padding="12dp"
+                    android:layout_below="@id/otherHabits"
+                    android:id="@+id/s6"
+                    android:progress="0"
+                    android:progressTint="@color/appoinment_red"
+                    android:thumbTint="@color/colorPrimary" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="2"
+                    android:layout_below="@id/s6"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:layout_weight="1"
+                        android:paddingHorizontal="12dp"
+                        android:textColor="@color/app_color"
+                        android:textStyle="italic|bold"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="4"
+                        android:gravity="end"
+                        android:layout_weight="1"
+                        android:paddingHorizontal="12dp"
+                        android:textColor="@color/app_color"
+                        android:textStyle="italic|bold"
+                        />
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+</FrameLayout>

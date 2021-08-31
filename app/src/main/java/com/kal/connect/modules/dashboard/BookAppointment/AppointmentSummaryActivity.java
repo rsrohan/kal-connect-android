@@ -64,6 +64,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.kal.connect.appconstants.APIWebServiceConstants.isTesting;
+import static com.kal.connect.modules.dashboard.BookAppointment.healthseeker.HealthSeekerActivity.complaintID;
 import static com.kal.connect.utilities.Config.IMAGE_URL_FOR_SPEED;
 
 public class AppointmentSummaryActivity extends CustomActivity implements View.OnClickListener, PaymentResultListener {
@@ -307,6 +308,11 @@ public class AppointmentSummaryActivity extends CustomActivity implements View.O
 
     void bookAppointment(String paymentId, String amount) {
 
+//        if(AppPreferences.getInstance().getCountryCode().toString().equals("+1")){
+//            appointmentinputParams.put("ComplaintID", complaintID);
+//        } else{
+//        }
+        appointmentinputParams.put("ComplaintID", complaintID);
         appointmentinputParams.put("paymentId", paymentId);
         appointmentinputParams.put("amount", amount);
 

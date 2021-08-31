@@ -1,5 +1,7 @@
 package com.kal.connect.modules.dashboard;
 
+import static com.kal.connect.customLibs.fcm.MyFirebaseMessagingService.CALL_DECLINE;
+
 import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -7,14 +9,15 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.net.Uri;
 import android.os.Bundle;
-
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.location.places.Place;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
@@ -26,23 +29,23 @@ import com.google.android.play.core.install.model.AppUpdateType;
 import com.google.android.play.core.install.model.UpdateAvailability;
 import com.google.android.play.core.tasks.Task;
 import com.kal.connect.R;
-import com.kal.connect.modules.dashboard.BookAppointment.HomeFragment;
-import com.karumi.dexter.Dexter;
-import com.karumi.dexter.MultiplePermissionsReport;
-import com.karumi.dexter.PermissionToken;
-import com.karumi.dexter.listener.PermissionRequest;
-import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
 import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
 import com.kal.connect.customLibs.Maps.Manager.CustomMapActivity;
 import com.kal.connect.modules.dashboard.AccountDetails.AccountFragment;
 import com.kal.connect.modules.dashboard.AppointmentsDetails.AppointmentsFragment;
+import com.kal.connect.modules.dashboard.BookAppointment.HomeFragmentS1;
 import com.kal.connect.modules.dashboard.BuyMedicine.MedicineActivity;
 import com.kal.connect.utilities.AppPreferences;
 import com.kal.connect.utilities.Config;
 import com.kal.connect.utilities.GlobValues;
 import com.kal.connect.utilities.Utilities;
 import com.kal.connect.utilities.UtilitiesInterfaces;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -51,11 +54,6 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
-import static com.kal.connect.customLibs.fcm.MyFirebaseMessagingService.CALL_DECLINE;
-
 public class DashboardMapActivity extends CustomMapActivity implements View.OnClickListener {
 
     private static final String TAG = "HomeActivity";
@@ -63,7 +61,7 @@ public class DashboardMapActivity extends CustomMapActivity implements View.OnCl
     // MARK : Properties
     BottomNavigationView bottomTab = null;
 
-    HomeFragment homeFragment;
+    HomeFragmentS1 homeFragmentS1;
     AppointmentsFragment appointmentFragment;
 
 
@@ -159,10 +157,10 @@ public class DashboardMapActivity extends CustomMapActivity implements View.OnCl
             bottomTab.setSelectedItemId(R.id.tab_appointments);
 
         } else {
-            if (homeFragment == null) {
-                homeFragment = new HomeFragment();
+            if (homeFragmentS1 == null) {
+                homeFragmentS1 = new HomeFragmentS1();
             }
-            loadFragment(homeFragment);
+            loadFragment(homeFragmentS1);
         }
 
 
@@ -237,10 +235,10 @@ public class DashboardMapActivity extends CustomMapActivity implements View.OnCl
                 switch (item.getItemId()) {
 
                     case R.id.tab_home:
-                        if (homeFragment == null) {
-                            homeFragment = new HomeFragment();
+                        if (homeFragmentS1 == null) {
+                            homeFragmentS1 = new HomeFragmentS1();
                         }
-                        pageToShow = homeFragment;
+                        pageToShow = homeFragmentS1;
                         break;
 
                     case R.id.tab_appointments:

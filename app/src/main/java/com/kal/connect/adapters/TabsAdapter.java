@@ -24,39 +24,6 @@ public class TabsAdapter extends FragmentStatePagerAdapter {
         this.mNumOfTabs = NumOfTabs;
 
 
-//        // To Stop reloading fragments all the time
-//        pages[0] = new PrescriptionTab();
-//        pages[1] = new RecordsTab();
-//        pages[2] = new SemiAnalyzerTab();
-//        pages[3] = new BloodInvestigationTab();
-//        pages[4] = new CholestrolTab();
-////        pages[5] = new UrineAnalyzerTab();
-//        pages[5] = new FamilyHistoryTab();
-//        pages[6] = new BloodGlucoseTab();
-//        pages[7] = new VitalsTab();
-//        pages[8] = new PresentCompliantTab();
-//        pages[9] = new ECG();
-
-// To Stop reloading fragments all the time
-
-
-
-
-
-//        pages[5] = new UrineAnalyzerTab();
-
-
-
-//        pages[0] = new VitalsTab();
-//        pages[1] = new ECG();
-//        pages[2] = new RecordsTab();
-//        pages[3] = new PrescriptionTab();
-//        pages[4] = new BloodGlucoseTab();
-//        pages[5] = new BloodInvestigationTab();
-//        pages[6] = new CholestrolTab();
-//        pages[7] = new SemiAnalyzerTab();
-//        pages[8] = new PresentCompliantTab();
-//        pages[9] = new FamilyHistoryTab();
 
         pages[0] = new PrescriptionTab();
         pages[1] = new PresentCompliantTab();

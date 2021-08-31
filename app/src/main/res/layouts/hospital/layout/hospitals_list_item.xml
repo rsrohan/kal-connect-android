@@ -159,8 +159,8 @@
                                 android:layout_height="27dp"
                                 android:layout_gravity="center"
                                 android:layout_margin="12dp"
-                                android:tint="@color/white"
-                                android:src="@drawable/select_rounded" />
+                                android:src="@drawable/select_rounded"
+                                app:tint="@color/white" />
 
                         </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
 
@@ -172,7 +172,7 @@
                     android:id="@+id/distance"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Distance 1.2Km "/>
+                    android:text="Distance 1.2 KM"/>
 
             </RelativeLayout>
 

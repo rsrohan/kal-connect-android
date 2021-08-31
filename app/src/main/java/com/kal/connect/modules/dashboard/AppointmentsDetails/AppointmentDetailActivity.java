@@ -206,29 +206,9 @@ public class AppointmentDetailActivity extends CustomActivity implements View.On
         try {
             GlobValues.getInstance().setupAddAppointmentParams();
             GlobValues g = GlobValues.getInstance();
-            Calendar calendar = Calendar.getInstance();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-            String selectedTime = Utilities.getCurrentTime("hh:mm");
             g.addAppointmentInputParams("AppointmentID", mStrAppointmentID);
             g.addAppointmentInputParams("ComplaintID", mStrComplaintID);
-//            g.addAppointmentInputParams("AppointmentDate", Utilities.getCurrentDate("MM/dd/yyyy"));
-//            g.addAppointmentInputParams("AppointmentTime", selectedTime = Utilities.getCurrentTime("hh:mm"));
-//            g.addAppointmentInputParams("Offset", "-330");
-//            g.addAppointmentInputParams("ConsultationMode", "Video Conference");
-//            g.addAppointmentInputParams("DoctorRole", "1");
-//
-//            g.addAppointmentInputParams("isInstant", "" + "1");
-//            g.addAppointmentInputParams("ConsultNow", "1");
-//            g.addAppointmentInputParams("ComplaintDescp", "");
-//
-//            g.addAppointmentInputParams("PresentComplaint", selectedAppointmentData.get("complaints").toString());
-//            g.addAppointmentInputParams("SelectedComplaintId", selectedAppointmentData.get("ComplaintID").toString());
-//            g.addAppointmentInputParams("SelectedAppointmentId", selectedAppointmentData.get("appointmentId").toString());
-//
             g.addAppointmentInputParams("SpecialistID", mStrDocId);
-//            g.addAppointmentInputParams("SpecialistName", selectedAppointmentData.get("doctorName").toString());
-//
-//            g.addAppointmentInputParams("ClientID", AppPreferences.getInstance().getUserInfo().getString("ClientID"));
 
 //            Log.e(TAG, "setAppointmentParams: "+selectedAppointmentData.get("doctorId") );
         } catch (Exception e) {

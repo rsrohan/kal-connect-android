@@ -21,6 +21,7 @@ import com.kal.connect.R;
 import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
 import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
 import com.kal.connect.customLibs.appCustomization.CustomActivity;
+import com.kal.connect.modules.dashboard.AccountDetails.EditAccountActivity;
 import com.kal.connect.modules.dashboard.DashboardMapActivity;
 import com.kal.connect.utilities.AppPreferences;
 import com.kal.connect.utilities.Config;
@@ -41,6 +42,7 @@ import butterknife.OnTextChanged;
 import lib.kingja.switchbutton.SwitchMultiButton;
 
 public class SignInActivity extends CustomActivity implements View.OnClickListener {
+    private static final String TAG = "Login";
     LovelyTextInputDialog l;
     EditText mobile, password;
     Button getOTP;
@@ -206,10 +208,18 @@ public class SignInActivity extends CustomActivity implements View.OnClickListen
                         } else {
                             //AppPreferences.getInstance().setCountryCode("");
                             AppPreferences.getInstance().setCountryCode(countryCode.getSelectedCountryCodeWithPlus());
-
+                            Log.e(TAG, "responseCallback: " + responseAry.toString());
                             AppPreferences.getInstance().setLoginInfo(userInfo.toString());
-                            startActivity(new Intent(SignInActivity.this, DashboardMapActivity.class));
+
+                            if (userInfo.has("FirstName") && userInfo.getString("FirstName").isEmpty() ||
+                                    userInfo.has("Email") && userInfo.getString("Email").isEmpty()) {
+                                startActivity(new Intent(SignInActivity.this, EditAccountActivity.class));
+
+                            } else {
+                                startActivity(new Intent(SignInActivity.this, DashboardMapActivity.class));
+                            }
                             finish();
+
                         }
 
                     }
