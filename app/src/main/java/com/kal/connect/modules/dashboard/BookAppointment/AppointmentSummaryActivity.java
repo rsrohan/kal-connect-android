@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,6 +28,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.common.util.Base64Utils;
+import com.google.android.gms.tasks.OnCanceledListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.kal.connect.R;
 import com.kal.connect.adapters.SelectedIssueAdapter;
@@ -58,7 +67,9 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -83,14 +94,25 @@ public class AppointmentSummaryActivity extends CustomActivity implements View.O
 
     String orderID, specialistID = "";
 
+    DatabaseReference logRef;
+    String timestamp;
+
     @BindView(R.id.hospital_name)
     TextView hospitalName;
+    private SimpleDateFormat dt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_appointment_summary);
         ButterKnife.bind(this);
+
+        dt = new SimpleDateFormat("yyyy_MMM_dd___hh_mm_ss");
+        Calendar cal = Calendar.getInstance();
+        timestamp =  dt.format(cal.getTime());
+        logRef = FirebaseDatabase.getInstance().getReference("logs").child(AppPreferences.getInstance().getPatientID());
+
+        Log.e(TAG, "onCreate: "+logRef );
         buildUI();
     }
 
@@ -138,70 +160,80 @@ public class AppointmentSummaryActivity extends CustomActivity implements View.O
     void setupDetails() {
         GlobValues g = GlobValues.getInstance();
 
-        appointmentinputParams = g.getAddAppointmentParams();
+        try{
+            appointmentinputParams = g.getAddAppointmentParams();
 
+            Calendar cal = Calendar.getInstance();
+            timestamp =  dt.format(cal.getTime());
+            logRef.child(timestamp+"_data").setValue(appointmentinputParams);
 
-        if (appointmentinputParams != null) {
-            description.setText(appointmentinputParams.get("ComplaintDescp").toString());
-        }
-        if (appointmentinputParams != null && appointmentinputParams.get("ComplaintDescp").toString().isEmpty()) {
-            description.setVisibility(View.GONE);
-        }
-
-        DoctorModel selectedDoctor = null;
-        HospitalModel selectedHospital = null;
-        if (appointmentinputParams != null) {
-            String appointmentDateStr = Utilities.changeStringFormat(appointmentinputParams.get("AppointmentDate").toString(), "mm/dd/yyyy", "dd/mm/yyyy");
-
-            appointmentTime.setText(appointmentDateStr + " " + appointmentinputParams.get("AppointmentTime").toString());
-            selectedDoctor = g.getDoctor();
-
-            selectedHospital = Utilities.selectedHospitalModel;
-
-            if (Integer.parseInt(appointmentinputParams.get("isTechnician").toString()) == 1) {
-                tecLayout.setVisibility(View.VISIBLE);
-                //            techAddress.setText(appointmentinputParams.get("").toString());
-                technicianCharge.setText(selectedDoctor.getTechnicianCharge() != null && selectedDoctor.getTechnicianCharge().isEmpty() ? "Rs 0" : "Rs " + selectedDoctor.getDocCharge());
-
-            } else {
-                tecLayout.setVisibility(View.GONE);
+            if (appointmentinputParams != null) {
+                description.setText(appointmentinputParams.get("ComplaintDescp").toString());
+            }
+            if (appointmentinputParams != null && appointmentinputParams.get("ComplaintDescp").toString().isEmpty()) {
+                description.setVisibility(View.GONE);
             }
 
-            if (Integer.parseInt(appointmentinputParams.get("ConsultNow").toString()) == 1) {
-                paymentBtn.setText(R.string.consult_now);
-            } else {
-                paymentBtn.setText(R.string.schedule_appointment);
-            }
-        }
-        docCategory.setText(selectedDoctor.getSpecializationName());
-        docDegere.setText(selectedDoctor.getQualification());
-        docName.setText(selectedDoctor.getName());
-        docLocation.setText(selectedDoctor.getLocation());
+            DoctorModel selectedDoctor = null;
+            HospitalModel selectedHospital = null;
+            if (appointmentinputParams != null) {
+                String appointmentDateStr = Utilities.changeStringFormat(appointmentinputParams.get("AppointmentDate").toString(), "mm/dd/yyyy", "dd/mm/yyyy");
 
-        hospitalName.setText(selectedHospital.getHospitalName());
-        if(AppPreferences.getInstance().getCountryCode().toString().equals("+91")){
-            consultCharge.setText(selectedDoctor.getVCCharge().isEmpty() ? "" : "Rs " + selectedDoctor.getVCCharge().toString());
+                appointmentTime.setText(appointmentDateStr + " " + appointmentinputParams.get("AppointmentTime").toString());
+                selectedDoctor = g.getDoctor();
 
-        }else{
-            consultCharge.setText(selectedDoctor.getDocIntCharge().isEmpty() ? selectedDoctor.getDocCharge().isEmpty() ? "" : "Rs " + selectedDoctor.getVCCharge().toString() : "Rs " + selectedDoctor.getDocIntCharge().toString());
+                selectedHospital = Utilities.selectedHospitalModel;
 
-        }
+                if (Integer.parseInt(appointmentinputParams.get("isTechnician").toString()) == 1) {
+                    tecLayout.setVisibility(View.VISIBLE);
+                    //            techAddress.setText(appointmentinputParams.get("").toString());
+                    technicianCharge.setText(selectedDoctor.getTechnicianCharge() != null && selectedDoctor.getTechnicianCharge().isEmpty() ? "Rs 0" : "Rs " + selectedDoctor.getDocCharge());
 
+                } else {
+                    tecLayout.setVisibility(View.GONE);
+                }
 
-        if(AppPreferences.getInstance().getCountryCode().toString().equals("+91")) {
-            if (!selectedDoctor.getVCCharge().equals("")) {
-                cosultChargeAmount = (int) (Double.parseDouble(selectedDoctor.getVCCharge().toString()) * 100);
-                Log.e(TAG, "setupDetails: "+cosultChargeAmount );
-            }
-        }else{
-            if (!selectedDoctor.getDocIntCharge().equals("")) {
-                cosultChargeAmount = (int) (Double.parseDouble(selectedDoctor.getDocIntCharge().toString()) * 100);
-            }else{
-                if (!selectedDoctor.getVCCharge().equals("")) {
-                    cosultChargeAmount = (int) (Double.parseDouble(selectedDoctor.getVCCharge().toString()) * 100);
+                if (Integer.parseInt(appointmentinputParams.get("ConsultNow").toString()) == 1) {
+                    paymentBtn.setText(R.string.consult_now);
+                } else {
+                    paymentBtn.setText(R.string.schedule_appointment);
                 }
             }
+            docCategory.setText(selectedDoctor.getSpecializationName());
+            docDegere.setText(selectedDoctor.getQualification());
+            docName.setText(selectedDoctor.getName());
+            docLocation.setText(selectedDoctor.getLocation());
+
+            hospitalName.setText(selectedHospital.getHospitalName());
+            if(AppPreferences.getInstance().getCountryCode().toString().equals("+91")){
+                consultCharge.setText(selectedDoctor.getVCCharge().isEmpty() ? "" : "Rs " + selectedDoctor.getVCCharge().toString());
+
+            }else{
+                consultCharge.setText(selectedDoctor.getDocIntCharge().isEmpty() ? selectedDoctor.getDocCharge().isEmpty() ? "" : "Rs " + selectedDoctor.getVCCharge().toString() : "Rs " + selectedDoctor.getDocIntCharge().toString());
+
+            }
+
+
+            if(AppPreferences.getInstance().getCountryCode().toString().equals("+91")) {
+                if (!selectedDoctor.getVCCharge().equals("")) {
+                    cosultChargeAmount = (int) (Double.parseDouble(selectedDoctor.getVCCharge().toString()) * 100);
+                    Log.e(TAG, "setupDetails: "+cosultChargeAmount );
+                }
+            }else{
+                if (!selectedDoctor.getDocIntCharge().equals("")) {
+                    cosultChargeAmount = (int) (Double.parseDouble(selectedDoctor.getDocIntCharge().toString()) * 100);
+                }else{
+                    if (!selectedDoctor.getVCCharge().equals("")) {
+                        cosultChargeAmount = (int) (Double.parseDouble(selectedDoctor.getVCCharge().toString()) * 100);
+                    }
+                }
+            }
+        }catch (Exception e){
+            Calendar cal = Calendar.getInstance();
+            timestamp =  dt.format(cal.getTime());
+            logRef.child(timestamp+"_excep").setValue(e.getMessage());
         }
+
 
     }
     long startTime;
@@ -591,17 +623,31 @@ public class AppointmentSummaryActivity extends CustomActivity implements View.O
     public void onPaymentSuccess(String s) {
 
 
-        if ((int) GlobValues.getAddAppointmentParams().get("ConsultNow") == 2) {
-            bookAppointment(s, String.valueOf(cosultChargeAmount));
-        } else {
-            getVideoCallConfigurations(s, String.valueOf(cosultChargeAmount));
+        try{
+            Calendar cal = Calendar.getInstance();
+            timestamp =  dt.format(cal.getTime());
+            logRef.child(timestamp+"_pay").setValue(s);
+            if ((int) GlobValues.getAddAppointmentParams().get("ConsultNow") == 2) {
+                bookAppointment(s, String.valueOf(cosultChargeAmount));
+            } else {
+                getVideoCallConfigurations(s, String.valueOf(cosultChargeAmount));
+            }
+
+        }catch (Exception e){
+            Calendar cal = Calendar.getInstance();
+            timestamp =  dt.format(cal.getTime());
+            logRef.child(timestamp+"_pay_excep").setValue(e.getMessage());
         }
+
 
         Log.v("onPaymentSuccess : ", s);
     }
 
     @Override
     public void onPaymentError(int i, String s) {
+        Calendar cal = Calendar.getInstance();
+        timestamp =  dt.format(cal.getTime());
+        logRef.child(timestamp+"_payFail").setValue(s);
         Utilities.showAlert(AppointmentSummaryActivity.this, getString(R.string.payment_failure), false);
         if (isTesting){
             getVideoCallConfigurations(s, String.valueOf(cosultChargeAmount));

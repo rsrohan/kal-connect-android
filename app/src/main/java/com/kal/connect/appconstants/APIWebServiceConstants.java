@@ -146,7 +146,7 @@ public class APIWebServiceConstants {
                 .setDefaultHostnameVerifier(new HostnameVerifier() {
                     public boolean verify(String hostname, SSLSession session) {
                         if (hostname.equalsIgnoreCase("www.medi360.in") ||
-                                hostname.equalsIgnoreCase("www.ayurvaidya.live") ||
+                                hostname.equalsIgnoreCase("kal-connect.firebaseio.com") ||
                                 hostname.equalsIgnoreCase("www.myayurveda.com") ||
                                 hostname.equalsIgnoreCase("api.razorpay.com") ||
                                 hostname.equalsIgnoreCase("telehealth.keralaayurveda.biz") ||
