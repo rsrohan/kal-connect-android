@@ -23,6 +23,38 @@
           }
         },
         {
+          "client_id": "107968082844-77hj8h817qpvbtb3vrst5m3ng3mn2hpq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kal.connect",
+            "certificate_hash": "aca1be6cd659cb176af6ed9a4089479465661fd1"
+          }
+        },
+        {
+          "client_id": "107968082844-8lgdsfep7u0uv85vmqccstd8n8m2rfat.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kal.connect",
+            "certificate_hash": "9da93b2b07aa08644ee0b1f054a7dc63cb797699"
+          }
+        },
+        {
+          "client_id": "107968082844-ag2v5kthvi6adsc05lh4j43043th4rv0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kal.connect",
+            "certificate_hash": "2b7dfd3e986eac24a177c892ca8264a3425f83ec"
+          }
+        },
+        {
+          "client_id": "107968082844-h6rhvkqom9gredemt5ilnh02na6dc3l1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kal.connect",
+            "certificate_hash": "705fbf62878f8ea00b2abb624ce967fc41684a7a"
+          }
+        },
+        {
           "client_id": "107968082844-7lj9s5olig1bh98gh658kql98ukeghla.apps.googleusercontent.com",
           "client_type": 3
         }

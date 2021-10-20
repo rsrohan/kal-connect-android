@@ -1,24 +1,24 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.firebase.crashlytics'
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
     defaultConfig {
         applicationId "com.kal.connect"
         minSdkVersion 22
         targetSdkVersion 30
-        versionCode 19
-        versionName "0.1.9"
+        versionCode 20
+        versionName "0.2.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     signingConfigs {
         release {
-            storeFile file ("C:/Users/Rohan Verma/StudioProjects/kal-connect/kal_connect.jks")
-            storePassword 'kal123$'
-            keyAlias "KALConnect"
-            keyPassword 'kal123$'
-            v1SigningEnabled true
-            v2SigningEnabled true
+//            storeFile file ("C:/Users/Rohan Verma/StudioProjects/kal-connect/kal_connect.jks")
+//            storePassword 'kal123$'
+//            keyAlias "KALConnect"
+//            keyPassword 'kal123$'
+//            v1SigningEnabled true
+//            v2SigningEnabled true
         }
     }
 
@@ -91,10 +91,12 @@ dependencies {
 //    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 //    implementation 'androidx.constraintlayout.widget.ConstraintLayout :1.1.3'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation files('C:/Users/Rohan Verma/Downloads/Ksoap2/ksoap2-j2se-full-2.1.2.jar/ksoap2-j2se-full-2.1.2.jar')
+    implementation files('ksoap2-j2se-full-2.1.2.jar')
     implementation 'com.google.firebase:firebase-analytics:18.0.0'
     implementation 'com.google.firebase:firebase-crashlytics:17.3.0'
     implementation 'com.google.android.play:core:1.9.0'
+    implementation 'com.google.firebase:firebase-database:20.0.2'
+    implementation 'com.google.firebase:firebase-perf:20.0.3'
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test:runner:1.3.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
@@ -205,3 +207,4 @@ dependencies {
 //    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
 }
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.firebase-perf'
