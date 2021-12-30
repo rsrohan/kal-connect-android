@@ -14,6 +14,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.kal.connect.R;
 import com.kal.connect.adapters.ProductAdapter;
@@ -41,7 +42,7 @@ public class AddProductActivity extends CustomActivity implements SearchView.OnQ
     ArrayList<ProductModel> mAlProduct;
     EditText mEdtSearch;
     ImageView mImgClear;
-    TextView mTxtNoData;
+    TextView mTxtNoData, totalProducts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,9 +57,9 @@ public class AddProductActivity extends CustomActivity implements SearchView.OnQ
     }
 
     private void setAdapter() {
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
+        StaggeredGridLayoutManager gridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mRvMenu.setLayoutManager(gridLayoutManager); // set LayoutManager to RecyclerView
-        mAdapter = new ProductAdapter(mAlProduct, AddProductActivity.this,mRvMenu,mTxtNoData);
+        mAdapter = new ProductAdapter(mAlProduct, AddProductActivity.this, mRvMenu, mTxtNoData);
         mRvMenu.setAdapter(mAdapter);
     }
 
@@ -70,6 +71,7 @@ public class AddProductActivity extends CustomActivity implements SearchView.OnQ
         mRvMenu = (RecyclerView) findViewById(R.id.rv_menu);
         mImgClear = (ImageView) findViewById(R.id.img_search);
         mEdtSearch = (EditText) findViewById(R.id.edt_search);
+        totalProducts = findViewById(R.id.txt_all_product);
 
         mTxtNoData = (TextView) findViewById(R.id.txt_no_data);
 
@@ -142,6 +144,8 @@ public class AddProductActivity extends CustomActivity implements SearchView.OnQ
                 mProductModel.setSKUNumber(mJsonObject.getString("SKUNumber"));
                 mAlProduct.add(mProductModel);
             }
+            totalProducts.setText("Total " + mAlProduct.size() + " Products!");
+
         } catch (JSONException e) {
             e.printStackTrace();
         } finally {
@@ -165,7 +169,7 @@ public class AddProductActivity extends CustomActivity implements SearchView.OnQ
         SoapAPIManager apiManager = new SoapAPIManager(AddProductActivity.this, inputParams, new APICallback() {
             @Override
             public void responseCallback(Context context, String response) throws JSONException {
-                Log.e(TAG, "getProductList\n"+inputParams.toString()+"\n\n"+response);
+                Log.e(TAG, "getProductList\n" + inputParams.toString() + "\n\n" + response);
 
                 try {
                     JSONArray responseAry = new JSONArray(response);
@@ -181,7 +185,7 @@ public class AddProductActivity extends CustomActivity implements SearchView.OnQ
             }
         }, true);
         String[] url = {Config.WEB_Services1, Config.GET_KAL_PRODUCT_LIST, "POST"};
-        Log.e(TAG,""+url[0]);
+        Log.e(TAG, "" + url[0]);
         if (Utilities.isNetworkAvailable(AddProductActivity.this)) {
             apiManager.execute(url);
         } else {

@@ -196,7 +196,7 @@ public class MedicineActivity extends CustomActivity implements View.OnClickList
 
 
         //#todo WHY THIS ???
-        AppComponents.reloadDataWithEmptyHint(vwAppointments, dataAdapter, dataItems, MedicineActivity.this.getResources().getString(R.string.no_medicines_found));
+        //AppComponents.reloadDataWithEmptyHint(vwAppointments, dataAdapter, dataItems, MedicineActivity.this.getResources().getString(R.string.no_medicines_found));
 
     }
 
@@ -231,7 +231,11 @@ public class MedicineActivity extends CustomActivity implements View.OnClickList
             }
             dataAdapter.notifyDataSetChanged();
             vwAppointments.setAdapter(dataAdapter);
-
+            if (dataItems.size() == 0) {
+                msg_cart_empty.setVisibility(View.VISIBLE);
+            }else{
+                msg_cart_empty.setVisibility(View.GONE);
+            }
         }
 
     }
@@ -278,12 +282,14 @@ public class MedicineActivity extends CustomActivity implements View.OnClickList
 
             }
         }
+        //dataAdapter.notifyDataSetChanged();
 
-//        if (dataItems.size() == 0) {
-//            msg_cart_empty.setVisibility(View.VISIBLE);
-//        }else{
-//            msg_cart_empty.setVisibility(View.GONE);
-//        }
+
+        if (dataItems.size() == 0) {
+            msg_cart_empty.setVisibility(View.VISIBLE);
+        }else{
+            msg_cart_empty.setVisibility(View.GONE);
+        }
 
 //        new Handler(Looper.getMainLooper()).post(new Runnable() {
 //            @Override
@@ -329,6 +335,7 @@ public class MedicineActivity extends CustomActivity implements View.OnClickList
                 } finally {
                     mSwipeRefreshLayout.setRefreshing(false);
                     dataAdapter.notifyDataSetChanged();
+
                 }
             }
         }, true);

@@ -15,11 +15,15 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kal.connect.R;
+import com.kal.connect.customLibs.customdialogbox.ViewImage;
 import com.kal.connect.modules.dashboard.BuyMedicine.MedicineActivity;
 import com.kal.connect.modules.dashboard.BuyMedicine.models.ProductModel;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import pl.droidsonroids.gif.GifImageView;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> implements Filterable {
 
@@ -53,8 +57,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     // Step 2: Create View Holder class to set the data for each cell
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView lblMedicineName, lblOfferAmount,mTxtOriginalAmt,mTxtAdd,mTxtOffer;
-        ImageView mImgMedicine;
+        public TextView lblMedicineName, lblOfferAmount, mTxtOriginalAmt, mTxtOffer;
+        ImageView mTxtAdd, mImgMedicine;
+        GifImageView img_loading;
 
         public ViewHolder(View view) {
             super(view);
@@ -62,9 +67,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             lblMedicineName = (TextView) view.findViewById(R.id.txt_medicine_name);
             lblOfferAmount = (TextView) view.findViewById(R.id.txt_medicine_offer_amt);
             mTxtOriginalAmt = (TextView) view.findViewById(R.id.txt_medicine_amt);
-            mTxtAdd = (TextView) view.findViewById(R.id.txt_add);
-            mImgMedicine = (ImageView)view.findViewById(R.id.img_medicine);
-
+            mTxtAdd = (ImageView) view.findViewById(R.id.txt_add);
+            mImgMedicine = (ImageView) view.findViewById(R.id.img_medicine);
+            img_loading = view.findViewById(R.id.loading_img);
             mTxtOriginalAmt.setPaintFlags(mTxtOriginalAmt.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }
     }
@@ -83,22 +88,43 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     public void onBindViewHolder(ProductAdapter.ViewHolder holder, int position) {
         ProductModel mProductModel = mAlProduct.get(position);
         holder.lblMedicineName.setText(mProductModel.getMedicineName());
-        holder.lblOfferAmount.setText(mProductModel.getDiscountedprice()+"");
-        holder.mTxtOriginalAmt.setText(mProductModel.getOriginalprice()+"");
+        holder.lblOfferAmount.setText(mProductModel.getDiscountedprice() + "");
+        holder.mTxtOriginalAmt.setText(mProductModel.getOriginalprice() + "");
         if (!String.valueOf(mProductModel.getDiscount()).equalsIgnoreCase("0.0")) {
             holder.mTxtOffer.setVisibility(View.VISIBLE);
-            holder.mTxtOffer.setText("  "+mProductModel.getDiscount()+"0% Off ");
+            holder.mTxtOffer.setText("  " + mProductModel.getDiscount() + "0% Off ");
             holder.mTxtOriginalAmt.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             holder.mTxtOffer.setVisibility(View.GONE);
             holder.mTxtOriginalAmt.setVisibility(View.GONE);
         }
 
+        holder.mImgMedicine.setVisibility(View.GONE);
+        holder.img_loading.setVisibility(View.VISIBLE);
         Picasso.get()
                 .load(mProductModel.getMedimage())
                 .noFade()
-                .into(holder.mImgMedicine);
+                .into(holder.mImgMedicine, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        holder.mImgMedicine.setVisibility(View.VISIBLE);
+                        holder.img_loading.setVisibility(View.GONE);
+                    }
 
+                    @Override
+                    public void onError(Exception e) {
+                        //holder.mImgMedicine.setImageResource(R.mipmap.kalpamus_logo);
+                        holder.mImgMedicine.setVisibility(View.GONE);
+                        holder.img_loading.setVisibility(View.VISIBLE);
+                    }
+                });
+
+        holder.mImgMedicine.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showImageDialog(mProductModel.getMedimage());
+            }
+        });
 
 
         holder.mTxtAdd.setOnClickListener(new View.OnClickListener() {
@@ -106,7 +132,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             public void onClick(View v) {
 
                 Intent mIntent = new Intent(mActivity, MedicineActivity.class);
-                mIntent.putExtra("Model",mProductModel);
+                mIntent.putExtra("Model", mProductModel);
                 mActivity.setResult(mActivity.RESULT_OK, mIntent);
                 mActivity.finish();
 
@@ -155,5 +181,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             notifyDataSetChanged();
         }
     }
+    private void showImageDialog(String imagePath) {
 
+        if (imagePath != null) {
+            ViewImage viewReceiptImage = new ViewImage();
+            viewReceiptImage.showDialog((Activity) mContext, imagePath);
+        }
+    }
 }
