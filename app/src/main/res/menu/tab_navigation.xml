@@ -5,16 +5,20 @@
         android:id="@+id/tab_home"
         android:icon="@drawable/img_header_menu"
         android:title="@string/tab_home" />
+    <item
+        android:id="@+id/tab_medicine"
+        android:icon="@drawable/ic_shopping_cart"
+        android:title="@string/tab_medicine" />
 
+    <item
+        android:id="@+id/tab_consultation"
+        android:icon="@drawable/consult_icon"
+        android:title="@string/tab_consultation" />
     <item
         android:id="@+id/tab_appointments"
         android:icon="@drawable/cal_icon"
         android:title="@string/tab_appointments" />
 
-    <item
-        android:id="@+id/tab_medicine"
-        android:icon="@drawable/medical_icon"
-        android:title="@string/tab_medicine" />
 
     <item
         android:id="@+id/tab_account"

@@ -29,6 +29,7 @@ import com.google.android.play.core.install.model.AppUpdateType;
 import com.google.android.play.core.install.model.UpdateAvailability;
 import com.google.android.play.core.tasks.Task;
 import com.kal.connect.R;
+import com.kal.connect.customLibs.Callbacks.ItemHomeScreen;
 import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
 import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
 import com.kal.connect.customLibs.Maps.Manager.CustomMapActivity;
@@ -36,6 +37,7 @@ import com.kal.connect.modules.dashboard.AccountDetails.AccountFragment;
 import com.kal.connect.modules.dashboard.AppointmentsDetails.AppointmentsFragment;
 import com.kal.connect.modules.dashboard.BookAppointment.HomeFragmentS1;
 import com.kal.connect.modules.dashboard.BuyMedicine.MedicineActivity;
+import com.kal.connect.modules.dashboard.Home.HomeScreenFragment;
 import com.kal.connect.utilities.AppPreferences;
 import com.kal.connect.utilities.Config;
 import com.kal.connect.utilities.GlobValues;
@@ -63,6 +65,8 @@ public class DashboardMapActivity extends CustomMapActivity implements View.OnCl
 
     HomeFragmentS1 homeFragmentS1;
     AppointmentsFragment appointmentFragment;
+    private HomeScreenFragment homeScreenFragment;
+    private ItemHomeScreen itemHomeScreen;
 
 
     // MARK : Lifecycle
@@ -151,16 +155,69 @@ public class DashboardMapActivity extends CustomMapActivity implements View.OnCl
 
         }
 
+        itemHomeScreen = new ItemHomeScreen() {
+            @Override
+            public void onSelected(int id) {
+                Fragment pageToShow = null;
+
+                switch (id) {
+
+                    case 0:
+                        if (homeScreenFragment == null) {
+                            homeScreenFragment = new HomeScreenFragment(itemHomeScreen);
+                        }
+                        pageToShow = homeScreenFragment;
+                        bottomTab.setSelectedItemId(R.id.tab_home);
+
+                        break;
+
+                    case 2:
+                        if (homeFragmentS1 == null) {
+                            homeFragmentS1 = new HomeFragmentS1();
+                        }
+                        pageToShow = homeFragmentS1;
+                        bottomTab.setSelectedItemId(R.id.tab_consultation);
+
+                        break;
+
+                    case 3:
+                        if (appointmentFragment == null) {
+                            appointmentFragment = new AppointmentsFragment();
+                        }
+                        pageToShow = appointmentFragment;
+                        bottomTab.setSelectedItemId(R.id.tab_appointments);
+
+                        break;
+
+                    case 1:
+//                        pageToShow = new Medicine();
+                        Intent mIntent = new Intent(DashboardMapActivity.this, MedicineActivity.class);
+                        startActivity(mIntent);
+                        break;
+
+                    case 4:
+                        pageToShow = new AccountFragment();
+                        bottomTab.setSelectedItemId(R.id.tab_account);
+
+                        break;
+
+                }
+                if (pageToShow != null) {
+                    loadFragment(pageToShow);
+                }
+
+            }
+        };
 
         if (getIntent().hasExtra("FromNotification") && getIntent().getBooleanExtra("FromNotification", false)) {
             loadFragment(new AppointmentsFragment());
             bottomTab.setSelectedItemId(R.id.tab_appointments);
 
         } else {
-            if (homeFragmentS1 == null) {
-                homeFragmentS1 = new HomeFragmentS1();
+            if (homeScreenFragment == null) {
+                homeScreenFragment = new HomeScreenFragment(itemHomeScreen);
             }
-            loadFragment(homeFragmentS1);
+            loadFragment(homeScreenFragment);
         }
 
 
@@ -186,6 +243,9 @@ public class DashboardMapActivity extends CustomMapActivity implements View.OnCl
 
             }
         });
+
+
+
 
 
 //        try{
@@ -235,6 +295,13 @@ public class DashboardMapActivity extends CustomMapActivity implements View.OnCl
                 switch (item.getItemId()) {
 
                     case R.id.tab_home:
+                        if (homeScreenFragment == null) {
+                            homeScreenFragment = new HomeScreenFragment(itemHomeScreen);
+                        }
+                        pageToShow = homeScreenFragment;
+                        break;
+
+                    case R.id.tab_consultation:
                         if (homeFragmentS1 == null) {
                             homeFragmentS1 = new HomeFragmentS1();
                         }

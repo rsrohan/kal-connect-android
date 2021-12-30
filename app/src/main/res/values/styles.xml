@@ -59,6 +59,17 @@
         <item name="fontPath">fonts/OpenSans-Bold.ttf</item>
     </style>
 
+    <style name="CustomFont.ProductName" parent="android:TextAppearance">
+        <item name="fontPath">fonts/Roboto-Medium.ttf</item>
+    </style>
+
+    <style name="CustomFont.ProductPrice" parent="android:TextAppearance">
+        <item name="fontPath">fonts/Roboto-Bold.ttf</item>
+    </style>
+
+    <style name="CustomFont.ProductExPrice" parent="android:TextAppearance">
+        <item name="fontPath">fonts/Roboto-Regular.ttf</item>
+    </style>
     <!-- To Apply Custom Fonts by widget -->
 
     <!--Custom Font - TextView-->

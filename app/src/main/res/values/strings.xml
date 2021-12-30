@@ -330,6 +330,7 @@
     <string name="digestion">Does your food get digested well on some days and sometimes not?</string>
     <string name="please_mention">Please indicate below any symptoms you have experienced in the last three months:</string>
     <string name="consent">"We keep medical records of the health care services we provide for you.  You may ask to see and copy your records.  You may ask to correct your records.  Your records will be kept confidential unless you give us written permission to release them or we are required to do so by law.   \n\nWe will ask you to sign a consent form allowing us to use and disclose your health information for purposes of consultations, payment and health technique operations in this office.  You may see your records or get more information about them by contacting our office.  \n\nFor more information about our privacy practices please inquire with us. By signing below, I acknowledge receipt of the Notice of Privacy Practices. "</string>
+    <string name="tab_consultation">Consult</string>
 
 
 </resources>

@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/baseContainer"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -55,13 +54,11 @@
             android:layout_gravity="bottom"
             android:background="@color/white"
             android:foreground="?attr/selectableItemBackground"
+            app:elevation="8dp"
             app:itemBackground="@color/bgBottomNavigation"
             app:itemIconTint="@drawable/tab_selection"
             app:itemTextColor="@drawable/tab_selection"
-            app:elevation="8dp"
-            app:labelVisibilityMode="labeled"
-
-
+            app:labelVisibilityMode="unlabeled"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:menu="@menu/tab_navigation" />
 
@@ -69,27 +66,27 @@
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:background="@color/colorPrimaryDark"
             android:gravity="center"
+            android:orientation="vertical"
             android:padding="@dimen/powered_by_padding"
             app:layout_constraintBottom_toBottomOf="@+id/vwBottomContainer"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" >
+            app:layout_constraintStart_toStartOf="parent">
 
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="@string/powered_by"
-                android:textSize="@dimen/powered_by_label_size"
-                android:textStyle="bold"
                 android:layout_marginLeft="@dimen/default_very_small_margin"
-                android:textColor="@color/white" />
+                android:text="@string/powered_by"
+                android:textColor="@color/white"
+                android:textSize="@dimen/powered_by_label_size"
+                android:textStyle="bold" />
 
         </RelativeLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout >
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout >
+</androidx.constraintlayout.widget.ConstraintLayout>
