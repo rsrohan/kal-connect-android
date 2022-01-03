@@ -29,6 +29,7 @@ import com.kal.connect.R;
 import com.kal.connect.adapters.AccountPersonalDetailsAdapter;
 import com.kal.connect.customLibs.HTTP.GetPost.APICallback;
 import com.kal.connect.customLibs.HTTP.GetPost.SoapAPIManager;
+import com.kal.connect.modules.dashboard.BuyMedicine.OrderHistoryActivity;
 import com.kal.connect.modules.dashboard.DashboardMapActivity;
 import com.kal.connect.utilities.AppComponents;
 import com.kal.connect.utilities.AppPreferences;
@@ -52,13 +53,14 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
     View view;
     private ArrayList<HashMap<String, Object>> dataItems = new ArrayList<HashMap<String, Object>>();
 
-    LinearLayout optionEditProfile, optionLogout, changePassword, updateLocation;
-    TextView lblFullName, lblMobile;
+    LinearLayout optionLogout, changePassword, updateLocation;
+    TextView lblFullName, lblMobile, optionEditProfile;
     RecyclerView vwProfileList;
     TextView textViewVersionInfo;
 
     AccountPersonalDetailsAdapter dataAdapter = null;
     CustomDialogClass customDialog;
+    private TextView txtOrderHis;
 
 
     @OnClick(R.id.language)
@@ -82,7 +84,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
     private void buildUI() {
         lblFullName = (TextView) view.findViewById(R.id.fullName);
         lblMobile = (TextView) view.findViewById(R.id.mobile);
-        optionEditProfile = (LinearLayout) view.findViewById(R.id.optionEditProfile);
+        optionEditProfile = (TextView) view.findViewById(R.id.optionEditProfile);
         optionLogout = (LinearLayout) view.findViewById(R.id.optionLogout);
         changePassword = (LinearLayout) view.findViewById(R.id.changePassword);
         updateLocation = (LinearLayout) view.findViewById(R.id.locationUpdate);
@@ -99,6 +101,14 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         buildListView();
         loadAccountInfo();
 //        getVersionInfo();
+
+        txtOrderHis = view.findViewById(R.id.txt_order_his);
+        txtOrderHis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), OrderHistoryActivity.class));
+            }
+        });
 
     }
 
@@ -137,14 +147,14 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
             fullName = ((accInfo.getString("LastName") != null) && accInfo.getString("LastName").length() > 0) ? fullName + " " + accInfo.getString("LastName") : "";
 
             if (fullName.length() > 0)
-                lblFullName.setText(fullName);
+                lblFullName.setText("Hello, "+ fullName);
 
             // Mobile
             String mobile = "";
             mobile = ((accInfo.getString("ContactNo") != null) && accInfo.getString("ContactNo").length() > 0) ? accInfo.getString("ContactNo") : "";
 
             if (mobile.length() > 0)
-                lblMobile.setText(mobile);
+                lblMobile.setText("Contact No.: "+mobile);
 
 
             dataItems.clear();

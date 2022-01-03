@@ -301,7 +301,7 @@
     <string name="connect_with_yourself">Do you connect with yourself? How and how often? (Hobbies/music/ meditation/ community service etc)</string>
     <string name="you_need_helps_with">Main problem(s) you would like help with...</string>
     <string name="any_other_problem">Are you diagnosed with any medical conditions?</string>
-    <string name="any_medicine_taking" >Are you taking any prescription medications?</string>
+    <string name="any_medicine_taking">Are you taking any prescription medications?</string>
     <string name="any_alt_medicine_taking">"  Are you taking any herbal or alternative supplements?"</string>
     <string name="any_alt_suppl_taking">Are you taking any vitamins or nutritional supplements?</string>
     <string name="any_other_problem_earlier">Were there any diseases that you suffered from earlier? (Include major infections like typhoid, malaria, hepatitis)</string>

@@ -29,7 +29,10 @@
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
-        <activity android:name=".modules.dashboard.AccountDetails.MyEarningsActivity"></activity>
+        <activity
+            android:name=".modules.dashboard.BuyMedicine.OrderHistoryActivity"
+            android:exported="false" />
+        <activity android:name=".modules.dashboard.AccountDetails.MyEarningsActivity" />
         <activity android:name=".modules.dashboard.BuyMedicine.ConfirmAddressAndPayActivity" />
         <activity android:name=".modules.dashboard.BuyMedicine.OrderSummaryActivity" />
         <activity android:name=".modules.communicate.CallEndedActivity" />
@@ -43,45 +46,36 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".modules.authentication.SignInActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
-
-
-
         <activity
             android:name=".modules.dashboard.DashboardMapActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".modules.dashboard.BookAppointment.DoctorsListActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".modules.hospitals.HospitalsListActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".modules.dashboard.BookAppointment.AboutDoctorActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".modules.hospitals.AboutHospitalActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".modules.dashboard.BookAppointment.AppointmentSummaryActivity"
             android:configChanges="orientation"
@@ -92,7 +86,6 @@
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".modules.communicate.ChatActivity"
             android:configChanges="orientation"

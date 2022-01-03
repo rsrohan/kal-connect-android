@@ -113,6 +113,7 @@ public class Config {
 
     public static final String IS_FROM_PATIENT = "1";
 
+    public static final String GET_ORDER_HISTORY = "GetUserOrderHistory";
 
 
 

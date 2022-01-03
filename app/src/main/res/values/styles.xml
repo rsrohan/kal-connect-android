@@ -62,7 +62,9 @@
     <style name="CustomFont.ProductName" parent="android:TextAppearance">
         <item name="fontPath">fonts/Roboto-Medium.ttf</item>
     </style>
-
+    <style name="CustomFont.DisplayText" parent="android:TextAppearance">
+        <item name="fontPath">fonts/Gotham.ttf</item>
+    </style>
     <style name="CustomFont.ProductPrice" parent="android:TextAppearance">
         <item name="fontPath">fonts/Roboto-Bold.ttf</item>
     </style>
