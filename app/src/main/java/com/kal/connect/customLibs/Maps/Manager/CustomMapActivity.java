@@ -19,7 +19,6 @@ import com.kal.connect.customLibs.mediaManager.MediaManager;
 import com.kal.connect.utilities.AppPreferences;
 import com.kal.connect.utilities.Utilities;
 import com.kal.connect.utilities.UtilitiesInterfaces;
-import com.rtchagas.pingplacepicker.PingPlacePicker;
 
 import java.io.IOException;
 import java.util.List;
@@ -114,6 +113,7 @@ public class CustomMapActivity extends MediaManager {
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PLACE_PICKER_REQUEST) {
 
             if (resultCode == RESULT_OK) {
@@ -145,38 +145,38 @@ public class CustomMapActivity extends MediaManager {
             }
 
         }
-        if ((requestCode == REQUEST_PLACE_PICKER) && (resultCode == RESULT_OK)) {
-            com.google.android.libraries.places.api.model.Place place = PingPlacePicker.getPlace(data);
-
-            String address = getAddress(place.getLatLng().latitude, place.getLatLng().longitude);
-
-            System.out.println("Address: " + address);
-            selectedPlaceUpdate = PingPlacePicker.getPlace(data);
-            if (selectedPlaceUpdate != null && selectedPlaceUpdate.getLatLng() != null) {
-
-                String placeName = "";
-                if (selectedPlaceUpdate.getName() != null) {
-                    placeName = selectedPlaceUpdate.getName().toString();
-                }
-                if (selectedPlaceUpdate.getAddress() != null) {
-                    placeName = placeName + selectedPlaceUpdate.getAddress().toString();
-                }
-                if (placeName != null) {
-                    AppPreferences.getInstance().setLocationDetails("" + selectedPlaceUpdate.getLatLng().latitude, "" + selectedPlaceUpdate.getLatLng().longitude, placeName);
-                } else {
-                    AppPreferences.getInstance().setLocationDetails("" + selectedPlaceUpdate.getLatLng().latitude, "" + selectedPlaceUpdate.getLatLng().longitude, address);
-                }
-
-            }
-            placePickCallbackUpdate.receiveSelectedPlace(true, selectedPlaceUpdate);
-
-            if (place != null) {
-                Toast.makeText(this, "You selected the place: " + place.getName(), Toast.LENGTH_SHORT).show();
-            }
-        }
-        else {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
+//        if ((requestCode == REQUEST_PLACE_PICKER) && (resultCode == RESULT_OK)) {
+//            com.google.android.libraries.places.api.model.Place place = PingPlacePicker.getPlace(data);
+//
+//            String address = getAddress(place.getLatLng().latitude, place.getLatLng().longitude);
+//
+//            System.out.println("Address: " + address);
+//            selectedPlaceUpdate = PingPlacePicker.getPlace(data);
+//            if (selectedPlaceUpdate != null && selectedPlaceUpdate.getLatLng() != null) {
+//
+//                String placeName = "";
+//                if (selectedPlaceUpdate.getName() != null) {
+//                    placeName = selectedPlaceUpdate.getName().toString();
+//                }
+//                if (selectedPlaceUpdate.getAddress() != null) {
+//                    placeName = placeName + selectedPlaceUpdate.getAddress().toString();
+//                }
+//                if (placeName != null) {
+//                    AppPreferences.getInstance().setLocationDetails("" + selectedPlaceUpdate.getLatLng().latitude, "" + selectedPlaceUpdate.getLatLng().longitude, placeName);
+//                } else {
+//                    AppPreferences.getInstance().setLocationDetails("" + selectedPlaceUpdate.getLatLng().latitude, "" + selectedPlaceUpdate.getLatLng().longitude, address);
+//                }
+//
+//            }
+//            placePickCallbackUpdate.receiveSelectedPlace(true, selectedPlaceUpdate);
+//
+//            if (place != null) {
+//                Toast.makeText(this, "You selected the place: " + place.getName(), Toast.LENGTH_SHORT).show();
+//            }
+//        }
+//        else {
+//            super.onActivityResult(requestCode, resultCode, data);
+//        }
 
     }
 
@@ -238,24 +238,24 @@ public class CustomMapActivity extends MediaManager {
             @Override
             public void receivePermissionStatus(Boolean isGranted) {
 
-                if (isGranted) {
-//                    AIzaSyAXXVTrvSJ8S-x9OfyjMFGJ_rlP_kHw2nA
-                    PingPlacePicker.IntentBuilder builder = new PingPlacePicker.IntentBuilder();
-                    builder.setAndroidApiKey("AIzaSyAr2tbVoLqiZLD6cAC9M4wU0uL0aqMbGLs")
-                            .setMapsApiKey("AIzaSyAr2tbVoLqiZLD6cAC9M4wU0uL0aqMbGLs");
-
-//                    if (pickerLocation != null) {
-//                        LatLngBounds latLngBounds = new LatLngBounds(new LatLng(pickerLocation.getLatitude(), pickerLocation.getLongitude()), new LatLng(pickerLocation.getLatitude(), pickerLocation.getLongitude()));
-//                        builder.setLatLngBounds(latLngBounds);
+//                if (isGranted) {
+////                    AIzaSyAXXVTrvSJ8S-x9OfyjMFGJ_rlP_kHw2nA
+//                    PingPlacePicker.IntentBuilder builder = new PingPlacePicker.IntentBuilder();
+//                    builder.setAndroidApiKey("AIzaSyAr2tbVoLqiZLD6cAC9M4wU0uL0aqMbGLs")
+//                            .setMapsApiKey("AIzaSyAr2tbVoLqiZLD6cAC9M4wU0uL0aqMbGLs");
+//
+////                    if (pickerLocation != null) {
+////                        LatLngBounds latLngBounds = new LatLngBounds(new LatLng(pickerLocation.getLatitude(), pickerLocation.getLongitude()), new LatLng(pickerLocation.getLatitude(), pickerLocation.getLongitude()));
+////                        builder.setLatLngBounds(latLngBounds);
+////                    }
+//
+//                    try {
+//                        startActivityForResult(builder.build(CustomMapActivity.this), REQUEST_PLACE_PICKER);
+//                    } catch (Exception e) {
+//                        Log.e(this.getClass().getName(), e.getStackTrace().toString());
 //                    }
-
-                    try {
-                        startActivityForResult(builder.build(CustomMapActivity.this), REQUEST_PLACE_PICKER);
-                    } catch (Exception e) {
-                        Log.e(this.getClass().getName(), e.getStackTrace().toString());
-                    }
-
-                }
+//
+//                }
 
             }
         });

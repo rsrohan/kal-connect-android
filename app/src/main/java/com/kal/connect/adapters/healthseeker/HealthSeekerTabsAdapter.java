@@ -17,7 +17,6 @@ import com.kal.connect.modules.dashboard.BookAppointment.healthseeker.F6ScaleQue
 import com.kal.connect.modules.dashboard.BookAppointment.healthseeker.F7ScaleQuestions;
 import com.kal.connect.modules.dashboard.BookAppointment.healthseeker.F8Habits;
 import com.kal.connect.modules.dashboard.BookAppointment.healthseeker.F9PersonalPreference;
-import com.koushikdutta.ion.builder.Builders;
 
 public class HealthSeekerTabsAdapter extends FragmentStatePagerAdapter {
 
