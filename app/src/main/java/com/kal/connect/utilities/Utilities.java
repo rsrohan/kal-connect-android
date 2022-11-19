@@ -1205,10 +1205,16 @@ public class Utilities {
             item1.put("languageCode","en");
 
 
+//            HashMap<String, Object> item2 = new HashMap<String, Object>();
+//
+//            item2.put("languageName","Gujarati");
+//            item2.put("localeName","ગુજરાતી ");
+//            item2.put("languageCode","gu");
+
             HashMap<String, Object> item2 = new HashMap<String, Object>();
 
-            item2.put("languageName","Gujarati");
-            item2.put("localeName","ગુજરાતી ");
+            item2.put("languageName","Kannada");
+            item2.put("localeName","ಕನ್ನಡ");
             item2.put("languageCode","gu");
 
             HashMap<String, Object> item3 = new HashMap<String, Object>();

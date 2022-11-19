@@ -35,6 +35,7 @@ public class SoapAPIManager extends AsyncTask<String, String, String> {
     void setupDefaultParams(){
         try{
             this.paramsToSend.put("LanguageIndicator",AppPreferences.getInstance().retrieveLanguage());
+            //this.paramsToSend.put("patientID", 39720);
         }catch (Exception e){}
     }
 

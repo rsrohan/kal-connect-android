@@ -145,7 +145,7 @@ public class DashboardMapActivity extends CustomMapActivity implements View.OnCl
         buildBottomTabs();
         getStateCityList();
         //if (AppPreferences.getInstance().getCountryCode()==null || AppPreferences.getInstance().getCountryCode().equals("")){
-            getCountryCodeFromServer();
+            //getCountryCodeFromServer();
         //}
 
         try {
