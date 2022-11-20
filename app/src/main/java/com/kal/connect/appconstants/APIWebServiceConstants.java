@@ -29,7 +29,7 @@ import javax.net.ssl.X509TrustManager;
 public class APIWebServiceConstants {
 
 
-    public static String new_url = "https://www.myayurveda.com/";
+    public static String new_url = "https://www.ayush360.in/";
     static String old_url = "https://www.medi360.in/";
 
     private static String NAMESPACE = new_url;
@@ -44,7 +44,7 @@ public class APIWebServiceConstants {
    //static String LIVE_URL = "https://www.ayurvaidya.live/WebServices/";
 
     //new domain
-    static String LIVE_URL = "https://www.myayurveda.com/WebServices/";
+    static String LIVE_URL = "https://www.ayush360.in/WebServices/";
     public static boolean isTesting = false;
 
     //private static String LIVE_URL = "http://ec2-13-127-154-179.ap-south-1.compute.amazonaws.com/WebServices/";
@@ -148,7 +148,7 @@ public class APIWebServiceConstants {
                     public boolean verify(String hostname, SSLSession session) {
                         if (hostname.equalsIgnoreCase("www.medi360.in") ||
                                 hostname.equalsIgnoreCase("kal-connect.firebaseio.com") ||
-                                hostname.equalsIgnoreCase("www.myayurveda.com") ||
+                                hostname.equalsIgnoreCase("www.ayush360.in") ||
                                 hostname.equalsIgnoreCase("api.razorpay.com") ||
                                 hostname.equalsIgnoreCase("telehealth.keralaayurveda.biz") ||
                                 hostname.equalsIgnoreCase("ec2-13-127-154-179.ap-south-1.compute.amazonaws.com")
